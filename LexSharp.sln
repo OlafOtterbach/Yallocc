@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharp", "LexSharp\LexSharp.csproj", "{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpTests", "LexSharpTests\LexSharpTests.csproj", "{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

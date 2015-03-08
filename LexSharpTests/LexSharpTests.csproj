@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>8a6cd259-931e-4f02-ad63-20842c596fc7</ProjectGuid>
+    <ProjectGuid>{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LexSharpTests</RootNamespace>
