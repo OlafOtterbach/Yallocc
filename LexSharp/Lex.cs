@@ -9,28 +9,41 @@ namespace LexSharp
       public Lex()
       {
          _patterns = new List<Pattern>();
+         _patternTypeIndexMap = new Dictionary<int, int>();
       }
 
-      public void Register(Pattern pattern)
+      public void Register(string patternText, ITokenType tokenType)
       {
+         var pattern = new Pattern(patternText, tokenType);
          _patterns.Add(pattern);
+         _patternTypeIndexMap.Add(pattern.TokenType.GetHashCode(), _patterns.Count - 1);
       }
 
       public IEnumerable<Token> Scan(string text)
       {
-         var matchesOfPatterns = _patterns.SelectMany(p => p.TokenPattern
+         var matchesOfPatterns = _patterns.AsParallel()
+                                          .SelectMany(p => p.TokenPattern
                                                         .Matches(text)
                                                         .Cast<Match>()
                                                         .Select(m => new Token(m.Value, p.TokenType, m.Index, m.Length))
-                                                     )
-                                          .GroupBy(t => t.Index)
-                                          .Select(g => g.ToList())
-                                          .Select(g => g.First(x => x.Length == g.Max(y => y.Length)))
-                                          ;
+                                                     );
+         var sortedMatchesOfPatterns = matchesOfPatterns.OrderBy(token => token, new TokenComparer(_patternTypeIndexMap)).ToList();
 
-         return null;
+         var tokens = new List<Token>();
+         Token actual = new Token(string.Empty,null,-1,0);
+         foreach(var token in sortedMatchesOfPatterns)
+         {
+            if(actual.Index + actual.Length - 1 < token.Index)
+            {
+               actual = token;
+               tokens.Add(token);
+            }
+         }
+         return tokens;
       }
 
       private List<Pattern> _patterns;
+
+      private Dictionary<int, int> _patternTypeIndexMap;
    }
 }

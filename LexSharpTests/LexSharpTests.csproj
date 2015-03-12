@@ -50,8 +50,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="AbcTokenType.cs" />
+    <Compile Include="AbcTokenTypes.cs" />
+    <Compile Include="LexTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
+      <Project>{c0e57f6a-1e5d-49c1-ba4c-483cf583e653}</Project>
+      <Name>LexSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

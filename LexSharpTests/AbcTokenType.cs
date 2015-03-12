@@ -4,13 +4,6 @@ namespace LexSharp
 {
    public struct AbcTokenType : ITokenType 
    {
-      public enum AbcTokenTypes
-      {
-         a_token,
-         b_token,
-         c_token
-      }
-
       public AbcTokenType(AbcTokenTypes type) : this()
       {
          TokenType = type;
