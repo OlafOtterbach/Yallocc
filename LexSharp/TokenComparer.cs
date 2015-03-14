@@ -15,17 +15,18 @@ namespace LexSharp
 
       public int Compare(Token x, Token y)
       {
-         return IsLess(x,y) ? -1 : IsGreater(x,y) ? 1 : 0;
+         var compared = IsLess(x, y) ? -1 : IsGreater(x, y) ? 1 : 0;
+         return compared;
       }
 
       private bool IsLess(Token x, Token y)
       {
-         return (x.Index < y.Index) || (x.Length > y.Length) || (_patternTypeIndexMap[x.Type.GetHashCode()] < (_patternTypeIndexMap[y.Type.GetHashCode()]));
+         return (x.Index < y.Index) || ((x.Index == y.Index) && (x.Length > y.Length) ) || ((x.Index == y.Index) && (x.Length == y.Length) && (_patternTypeIndexMap[x.Type.GetHashCode()] < (_patternTypeIndexMap[y.Type.GetHashCode()])));
       }
 
       private bool IsGreater(Token x, Token y)
       {
-         return (x.Index > y.Index) || (x.Length < y.Length) || (_patternTypeIndexMap[x.Type.GetHashCode()] > (_patternTypeIndexMap[y.Type.GetHashCode()]));
+         return (x.Index > y.Index) || ((x.Index == y.Index) && (x.Length < y.Length)) || ((x.Index == y.Index) && (x.Length == y.Length) && (_patternTypeIndexMap[x.Type.GetHashCode()] > (_patternTypeIndexMap[y.Type.GetHashCode()])));
       }
 
       Dictionary<int, int> _patternTypeIndexMap;
