@@ -25,16 +25,16 @@ namespace LexSharp
       public ScanResult GetNextToken()
       {
          _matches = _matches.Where(x => x.Match.Success).Where(m => m.Match.Index >= _scanPos).ToList();
-         var minIndex = _matches.Min(x => x.Match.Index);
+         var minIndex = _matches.Any() ? _matches.Min(x => x.Match.Index) : 0;
          var minMatches = _matches.Where(x => x.Match.Index == minIndex);
-         var maxLength = minMatches.Max(x => x.Match.Length);
+         var maxLength = minMatches.Any() ? minMatches.Max(x => x.Match.Length) : 0;
          var longestMinimalMatches = minMatches.Where(x => x.Match.Length == maxLength);
-         var minPatternIndex = longestMinimalMatches.Min(x => x.Index);
+         var minPatternIndex = longestMinimalMatches.Any() ? longestMinimalMatches.Min(x => x.Index) : 0;
          var minimalPatternIndexAndLongestMininimalMatches = longestMinimalMatches.Where(x => x.Index == minPatternIndex);
          var result = new ScanResult() { Token = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).FirstOrDefault(), IsValid = minimalPatternIndexAndLongestMininimalMatches.Count() > 0 };
          if( result.IsValid)
          {
-            _scanPos += result.Token.Length;
+            _scanPos = result.Token.Index + result.Token.Length;
             ScanNextMatch();
          }
          return result;

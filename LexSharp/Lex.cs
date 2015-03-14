@@ -42,18 +42,12 @@ namespace LexSharp
 
       public IEnumerable<Token> Scan(string text)
       {
-         var tokens = new List<Token>();
          var cursor = new Cursor(text, _patterns);
-         ScanResult result;
-         do
-         {
-            result = cursor.GetNextToken();
-            if (result.IsValid)
-            {
-               tokens.Add(result.Token);
-            }
-         }
-         while (result.IsValid);
+         var tokens = Enumerable.Range(0, int.MaxValue)
+                                .Select(x => cursor.GetNextToken())
+                                .TakeWhile(r => r.IsValid)
+                                .Select(t => t.Token)
+                                .ToList();
          return tokens;
       }
 
