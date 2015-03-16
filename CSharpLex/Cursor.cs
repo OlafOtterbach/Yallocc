@@ -13,7 +13,8 @@ namespace CSharpLex
          public Match Match { get; set; }
       }
 
-      IEnumerable<PatternAndMatch> _matches;
+      private IEnumerable<PatternAndMatch> _matches;
+
       private int _cursorPos;
 
       public Cursor(string text, IEnumerable<Pattern> patterns)
@@ -34,7 +35,7 @@ namespace CSharpLex
          var result = new ScanResult() { Token = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).FirstOrDefault(), IsValid = minimalPatternIndexAndLongestMininimalMatches.Count() > 0 };
          if( result.IsValid)
          {
-            _cursorPos = (result.Token.TextIndex + result.Token.Length) > 0 ? result.Token.TextIndex + result.Token.Length : 1;
+            _cursorPos = result.Token.TextIndex + ((result.Token.Length > 0) ? result.Token.Length : 1);
             ScanNextMatch();
          }
          return result;
