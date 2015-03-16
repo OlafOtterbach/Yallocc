@@ -7,17 +7,17 @@ namespace CSharpLex
    [TestClass]
    public class LexTests
    {
-      //[TestMethod]
-      //public void ScanTest_EmptyToken_NoToken()
-      //{
-      //   var lex = new Lex();
-      //   lex.Register("", new AbcTokenType(AbcTokenTypes.a_token));
-      //   var text = "aabbcc";
+      [TestMethod]
+      public void ScanTest_EmptyToken_NoToken()
+      {
+         var lex = new Lex();
+         lex.Register("", new AbcTokenType(AbcTokenTypes.a_token));
+         var text = "aabbcc";
 
-      //   var tokens = lex.Scan(text).ToList();
+         var tokens = lex.Scan(text).ToList();
 
-      //   Assert.AreEqual(tokens.Count, 0);
-      //}
+         Assert.AreEqual(tokens.Count, 0);
+      }
 
 
       [TestMethod]

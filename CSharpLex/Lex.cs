@@ -19,7 +19,7 @@ namespace CSharpLex
          _patternTypeIndexMap.Add(pattern.TokenType.GetHashCode(), _patterns.Count - 1);
       }
 
-      public IEnumerable<Token> Scan2(string text)
+      public IEnumerable<Token> Scan(string text)
       {
          var matchesOfPatterns = _patterns.AsParallel()
                                           .SelectMany(p => p.TokenPattern
@@ -40,7 +40,7 @@ namespace CSharpLex
          return tokens;
       }
 
-      public IEnumerable<Token> Scan(string text)
+      public IEnumerable<Token> Scan2(string text)
       {
          var cursor = new Cursor(text, _patterns);
          var tokens = Enumerable.Range(0, int.MaxValue)

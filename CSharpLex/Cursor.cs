@@ -34,7 +34,7 @@ namespace CSharpLex
          var result = new ScanResult() { Token = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).FirstOrDefault(), IsValid = minimalPatternIndexAndLongestMininimalMatches.Count() > 0 };
          if( result.IsValid)
          {
-            _cursorPos = result.Token.TextIndex + result.Token.Length;
+            _cursorPos = (result.Token.TextIndex + result.Token.Length) > 0 ? result.Token.TextIndex + result.Token.Length : 1;
             ScanNextMatch();
          }
          return result;
