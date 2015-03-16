@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LexSharp
+namespace CSharpLex
 {
    public interface ITokenType : IEquatable<ITokenType>
    {

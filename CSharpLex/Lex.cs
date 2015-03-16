@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace LexSharp
+namespace CSharpLex
 {
    public class Lex
    {
@@ -31,7 +31,7 @@ namespace LexSharp
          Token actual = new Token(string.Empty,null,-1,0);
          foreach (var token in matchesOfPatterns)
          {
-            if(actual.Index + actual.Length - 1 < token.Index)
+            if(actual.TextIndex + actual.Length - 1 < token.TextIndex)
             {
                actual = token;
                tokens.Add(token);

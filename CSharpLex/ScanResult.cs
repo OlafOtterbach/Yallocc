@@ -1,4 +1,4 @@
-﻿namespace LexSharp
+﻿namespace CSharpLex
 {
    struct ScanResult
    {

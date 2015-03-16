@@ -2,13 +2,60 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace LexSharp
+namespace CSharpLex
 {
    [TestClass]
    public class LexTests
    {
+      //[TestMethod]
+      //public void ScanTest_EmptyToken_NoToken()
+      //{
+      //   var lex = new Lex();
+      //   lex.Register("", new AbcTokenType(AbcTokenTypes.a_token));
+      //   var text = "aabbcc";
+
+      //   var tokens = lex.Scan(text).ToList();
+
+      //   Assert.AreEqual(tokens.Count, 0);
+      //}
+
+
       [TestMethod]
-      public void TestMethod1()
+      public void ScanTest_NoText_NoToken()
+      {
+         var lex = CreateAbcLex();
+         var text = "";
+
+         var tokens = lex.Scan(text).ToList();
+
+         Assert.AreEqual(tokens.Count, 0);
+      }
+
+      [TestMethod]
+      public void ScanTest_Empty_NoToken()
+      {
+         var lex = CreateAbcLex();
+         var text = string.Empty;
+
+         var tokens = lex.Scan(text).ToList();
+
+         Assert.AreEqual(tokens.Count, 0);
+      }
+
+      [TestMethod]
+      public void ScanTest_Xyz_NoToken()
+      {
+         var lex = CreateAbcLex();
+         var text = @"xxxyyyzzzsssddfflltttrrrr";
+
+         var tokens = lex.Scan(text).ToList();
+
+         Assert.AreEqual(tokens.Count, 0);
+      }
+
+
+      [TestMethod]
+      public void ScanTest_TypicalAbcText_FirstPatternAabbFound()
       {
          var lex = CreateAbcLex();
          var text = @"aabbcc";
@@ -23,7 +70,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void TestMethod2()
+      public void ScanTest_TypicalAbcText_LongestPatternAxyzbFound()
       {
          var lex = CreateAbcLex();
          var text = @"aabbbbcc";
@@ -38,7 +85,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void TestMethod3()
+      public void ScanTest_AbcTextWithEndOfLine_CorrectPatternsFound()
       {
          var lex = CreateAbcLex();
          var text = "aa\nbb\ncc\naabb\naccb\n";

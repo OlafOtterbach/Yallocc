@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace LexSharp
+namespace CSharpLex
 {
    internal class Cursor
    {
@@ -14,17 +14,17 @@ namespace LexSharp
       }
 
       IEnumerable<PatternAndMatch> _matches;
-      private int _scanPos;
+      private int _cursorPos;
 
       public Cursor(string text, IEnumerable<Pattern> patterns)
       {
          _matches = patterns.Select((p, i) => new PatternAndMatch { Index = i, Pattern = p, Match = p.TokenPattern.Match(text) });
-         _scanPos = 0;
+         _cursorPos = 0;
       }
 
       public ScanResult GetNextToken()
       {
-         _matches = _matches.Where(x => x.Match.Success).Where(m => m.Match.Index >= _scanPos).ToList();
+         _matches = _matches.Where(x => x.Match.Success).Where(m => m.Match.Index >= _cursorPos).ToList();
          var minIndex = _matches.Any() ? _matches.Min(x => x.Match.Index) : 0;
          var minMatches = _matches.Where(x => x.Match.Index == minIndex);
          var maxLength = minMatches.Any() ? minMatches.Max(x => x.Match.Length) : 0;
@@ -34,7 +34,7 @@ namespace LexSharp
          var result = new ScanResult() { Token = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).FirstOrDefault(), IsValid = minimalPatternIndexAndLongestMininimalMatches.Count() > 0 };
          if( result.IsValid)
          {
-            _scanPos = result.Token.Index + result.Token.Length;
+            _cursorPos = result.Token.TextIndex + result.Token.Length;
             ScanNextMatch();
          }
          return result;
@@ -44,7 +44,7 @@ namespace LexSharp
       {
          foreach (var match in _matches)
          {
-            if (match.Match.Index < _scanPos)
+            if (match.Match.Index < _cursorPos)
             {
                match.Match = match.Match.NextMatch();
             }
