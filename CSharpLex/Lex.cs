@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace CSharpLex
+namespace LexSharp
 {
    public class Lex
    {

@@ -5,9 +5,9 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharp", "LexSharp\LexSharp.csproj", "{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpLexTests", "LexSharpTests\CSharpLexTests.csproj", "{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpLibTests", "LexSharpTests\LexSharpLibTests.csproj", "{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpLex", "CSharpLex\CSharpLex.csproj", "{C6A51E86-E00A-4776-B647-4F55634396AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpLib", "CSharpLex\LexSharpLib.csproj", "{C6A51E86-E00A-4776-B647-4F55634396AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

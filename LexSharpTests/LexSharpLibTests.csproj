@@ -56,9 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CSharpLex\CSharpLex.csproj">
+    <ProjectReference Include="..\CSharpLex\LexSharpLib.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>CSharpLex</Name>
+      <Name>LexSharpLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

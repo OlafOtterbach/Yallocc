@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CSharpLex
+namespace LexSharp
 {
    internal class TokenComparer : IComparer<Token>
    {

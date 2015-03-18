@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CSharpLex
+namespace LexSharp
 {
    public struct AbcTokenType : ITokenType 
    {

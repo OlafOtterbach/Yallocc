@@ -1,4 +1,4 @@
-﻿namespace CSharpLex
+﻿namespace LexSharp
 {
    public struct Token
    {

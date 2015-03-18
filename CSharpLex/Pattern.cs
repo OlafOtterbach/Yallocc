@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CSharpLex
+namespace LexSharp
 {
    public struct Pattern
    {

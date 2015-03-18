@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace CSharpLex
+namespace LexSharp
 {
    [TestClass]
    public class LexTests
