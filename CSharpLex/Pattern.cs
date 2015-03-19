@@ -1,10 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace LexSharp
 {
-   public struct Pattern
+   public struct Pattern<T>
    {
-      public Pattern(string pattern, ITokenType tokenType) : this()
+      public Pattern(string pattern, T tokenType) : this()
       {
          TokenPattern = new Regex(pattern, RegexOptions.Compiled);
          TokenType = tokenType;
@@ -12,6 +13,6 @@ namespace LexSharp
 
       public Regex TokenPattern { get; private set; }
 
-      public ITokenType TokenType { get; private set; }
+      public T TokenType { get; private set; }
    }
 }

@@ -51,7 +51,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AbcTokenType.cs" />
-    <Compile Include="AbcTokenTypes.cs" />
     <Compile Include="LexTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
