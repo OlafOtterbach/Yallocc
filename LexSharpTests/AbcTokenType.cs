@@ -1,34 +1,11 @@
-﻿using System;
-
-namespace LexSharp
+﻿namespace LexSharp
 {
-   public struct AbcTokenType : ITokenType 
+   public enum AbcTokenType
    {
-      public AbcTokenType(AbcTokenTypes type) : this()
-      {
-         TokenType = type;
-      }
-
-      public AbcTokenTypes TokenType { get; private set; }
-
-      public override bool Equals(Object obj)
-      {
-         return (obj is ITokenType) ? Equals( (ITokenType)obj ) : false;
-      }
-
-      public bool Equals(ITokenType other)
-      {
-         return (other is AbcTokenType) ? Equals((AbcTokenType)other) : false;
-      }
-
-      public bool Equals(AbcTokenType other)
-      {
-         return (TokenType == other.TokenType);
-      }
-
-      public override int GetHashCode()
-      {
-         return (int)TokenType;
-      }
+      a_token,
+      b_token,
+      c_token,
+      aXYZb_token,
+      aabb_token
    }
 }

@@ -39,8 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cursor.cs" />
-    <Compile Include="ITokenType.cs" />
+    <Compile Include="TextCursor.cs" />
     <Compile Include="Lex.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

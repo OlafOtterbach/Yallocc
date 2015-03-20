@@ -9,14 +9,14 @@ namespace LexSharp
       [TestMethod]
       public void ScanTest_EmptyToken_NoToken()
       {
-         var lex = new Lex();
-         lex.Register("", new AbcTokenType(AbcTokenTypes.a_token));
+         var lex = new Lex<AbcTokenType>();
+         lex.Register("", AbcTokenType.a_token);
          var text = "aabbcc";
 
          var tokens = lex.Scan(text).ToList();
 
          Assert.AreEqual(tokens.Count, text.Length + 1);
-         Assert.IsTrue(tokens.All(x => x.Type.Equals(new AbcTokenType(AbcTokenTypes.a_token))));
+         Assert.IsTrue(tokens.All(x => x.Type.Equals(AbcTokenType.a_token)));
       }
 
 
@@ -65,8 +65,8 @@ namespace LexSharp
          var tokens = lex.Scan(text).ToList();
 
          Assert.AreEqual(tokens.Count, 2);
-         Assert.IsTrue(tokens[0].Type.Equals(new AbcTokenType(AbcTokenTypes.aabb_token)));
-         Assert.IsTrue(tokens[1].Type.Equals(new AbcTokenType(AbcTokenTypes.c_token)));
+         Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.aabb_token));
+         Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.c_token));
          Assert.AreEqual(tokens[0].Value, "aabb");
          Assert.AreEqual(tokens[1].Value, "cc");
       }
@@ -81,8 +81,8 @@ namespace LexSharp
          var tokens = lex.Scan(text).ToList();
 
          Assert.AreEqual(tokens.Count, 2);
-         Assert.IsTrue(tokens[0].Type.Equals(new AbcTokenType(AbcTokenTypes.aXYZb_token)));
-         Assert.IsTrue(tokens[1].Type.Equals(new AbcTokenType(AbcTokenTypes.c_token)));
+         Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.aXYZb_token));
+         Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.c_token));
          Assert.AreEqual(tokens[0].Value, "aabbbb");
          Assert.AreEqual(tokens[1].Value, "cc");
       }
@@ -97,11 +97,11 @@ namespace LexSharp
          var tokens = lex.Scan(text).ToList();
 
          Assert.AreEqual(tokens.Count, 5);
-         Assert.IsTrue(tokens[0].Type.Equals(new AbcTokenType(AbcTokenTypes.a_token)));
-         Assert.IsTrue(tokens[1].Type.Equals(new AbcTokenType(AbcTokenTypes.b_token)));
-         Assert.IsTrue(tokens[2].Type.Equals(new AbcTokenType(AbcTokenTypes.c_token)));
-         Assert.IsTrue(tokens[3].Type.Equals(new AbcTokenType(AbcTokenTypes.aabb_token)));
-         Assert.IsTrue(tokens[4].Type.Equals(new AbcTokenType(AbcTokenTypes.aXYZb_token)));
+         Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.a_token));
+         Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.b_token));
+         Assert.IsTrue(tokens[2].Type.Equals(AbcTokenType.c_token));
+         Assert.IsTrue(tokens[3].Type.Equals(AbcTokenType.aabb_token));
+         Assert.IsTrue(tokens[4].Type.Equals(AbcTokenType.aXYZb_token));
          Assert.AreEqual(tokens[0].Value, "aa");
          Assert.AreEqual(tokens[1].Value, "bb");
          Assert.AreEqual(tokens[2].Value, "cc");
@@ -119,11 +119,11 @@ namespace LexSharp
          var tokens = lex.Scan(text).ToList();
 
          Assert.AreEqual(tokens.Count, 5);
-         Assert.IsTrue(tokens[0].Type.Equals(new AbcTokenType(AbcTokenTypes.a_token)));
-         Assert.IsTrue(tokens[1].Type.Equals(new AbcTokenType(AbcTokenTypes.b_token)));
-         Assert.IsTrue(tokens[2].Type.Equals(new AbcTokenType(AbcTokenTypes.c_token)));
-         Assert.IsTrue(tokens[3].Type.Equals(new AbcTokenType(AbcTokenTypes.aXYZb_token)));
-         Assert.IsTrue(tokens[4].Type.Equals(new AbcTokenType(AbcTokenTypes.aabb_token)));
+         Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.a_token));
+         Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.b_token));
+         Assert.IsTrue(tokens[2].Type.Equals(AbcTokenType.c_token));
+         Assert.IsTrue(tokens[3].Type.Equals(AbcTokenType.aXYZb_token));
+         Assert.IsTrue(tokens[4].Type.Equals(AbcTokenType.aabb_token));
          Assert.AreEqual(tokens[0].Value, "aa");
          Assert.AreEqual(tokens[1].Value, "bb");
          Assert.AreEqual(tokens[2].Value, "cc");
@@ -132,14 +132,14 @@ namespace LexSharp
       }
 
 
-      private Lex CreateAbcLex()
+      private Lex<AbcTokenType> CreateAbcLex()
       {
-         var lex = new Lex();
-         lex.Register(@"(a)+", new AbcTokenType(AbcTokenTypes.a_token));
-         lex.Register(@"aabb", new AbcTokenType(AbcTokenTypes.aabb_token));
-         lex.Register(@"a(\w)+b", new AbcTokenType(AbcTokenTypes.aXYZb_token));
-         lex.Register(@"(b)+", new AbcTokenType(AbcTokenTypes.b_token));
-         lex.Register(@"(c)+", new AbcTokenType(AbcTokenTypes.c_token));
+         var lex = new Lex<AbcTokenType>();
+         lex.Register(@"(a)+", AbcTokenType.a_token);
+         lex.Register(@"aabb", AbcTokenType.aabb_token);
+         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         lex.Register(@"(b)+", AbcTokenType.b_token);
+         lex.Register(@"(c)+", AbcTokenType.c_token);
          return lex;
       }
    }

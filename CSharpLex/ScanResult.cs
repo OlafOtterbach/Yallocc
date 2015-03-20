@@ -1,8 +1,10 @@
-﻿namespace LexSharp
+﻿using System;
+
+namespace LexSharp
 {
-   struct ScanResult
+   struct ScanResult<T>
    {
-      public Token Token {get; set;}
+      public Token<T> Token {get; set;}
       public bool IsValid { get; set; }
    }
 }
