@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpLibTests", "LexShar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpLib", "CSharpLex\LexSharpLib.csproj", "{C6A51E86-E00A-4776-B647-4F55634396AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserLib", "ParserLib\ParserLib.csproj", "{5BD461E9-72AA-44E1-A640-41266FA9C1CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C6A51E86-E00A-4776-B647-4F55634396AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6A51E86-E00A-4776-B647-4F55634396AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6A51E86-E00A-4776-B647-4F55634396AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BD461E9-72AA-44E1-A640-41266FA9C1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BD461E9-72AA-44E1-A640-41266FA9C1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BD461E9-72AA-44E1-A640-41266FA9C1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BD461E9-72AA-44E1-A640-41266FA9C1CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

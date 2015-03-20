@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace LexSharp
 {
-   public class Lex
+   public class Lex<T>
    {
       private List<Pattern> _patterns;
 
