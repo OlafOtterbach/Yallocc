@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LexSharp
+﻿namespace LexSharp
 {
    struct ScanResult<T>
    {

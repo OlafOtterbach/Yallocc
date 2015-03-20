@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LexSharp;
 
 namespace ParserLib
 {
-   public class SyntaxTokenNode : SyntaxNode
+   public class SyntaxTokenNode<T> : SyntaxNode
    {
-      public LexSharp.Token Token { get; set; } 
+      public Token<T> Token { get; set; } 
    }
 }
