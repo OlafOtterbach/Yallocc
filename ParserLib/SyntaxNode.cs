@@ -2,13 +2,13 @@
 
 namespace ParserLib
 {
-    public class SyntaxNode
-    {
-       public SyntaxNode()
-       {
-          Successors = new List<SyntaxNode>();
-       }
+   internal class SyntaxNode<T>
+   {
+      public SyntaxNode(T tokenType)
+      {
+         TokenType = tokenType;
+      }
 
-       public virtual IEnumerable<SyntaxNode> Successors { get; private set; }
-    }
+      public T TokenType { get; private set; }
+   }
 }

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParserLib
 {
-   public class SyntaxContainerNode : SyntaxNode
+   class GrammarTransition
    {
-      public SyntaxNode StartNode { get; set; }
    }
 }

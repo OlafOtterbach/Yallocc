@@ -36,11 +36,17 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProxySyntaxNode.cs" />
-    <Compile Include="SyntaxContainerNode.cs" />
+    <Compile Include="BranchGrammarBuilder.cs" />
+    <Compile Include="Grammar.cs" />
+    <Compile Include="GrammarBuilder.cs" />
+    <Compile Include="GrammarTransition.cs" />
+    <Compile Include="LabelTransition.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="SyntaxNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyntaxTokenNode.cs" />
+    <Compile Include="SyntaxNodeTransition.cs" />
+    <Compile Include="Transition.cs" />
+    <Compile Include="TransitionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharpLex\LexSharpLib.csproj">
