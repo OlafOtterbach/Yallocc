@@ -53,8 +53,13 @@
     <Compile Include="ExpressionType.cs" />
     <Compile Include="GrammarBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSharpLex\LexSharpLib.csproj">
+      <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
+      <Name>LexSharpLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParserLib\ParserLib.csproj">
       <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
       <Name>ParserLib</Name>

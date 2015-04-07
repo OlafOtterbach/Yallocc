@@ -4,11 +4,11 @@ using LexSharp;
 
 namespace ParserLib
 {
-   internal class TransistionStackElem
+   internal class SyntaxElement
    {
-      private TransistionStackElem _parentContext;
+      private SyntaxElement _parentContext;
 
-      public TransistionStackElem(Transition transition, TransistionStackElem parentContext)
+      public SyntaxElement(Transition transition, SyntaxElement parentContext)
       {
          _parentContext = parentContext;
          Transition = transition;
@@ -16,63 +16,84 @@ namespace ParserLib
 
       public Transition Transition { get; private set; }
 
-      public IEnumerable<TransistionStackElem> GetSuccessors()
+      public IEnumerable<SyntaxElement> GetSuccessors()
       {
          var successors = Transition.Successors.Any()
-            ? Transition.Successors.Select( t => new TransistionStackElem(t, _parentContext))
-            : _parentContext == null
+            ? Transition.Successors.Select( t => new SyntaxElement(t, _parentContext))
+            : _parentContext != null
                ? _parentContext.GetSuccessors()
-               : new List<TransistionStackElem>();
+               : new List<SyntaxElement>();
          return successors;
       }
    }
 
 
+
+
    public class Parser<T>
    {
-      Stack<TransistionStackElem> _path;
-
-      public Parser()
+      public bool ParseTokens(Grammar grammar, IEnumerable<Token<T>> sequence)
       {
-         _path = new Stack<TransistionStackElem>();
-      }
+         var path = new Stack<SyntaxElement>();
+         path.Push(new SyntaxElement(grammar.StartTransition, null));
 
-
-      public void ParseTokens(IEnumerable<Token<T>> sequence)
-      {
-//         var parseResult = sequence.Select( t => Lookahead(t)).TakeWhile(r => r.Success);
-         //ParseResult result = new ParseResult();
-         //foreach(var token in sequence)
-         //{
-         //   var res = Lookahead(token);
-         //   if(res != ParseResultType.Success)
-         //   {
-         //      result.ResultType = res;
-         //      result.Token = token;
-         //      break;
-         //   }
-         //}
-      }
-
-      public void LookAhead(T tokenType)
-      {
-         while(_path.Count > 0)
+         SyntaxElement result = null;
+         foreach(var token in sequence)
          {
-            var elem = _path.Pop();
-            if( (elem.Transition is TokenTypeTransition<T>) && ((elem.Transition as TokenTypeTransition<T>).TokenType.Equals(tokenType))
+            Lookahead(path, token.Type );
+            result = path.Count > 0 ? path.Pop() : null;
+            if( result != null)
             {
-               // Hier noch Ergebnisrückgabe
-               return;
-            }
-            else if (elem.Transition is GrammarTransition)
-            {
-               _path.Push(new TransistionStackElem((elem.Transition as GrammarTransition).Grammar.StartTransition, elem));
+               path.Clear();
+               PushSuccessors(path, result, true);
             }
             else
             {
-               elem.GetSuccessors().ToList().ForEach(e => _path.Push(e));
+               break;
             }
          }
+         return (result != null) && IsFinished(result);
+      }
+
+
+      private void Lookahead(Stack<SyntaxElement> path, T tokenType)
+      {
+         while ((path.Count > 0)
+                 && (!((path.Peek().Transition is TokenTypeTransition<T>)
+                         && ((path.Peek().Transition as TokenTypeTransition<T>).TokenType.Equals(tokenType))
+                       )
+                    )
+               )
+         {
+            PushSuccessors(path, path.Pop(), false);
+         }
+      }
+
+
+      private void PushSuccessors(Stack<SyntaxElement> path, SyntaxElement elem, bool withTokenTypeElement)
+      {
+         const int max_depth = 10;
+         if (path.Count <= max_depth)
+         {
+            if (elem.Transition is GrammarTransition)
+            {
+               path.Push(new SyntaxElement((elem.Transition as GrammarTransition).Grammar.StartTransition, elem));
+            }
+            else if (elem.Transition is LabelTransition)
+            {
+               elem.GetSuccessors().ToList().ForEach(e => path.Push(e));
+            }
+            else if (withTokenTypeElement)
+            {
+               elem.GetSuccessors().ToList().ForEach(e => path.Push(e));
+            }
+         }
+      }
+
+
+      private bool IsFinished(SyntaxElement start)
+      {
+         return true;
       }
    }
 }

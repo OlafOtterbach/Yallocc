@@ -1,6 +1,6 @@
 ﻿namespace ParserLib
 {
-   internal class TokenTypeTransition<T> : Transition
+   public class TokenTypeTransition<T> : Transition
    {
       public TokenTypeTransition( T tokenType )
       {
