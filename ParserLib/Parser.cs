@@ -28,14 +28,12 @@ namespace ParserLib
    }
 
 
-
-
    public class Parser<T>
    {
-      public bool ParseTokens(Grammar grammar, IEnumerable<Token<T>> sequence)
+      public bool ParseTokens(Transition start, IEnumerable<Token<T>> sequence)
       {
          var path = new Stack<SyntaxElement>();
-         path.Push(new SyntaxElement(grammar.StartTransition, null));
+         path.Push(new SyntaxElement(start, null));
 
          SyntaxElement result = null;
          foreach(var token in sequence)
@@ -77,7 +75,7 @@ namespace ParserLib
          {
             if (elem.Transition is GrammarTransition)
             {
-               path.Push(new SyntaxElement((elem.Transition as GrammarTransition).Grammar.StartTransition, elem));
+               path.Push(new SyntaxElement((elem.Transition as GrammarTransition).Start, elem));
             }
             else if (elem.Transition is LabelTransition)
             {
@@ -90,10 +88,19 @@ namespace ParserLib
          }
       }
 
-
       private bool IsFinished(SyntaxElement start)
       {
-         return true;
+         const int maxElementCount = 10000;
+
+         bool found = !start.GetSuccessors().Any();
+         IEnumerable<SyntaxElement> elements = new List<SyntaxElement> { start };
+         while ( elements.Any() && (elements.Count() < maxElementCount) && (!found) )
+         {
+            elements = elements.Where(x => !(x.Transition is TokenTypeTransition<T>)).SelectMany(e => e.GetSuccessors());
+            found = elements.Any(x => !x.GetSuccessors().Any());
+         }
+
+         return found;
       }
    }
 }

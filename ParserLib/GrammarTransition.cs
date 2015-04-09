@@ -1,12 +1,12 @@
 ﻿namespace ParserLib
 {
-   internal class GrammarTransition : Transition
+   public class GrammarTransition : Transition
    {
-      public GrammarTransition( Grammar grammar)
+      public GrammarTransition(Transition start)
       {
-         Grammar = grammar;
+         Start = start;
       }
 
-      public Grammar Grammar { get; private set; }
+      public Transition Start { get; private set; }
    }
 }

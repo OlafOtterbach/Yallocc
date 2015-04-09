@@ -15,10 +15,10 @@ namespace ParserLib
    public class SimpleParserTest
    {
       [TestMethod]
-      public void Parse_abaa_Correct()
+      public void Parse_Simple_abaa_Correct()
       {
          var lex = CreateAbLex();
-         var grammar = CreateGrammar();
+         var grammar = CreateSimpleGrammar();
          var sequence = lex.Scan("abaa");
          var parser = new Parser<AbTokenType>();
 
@@ -28,10 +28,10 @@ namespace ParserLib
       }
 
       [TestMethod]
-      public void Parse_abba_NotCorrect()
+      public void Parse_Simple_abba_NotCorrect()
       {
          var lex = CreateAbLex();
-         var grammar = CreateGrammar();
+         var grammar = CreateSimpleGrammar();
          var sequence = lex.Scan("abba");
          var parser = new Parser<AbTokenType>();
 
@@ -40,7 +40,72 @@ namespace ParserLib
          Assert.IsFalse(result);
       }
 
-      private Grammar CreateGrammar()
+      [TestMethod]
+      public void Parse_Container_abaa_Correct()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateContainerGrammar();
+         var sequence = lex.Scan("abaa");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsTrue(result);
+      }
+
+      [TestMethod]
+      public void Parse_Container_abba_NotCorrect()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateContainerGrammar();
+         var sequence = lex.Scan("abba");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      [TestMethod]
+      public void Parse_Loop_aaaaab_Correct()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateLoopGrammar();
+         var sequence = lex.Scan("aaaaab");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsTrue(result);
+      }
+
+      [TestMethod]
+      public void Parse_Loop_aaaaaa_NotCorrect()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateLoopGrammar();
+         var sequence = lex.Scan("aaaaaa");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      [TestMethod]
+      public void Parse_Loop_aaaaaaba_NotCorrect()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateLoopGrammar();
+         var sequence = lex.Scan("aaaaaaba");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      private Transition CreateSimpleGrammar()
       {
          var first = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
          var second = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token);
@@ -49,8 +114,26 @@ namespace ParserLib
          first.AddSuccessor(second);
          second.AddSuccessor(third);
          third.AddSuccessor(fourd);
-         var grammar = new Grammar(first);
-         return grammar;
+         return first;
+      }
+
+      private Transition CreateContainerGrammar()
+      {
+         var start = CreateSimpleGrammar();
+         var container = new GrammarTransition(start);
+         return container;
+      }
+
+      private Transition CreateLoopGrammar()
+      {
+         var first = new LabelTransition("Start");
+         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token);
+         first.AddSuccessor(secondOne);
+         first.AddSuccessor(secondTwo);
+         secondOne.AddSuccessor(first);
+         var container = new GrammarTransition(first);
+         return container;
       }
 
       private Lex<AbTokenType> CreateAbLex()

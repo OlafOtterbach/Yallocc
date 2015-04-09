@@ -1,6 +1,6 @@
 ﻿namespace ParserLib
 {
-   internal class LabelTransition : Transition
+   public class LabelTransition : Transition
    {
       public LabelTransition( string name )
       {

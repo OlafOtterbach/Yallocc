@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BranchGrammarBuilder.cs" />
-    <Compile Include="Grammar.cs" />
     <Compile Include="GrammarBuilder.cs" />
     <Compile Include="GrammarTransition.cs" />
     <Compile Include="LabelTransition.cs" />
