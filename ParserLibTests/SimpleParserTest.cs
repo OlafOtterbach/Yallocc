@@ -105,6 +105,21 @@ namespace ParserLib
          Assert.IsFalse(result);
       }
 
+      [TestMethod]
+      public void Parse_Loop_aaaaab_TextIsStartaaaaab()
+      {
+         var res = new Result();
+         var lex = CreateAbLex();
+         var grammar = CreateAttributedLoopGrammar(res);
+         var sequence = lex.Scan("aaaaab");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsTrue(result);
+         Assert.AreEqual(res.Text, "Start:aaaab");
+      }
+
       private Transition CreateSimpleGrammar()
       {
          var first = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
@@ -129,6 +144,23 @@ namespace ParserLib
          var first = new LabelTransition("Start");
          var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
          var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token);
+         first.AddSuccessor(secondOne);
+         first.AddSuccessor(secondTwo);
+         secondOne.AddSuccessor(first);
+         var container = new GrammarTransition(first);
+         return container;
+      }
+
+      private class Result
+      {
+         public string Text;
+      }
+
+      private Transition CreateAttributedLoopGrammar(Result result)
+      {
+         var first = new LabelTransition("Start", () => { result.Text += "Start:"; });
+         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token, () => result.Text += "a");
+         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token, () => result.Text += "b");
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(first);

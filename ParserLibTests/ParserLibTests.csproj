@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExpressionParserTest.cs" />
+    <Compile Include="ExpressionTokenType.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="GrammarBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
