@@ -28,6 +28,19 @@ namespace ParserLib
       }
 
       [TestMethod]
+      public void Parse_Simple_bbaa_NotCorrect()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateSimpleGrammar();
+         var sequence = lex.Scan("bbaa");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      [TestMethod]
       public void Parse_Simple_abba_NotCorrect()
       {
          var lex = CreateAbLex();
@@ -106,6 +119,45 @@ namespace ParserLib
       }
 
       [TestMethod]
+      public void Parse_EndlessLoop_aaaaa_NoSuccess()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateEndlessLoopGrammar();
+         var sequence = lex.Scan("aaaaa");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      [TestMethod]
+      public void Parse_NotDeterministicBranchLoop_aaaaa_NoSuccess()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateNotDeterministicBranchLoop();
+         var sequence = lex.Scan("aaaaa");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      [TestMethod]
+      public void Parse_CreateNotDeterministicDeadLoopBranch_a_Correct()
+      {
+         var lex = CreateAbLex();
+         var grammar = CreateDeadLoopBranch();
+         var sequence = lex.Scan("a");
+         var parser = new Parser<AbTokenType>();
+
+         var result = parser.ParseTokens(grammar, sequence);
+
+         Assert.IsFalse(result);
+      }
+
+      [TestMethod]
       public void Parse_Loop_aaaaab_TextIsStartaaaaab()
       {
          var res = new Result();
@@ -117,7 +169,7 @@ namespace ParserLib
          var result = parser.ParseTokens(grammar, sequence);
 
          Assert.IsTrue(result);
-         Assert.AreEqual(res.Text, "Start:aaaab");
+         Assert.AreEqual(res.Text, "[Start][Label]a[Label]a[Label]a[Label]a[Label]a[Label]b");
       }
 
       private Transition CreateSimpleGrammar()
@@ -151,6 +203,37 @@ namespace ParserLib
          return container;
       }
 
+      private Transition CreateEndlessLoopGrammar()
+      {
+         var first = new LabelTransition("Start");
+         var second = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         first.AddSuccessor(second);
+         second.AddSuccessor(first);
+         return first;
+      }
+
+      private Transition CreateNotDeterministicBranchLoop()
+      {
+         var first = new LabelTransition("Start");
+         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         first.AddSuccessor(secondOne);
+         first.AddSuccessor(secondTwo);
+         secondOne.AddSuccessor(first);
+         return first;
+      }
+
+      private Transition CreateDeadLoopBranch()
+      {
+         var first = new LabelTransition("Start");
+         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         first.AddSuccessor(secondOne);
+         first.AddSuccessor(secondTwo);
+         secondOne.AddSuccessor(secondOne);
+         return first;
+      }
+
       private class Result
       {
          public string Text;
@@ -158,13 +241,13 @@ namespace ParserLib
 
       private Transition CreateAttributedLoopGrammar(Result result)
       {
-         var first = new LabelTransition("Start", () => { result.Text += "Start:"; });
+         var first = new LabelTransition("Start", () => { result.Text += "[Label]"; });
          var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token, () => result.Text += "a");
          var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token, () => result.Text += "b");
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(first);
-         var container = new GrammarTransition(first);
+         var container = new GrammarTransition(first, () => { result.Text += "[Start]"; });
          return container;
       }
 
