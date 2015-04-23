@@ -36,7 +36,6 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BranchGrammarBuilder.cs" />
     <Compile Include="GrammarBuilder.cs" />
     <Compile Include="GrammarTransition.cs" />
     <Compile Include="LabelTransition.cs" />
