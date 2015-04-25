@@ -6,29 +6,32 @@ namespace ParserLib
 {
    public class GrammarBuilder<T>
    {
-      private struct Branch
-      {
-         public Branch(Transition start) : this()
-         {
-            Start = start;
-            EndTransitions = new List<Transition>();
-         }
-
-         public Transition Start { get; set; }
-
-         public List<Transition> EndTransitions { get; set; }
-      }
-
-      private Stack<Branch> _contextStack = new Stack<Branch>();
-
       private Transition _current;
 
       private List<Transition> _namedTransitions;
+
+      private Transition _start;
 
       public GrammarBuilder()
       {
          _current = null;
          _namedTransitions = new List<Transition>();
+      }
+
+      public Transition Start
+      {
+         get
+         {
+            return _start;
+         }
+      }
+
+      public Transition Current
+      {
+         get
+         {
+            return _current;
+         }
       }
 
       public static GrammarBuilder<T> CreateGrammar()
@@ -39,13 +42,12 @@ namespace ParserLib
       public GrammarBuilder<T> BeginGrammar()
       {
          _current = new Transition();
-         BeginSwitch();
          return this;
       }
 
       public Transition EndGrammar()
       {
-         EndSwitch();
+         ReplaceProxiesWithLabels();
          return _current;
       }
 
@@ -121,49 +123,47 @@ namespace ParserLib
 
       public GrammarBuilder<T> GotoLabel(string label)
       {
-         var labels = _namedTransitions.Where(x => x.Name == label);
-         if (labels.Any())
-         {
-            var targetTransition = labels.First();
-            _current.AddSuccessor(targetTransition);
-            _current = _contextStack.Peek().Start;
-         }
-         else
-         {
-            // Throw Not Found Exception
-         }
+         var proxyTransition = new ProxyTransition(label);
+         AddTransition(proxyTransition);
          return this;
       }
 
-      public GrammarBuilder<T> BeginSwitch()
+      public GrammarBuilder<T> Switch(params GrammarBuilder<T>[] branches)
       {
-         _contextStack.Push(new Branch(_current));
-         return this;
-      }
-
-      public GrammarBuilder<T> CreateBranch()
-      {
-         var branch = _contextStack.Peek();
-         branch.EndTransitions.Add(_current);
-         _current = branch.Start;
-         return this;
-      }
-
-      public GrammarBuilder<T> EndSwitch()
-      {
-         var branch = _contextStack.Pop();
-         var endTransition = new Transition();
-         branch.EndTransitions.Where(t => !t.Successors.Any()).ToList().ForEach(t => t.AddSuccessor(endTransition));
+         branches.ToList().ForEach(x => _current.AddSuccessor(x.Start));
+         var branchEndTransition = new Transition();
+         branches.Where(b => !(b is ProxyTransition)).ToList().ForEach(x => x.Current.AddSuccessor(branchEndTransition));
          return this;
       }
 
       private void AddTransition(Transition transition)
       {
+         if(_start ==  null)
+         {
+            _start = transition;
+         }
          _current.AddSuccessor(transition);
          _current = transition;
          if(transition.Name != string.Empty)
          {
             _namedTransitions.Add(transition);
+         }
+      }
+
+      private void ReplaceProxiesWithLabels()
+      {
+         var stack = new Stack<Transition>();
+         var visited = new List<Transition>();
+         stack.Push(_start);
+         while(stack.Count() > 0)
+         {
+            var trans = stack.Pop();
+            visited.Add(trans);
+            var proxies = trans.Successors;
+            var replaces = _namedTransitions.Where(x => proxies.Where(p => p.Name == x.Name).Any());
+            trans.RemoveSuccessors(proxies);
+            trans.AddSuccessors(replaces);
+            trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
          }
       }
    }

@@ -36,11 +36,16 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FluentInterface\BranchInterface.cs" />
+    <Compile Include="FluentInterface\BeginInterface.cs" />
+    <Compile Include="FluentInterface\BuilderInterface.cs" />
+    <Compile Include="FluentInterface\ProducerInterface.cs" />
     <Compile Include="GrammarBuilder.cs" />
     <Compile Include="GrammarTransition.cs" />
     <Compile Include="LabelTransition.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyTransition.cs" />
     <Compile Include="TokenTypeTransition.cs" />
     <Compile Include="Transition.cs" />
   </ItemGroup>
@@ -50,9 +55,7 @@
       <Name>LexSharpLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FluentInterface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

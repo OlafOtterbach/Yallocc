@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ParserLib
@@ -34,6 +35,16 @@ namespace ParserLib
       public void AddSuccessor(Transition transition)
       {
          _successors.Add(transition);
+      }
+
+      public void AddSuccessors(IEnumerable<Transition> successorsToAdd)
+      {
+         _successors.AddRange(successorsToAdd.Where(x => !_successors.Contains(x)));
+      }
+
+      public void RemoveSuccessors(IEnumerable<Transition> successorsToRemove)
+      {
+         successorsToRemove.Where(x => _successors.Contains(x)).ToList().ForEach(s => _successors.Remove(s));
       }
 
       public void Execute()
