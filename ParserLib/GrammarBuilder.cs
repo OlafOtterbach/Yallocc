@@ -1,7 +1,6 @@
-﻿using LexSharp;
-using System;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ParserLib
 {
@@ -9,7 +8,7 @@ namespace ParserLib
    {
       private struct Branch
       {
-         public Branch(Transition start)
+         public Branch(Transition start) : this()
          {
             Start = start;
             EndTransitions = new List<Transition>();
@@ -32,17 +31,22 @@ namespace ParserLib
          _namedTransitions = new List<Transition>();
       }
 
+      public static GrammarBuilder<T> CreateGrammar()
+      {
+         return new GrammarBuilder<T>();
+      }
+
       public GrammarBuilder<T> BeginGrammar()
       {
-         _current = new LabelTransition("scheisse");
+         _current = new Transition();
          BeginSwitch();
          return this;
       }
 
-      public GrammarBuilder<T> EndGrammar()
+      public Transition EndGrammar()
       {
          EndSwitch();
-         return this;
+         return _current;
       }
 
       public GrammarBuilder<T> AddToken(T tokenType)
@@ -126,7 +130,7 @@ namespace ParserLib
          }
          else
          {
-            // Theow Not Found Exception
+            // Throw Not Found Exception
          }
          return this;
       }
@@ -137,7 +141,7 @@ namespace ParserLib
          return this;
       }
 
-      public GrammarBuilder<T> Branch()
+      public GrammarBuilder<T> CreateBranch()
       {
          var branch = _contextStack.Peek();
          branch.EndTransitions.Add(_current);
@@ -148,7 +152,7 @@ namespace ParserLib
       public GrammarBuilder<T> EndSwitch()
       {
          var branch = _contextStack.Pop();
-         var endTransition = new LabelTransition("scheisse");
+         var endTransition = new Transition();
          branch.EndTransitions.Where(t => !t.Successors.Any()).ToList().ForEach(t => t.AddSuccessor(endTransition));
          return this;
       }
