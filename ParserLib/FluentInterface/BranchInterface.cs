@@ -28,37 +28,37 @@ namespace ParserLib
          }
       }
 
-      public BranchInterface<T> AddToken(T tokenType)
+      public BranchInterface<T>Token(T tokenType)
       {
          _grammarBuilder.AddToken(tokenType);
          return this;
       }
 
-      public BranchInterface<T> AddToken(T tokenType, Action action)
+      public BranchInterface<T>Token(T tokenType, Action action)
       {
          _grammarBuilder.AddToken(tokenType, action);
          return this;
       }
 
-      public BranchInterface<T> AddToken(string name, T tokenType)
+      public BranchInterface<T>Token(string name, T tokenType)
       {
          _grammarBuilder.AddToken(name, tokenType);
          return this;
       }
 
-      public BranchInterface<T> AddToken(string name, T tokenType, Action action)
+      public BranchInterface<T>Token(string name, T tokenType, Action action)
       {
          _grammarBuilder.AddToken(name, tokenType, action);
          return this;
       }
 
-      public BranchInterface<T> AddLabel(string label)
+      public BranchInterface<T> Label(string label)
       {
          _grammarBuilder.AddLabel(label);
          return this;
       }
 
-      public BranchInterface<T> AddLabel(string label, Action action)
+      public BranchInterface<T> Label(string label, Action action)
       {
          _grammarBuilder.AddLabel(label,action);
          return this;
@@ -88,7 +88,7 @@ namespace ParserLib
          return this;
       }
 
-      public BranchInterface<T> GotoLabel(string label)
+      public BranchInterface<T> Goto(string label)
       {
          _grammarBuilder.GotoLabel(label);
          return this;

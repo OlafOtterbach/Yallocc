@@ -34,6 +34,13 @@ namespace ParserLib
          }
       }
 
+      public void Reset()
+      {
+         _start = null;
+         _current = null;
+         _namedTransitions.Clear();
+      }
+
       public static GrammarBuilder<T> CreateGrammar()
       {
          return new GrammarBuilder<T>();
@@ -48,7 +55,7 @@ namespace ParserLib
       public Transition EndGrammar()
       {
          ReplaceProxiesWithLabels();
-         return _current;
+         return _start;
       }
 
       public GrammarBuilder<T> AddToken(T tokenType)
@@ -133,17 +140,22 @@ namespace ParserLib
          branches.ToList().ForEach(x => _current.AddSuccessor(x.Start));
          var branchEndTransition = new Transition();
          branches.Where(b => !(b is ProxyTransition)).ToList().ForEach(x => x.Current.AddSuccessor(branchEndTransition));
+         _current = branchEndTransition;
          return this;
       }
 
       private void AddTransition(Transition transition)
       {
-         if(_start ==  null)
+         if (_start == null)
          {
             _start = transition;
+            _current = _start;
          }
-         _current.AddSuccessor(transition);
-         _current = transition;
+         else
+         {
+            _current.AddSuccessor(transition);
+            _current = transition;
+         }
          if(transition.Name != string.Empty)
          {
             _namedTransitions.Add(transition);
@@ -159,8 +171,8 @@ namespace ParserLib
          {
             var trans = stack.Pop();
             visited.Add(trans);
-            var proxies = trans.Successors;
-            var replaces = _namedTransitions.Where(x => proxies.Where(p => p.Name == x.Name).Any());
+            var proxies = trans.Successors.OfType<ProxyTransition>().ToList();
+            var replaces = _namedTransitions.Where(x => proxies.Where(p => p.Name == x.Name).Any()).ToList();
             trans.RemoveSuccessors(proxies);
             trans.AddSuccessors(replaces);
             trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));

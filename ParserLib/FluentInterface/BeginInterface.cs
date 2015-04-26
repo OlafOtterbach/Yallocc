@@ -9,7 +9,7 @@
          _grammarBuilder = grammarBuilder;
       }
 
-      public ProducerInterface<T> BeginGrammar()
+      public ProducerInterface<T> Begin()
       {
          return new ProducerInterface<T>(_grammarBuilder);
       }

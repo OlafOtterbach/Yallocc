@@ -14,12 +14,14 @@ namespace ParserLib
       {
          _successors = new List<Transition>();
          _action = null;
+         Name = string.Empty;
       }
 
       public Transition(Action action)
       {
          _successors = new List<Transition>();
          _action = action;
+         Name = string.Empty;
       }
 
       public IEnumerable<Transition> Successors

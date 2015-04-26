@@ -12,42 +12,42 @@ namespace ParserLib
          _grammarBuilder = grammarBuilder;
       }
 
-      public Transition EndGrammar()
+      public Transition End()
       {
          return _grammarBuilder.EndGrammar();
       }
 
-      public ProducerInterface<T> AddToken(T tokenType)
+      public ProducerInterface<T> Token(T tokenType)
       {
          _grammarBuilder.AddToken(tokenType);
          return this;
       }
 
-      public ProducerInterface<T> AddToken(T tokenType, Action action)
+      public ProducerInterface<T> Token(T tokenType, Action action)
       {
          _grammarBuilder.AddToken(tokenType, action);
          return this;
       }
 
-      public ProducerInterface<T> AddToken(string name, T tokenType)
+      public ProducerInterface<T> Token(string name, T tokenType)
       {
          _grammarBuilder.AddToken(name, tokenType);
          return this;
       }
 
-      public ProducerInterface<T> AddToken(string name, T tokenType, Action action)
+      public ProducerInterface<T> Token(string name, T tokenType, Action action)
       {
          _grammarBuilder.AddToken(name, tokenType, action);
          return this;
       }
 
-      public ProducerInterface<T> AddLabel(string label)
+      public ProducerInterface<T> Label(string label)
       {
          _grammarBuilder.AddLabel(label);
          return this;
       }
 
-      public ProducerInterface<T> AddLabel(string label, Action action)
+      public ProducerInterface<T> Label(string label, Action action)
       {
          _grammarBuilder.AddLabel(label, action);
          return this;
@@ -77,7 +77,7 @@ namespace ParserLib
          return this;
       }
 
-      public ProducerInterface<T> GotoLabel(string label)
+      public ProducerInterface<T> Goto(string label)
       {
          _grammarBuilder.GotoLabel(label);
          return this;

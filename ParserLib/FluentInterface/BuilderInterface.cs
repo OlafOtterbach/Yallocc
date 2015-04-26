@@ -1,6 +1,6 @@
-﻿namespace ParserLib.FluentInterface
+﻿namespace ParserLib
 {
-   class BuilderInterface<T>
+   public class BuilderInterface<T>
    {
       private GrammarBuilder<T> _grammarBuilder;
 
@@ -14,7 +14,7 @@
          return new BeginInterface<T>(_grammarBuilder);
       }
 
-      public BranchInterface<T> CreateBranch()
+      public BranchInterface<T> Branch()
       {
          return new BranchInterface<T>();
       }
