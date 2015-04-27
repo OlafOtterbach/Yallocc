@@ -53,25 +53,25 @@ namespace ParserLib
          return this;
       }
 
-      public ProducerInterface<T> AddSubGrammar(Transition subGrammar)
+      public ProducerInterface<T> Gosub(Transition subGrammar)
       {
          _grammarBuilder.AddSubGrammar(subGrammar);
          return this;
       }
 
-      public ProducerInterface<T> AddSubGrammar(Transition subGrammar, Action action)
+      public ProducerInterface<T> Gosub(Transition subGrammar, Action action)
       {
          _grammarBuilder.AddSubGrammar(subGrammar, action);
          return this;
       }
 
-      public ProducerInterface<T> AddSubGrammar(string name, Transition subGrammar)
+      public ProducerInterface<T> Gosub(string name, Transition subGrammar)
       {
          _grammarBuilder.AddSubGrammar(name, subGrammar);
          return this;
       }
 
-      public ProducerInterface<T> AddSubGrammar(string name, Transition subGrammar, Action action)
+      public ProducerInterface<T> Gosub(string name, Transition subGrammar, Action action)
       {
          _grammarBuilder.AddSubGrammar(name, subGrammar, action);
          return this;

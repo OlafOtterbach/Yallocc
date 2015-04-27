@@ -4,16 +4,12 @@ namespace ParserLib
 {
    public class ProxyTransition : Transition
    {
-      public ProxyTransition(string name)
+      public ProxyTransition(string targetName)
          : base()
       {
-         Name = name;
+         TargetName = targetName;
       }
 
-      public ProxyTransition(string name, Action action)
-         : base(action)
-      {
-         Name = name;
-      }
+      public string TargetName { get; private set; }
    }
 }

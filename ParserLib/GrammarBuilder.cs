@@ -171,8 +171,8 @@ namespace ParserLib
          {
             var trans = stack.Pop();
             visited.Add(trans);
-            var proxies = trans.Successors.OfType<ProxyTransition>().ToList();
-            var replaces = _namedTransitions.Where(x => proxies.Where(p => p.Name == x.Name).Any()).ToList();
+            var proxies = trans.Successors.OfType<ProxyTransition>().Cast<ProxyTransition>().ToList();
+            var replaces = _namedTransitions.Where(x => proxies.Where(p => p.TargetName == x.Name).Any()).ToList();
             trans.RemoveSuccessors(proxies);
             trans.AddSuccessors(replaces);
             trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));

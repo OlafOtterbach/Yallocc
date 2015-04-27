@@ -64,25 +64,25 @@ namespace ParserLib
          return this;
       }
 
-      public BranchInterface<T> AddSubGrammar(Transition subGrammar)
+      public BranchInterface<T> Gosub(Transition subGrammar)
       {
          _grammarBuilder.AddSubGrammar(subGrammar);
          return this;
       }
 
-      public BranchInterface<T> AddSubGrammar(Transition subGrammar, Action action)
+      public BranchInterface<T> Gosub(Transition subGrammar, Action action)
       {
          _grammarBuilder.AddSubGrammar(subGrammar, action);
          return this;
       }
 
-      public BranchInterface<T> AddSubGrammar(string name, Transition subGrammar)
+      public BranchInterface<T> Gosub(string name, Transition subGrammar)
       {
          _grammarBuilder.AddSubGrammar(name, subGrammar);
          return this;
       }
 
-      public BranchInterface<T> AddSubGrammar(string name, Transition subGrammar, Action action)
+      public BranchInterface<T> Gosub(string name, Transition subGrammar, Action action)
       {
          _grammarBuilder.AddSubGrammar(name, subGrammar, action);
          return this;
