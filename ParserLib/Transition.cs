@@ -8,19 +8,17 @@ namespace ParserLib
    {
       private List<Transition> _successors;
 
-      Action _action;
-
       public Transition()
       {
          _successors = new List<Transition>();
-         _action = null;
+         Action = null;
          Name = string.Empty;
       }
 
       public Transition(Action action)
       {
          _successors = new List<Transition>();
-         _action = action;
+         Action = action;
          Name = string.Empty;
       }
 
@@ -33,6 +31,8 @@ namespace ParserLib
       }
 
       public string Name { get; set; }
+
+      public Action Action { get; set; }
 
       public void AddSuccessor(Transition transition)
       {
@@ -51,9 +51,9 @@ namespace ParserLib
 
       public void Execute()
       {
-         if(_action != null)
+         if(Action != null)
          {
-            _action();
+            Action();
          }
       }
    }

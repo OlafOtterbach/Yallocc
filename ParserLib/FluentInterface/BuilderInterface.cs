@@ -14,9 +14,9 @@
          return new BeginInterface<T>(_grammarBuilder);
       }
 
-      public BranchInterface<T> Branch()
+      public BranchInterFaceWithoutNameAndActionAttribute<T> Branch()
       {
-         return new BranchInterface<T>();
+         return new BranchInterFaceWithoutNameAndActionAttribute<T>(new GrammarBuilder<T>());
       }
    }
 }

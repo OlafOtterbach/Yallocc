@@ -1,111 +1,40 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace ParserLib
 {
-   public class BranchInterface<T>
+   public class BranchInterface<T> : BranchBuilder<T>
    {
-      private GrammarBuilder<T> _grammarBuilder;
+      protected BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      {}
 
-      public BranchInterface()
+      public BranchInterfaceWithNameAndActionAttribute<T> Token(T tokenType)
       {
-         _grammarBuilder = new GrammarBuilder<T>();
+         GrammarBuilder.AddToken(tokenType);
+         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public Transition First
+      public BranchInterfaceWithNameAndActionAttribute<T> Label(string label)
       {
-         get
-         {
-            return _grammarBuilder.Start;
-         }
+         GrammarBuilder.AddLabel(label);
+         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public Transition Last
+      public BranchInterfaceWithNameAndActionAttribute<T> Gosub(Transition subGrammar)
       {
-         get
-         {
-            return _grammarBuilder.Current;
-         }
+         GrammarBuilder.AddSubGrammar(subGrammar);
+         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public BranchInterface<T>Token(T tokenType)
+      public BranchInterFaceWithoutNameAndActionAttribute<T> Goto(string label)
       {
-         _grammarBuilder.AddToken(tokenType);
-         return this;
+         GrammarBuilder.GotoLabel(label);
+         return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public BranchInterface<T>Token(T tokenType, Action action)
+      public BranchInterfaceWithNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
       {
-         _grammarBuilder.AddToken(tokenType, action);
-         return this;
-      }
-
-      public BranchInterface<T>Token(string name, T tokenType)
-      {
-         _grammarBuilder.AddToken(name, tokenType);
-         return this;
-      }
-
-      public BranchInterface<T>Token(string name, T tokenType, Action action)
-      {
-         _grammarBuilder.AddToken(name, tokenType, action);
-         return this;
-      }
-
-      public BranchInterface<T> Label(string label)
-      {
-         _grammarBuilder.AddLabel(label);
-         return this;
-      }
-
-      public BranchInterface<T> Label(string label, Action action)
-      {
-         _grammarBuilder.AddLabel(label,action);
-         return this;
-      }
-
-      public BranchInterface<T> Gosub(Transition subGrammar)
-      {
-         _grammarBuilder.AddSubGrammar(subGrammar);
-         return this;
-      }
-
-      public BranchInterface<T> Gosub(Transition subGrammar, Action action)
-      {
-         _grammarBuilder.AddSubGrammar(subGrammar, action);
-         return this;
-      }
-
-      public BranchInterface<T> Gosub(string name, Transition subGrammar)
-      {
-         _grammarBuilder.AddSubGrammar(name, subGrammar);
-         return this;
-      }
-
-      public BranchInterface<T> Gosub(string name, Transition subGrammar, Action action)
-      {
-         _grammarBuilder.AddSubGrammar(name, subGrammar, action);
-         return this;
-      }
-
-      public BranchInterface<T> Goto(string label)
-      {
-         _grammarBuilder.GotoLabel(label);
-         return this;
-      }
-
-      public BranchInterface<T> Switch(params BranchInterface<T>[] branches)
-      {
-         _grammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return this;
-      }
-
-      internal GrammarBuilder<T> GrammarBuilder
-      {
-         get
-         {
-            return _grammarBuilder;
-         }
+         GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
+         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
    }
 }

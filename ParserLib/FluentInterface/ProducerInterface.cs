@@ -1,92 +1,43 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace ParserLib
 {
    public class ProducerInterface<T>
    {
-      private GrammarBuilder<T> _grammarBuilder;
-
-      public ProducerInterface(GrammarBuilder<T> grammarBuilder)
+      protected ProducerInterface(GrammarBuilder<T> grammarBuilder)
       {
-         _grammarBuilder = grammarBuilder;
+         GrammarBuilder = grammarBuilder;
       }
+
+      protected GrammarBuilder<T> GrammarBuilder { get; private set; }
 
       public Transition End()
       {
-         return _grammarBuilder.EndGrammar();
+         return GrammarBuilder.EndGrammar();
       }
 
-      public ProducerInterface<T> Token(T tokenType)
+      public ProducerInterfaceWithNameAndActionAttribute<T> Token(T tokenType)
       {
-         _grammarBuilder.AddToken(tokenType);
-         return this;
+         GrammarBuilder.AddToken(tokenType);
+         return new ProducerInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public ProducerInterface<T> Token(T tokenType, Action action)
+      public ProducerInterfaceWithNameAndActionAttribute<T> Label(string label)
       {
-         _grammarBuilder.AddToken(tokenType, action);
-         return this;
+         GrammarBuilder.AddLabel(label);
+         return new ProducerInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public ProducerInterface<T> Token(string name, T tokenType)
+      public ProducerInterfaceWithNameAndActionAttribute<T> Gosub(Transition subGrammar)
       {
-         _grammarBuilder.AddToken(name, tokenType);
-         return this;
+         GrammarBuilder.AddSubGrammar(subGrammar);
+         return new ProducerInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public ProducerInterface<T> Token(string name, T tokenType, Action action)
+      public ProducerInterfaceWithNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
       {
-         _grammarBuilder.AddToken(name, tokenType, action);
-         return this;
-      }
-
-      public ProducerInterface<T> Label(string label)
-      {
-         _grammarBuilder.AddLabel(label);
-         return this;
-      }
-
-      public ProducerInterface<T> Label(string label, Action action)
-      {
-         _grammarBuilder.AddLabel(label, action);
-         return this;
-      }
-
-      public ProducerInterface<T> Gosub(Transition subGrammar)
-      {
-         _grammarBuilder.AddSubGrammar(subGrammar);
-         return this;
-      }
-
-      public ProducerInterface<T> Gosub(Transition subGrammar, Action action)
-      {
-         _grammarBuilder.AddSubGrammar(subGrammar, action);
-         return this;
-      }
-
-      public ProducerInterface<T> Gosub(string name, Transition subGrammar)
-      {
-         _grammarBuilder.AddSubGrammar(name, subGrammar);
-         return this;
-      }
-
-      public ProducerInterface<T> Gosub(string name, Transition subGrammar, Action action)
-      {
-         _grammarBuilder.AddSubGrammar(name, subGrammar, action);
-         return this;
-      }
-
-      public ProducerInterface<T> Goto(string label)
-      {
-         _grammarBuilder.GotoLabel(label);
-         return this;
-      }
-
-      public ProducerInterface<T> Switch(params BranchInterface<T>[] branches)
-      {
-         _grammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return this;
+         GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
+         return new ProducerInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
    }
 }
