@@ -36,19 +36,24 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionTransition.cs" />
     <Compile Include="FluentInterface\BranchBuilder.cs" />
     <Compile Include="FluentInterface\BranchInterface.cs" />
     <Compile Include="FluentInterface\BeginInterface.cs" />
     <Compile Include="FluentInterface\BranchInterfaceWithNameAndActionAttribute.cs" />
+    <Compile Include="FluentInterface\BranchInterfaceWithNameAndTokActionAttribute.cs" />
     <Compile Include="FluentInterface\BranchInterfaceWithoutActionAttribute.cs" />
     <Compile Include="FluentInterface\BranchInterfaceWithoutNameAndActionAttribute.cs" />
     <Compile Include="FluentInterface\BranchInterfaceWithoutNameAttribute.cs" />
+    <Compile Include="FluentInterface\BranchInterFaceWithoutNameWithTokActionAttribute.cs" />
     <Compile Include="FluentInterface\BuilderInterface.cs" />
     <Compile Include="FluentInterface\ProduceInterfaceWithNameAndActionAttribute.cs" />
+    <Compile Include="FluentInterface\ProduceInterfaceWithNameAndTokActionAttribute.cs" />
     <Compile Include="FluentInterface\ProduceInterfaceWithoutActionAttribute.cs" />
     <Compile Include="FluentInterface\ProduceInterFaceWithoutNameAndActionAttribute.cs" />
     <Compile Include="FluentInterface\ProduceInterFaceWithoutNameAttribute.cs" />
-    <Compile Include="FluentInterface\ProducerInterface.cs" />
+    <Compile Include="FluentInterface\ProduceInterFaceWithoutNameWithTokActionAttribute.cs" />
+    <Compile Include="FluentInterface\ProduceInterface.cs" />
     <Compile Include="GrammarBuilder.cs" />
     <Compile Include="GrammarTransition.cs" />
     <Compile Include="LabelTransition.cs" />

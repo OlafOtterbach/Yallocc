@@ -7,10 +7,10 @@ namespace ParserLib
       protected BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public BranchInterfaceWithNameAndActionAttribute<T> Token(T tokenType)
+      public BranchInterfaceWithNameAndTokActionAttribute<T> Token(T tokenType)
       {
          GrammarBuilder.AddToken(tokenType);
-         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndTokActionAttribute<T>(GrammarBuilder);
       }
 
       public BranchInterfaceWithNameAndActionAttribute<T> Label(string label)

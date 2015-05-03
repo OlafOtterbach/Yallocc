@@ -9,9 +9,12 @@
          _grammarBuilder = grammarBuilder;
       }
 
-      public ProducerInterFaceWithoutNameAndActionAttribute<T> Begin()
+      public ProduceInterFaceWithoutNameAndActionAttribute<T> Begin
       {
-         return new ProducerInterFaceWithoutNameAndActionAttribute<T>(_grammarBuilder);
+         get
+         {
+            return new ProduceInterFaceWithoutNameAndActionAttribute<T>(_grammarBuilder);
+         }
       }
    }
 }

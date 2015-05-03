@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using LexSharp;
 
 namespace ParserLib
 {
@@ -11,14 +12,6 @@ namespace ParserLib
       public Transition()
       {
          _successors = new List<Transition>();
-         Action = null;
-         Name = string.Empty;
-      }
-
-      public Transition(Action action)
-      {
-         _successors = new List<Transition>();
-         Action = action;
          Name = string.Empty;
       }
 
@@ -31,8 +24,6 @@ namespace ParserLib
       }
 
       public string Name { get; set; }
-
-      public Action Action { get; set; }
 
       public void AddSuccessor(Transition transition)
       {
@@ -47,14 +38,6 @@ namespace ParserLib
       public void RemoveSuccessors(IEnumerable<Transition> successorsToRemove)
       {
          successorsToRemove.Where(x => _successors.Contains(x)).ToList().ForEach(s => _successors.Remove(s));
-      }
-
-      public void Execute()
-      {
-         if(Action != null)
-         {
-            Action();
-         }
       }
    }
 }

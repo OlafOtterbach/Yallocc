@@ -4,72 +4,72 @@ using LexSharp;
 
 namespace ParserLib
 {
-   internal enum AbcTokenType
-   {
-      a_token,
-      b_token,
-      c_token,
-   }
-
    [TestClass]
    public class GrammarBuilderTests
    {
+      private enum AbcTokenType
+      {
+         a_token,
+         b_token,
+         c_token,
+      }
+
       [TestMethod]
-      public void Test1()
+      public void GrammarTest_NoBranches_ParsingTextCorrect()
       {
          var b = CreateBuilder();
          var grammar = b.CreateGrammar()
-          .Begin()
+          .Begin
           .Token(AbcTokenType.a_token)
           .Token(AbcTokenType.b_token)
-          .End();
+          .End;
 
          Assert.IsTrue(Parser("ab", grammar));
       }
 
       [TestMethod]
-      public void Test2()
+      public void GrammarTest_WithBranchAndGotoLoop_ParsingTextCorrect()
       {
          var b =  CreateBuilder();
          var grammar= b.CreateGrammar()
-          .Begin()
+          .Begin
           .Token(AbcTokenType.a_token)
           .Label("JumpIn")
           .Switch
            (
-              b.Branch()
+              b.Branch
                .Token(AbcTokenType.b_token)
                .Goto("JumpIn"),
-              b.Branch()
+              b.Branch
                .Token(AbcTokenType.c_token)
            )
           .Token(AbcTokenType.a_token)
-          .End();
+          .End;
 
          Assert.IsTrue(Parser("abbbca", grammar));
       }
 
       [TestMethod]
-      public void Test3()
+      public void GrammarTest_WithRecursion_ParsingTextCorrect()
       {
          var b = CreateBuilder();
 
          var container = b.CreateGrammar();
 
          var grammar = b.CreateGrammar()
-          .Begin()
+          .Begin
           .Token(AbcTokenType.a_token)
           .Label("JumpIn")
           .Switch
            (
-              b.Branch()
+              b.Branch
                .Token(AbcTokenType.b_token)
                .Goto("JumpIn"),
-              b.Branch()
+              b.Branch
                .Token(AbcTokenType.c_token)
            )
           .Token(AbcTokenType.a_token)
-          .End();
+          .End;
 
          Assert.IsTrue(Parser("abbbca", grammar));
       }

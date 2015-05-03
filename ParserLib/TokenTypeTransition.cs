@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LexSharp;
+using System;
 
 namespace ParserLib
 {
@@ -7,25 +8,11 @@ namespace ParserLib
       public TokenTypeTransition( T tokenType ) : base()
       {
          TokenType = tokenType;
-      }
-
-      public TokenTypeTransition(string name, T tokenType) : base()
-      {
-         Name = name;
-         TokenType = tokenType;
-      }
-
-      public TokenTypeTransition(T tokenType, Action action) : base(action)
-      {
-         TokenType = tokenType;
-      }
-
-      public TokenTypeTransition(string name, T tokenType, Action action) : base(action)
-      {
-         Name = name;
-         TokenType = tokenType;
+         Action = (Token<T> token) => {};
       }
 
       public T TokenType { get; private set; }
+
+      public Action<Token<T>> Action { get; set; }
    }
 }

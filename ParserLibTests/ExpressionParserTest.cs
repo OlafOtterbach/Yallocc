@@ -1,14 +1,22 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LexSharp;
 
 namespace ParserLib
 {
    [TestClass]
    public class ExpressionParserTest
    {
+      private enum ExpressionTokenType
+      {
+         open_clamp,
+         close_clamp,
+         plus,
+         minus,
+         mult,
+         div,
+         number
+      }
+
       [TestMethod]
       public void ParseTokensTest_2_Correct()
       {

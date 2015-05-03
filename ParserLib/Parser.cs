@@ -49,7 +49,7 @@ namespace ParserLib
             if (Lookahead(elem, path, token.Type, 0, index++ == 0))
             {
                elem = path.Last();
-               path.ToList().ForEach(x => x.Transition.Execute());
+               path.ToList().ForEach(x => Execute(x.Transition, token));
                path.Clear();
             }
             else
@@ -59,6 +59,18 @@ namespace ParserLib
             }
          }
          return result && IsFinished(elem,0);
+      }
+
+      private void Execute(Transition transition, Token<T> token)
+      {
+         if(transition is ActionTransition)
+         {
+            (transition as ActionTransition).Action();
+         }
+         else if (transition is TokenTypeTransition<T>)
+         {
+            (transition as TokenTypeTransition<T>).Action(token);
+         }
       }
 
       private bool Lookahead(SyntaxElement start, List<SyntaxElement> path, T tokenType, int counter, bool first)

@@ -2,14 +2,9 @@
 
 namespace ParserLib
 {
-   public class LabelTransition : Transition
+   public class LabelTransition : ActionTransition
    {
       public LabelTransition(string name) : base()
-      {
-         Name = name;
-      }
-
-      public LabelTransition( string name, Action action ) : base(action)
       {
          Name = name;
       }

@@ -2,22 +2,22 @@
 
 namespace ParserLib
 {
-   public class ProducerInterfaceWithNameAndActionAttribute<T> : ProducerInterface<T>
+   public class ProduceInterfaceWithNameAndActionAttribute<T> : ProduceInterface<T>
    {
-      public ProducerInterfaceWithNameAndActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public ProduceInterfaceWithNameAndActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {
       }
 
-      public ProducerInterFaceWithoutNameAttribute<T> Name(string name)
+      public ProduceInterFaceWithoutNameAttribute<T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new ProducerInterFaceWithoutNameAttribute<T>(GrammarBuilder);
+         return new ProduceInterFaceWithoutNameAttribute<T>(GrammarBuilder);
       }
 
-      public ProducerInterFaceWithoutActionAttribute<T> Action(Action action)
+      public ProduceInterFaceWithoutActionAttribute<T> Action(Action action)
       {
          GrammarBuilder.AddAction(action);
-         return new ProducerInterFaceWithoutActionAttribute<T>(GrammarBuilder);
+         return new ProduceInterFaceWithoutActionAttribute<T>(GrammarBuilder);
       }
    }
 }

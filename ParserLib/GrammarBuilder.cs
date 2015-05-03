@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LexSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -65,7 +66,26 @@ namespace ParserLib
 
       public void AddAction(Action action)
       {
-         _current.Action = action;
+         if( _current is ActionTransition)
+         {
+            (_current as ActionTransition).Action = action;
+         }
+         else
+         {
+            //error
+         }
+      }
+
+      public void AddAction(Action<Token<T>> action)
+      {
+         if(_current is TokenTypeTransition<T>)
+         {
+            (_current as TokenTypeTransition<T>).Action = action;
+         }
+         else
+         {
+            //error
+         }
       }
 
       public void AddToken(T tokenType)
