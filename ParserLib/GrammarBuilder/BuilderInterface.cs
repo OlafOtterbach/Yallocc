@@ -11,6 +11,7 @@
 
       public BeginInterface<T> CreateGrammar()
       {
+         _grammarBuilder.Reset();
          return new BeginInterface<T>(_grammarBuilder);
       }
 

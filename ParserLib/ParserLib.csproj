@@ -37,24 +37,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionTransition.cs" />
-    <Compile Include="FluentInterface\BranchBuilder.cs" />
-    <Compile Include="FluentInterface\BranchInterface.cs" />
-    <Compile Include="FluentInterface\BeginInterface.cs" />
-    <Compile Include="FluentInterface\BranchInterfaceWithNameAndActionAttribute.cs" />
-    <Compile Include="FluentInterface\BranchInterfaceWithNameAndTokActionAttribute.cs" />
-    <Compile Include="FluentInterface\BranchInterfaceWithoutActionAttribute.cs" />
-    <Compile Include="FluentInterface\BranchInterfaceWithoutNameAndActionAttribute.cs" />
-    <Compile Include="FluentInterface\BranchInterfaceWithoutNameAttribute.cs" />
-    <Compile Include="FluentInterface\BranchInterFaceWithoutNameWithTokActionAttribute.cs" />
-    <Compile Include="FluentInterface\BuilderInterface.cs" />
-    <Compile Include="FluentInterface\ProduceInterfaceWithNameAndActionAttribute.cs" />
-    <Compile Include="FluentInterface\ProduceInterfaceWithNameAndTokActionAttribute.cs" />
-    <Compile Include="FluentInterface\ProduceInterfaceWithoutActionAttribute.cs" />
-    <Compile Include="FluentInterface\ProduceInterFaceWithoutNameAndActionAttribute.cs" />
-    <Compile Include="FluentInterface\ProduceInterFaceWithoutNameAttribute.cs" />
-    <Compile Include="FluentInterface\ProduceInterFaceWithoutNameWithTokActionAttribute.cs" />
-    <Compile Include="FluentInterface\ProduceInterface.cs" />
-    <Compile Include="GrammarBuilder.cs" />
+    <Compile Include="GrammarBuilder\BranchBuilder.cs" />
+    <Compile Include="GrammarBuilder\BranchInterface.cs" />
+    <Compile Include="GrammarBuilder\BeginInterface.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndTokActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithoutActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAndActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterFaceWithoutNameWithTokActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BuilderInterface.cs" />
+    <Compile Include="GrammarBuilder\MissingGotoLabelException.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterfaceWithNameAndActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterfaceWithNameAndTokActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterfaceWithoutActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterFaceWithoutNameAndActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterFaceWithoutNameAttribute.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterFaceWithoutNameWithTokActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\ProduceInterface.cs" />
+    <Compile Include="GrammarBuilder\GrammarBuilder.cs" />
+    <Compile Include="GrammarBuilder\GrammarInitialisationAndValidation.cs" />
     <Compile Include="GrammarTransition.cs" />
     <Compile Include="LabelTransition.cs" />
     <Compile Include="Parser.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="ProxyTransition.cs" />
     <Compile Include="TokenTypeTransition.cs" />
     <Compile Include="Transition.cs" />
+    <Compile Include="Yallocc.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharpLex\LexSharpLib.csproj">

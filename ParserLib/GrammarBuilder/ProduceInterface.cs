@@ -37,6 +37,12 @@ namespace ParserLib
          return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
+      public ProduceInterFaceWithoutNameAndActionAttribute<T> Goto(string label)
+      {
+         GrammarBuilder.GotoLabel(label);
+         return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+      }
+
       public ProduceInterfaceWithNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());

@@ -9,14 +9,11 @@ namespace ParserLib
    {
       private Transition _current;
 
-      private List<Transition> _namedTransitions;
-
       private Transition _start;
 
       public GrammarBuilder()
       {
          _current = null;
-         _namedTransitions = new List<Transition>();
       }
 
       public Transition Start
@@ -39,12 +36,6 @@ namespace ParserLib
       {
          _start = null;
          _current = null;
-         _namedTransitions.Clear();
-      }
-
-      public static GrammarBuilder<T> CreateGrammar()
-      {
-         return new GrammarBuilder<T>();
       }
 
       public GrammarBuilder<T> BeginGrammar()
@@ -55,7 +46,8 @@ namespace ParserLib
 
       public Transition EndGrammar()
       {
-         ReplaceProxiesWithLabels();
+         var inititialisatorAndValidator = new GrammarInitialisationAndValidation();
+         inititialisatorAndValidator.ReplaceAndValidateProxiesWithLabels(_start);
          return _start;
       }
 
@@ -132,27 +124,17 @@ namespace ParserLib
             _current.AddSuccessor(transition);
             _current = transition;
          }
-         if(transition.Name != string.Empty)
-         {
-            _namedTransitions.Add(transition);
-         }
       }
 
-      private void ReplaceProxiesWithLabels()
+      private struct TransitionProxyPair
       {
-         var stack = new Stack<Transition>();
-         var visited = new List<Transition>();
-         stack.Push(_start);
-         while(stack.Count() > 0)
+         public TransitionProxyPair(Transition transition, Transition proxy) : this()
          {
-            var trans = stack.Pop();
-            visited.Add(trans);
-            var proxies = trans.Successors.OfType<ProxyTransition>().Cast<ProxyTransition>().ToList();
-            var replaces = _namedTransitions.Where(x => proxies.Where(p => p.TargetName == x.Name).Any()).ToList();
-            trans.RemoveSuccessors(proxies);
-            trans.AddSuccessors(replaces);
-            trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
+            Transition = transition;
+            Proxy = proxy;
          }
+         public Transition Transition { get; set; }
+         public Transition Proxy { get; set; }
       }
    }
 }

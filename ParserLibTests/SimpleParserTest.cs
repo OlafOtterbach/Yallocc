@@ -242,9 +242,8 @@ namespace ParserLib
       private Transition CreateAttributedLoopGrammar(Result result)
       {
          var first = new LabelTransition("Start"){ Action = () => { result.Text += "[Label]"; } };
-         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token){ Action = (Token<AbTokenType> token) => result.Text += "a" };
-
-         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token) { Action = (Token<AbTokenType> token) => result.Text += "b" };
+         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token) { Action = (Token<AbTokenType> token) => result.Text += token.Value };
+         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token) { Action = (Token<AbTokenType> token) => result.Text += token.Value };
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(first);
