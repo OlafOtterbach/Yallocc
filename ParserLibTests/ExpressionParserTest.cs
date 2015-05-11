@@ -142,9 +142,9 @@ namespace ParserLib
          return startFactor;
       }
 
-      private Lex<ExpressionTokenType> CreateLex()
+      private LexSharp<ExpressionTokenType> CreateLex()
       {
-         var lex = new Lex<ExpressionTokenType>();
+         var lex = new LexSharp<ExpressionTokenType>();
          lex.Register(@"\+", ExpressionTokenType.plus);
          lex.Register(@"-", ExpressionTokenType.minus);
          lex.Register(@"\*", ExpressionTokenType.mult);

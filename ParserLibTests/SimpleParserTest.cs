@@ -1,6 +1,5 @@
-﻿using System;
+﻿using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LexSharp;
 
 namespace ParserLib
 {
@@ -251,9 +250,9 @@ namespace ParserLib
          return container;
       }
 
-      private Lex<AbTokenType> CreateAbLex()
+      private LexSharp<AbTokenType> CreateAbLex()
       {
-         var lex = new Lex<AbTokenType>();
+         var lex = new LexSharp<AbTokenType>();
          lex.Register(@"a", AbTokenType.a_token);
          lex.Register(@"b", AbTokenType.b_token);
          return lex;

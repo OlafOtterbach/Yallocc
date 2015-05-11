@@ -1,6 +1,5 @@
 ﻿using LexSharp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace ParserLib
@@ -92,6 +91,12 @@ namespace ParserLib
          AddTransition(labelTransition);
       }
 
+      public void AddLambda(Action action)
+      {
+         var transition = new ActionTransition(action);
+         AddTransition(transition);
+      }
+
       public void AddSubGrammar(Transition subGrammar)
       {
          var grammarTransition = new GrammarTransition(subGrammar);
@@ -124,17 +129,6 @@ namespace ParserLib
             _current.AddSuccessor(transition);
             _current = transition;
          }
-      }
-
-      private struct TransitionProxyPair
-      {
-         public TransitionProxyPair(Transition transition, Transition proxy) : this()
-         {
-            Transition = transition;
-            Proxy = proxy;
-         }
-         public Transition Transition { get; set; }
-         public Transition Proxy { get; set; }
       }
    }
 }

@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TextCursor.cs" />
-    <Compile Include="Lex.cs" />
+    <Compile Include="LexSharp.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanResult.cs" />

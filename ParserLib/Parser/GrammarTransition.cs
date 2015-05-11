@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ParserLib
+﻿namespace ParserLib
 {
    public class GrammarTransition : ActionTransition
    {

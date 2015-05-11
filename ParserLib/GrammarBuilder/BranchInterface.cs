@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace ParserLib
 {
@@ -19,6 +20,12 @@ namespace ParserLib
          return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
+      public BranchInterFaceWithoutNameAndActionAttribute<T> Lambda(Action action)
+      {
+         GrammarBuilder.AddLambda(action);
+         return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+      }
+
       public BranchInterfaceWithNameAndActionAttribute<T> Gosub(Transition subGrammar)
       {
          GrammarBuilder.AddSubGrammar(subGrammar);
@@ -31,10 +38,10 @@ namespace ParserLib
          return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public BranchInterfaceWithNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
+      public BranchInterFaceWithoutNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+         return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
    }
 }

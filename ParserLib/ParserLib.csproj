@@ -36,7 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionTransition.cs" />
+    <Compile Include="Parser\ActionTransition.cs" />
     <Compile Include="GrammarBuilder\BranchBuilder.cs" />
     <Compile Include="GrammarBuilder\BranchInterface.cs" />
     <Compile Include="GrammarBuilder\BeginInterface.cs" />
@@ -57,14 +57,18 @@
     <Compile Include="GrammarBuilder\ProduceInterface.cs" />
     <Compile Include="GrammarBuilder\GrammarBuilder.cs" />
     <Compile Include="GrammarBuilder\GrammarInitialisationAndValidation.cs" />
-    <Compile Include="GrammarTransition.cs" />
-    <Compile Include="LabelTransition.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="GrammarBuilder\SyntaxElement.cs" />
+    <Compile Include="Parser\GrammarTransition.cs" />
+    <Compile Include="Parser\LabelTransition.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\ParserResult.cs" />
+    <Compile Include="YParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProxyTransition.cs" />
-    <Compile Include="TokenTypeTransition.cs" />
-    <Compile Include="Transition.cs" />
+    <Compile Include="Parser\ProxyTransition.cs" />
+    <Compile Include="Parser\TokenTypeTransition.cs" />
+    <Compile Include="Parser\Transition.cs" />
     <Compile Include="Yallocc.cs" />
+    <Compile Include="YGrammar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharpLex\LexSharpLib.csproj">

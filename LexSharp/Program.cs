@@ -13,9 +13,9 @@ namespace LexSharp
 
    class Program
    {
-      private static  Lex<TokenType> CreateAbcLex()
+      private static LexSharp<TokenType> CreateAbcLex()
       {
-         var lex = new Lex<TokenType>();
+         var lex = new LexSharp<TokenType>();
          lex.Register(@"(a)+", TokenType.a_token);
          lex.Register(@"aabb", TokenType.aabb_token);
          lex.Register(@"a(\w)+b", TokenType.aXYZb_token);

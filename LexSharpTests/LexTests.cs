@@ -9,7 +9,7 @@ namespace LexSharp
       [TestMethod]
       public void ScanTest_EmptyToken_NoToken()
       {
-         var lex = new Lex<AbcTokenType>();
+         var lex = new LexSharp<AbcTokenType>();
          lex.Register("", AbcTokenType.a_token);
          var text = "aabbcc";
 
@@ -132,9 +132,9 @@ namespace LexSharp
       }
 
 
-      private Lex<AbcTokenType> CreateAbcLex()
+      private LexSharp<AbcTokenType> CreateAbcLex()
       {
-         var lex = new Lex<AbcTokenType>();
+         var lex = new LexSharp<AbcTokenType>();
          lex.Register(@"(a)+", AbcTokenType.a_token);
          lex.Register(@"aabb", AbcTokenType.aabb_token);
          lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);

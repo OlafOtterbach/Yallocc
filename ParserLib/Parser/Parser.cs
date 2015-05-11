@@ -1,34 +1,9 @@
-﻿using System.Linq;
+﻿using LexSharp;
 using System.Collections.Generic;
-using LexSharp;
-using System;
+using System.Linq;
 
 namespace ParserLib
 {
-   internal class SyntaxElement
-   {
-      private SyntaxElement _parentContext;
-
-      public SyntaxElement(Transition transition, SyntaxElement parentContext)
-      {
-         _parentContext = parentContext;
-         Transition = transition;
-      }
-
-      public Transition Transition { get; private set; }
-
-      public IEnumerable<SyntaxElement> GetSuccessors()
-      {
-         var successors = Transition.Successors.Any()
-            ? Transition.Successors.Select( t => new SyntaxElement(t, _parentContext))
-            : _parentContext != null
-               ? _parentContext.GetSuccessors()
-               : new List<SyntaxElement>();
-         return successors;
-      }
-   }
-
-
    public class Parser<T>
    {
       public Parser()
@@ -58,7 +33,15 @@ namespace ParserLib
                break;
             }
          }
-         return result && IsFinished(elem,0);
+
+         var endPath = new List<SyntaxElement>();
+         var isFinished = IsFinished(elem,0, endPath);
+         if(isFinished)
+         {
+            endPath.Select(x => x.Transition).OfType<ActionTransition>().ToList().ForEach(t => t.Action());
+         }
+
+         return result && isFinished;
       }
 
       private void Execute(Transition transition, Token<T> token)
@@ -89,7 +72,7 @@ namespace ParserLib
          return found;
       }
 
-      private bool IsFinished(SyntaxElement start, int counter)
+      private bool IsFinished(SyntaxElement start, int counter, List<SyntaxElement> path)
       {
          var successors = GetSuccessors(start);
          var enumerator = successors.GetEnumerator();
@@ -97,7 +80,11 @@ namespace ParserLib
          while ((!found) && (counter < Max) && enumerator.MoveNext())
          {
             var succ = enumerator.Current;
-            found = (!(succ.Transition is TokenTypeTransition<T>)) && IsFinished(succ, counter++);
+            found = (!(succ.Transition is TokenTypeTransition<T>)) && IsFinished(succ, counter++, path);
+            if(found)
+            {
+               path.Add(succ);
+            }
          }
          return found;
       }

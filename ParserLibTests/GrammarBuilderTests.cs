@@ -1,6 +1,5 @@
-﻿using System;
+﻿using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LexSharp;
 
 namespace ParserLib
 {
@@ -199,20 +198,31 @@ namespace ParserLib
          var res = new Result();
          var b = CreateBuilder();
 
-         var container = b.CreateGrammar().Begin.Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value).End;
+         var container = b.CreateGrammar()
+            .Begin
+            .Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
+            .End;
 
          var grammar = b.CreateGrammar()
           .Begin
           .Label("Start").Action(() => res.Text += "[Start]")
           .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
           .Gosub(container).Action(()=>res.Text += "<Gosub>")
+          .Lambda(() => res.Text += "<\\Gosub>")
           .Token(AbcTokenType.b_token).Name("Target").Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
+          .Label("Loop").Action(() => res.Text += "[Loop]")
+          .Switch
+           (
+             b.Branch.Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value).Goto("Loop"),
+             b.Branch.Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
+           )
           .Label("End").Action(() => res.Text += "[End]")
           .End;
 
-           Assert.IsTrue(Parser("acb", grammar));
+         Assert.IsTrue(Parser("acbaaaaaac", grammar));
+         string expected = @"[Start]a<Gosub>c<\Gosub>b[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]c[End]";
+         Assert.AreEqual(res.Text, expected);
       }
-
 
       private bool Parser(string text, Transition grammar)
       {
@@ -232,9 +242,9 @@ namespace ParserLib
          return builderInterface;
       }
 
-      private Lex<AbcTokenType> CreateAbcLex()
+      private LexSharp<AbcTokenType> CreateAbcLex()
       {
-         var lex = new Lex<AbcTokenType>();
+         var lex = new LexSharp<AbcTokenType>();
          lex.Register(@"a", AbcTokenType.a_token);
          lex.Register(@"b", AbcTokenType.b_token);
          lex.Register(@"c", AbcTokenType.c_token);

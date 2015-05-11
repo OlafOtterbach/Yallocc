@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace LexSharp
 {
-   public class Lex<T>
+   public class LexSharp<T>
    {
       private List<Pattern<T>> _patterns;
 
-      public Lex()
+      public LexSharp()
       {
          _patterns = new List<Pattern<T>>();
       }
