@@ -7,6 +7,79 @@ namespace LexSharp
    public class LexTests
    {
       [TestMethod]
+      public void IsCompleteTest_CompleteRegisteredTokens_IsComplite()
+      {
+         var lex = new LexSharp<AbcTokenType>();
+         lex.Register(@"aabb", AbcTokenType.aabb_token);
+         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         lex.Register("a", AbcTokenType.a_token);
+         lex.Register("b", AbcTokenType.b_token);
+         lex.Register("c", AbcTokenType.c_token);
+
+         Assert.IsTrue(lex.IsComplete());
+      }
+
+      [TestMethod]
+      public void RegisterTest_AllTokensOneTime_NoException()
+      {
+         bool exeptionThrown = false;
+         try
+         {
+            var lex = new LexSharp<AbcTokenType>();
+            lex.Register(@"aabb", AbcTokenType.aabb_token);
+            lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+            lex.Register("a", AbcTokenType.a_token);
+            lex.Register("b", AbcTokenType.b_token);
+            lex.Register("c", AbcTokenType.c_token);
+         }
+         catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType>)
+         {
+            exeptionThrown = true;
+         }
+
+         Assert.IsFalse(exeptionThrown);
+      }
+
+      [TestMethod]
+      public void RegisterTest_OneTokenRegisteredTwice_Exception()
+      {
+         bool exeptionThrown = false;
+         try
+         {
+            var lex = new LexSharp<AbcTokenType>();
+            lex.Register(@"aabb", AbcTokenType.aabb_token);
+            lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+
+            lex.Register("a", AbcTokenType.a_token);
+            lex.Register("a", AbcTokenType.a_token);
+
+            lex.Register("b", AbcTokenType.b_token);
+            lex.Register("c", AbcTokenType.c_token);
+         }
+         catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType> e)
+         {
+            exeptionThrown = true;
+            Assert.AreEqual(e.Message, "Not allowed to register Token more than one time");
+            Assert.AreEqual(e.TokenType, AbcTokenType.a_token);
+         }
+
+         Assert.IsTrue(exeptionThrown);
+      }
+
+      [TestMethod]
+      public void IsCompleteTest_NotCompleteRegisteredTokens_IsNotComplite()
+      {
+         var lex = new LexSharp<AbcTokenType>();
+         lex.Register(@"aabb", AbcTokenType.aabb_token);
+         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         lex.Register("a", AbcTokenType.a_token);
+
+         lex.Register("c", AbcTokenType.c_token);
+
+         Assert.IsFalse(lex.IsComplete());
+      }
+
+      [TestMethod]
       public void ScanTest_EmptyToken_NoToken()
       {
          var lex = new LexSharp<AbcTokenType>();

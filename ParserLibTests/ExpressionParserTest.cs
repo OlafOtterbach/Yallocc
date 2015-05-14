@@ -21,66 +21,71 @@ namespace ParserLib
       public void ParseTokensTest_2_Correct()
       {
          var result = CheckText("2");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_2plus3_Correct()
       {
          var result = CheckText("2+3");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_2plus3mult4_Correct()
       {
          var result = CheckText("2+3*4");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_Clamp2plus3Clampmult4_Correct()
       {
          var result = CheckText("(2+3)*4");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_Clamp2PlusClamp2Plus3ClampMult3ClampMult4_Correct()
       {
          var result = CheckText("(2+(2+3)*3)*4");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_Clamp2PlusClamp2Plus3Mult3ClampMult4_Correct()
       {
          var result = CheckText("(2+(2+3*3)*4)");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_ClampClampClampClampClamp2Minus3ClampDiv4ClampClampClampClamp_Correct()
       {
          var result = CheckText("(((((2-3)/4))))");
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
       }
 
       [TestMethod]
       public void ParseTokensTest_ClampClampClampClampClamp2Minus3ClampDiv4ClampClampClamp_Incorrect()
       {
          var result = CheckText("(((((2-3)/4)))");
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsTrue(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 13);
       }
 
       [TestMethod]
       public void ParseTokensTest_2Plus_Incorrect()
       {
          var result = CheckText("2+");
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsTrue(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 1);
       }
 
-      private bool CheckText(string text)
+      private ParserResult CheckText(string text)
       {
          var lex = CreateLex();
          var grammar = CreateExpression();

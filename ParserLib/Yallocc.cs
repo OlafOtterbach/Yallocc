@@ -3,16 +3,25 @@
 /// <author>Olaf Otterbach</author>
 /// <date>11.05.2015</date>
 
+using LexSharp;
+
 namespace ParserLib
 {
    public class Yallocc<T>
    {
+      LexSharp<T> _lex;
       BuilderInterface<T> _builderInterface;
 
       public Yallocc()
       {
          var baseBuilder = new GrammarBuilder<T>();
          _builderInterface = new BuilderInterface<T>(baseBuilder);
+         _lex = new LexSharp<T>();
+      }
+
+      public void AddToken(string patternText, T tokenType)
+      {
+         _lex.Register(patternText, tokenType);
       }
 
       public BeginInterface<T> CreateGrammar()
@@ -28,9 +37,13 @@ namespace ParserLib
          }
       }
 
-      public YParser CreateParser(YGrammar grammar)
+      public YParser<T> CreateParser(YGrammar grammar)
       {
-         return new YParser(grammar);
+         if(!_lex.IsComplete())
+         {
+            throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
+         }
+         return new YParser<T>(grammar, _lex);
       }
    }
 }

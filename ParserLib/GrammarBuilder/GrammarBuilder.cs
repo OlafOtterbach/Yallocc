@@ -97,9 +97,9 @@ namespace ParserLib
          AddTransition(transition);
       }
 
-      public void AddSubGrammar(Transition subGrammar)
+      public void AddSubGrammar(YGrammar subGrammar)
       {
-         var grammarTransition = new GrammarTransition(subGrammar);
+         var grammarTransition = new GrammarTransition(subGrammar.StartOfGrammar);
          AddTransition(grammarTransition);
       }
 

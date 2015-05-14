@@ -38,7 +38,7 @@ namespace ParserLib
          return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndActionAttribute<T> Gosub(Transition subGrammar)
+      public ProduceInterfaceWithNameAndActionAttribute<T> Gosub(YGrammar subGrammar)
       {
          GrammarBuilder.AddSubGrammar(subGrammar);
          return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);

@@ -1,5 +1,6 @@
 ﻿using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace ParserLib
 {
@@ -8,7 +9,6 @@ namespace ParserLib
       a_token,
       b_token,
    }
-
 
    [TestClass]
    public class SimpleParserTest
@@ -23,7 +23,9 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
       [TestMethod]
@@ -36,7 +38,10 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 0);
       }
 
       [TestMethod]
@@ -49,7 +54,10 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.SyntaxError);
+         Assert.AreEqual(result.Position, 2);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
       [TestMethod]
@@ -57,12 +65,14 @@ namespace ParserLib
       {
          var lex = CreateAbLex();
          var grammar = CreateContainerGrammar();
-         var sequence = lex.Scan("abaa");
+         var sequence = lex.Scan("abaa").ToList();
          var parser = new Parser<AbTokenType>();
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
       [TestMethod]
@@ -75,7 +85,10 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.SyntaxError);
+         Assert.AreEqual(result.Position, 2);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
       [TestMethod]
@@ -88,7 +101,9 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
       [TestMethod]
@@ -101,7 +116,10 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsTrue(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 5);
       }
 
       [TestMethod]
@@ -114,7 +132,10 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 7);
       }
 
       [TestMethod]
@@ -127,7 +148,9 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 4);
       }
 
       [TestMethod]
@@ -140,7 +163,7 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
       }
 
       [TestMethod]
@@ -153,7 +176,9 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsFalse(result);
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.GrammarOfTextNotComplete);
+         Assert.AreEqual(result.Position, 0);
       }
 
       [TestMethod]
@@ -167,7 +192,7 @@ namespace ParserLib
 
          var result = parser.ParseTokens(grammar, sequence);
 
-         Assert.IsTrue(result);
+         Assert.IsTrue(result.Success);
          Assert.AreEqual(res.Text, "[Start][Label]a[Label]a[Label]a[Label]a[Label]a[Label]b");
       }
 

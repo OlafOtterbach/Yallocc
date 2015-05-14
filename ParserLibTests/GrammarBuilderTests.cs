@@ -23,7 +23,7 @@ namespace ParserLib
           .Token(AbcTokenType.b_token)
           .End;
 
-         Assert.IsTrue(Parser("ab", grammar));
+         Assert.IsTrue(Parser("ab", grammar.StartOfGrammar));
       }
 
       [TestMethod]
@@ -45,7 +45,7 @@ namespace ParserLib
           .Token(AbcTokenType.a_token)
           .End;
 
-         Assert.IsTrue(Parser("abbbca", grammar));
+         Assert.IsTrue(Parser("abbbca", grammar.StartOfGrammar));
       }
 
       [TestMethod]
@@ -70,7 +70,7 @@ namespace ParserLib
           .Token(AbcTokenType.a_token)
           .End;
 
-         Assert.IsTrue(Parser("acbabbbca", grammar));
+         Assert.IsTrue(Parser("acbabbbca", grammar.StartOfGrammar));
       }
 
       [TestMethod]
@@ -84,7 +84,7 @@ namespace ParserLib
           .Token(AbcTokenType.b_token).Name("Target")
           .End;
 
-         Assert.IsTrue(Parser("ab", grammar));
+         Assert.IsTrue(Parser("ab", grammar.StartOfGrammar));
       }
 
       [TestMethod]
@@ -132,8 +132,8 @@ namespace ParserLib
           .Token(AbcTokenType.c_token)
           .End;
 
-         Assert.IsTrue(Parser("caac", grammar));
-         Assert.IsTrue(Parser("cbbc", grammar));
+         Assert.IsTrue(Parser("caac", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("cbbc", grammar.StartOfGrammar));
       }
 
       [TestMethod]
@@ -219,7 +219,7 @@ namespace ParserLib
           .Label("End").Action(() => res.Text += "[End]")
           .End;
 
-         Assert.IsTrue(Parser("acbaaaaaac", grammar));
+         Assert.IsTrue(Parser("acbaaaaaac", grammar.StartOfGrammar));
          string expected = @"[Start]a<Gosub>c<\Gosub>b[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]c[End]";
          Assert.AreEqual(res.Text, expected);
       }
@@ -232,7 +232,7 @@ namespace ParserLib
          var sequence = lex.Scan(text);
          var result = parser.ParseTokens(grammar, sequence);
 
-         return result;
+         return result.Success;
       }
 
       private BuilderInterface<AbcTokenType> CreateBuilder()

@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace LexSharp
 {
@@ -15,6 +16,10 @@ namespace LexSharp
       public void Register(string patternText, T tokenType)
       {
          var pattern = new Pattern<T>(patternText, tokenType);
+         if(_patterns.Any(p => p.TokenType.Equals(tokenType)))
+         {
+            throw new TokenRegisteredMoreThanOneTimeException<T>(tokenType, "Not allowed to register Token more than one time");
+         }
          _patterns.Add(pattern);
       }
 
@@ -24,9 +29,14 @@ namespace LexSharp
          var tokens = Enumerable.Range(0, int.MaxValue)
                                 .Select(x => TextCursor.GetNextToken())
                                 .TakeWhile(r => r.IsValid)
-                                .Select(t => t.Token)
-                                .ToList();
+                                .Select(t => t.Token);
          return tokens;
+      }
+
+      public bool IsComplete()
+      {
+         var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => _patterns.Any(x => x.TokenType.Equals(tokType)));
+         return isComplete;
       }
    }
 }

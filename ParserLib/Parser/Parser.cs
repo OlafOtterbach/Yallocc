@@ -13,9 +13,9 @@ namespace ParserLib
 
       public int Max { get; set; }
 
-      public bool ParseTokens(Transition start, IEnumerable<Token<T>> sequence)
+      public ParserResult ParseTokens(Transition start, IEnumerable<Token<T>> sequence)
       {
-         bool result = true;
+         ParserResult result = new ParserResult();
          SyntaxElement elem = new SyntaxElement(start,null);
          var path = new List<SyntaxElement>();
          int index = 0;
@@ -23,25 +23,31 @@ namespace ParserLib
          {
             if (Lookahead(elem, path, token.Type, 0, index++ == 0))
             {
+               result.Position = token.TextIndex;
                elem = path.Last();
                path.ToList().ForEach(x => Execute(x.Transition, token));
                path.Clear();
             }
             else
             {
-               result = false;
+               result.SyntaxError = true;
+               result.Position = token.TextIndex;
                break;
             }
          }
 
          var endPath = new List<SyntaxElement>();
-         var isFinished = IsFinished(elem,0, endPath);
+         var isFinished = result.Success && IsFinished(elem,0, endPath);
          if(isFinished)
          {
             endPath.Select(x => x.Transition).OfType<ActionTransition>().ToList().ForEach(t => t.Action());
          }
+         else
+         {
+            result.GrammarOfTextNotComplete = result.Success;
+         }
 
-         return result && isFinished;
+         return result;
       }
 
       private void Execute(Transition transition, Token<T> token)

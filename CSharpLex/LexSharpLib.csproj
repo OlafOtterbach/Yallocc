@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MissingTokenDefinitionException.cs" />
     <Compile Include="TextCursor.cs" />
     <Compile Include="LexSharp.cs" />
     <Compile Include="Pattern.cs" />
@@ -42,6 +43,7 @@
     <Compile Include="ScanResult.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenComparer.cs" />
+    <Compile Include="TokenRegisteredMoreThanOneTimeException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

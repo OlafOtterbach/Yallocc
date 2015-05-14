@@ -21,6 +21,11 @@ namespace ParserLib
       {
       }
 
+      public MissingGotoLabelException(string label, string message, Exception inner) : base(message, inner)
+      {
+         Label = label;
+      }
+
       public string Label { get; set; }
    }
 }

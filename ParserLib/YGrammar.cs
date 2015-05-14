@@ -2,11 +2,11 @@
 {
    public struct YGrammar
    {
-      internal YGrammar(Transition startOfGrammar)
+      public YGrammar(Transition startOfGrammar) : this()
       {
          StartOfGrammar = startOfGrammar;
       }
 
-      internal Transition StartOfGrammar { get; private set; }
+      public Transition StartOfGrammar { get; private set; }
    }
 }

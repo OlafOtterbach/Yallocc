@@ -26,7 +26,7 @@ namespace ParserLib
          return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public BranchInterfaceWithNameAndActionAttribute<T> Gosub(Transition subGrammar)
+      public BranchInterfaceWithNameAndActionAttribute<T> Gosub(YGrammar subGrammar)
       {
          GrammarBuilder.AddSubGrammar(subGrammar);
          return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
