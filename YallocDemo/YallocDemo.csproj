@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C6A51E86-E00A-4776-B647-4F55634396AA}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CSharpLex</RootNamespace>
-    <AssemblyName>CSharpLex</AssemblyName>
+    <RootNamespace>LexSharp</RootNamespace>
+    <AssemblyName>LexSharp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,15 +37,17 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MissingTokenDefinitionException.cs" />
-    <Compile Include="TextCursor.cs" />
-    <Compile Include="LexSharp.cs" />
-    <Compile Include="Pattern.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScanResult.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="TokenComparer.cs" />
-    <Compile Include="TokenRegisteredMoreThanOneTimeException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
+      <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
+      <Name>LexSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

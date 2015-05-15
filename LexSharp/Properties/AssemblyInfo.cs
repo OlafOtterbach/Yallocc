@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LexSharp")]
+[assembly: AssemblyTitle("CSharpLex")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LexSharp")]
+[assembly: AssemblyProduct("CSharpLex")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a0cc8be7-a0ca-401b-9d90-a3ad5fda0214")]
+[assembly: Guid("1cec465d-6473-42a7-92a5-14d63819c2c8")]
 
 // Version information for an assembly consists of the following four values:
 //

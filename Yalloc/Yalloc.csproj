@@ -71,9 +71,9 @@
     <Compile Include="YGrammar.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CSharpLex\LexSharpLib.csproj">
+    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharpLib</Name>
+      <Name>LexSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
