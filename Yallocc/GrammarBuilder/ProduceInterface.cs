@@ -38,6 +38,14 @@ namespace Yallocc
          return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
+      public ProduceInterFaceWithoutActionAttribute<T> Lambda
+      {
+         get
+         {
+            return new ProduceInterFaceWithoutActionAttribute<T>(GrammarBuilder);
+         }
+      }
+
       public ProduceInterfaceWithNameAndActionAttribute<T> Gosub(YGrammar subGrammar)
       {
          GrammarBuilder.AddSubGrammar(subGrammar);

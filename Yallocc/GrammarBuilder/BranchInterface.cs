@@ -26,6 +26,14 @@ namespace Yallocc
          return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
+      public BranchInterFaceWithoutNameAndActionAttribute<T> Default
+      {
+         get
+         {
+            return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+         }
+      }
+
       public BranchInterfaceWithNameAndActionAttribute<T> Gosub(YGrammar subGrammar)
       {
          GrammarBuilder.AddSubGrammar(subGrammar);

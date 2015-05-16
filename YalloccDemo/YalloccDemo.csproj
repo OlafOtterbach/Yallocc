@@ -48,6 +48,10 @@
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>LexSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Yallocc\Yallocc.csproj">
+      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
+      <Name>Yallocc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
