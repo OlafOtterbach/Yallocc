@@ -1,18 +1,29 @@
 ﻿using LexSharp;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Yallocc
 {
    public class GrammarBuilder<T>
    {
+      private Dictionary<string, Transition> _grammars;
+
       private Transition _current;
 
       private Transition _start;
 
-      public GrammarBuilder()
+      private string _name;
+
+      public GrammarBuilder(Dictionary<string, Transition> grammars)
       {
+         _grammars = grammars;
          _current = null;
+      }
+
+      public GrammarBuilder<T> CreateBranchBuilder()
+      {
+         return new GrammarBuilder<T>(_grammars);
       }
 
       public Transition Start
@@ -37,17 +48,22 @@ namespace Yallocc
          _current = null;
       }
 
+      public void CreateGrammar(string name)
+      {
+         _name = name;
+      }
+
       public GrammarBuilder<T> BeginGrammar()
       {
          _current = new Transition();
          return this;
       }
 
-      public Transition EndGrammar()
+      public void EndGrammar()
       {
+         _grammars.Add(_name, _start);
          var inititialisatorAndValidator = new GrammarInitialisationAndValidation();
          inititialisatorAndValidator.ReplaceAndValidateProxiesWithLabels(_start);
-         return _start;
       }
 
       public void AddName(string name)
@@ -97,9 +113,10 @@ namespace Yallocc
          AddTransition(transition);
       }
 
-      public void AddSubGrammar(YGrammar subGrammar)
+      public void AddSubGrammar(string nameOfSubGrammar)
       {
-         var grammarTransition = new GrammarTransition(subGrammar.StartOfGrammar);
+         var proxyTransition = new ProxyTransition(nameOfSubGrammar);
+         var grammarTransition = new GrammarTransition(proxyTransition);
          AddTransition(grammarTransition);
       }
 

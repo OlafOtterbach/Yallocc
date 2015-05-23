@@ -5,6 +5,28 @@ namespace Yallocc
 {
    public class GrammarInitialisationAndValidation
    {
+      private void ReplaceProxiesInGrammarTransitions(Dictionary<string, Transition> grammars)
+      {
+         foreach (var transition in grammars.Values)
+         {
+            var stack = new Stack<Transition>();
+            var visited = new List<Transition>();
+            stack.Push(transition);
+            while (stack.Count() > 0)
+            {
+               var trans = stack.Pop();
+               visited.Add(trans);
+               trans.Successors
+                    .OfType<GrammarTransition>()
+                    .Where(x => x.Start is ProxyTransition)
+                    .Where(x => grammars.ContainsKey((x.Start as ProxyTransition).Name))
+                    .ToList()
+                    .ForEach(x => x.Start = grammars[(x.Start as ProxyTransition).Name]);
+               trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
+            }
+         }
+      }
+
       public void ReplaceAndValidateProxiesWithLabels(Transition start)
       {
          var namedTransitions = GetNamedTransitions(start);

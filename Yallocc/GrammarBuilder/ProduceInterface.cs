@@ -12,12 +12,9 @@ namespace Yallocc
 
       protected GrammarBuilder<T> GrammarBuilder { get; private set; }
 
-      public YGrammar End
+      public void End()
       {
-         get
-         {
-            return new YGrammar( GrammarBuilder.EndGrammar() );
-         }
+         GrammarBuilder.EndGrammar();
       }
 
       public ProduceInterfaceWithNameAndTokActionAttribute<T> Token(T tokenType)
@@ -38,7 +35,7 @@ namespace Yallocc
          return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithoutActionAttribute<T> Lambda
+      public ProduceInterFaceWithoutActionAttribute<T> Default
       {
          get
          {
@@ -46,9 +43,9 @@ namespace Yallocc
          }
       }
 
-      public ProduceInterfaceWithNameAndActionAttribute<T> Gosub(YGrammar subGrammar)
+      public ProduceInterfaceWithNameAndActionAttribute<T> Gosub(string nameOfSubGrammar)
       {
-         GrammarBuilder.AddSubGrammar(subGrammar);
+         GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
          return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 

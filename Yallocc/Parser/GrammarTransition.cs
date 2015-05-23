@@ -7,6 +7,6 @@
          Start = start;
       }
 
-      public Transition Start { get; private set; }
+      public Transition Start { get; public set; }
    }
 }

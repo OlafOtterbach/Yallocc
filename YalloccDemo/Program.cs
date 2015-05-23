@@ -37,7 +37,7 @@ namespace YalloccDemo
          yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+[.(0|1|2|3|4|5|6|7|8|9)+]", Token.number);
          yacc.AddToken(@"\w", Token.name);
 
-         var relation = yacc.CreateGrammar()
+         var relation = yacc.Grammar("Relation")
             .Begin
             .Switch
              (
@@ -47,19 +47,19 @@ namespace YalloccDemo
              )
             .End;
 
-         var term = yacc.CreateGrammar()
-            .Begin
-            .Label("TermStart")
-            .Gosub(factor)
-            .Switch
-             (
-               yacc.Branch.Token(Token.mult).Goto("TermStart"),
-               yacc.Branch.Token(Token.div).Goto("TermStart"),
-               yacc.Branch.Default
-             )
-            .End;
+         //var term = yacc.CreateGrammar()
+         //   .Begin
+         //   .Label("TermStart")
+         //   .Gosub(factor)
+         //   .Switch
+         //    (
+         //      yacc.Branch.Token(Token.mult).Goto("TermStart"),
+         //      yacc.Branch.Token(Token.div).Goto("TermStart"),
+         //      yacc.Branch.Default
+         //    )
+         //   .End;
 
-         var simpleExpression = yacc.CreateGrammar()
+         var simpleExpression = yacc.Grammar("SimpleExpression")
             .Begin
             .Switch
              (
@@ -68,7 +68,7 @@ namespace YalloccDemo
                yacc.Branch.Default
              )
             .Label("SimpleExpressionStart")
-            .Gosub(term)
+            .Gosub("Term")
             .Switch
              (
                yacc.Branch
@@ -81,19 +81,19 @@ namespace YalloccDemo
              )
             .End;
 
-         var expression = yacc.CreateGrammar()
+         var expression = yacc.Grammar("Expression")
             .Begin
-            .Gosub(simpleExpression)
+            .Gosub("SimpleExpression")
             .Switch
              (
                 yacc.Branch
-                    .Gosub(relation)
-                    .Gosub(simpleExpression),
+                    .Gosub("Relation")
+                    .Gosub("SimpleExpression"),
                 yacc.Branch.Default
              )
             .End;
 
-         var factor = yacc.CreateGrammar()
+         var factor = yacc.Grammar("Factor")
             .Begin
             .Switch
              (
@@ -101,7 +101,7 @@ namespace YalloccDemo
                 yacc.Branch.Token(Token.name),
                 yacc.Branch
                     .Token(Token.open)
-                    .Gosub(expression)
+                    .Gosub("Expression")
                     .Token(Token.close)
              )
             .End;

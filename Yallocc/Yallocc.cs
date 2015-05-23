@@ -11,10 +11,13 @@ namespace Yallocc
    {
       LexSharp<T> _lex;
       BuilderInterface<T> _builderInterface;
+      GrammarDictionary _grammers;
+
 
       public Yallocc()
       {
-         var baseBuilder = new GrammarBuilder<T>();
+         _grammers = new GrammarDictionary();
+         var baseBuilder = new GrammarBuilder<T>(_grammers);
          _builderInterface = new BuilderInterface<T>(baseBuilder);
          _lex = new LexSharp<T>();
       }
@@ -24,9 +27,10 @@ namespace Yallocc
          _lex.Register(patternText, tokenType);
       }
 
-      public BeginInterface<T> CreateGrammar()
+      public BeginInterface<T> Grammar(string name)
       {
-         return _builderInterface.CreateGrammar();
+
+         return _builderInterface.Grammar(name);
       }
 
       public BranchInterFaceWithoutNameAndActionAttribute<T> Branch

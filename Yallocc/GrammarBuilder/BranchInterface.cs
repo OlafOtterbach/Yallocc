@@ -34,9 +34,9 @@ namespace Yallocc
          }
       }
 
-      public BranchInterfaceWithNameAndActionAttribute<T> Gosub(YGrammar subGrammar)
+      public BranchInterfaceWithNameAndActionAttribute<T> Gosub(string nameOfSubGrammar)
       {
-         GrammarBuilder.AddSubGrammar(subGrammar);
+         GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
          return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 

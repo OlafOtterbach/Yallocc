@@ -9,9 +9,9 @@
          _grammarBuilder = grammarBuilder;
       }
 
-      public BeginInterface<T> CreateGrammar()
+      public BeginInterface<T> Grammar(string name)
       {
-         _grammarBuilder.Reset();
+         _grammarBuilder.CreateGrammar(name);
          return new BeginInterface<T>(_grammarBuilder);
       }
 
@@ -19,7 +19,7 @@
       {
          get
          {
-            return new BranchInterFaceWithoutNameAndActionAttribute<T>(new GrammarBuilder<T>());
+            return new BranchInterFaceWithoutNameAndActionAttribute<T>(_grammarBuilder.CreateBranchBuilder());
          }
       }
    }
