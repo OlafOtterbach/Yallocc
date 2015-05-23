@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Yallocc
 {
-   public class GrammarInitialisationAndValidation
+   public static class GrammarInitialisationAndValidation
    {
-      private void ReplaceProxiesInGrammarTransitions(Dictionary<string, Transition> grammars)
+      public static void ReplaceProxiesInGrammarTransitions(GrammarDictionary grammars)
       {
-         foreach (var transition in grammars.Values)
+         foreach (var transition in grammars.GetStartTransitions())
          {
             var stack = new Stack<Transition>();
             var visited = new List<Transition>();
@@ -19,15 +19,39 @@ namespace Yallocc
                trans.Successors
                     .OfType<GrammarTransition>()
                     .Where(x => x.Start is ProxyTransition)
-                    .Where(x => grammars.ContainsKey((x.Start as ProxyTransition).Name))
+                    .Where(x => grammars.Contains((x.Start as ProxyTransition).TargetName))
                     .ToList()
-                    .ForEach(x => x.Start = grammars[(x.Start as ProxyTransition).Name]);
+                    .ForEach(x => x.Start = grammars.GetGrammar((x.Start as ProxyTransition).TargetName));
                trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
             }
          }
       }
 
-      public void ReplaceAndValidateProxiesWithLabels(Transition start)
+      public static bool AnyProxyTransitions(GrammarDictionary grammars)
+      {
+         var found = false;
+         foreach (var transition in grammars.GetStartTransitions())
+         {
+            var stack = new Stack<Transition>();
+            var visited = new List<Transition>();
+            stack.Push(transition);
+            while ((!found) && (stack.Count() > 0))
+            {
+               var trans = stack.Pop();
+               visited.Add(trans);
+               found = trans is ProxyTransition;
+               trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
+            }
+
+            if(found)
+            {
+               break;
+            }
+         }
+         return found;
+      }
+
+      public static void ReplaceAndValidateProxiesWithLabels(Transition start)
       {
          var namedTransitions = GetNamedTransitions(start);
          var stack = new Stack<Transition>();
@@ -50,7 +74,7 @@ namespace Yallocc
          }
       }
 
-      private List<Transition> GetNamedTransitions(Transition start)
+      private static List<Transition> GetNamedTransitions(Transition start)
       {
          var namedTransitions = new List<Transition>();
          var stack = new Stack<Transition>();

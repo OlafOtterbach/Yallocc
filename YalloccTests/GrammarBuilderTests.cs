@@ -16,21 +16,23 @@ namespace Yallocc
       [TestMethod]
       public void GrammarTest_NoBranches_ParsingTextCorrect()
       {
-         var b = CreateBuilder();
-         var grammar = b.CreateGrammar()
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
+         b.MasterGrammar("Grammar")
           .Begin
           .Token(AbcTokenType.a_token)
           .Token(AbcTokenType.b_token)
-          .End;
+          .End();
 
-         Assert.IsTrue(Parser("ab", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("ab", grammarDictionary.GetMasterGrammar()));
       }
 
       [TestMethod]
       public void GrammarTest_WithBranchAndGotoLoop_ParsingTextCorrect()
       {
-         var b =  CreateBuilder();
-         var grammar= b.CreateGrammar()
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
+         b.MasterGrammar("Grammar")
           .Begin
           .Token(AbcTokenType.a_token)
           .Label("JumpIn")
@@ -43,21 +45,22 @@ namespace Yallocc
                .Token(AbcTokenType.c_token)
            )
           .Token(AbcTokenType.a_token)
-          .End;
+          .End();
 
-         Assert.IsTrue(Parser("abbbca", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("abbbca", grammarDictionary.GetMasterGrammar()));
       }
 
       [TestMethod]
       public void GrammarTest_WithRecursion_ParsingTextCorrect()
       {
-         var b = CreateBuilder();
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
 
-         var container = b.CreateGrammar().Begin.Token(AbcTokenType.c_token).Token(AbcTokenType.b_token).Token(AbcTokenType.a_token).End;
-         var grammar = b.CreateGrammar()
+         b.Grammar("Container").Begin.Token(AbcTokenType.c_token).Token(AbcTokenType.b_token).Token(AbcTokenType.a_token).End();
+         b.MasterGrammar("Grammar")
           .Begin
           .Token(AbcTokenType.a_token)
-          .Gosub(container)
+          .Gosub("Container")
           .Label("JumpIn")
           .Switch
            (
@@ -68,23 +71,24 @@ namespace Yallocc
                .Token(AbcTokenType.c_token)
            )
           .Token(AbcTokenType.a_token)
-          .End;
+          .End();
 
-         Assert.IsTrue(Parser("acbabbbca", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("acbabbbca", grammarDictionary.GetMasterGrammar()));
       }
 
       [TestMethod]
       public void GotoTest_TargetknownInSameBranch_NotCorrect()
       {
-         var b = CreateBuilder();
-         var grammar = b.CreateGrammar()
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
+         b.MasterGrammar("Grammar")
           .Begin
           .Token(AbcTokenType.a_token)
           .Goto("Target")
           .Token(AbcTokenType.b_token).Name("Target")
-          .End;
+          .End();
 
-         Assert.IsTrue(Parser("ab", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("ab", grammarDictionary.GetMasterGrammar()));
       }
 
       [TestMethod]
@@ -93,13 +97,14 @@ namespace Yallocc
          bool exeptionThrown = false;
          try
          {
-            var b = CreateBuilder();
-            var grammar = b.CreateGrammar()
+            var grammarDictionary = new GrammarDictionary();
+            var b = CreateBuilder(grammarDictionary);
+            b.MasterGrammar("Grammar")
              .Begin
              .Token(AbcTokenType.a_token)
              .Goto("Target2")
              .Token(AbcTokenType.b_token).Name("Target")
-             .End;
+             .End();
          }
          catch (MissingGotoLabelException e)
          {
@@ -114,8 +119,9 @@ namespace Yallocc
       [TestMethod]
       public void GotoTest_TargetInOtherBranch_CorrectParsing()
       {
-         var b = CreateBuilder();
-         var grammar = b.CreateGrammar()
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
+         b.MasterGrammar("Grammar")
           .Begin
           .Token(AbcTokenType.c_token)
           .Switch
@@ -130,10 +136,10 @@ namespace Yallocc
                .Token(AbcTokenType.a_token).Name("Two")
            )
           .Token(AbcTokenType.c_token)
-          .End;
+          .End();
 
-         Assert.IsTrue(Parser("caac", grammar.StartOfGrammar));
-         Assert.IsTrue(Parser("cbbc", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("caac", grammarDictionary.GetMasterGrammar()));
+         Assert.IsTrue(Parser("cbbc", grammarDictionary.GetMasterGrammar()));
       }
 
       [TestMethod]
@@ -142,15 +148,16 @@ namespace Yallocc
          bool exeptionThrown = false;
          try
          {
-            var b = CreateBuilder();
-            var container = b.CreateGrammar().Begin.Token(AbcTokenType.a_token).Name("InvalidTarget").End;
-            var grammar = b.CreateGrammar()
+            var grammarDictionary = new GrammarDictionary();
+            var b = CreateBuilder(grammarDictionary);
+            b.Grammar("Container").Begin.Token(AbcTokenType.a_token).Name("InvalidTarget").End();
+            b.MasterGrammar("Grammar")
              .Begin
              .Token(AbcTokenType.b_token)
              .Goto("InvalidTarget")
-             .Gosub(container)
+             .Gosub("Container")
              .Token(AbcTokenType.c_token)
-             .End;
+             .End();
          }
          catch (MissingGotoLabelException e)
          {
@@ -168,14 +175,15 @@ namespace Yallocc
          bool exeptionThrown = false;
          try
          {
-            var b = CreateBuilder();
-            var container = b.CreateGrammar().Begin.Token(AbcTokenType.a_token).Goto("InvalidTarget").End;
-            var grammar = b.CreateGrammar()
+            var grammarDictionary = new GrammarDictionary();
+            var b = CreateBuilder(grammarDictionary);
+            b.Grammar("Container").Begin.Token(AbcTokenType.a_token).Goto("InvalidTarget").End();
+            b.MasterGrammar("Grammar")
              .Begin
              .Token(AbcTokenType.b_token)
-             .Gosub(container)
+             .Gosub("Container")
              .Token(AbcTokenType.c_token).Name("InvalidTarget")
-             .End;
+             .End();
          }
          catch (MissingGotoLabelException e)
          {
@@ -196,18 +204,19 @@ namespace Yallocc
       public void ActionTest()
       {
          var res = new Result();
-         var b = CreateBuilder();
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
 
-         var container = b.CreateGrammar()
+         b.Grammar("Container")
             .Begin
             .Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
-            .End;
+            .End();
 
-         var grammar = b.CreateGrammar()
+         b.MasterGrammar("Grammar")
           .Begin
           .Label("Start").Action(() => res.Text += "[Start]")
           .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
-          .Gosub(container).Action(()=>res.Text += "<Gosub>")
+          .Gosub("Container").Action(()=>res.Text += "<Gosub>")
           .Lambda(() => res.Text += "<\\Gosub>")
           .Token(AbcTokenType.b_token).Name("Target").Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
           .Label("Loop").Action(() => res.Text += "[Loop]")
@@ -217,9 +226,9 @@ namespace Yallocc
              b.Branch.Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
            )
           .Label("End").Action(() => res.Text += "[End]")
-          .End;
+          .End();
 
-         Assert.IsTrue(Parser("acbaaaaaac", grammar.StartOfGrammar));
+         Assert.IsTrue(Parser("acbaaaaaac", grammarDictionary.GetMasterGrammar()));
          string expected = @"[Start]a<Gosub>c<\Gosub>b[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]c[End]";
          Assert.AreEqual(res.Text, expected);
       }
@@ -235,9 +244,9 @@ namespace Yallocc
          return result.Success;
       }
 
-      private BuilderInterface<AbcTokenType> CreateBuilder()
+      private BuilderInterface<AbcTokenType> CreateBuilder(GrammarDictionary grammarDictionary)
       {
-         var baseBuilder = new GrammarBuilder<AbcTokenType>();
+         var baseBuilder = new GrammarBuilder<AbcTokenType>(grammarDictionary);
          var builderInterface = new BuilderInterface<AbcTokenType>(baseBuilder);
          return builderInterface;
       }

@@ -69,7 +69,6 @@
     <Compile Include="Parser\TokenTypeTransition.cs" />
     <Compile Include="Parser\Transition.cs" />
     <Compile Include="Yallocc.cs" />
-    <Compile Include="YGrammar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">

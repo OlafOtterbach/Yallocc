@@ -33,6 +33,12 @@ namespace Yallocc
          return _builderInterface.Grammar(name);
       }
 
+      public BeginInterface<T> MasterGrammar(string name)
+      {
+
+         return _builderInterface.MasterGrammar(name);
+      }
+
       public BranchInterFaceWithoutNameAndActionAttribute<T> Branch
       {
          get
@@ -41,13 +47,25 @@ namespace Yallocc
          }
       }
 
-      public YParser<T> CreateParser(YGrammar grammar)
+      public YParser<T> CreateParser()
       {
          if(!_lex.IsComplete())
          {
             throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
          }
-         return new YParser<T>(grammar, _lex);
+         if (GrammarInitialisationAndValidation.AnyProxyTransitions(_grammers))
+         {
+            // error;
+         }
+
+         if(!_grammers.HasMasterGrammar())
+         {
+            // error
+         }
+
+         GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammers);
+         
+         return new YParser<T>(_grammers.GetMasterGrammar(), _lex);
       }
    }
 }

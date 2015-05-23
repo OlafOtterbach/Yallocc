@@ -4,21 +4,21 @@ namespace Yallocc
 {
    public class YParser<T>
    {
-      private YGrammar _grammar;
+      private Transition _startOfGrammar;
       private LexSharp<T> _lex;
       private Parser<T> _parser;
 
-      public YParser(YGrammar grammar, LexSharp<T> lex)
+      public YParser(Transition startOfGrammar, LexSharp<T> lex)
       {
          _lex = lex;
-         _grammar = grammar;
+         _startOfGrammar = startOfGrammar;
          _parser = new Parser<T>();
       }
 
       public ParserResult Parse(string text)
       {
          var sequence = _lex.Scan(text);
-         var result = _parser.ParseTokens(_grammar.StartOfGrammar, sequence);
+         var result = _parser.ParseTokens(_startOfGrammar, sequence);
          return result;
       }
    }

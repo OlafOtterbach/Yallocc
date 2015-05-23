@@ -9,6 +9,12 @@
          _grammarBuilder = grammarBuilder;
       }
 
+      public BeginInterface<T> MasterGrammar(string name)
+      {
+         _grammarBuilder.CreateMasterGrammar(name);
+         return new BeginInterface<T>(_grammarBuilder);
+      }
+
       public BeginInterface<T> Grammar(string name)
       {
          _grammarBuilder.CreateGrammar(name);

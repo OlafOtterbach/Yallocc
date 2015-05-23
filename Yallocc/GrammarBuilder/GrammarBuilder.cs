@@ -7,15 +7,27 @@ namespace Yallocc
 {
    public class GrammarBuilder<T>
    {
-      private Dictionary<string, Transition> _grammars;
+      private GrammarDictionary _grammars;
 
       private Transition _current;
 
-      private Transition _start;
+      private Transition __start;
+
+      private Transition _start
+      {
+         get
+         {
+            return __start;
+         }
+         set
+         {
+            __start = value;
+         }
+      }
 
       private string _name;
 
-      public GrammarBuilder(Dictionary<string, Transition> grammars)
+      public GrammarBuilder(GrammarDictionary grammars)
       {
          _grammars = grammars;
          _current = null;
@@ -50,7 +62,18 @@ namespace Yallocc
 
       public void CreateGrammar(string name)
       {
+         Reset();
+         if(_grammars.Contains(name))
+         {
+            //error;
+         }
          _name = name;
+      }
+
+      public void CreateMasterGrammar(string name)
+      {
+         CreateGrammar(name);
+         _grammars.MasterGrammar = name;
       }
 
       public GrammarBuilder<T> BeginGrammar()
@@ -61,9 +84,9 @@ namespace Yallocc
 
       public void EndGrammar()
       {
-         _grammars.Add(_name, _start);
-         var inititialisatorAndValidator = new GrammarInitialisationAndValidation();
-         inititialisatorAndValidator.ReplaceAndValidateProxiesWithLabels(_start);
+         _grammars.AddGrammar(_name, _start);
+         GrammarInitialisationAndValidation.ReplaceAndValidateProxiesWithLabels(_start);
+         GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammars);
       }
 
       public void AddName(string name)
