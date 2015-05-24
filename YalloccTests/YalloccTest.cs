@@ -89,6 +89,30 @@ namespace Yallocc
       }
 
       [TestMethod]
+      public void MasterGrammar_MasterGrammarDefinedTwice_MasterGrammarAlreadyDefinedException()
+      {
+         var exceptionFound = false;
+         var yacc = new Yallocc<Token>();
+         yacc.AddToken(@"a", Token.A);
+         yacc.AddToken(@"b", Token.B);
+         yacc.AddToken(@"b", Token.C);
+
+         try
+         {
+            yacc.MasterGrammar("MasterGrammar1").Begin.End();
+            yacc.MasterGrammar("MasterGrammar2").Begin.End();
+         }
+         catch (GrammarBuildingException e)
+         {
+            Assert.AreEqual(e.Message, "Master grammar already defined.");
+            Assert.IsTrue(e.MasterGrammarAlreadyDefined);
+            exceptionFound = true;
+         }
+
+         Assert.IsTrue(exceptionFound);
+      }
+
+      [TestMethod]
       public void CreateParserTest_MasterGrammarWithWrongLinkToGrammar_HasUndefinedSubGrammarException()
       {
          var exceptionFound = false;
@@ -146,5 +170,20 @@ namespace Yallocc
          Assert.IsTrue(exceptionFound);
       }
 
+      [TestMethod]
+      public void BranchTest_CreateABranch_NoException()
+      {
+         var yacc = new Yallocc<Token>();
+         yacc.AddToken(@"a", Token.A);
+         yacc.AddToken(@"b", Token.B);
+         yacc.AddToken(@"b", Token.C);
+
+         var branch = yacc.Branch.Label("BranchStart").Token(Token.A);
+
+         Assert.IsTrue(branch is BranchBuilder<Token>);
+         var branchBuilder = (branch as BranchBuilder<Token>);
+         var grammarBuilder = branchBuilder.GrammarBuilder;
+         Assert.AreEqual(grammarBuilder.Start.Name, "BranchStart");
+      }
    }
 }

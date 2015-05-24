@@ -9,7 +9,7 @@
          _grammarBuilder = grammarBuilder;
       }
 
-      internal GrammarBuilder<T> GrammarBuilder
+      public GrammarBuilder<T> GrammarBuilder
       {
          get
          {

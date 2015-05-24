@@ -11,7 +11,8 @@ namespace Yallocc
          grammar_name_already_exist = 2,
          transition_is_not_a_action_transition = 4,
          one_or_more_subgrammars_are_bot_defined = 8,
-         master_grammar_not_defined= 16
+         master_grammar_not_defined= 16,
+         master_grammar_already_defined = 32
       }
 
       private Reasons _reasons;
@@ -144,6 +145,25 @@ namespace Yallocc
             else
             {
                _reasons &= ~Reasons.master_grammar_not_defined;
+            }
+         }
+      }
+
+      public bool MasterGrammarAlreadyDefined
+      {
+         get
+         {
+            return (_reasons & Reasons.master_grammar_already_defined) == Reasons.master_grammar_already_defined;
+         }
+         set
+         {
+            if (value)
+            {
+               _reasons |= Reasons.master_grammar_already_defined;
+            }
+            else
+            {
+               _reasons &= ~Reasons.master_grammar_already_defined;
             }
          }
       }

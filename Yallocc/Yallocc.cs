@@ -35,7 +35,6 @@ namespace Yallocc
 
       public BeginInterface<T> MasterGrammar(string name)
       {
-
          return _builderInterface.MasterGrammar(name);
       }
 

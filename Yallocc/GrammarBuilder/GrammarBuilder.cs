@@ -61,8 +61,15 @@ namespace Yallocc
 
       public void CreateMasterGrammar(string name)
       {
-         CreateGrammar(name);
-         _grammars.MasterGrammar = name;
+         if (_grammars.MasterGrammar == string.Empty)
+         {
+            CreateGrammar(name);
+            _grammars.MasterGrammar = name;
+         }
+         else
+         {
+            throw new GrammarBuildingException("Master grammar already defined.") {MasterGrammarAlreadyDefined = true};
+         }
       }
 
       public GrammarBuilder<T> BeginGrammar()
