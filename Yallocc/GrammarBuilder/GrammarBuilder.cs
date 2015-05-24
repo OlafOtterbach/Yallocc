@@ -11,19 +11,7 @@ namespace Yallocc
 
       private Transition _current;
 
-      private Transition __start;
-
-      private Transition _start
-      {
-         get
-         {
-            return __start;
-         }
-         set
-         {
-            __start = value;
-         }
-      }
+      private Transition _start;
 
       private string _name;
 
@@ -31,6 +19,7 @@ namespace Yallocc
       {
          _grammars = grammars;
          _current = null;
+         _start = new DefaultGrammarTransition();
       }
 
       public GrammarBuilder<T> CreateBranchBuilder()
@@ -56,7 +45,7 @@ namespace Yallocc
 
       public void Reset()
       {
-         _start = null;
+         _start = new DefaultGrammarTransition();
          _current = null;
       }
 
@@ -65,7 +54,7 @@ namespace Yallocc
          Reset();
          if(_grammars.Contains(name))
          {
-            //error;
+            throw new GrammarBuildingException("Grammar with this name already defined.") { HasAlreadyExistingGrammarName = true };
          }
          _name = name;
       }
@@ -102,7 +91,7 @@ namespace Yallocc
          }
          else
          {
-            //error
+            throw new GrammarBuildingException("Transition can not get an action.") { HasSettedActionInNonActionTransition = true };
          }
       }
 
@@ -114,7 +103,7 @@ namespace Yallocc
          }
          else
          {
-            //error
+            throw new GrammarBuildingException("Transition can not get an action.") { HasSettedActionInNonActionTransition = true };
          }
       }
 
@@ -159,7 +148,7 @@ namespace Yallocc
 
       private void AddTransition(Transition transition)
       {
-         if (_start == null)
+         if (_start is DefaultGrammarTransition)
          {
             _start = transition;
             _current = _start;

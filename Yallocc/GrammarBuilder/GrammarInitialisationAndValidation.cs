@@ -39,7 +39,7 @@ namespace Yallocc
             {
                var trans = stack.Pop();
                visited.Add(trans);
-               found = trans is ProxyTransition;
+               found = (trans is ProxyTransition) || ((trans is GrammarTransition) && ((trans as GrammarTransition).Start is ProxyTransition));
                trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
             }
 
@@ -66,7 +66,7 @@ namespace Yallocc
             if (replaces.Count != proxies.Count)
             {
                var missingLabel = proxies.Where(proxy => replaces.All(x => x.Name != proxy.TargetName)).First().TargetName;
-               throw new MissingGotoLabelException(string.Format("Missing target label \"{0}\" for goto command.", missingLabel)) { Label = missingLabel };
+               throw new GrammarBuildingException(string.Format("Missing target label \"{0}\" for goto command.", missingLabel)) { Label = missingLabel, HasUndefinedGotoLabel = true };
             }
             trans.RemoveSuccessors(proxies);
             trans.AddSuccessors(replaces);

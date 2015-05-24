@@ -14,6 +14,16 @@ namespace Yallocc
       }
 
       [TestMethod]
+      public void EmptyGrammarTest_EmptyGrammar_Correct()
+      {
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
+         b.MasterGrammar("Grammar").Begin.End();
+
+         Assert.IsTrue(Parser("", grammarDictionary.GetMasterGrammar()));
+      }
+
+      [TestMethod]
       public void GrammarTest_NoBranches_ParsingTextCorrect()
       {
          var grammarDictionary = new GrammarDictionary();
@@ -106,11 +116,12 @@ namespace Yallocc
              .Token(AbcTokenType.b_token).Name("Target")
              .End();
          }
-         catch (MissingGotoLabelException e)
+         catch (GrammarBuildingException e)
          {
             exeptionThrown = true;
             Assert.AreEqual(e.Message, "Missing target label \"Target2\" for goto command.");
             Assert.AreEqual(e.Label, "Target2");
+            Assert.IsTrue(e.HasUndefinedGotoLabel);
          }
 
          Assert.IsTrue(exeptionThrown);
@@ -159,11 +170,12 @@ namespace Yallocc
              .Token(AbcTokenType.c_token)
              .End();
          }
-         catch (MissingGotoLabelException e)
+         catch (GrammarBuildingException e)
          {
             exeptionThrown = true;
             Assert.AreEqual(e.Message, "Missing target label \"InvalidTarget\" for goto command.");
             Assert.AreEqual(e.Label, "InvalidTarget");
+            Assert.IsTrue(e.HasUndefinedGotoLabel);
          }
 
          Assert.IsTrue(exeptionThrown);
@@ -185,11 +197,12 @@ namespace Yallocc
              .Token(AbcTokenType.c_token).Name("InvalidTarget")
              .End();
          }
-         catch (MissingGotoLabelException e)
+         catch (GrammarBuildingException e)
          {
             exeptionThrown = true;
             Assert.AreEqual(e.Message, "Missing target label \"InvalidTarget\" for goto command.");
             Assert.AreEqual(e.Label, "InvalidTarget");
+            Assert.IsTrue(e.HasUndefinedGotoLabel);
          }
 
          Assert.IsTrue(exeptionThrown);

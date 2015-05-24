@@ -36,6 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrammarBuilder\GrammarBuildingException.cs" />
     <Compile Include="GrammarBuilder\GrammarDictionary.cs" />
     <Compile Include="Parser\ActionTransition.cs" />
     <Compile Include="GrammarBuilder\BranchBuilder.cs" />
@@ -48,7 +49,6 @@
     <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAttribute.cs" />
     <Compile Include="GrammarBuilder\BranchInterFaceWithoutNameWithTokActionAttribute.cs" />
     <Compile Include="GrammarBuilder\BuilderInterface.cs" />
-    <Compile Include="GrammarBuilder\MissingGotoLabelException.cs" />
     <Compile Include="GrammarBuilder\ProduceInterfaceWithNameAndActionAttribute.cs" />
     <Compile Include="GrammarBuilder\ProduceInterfaceWithNameAndTokActionAttribute.cs" />
     <Compile Include="GrammarBuilder\ProduceInterfaceWithoutActionAttribute.cs" />
@@ -59,6 +59,7 @@
     <Compile Include="GrammarBuilder\GrammarBuilder.cs" />
     <Compile Include="GrammarBuilder\GrammarInitialisationAndValidation.cs" />
     <Compile Include="GrammarBuilder\SyntaxElement.cs" />
+    <Compile Include="Parser\DefaultGrammarTransition.cs" />
     <Compile Include="Parser\GrammarTransition.cs" />
     <Compile Include="Parser\LabelTransition.cs" />
     <Compile Include="Parser\Parser.cs" />

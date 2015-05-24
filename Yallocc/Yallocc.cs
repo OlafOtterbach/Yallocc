@@ -53,14 +53,15 @@ namespace Yallocc
          {
             throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
          }
+
          if (GrammarInitialisationAndValidation.AnyProxyTransitions(_grammers))
          {
-            // error;
+            throw new GrammarBuildingException("Not all subgrammars are defined") { HasUndefinedSubgrammars = true };
          }
 
          if(!_grammers.HasMasterGrammar())
          {
-            // error
+            throw new GrammarBuildingException("Master grammar is not defined.") { MasterGrammarIsNotDefined = true };
          }
 
          GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammers);
