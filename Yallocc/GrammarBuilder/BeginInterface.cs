@@ -13,6 +13,7 @@
       {
          get
          {
+            _grammarBuilder.BeginGrammar();
             return new ProduceInterFaceWithoutNameAndActionAttribute<T>(_grammarBuilder);
          }
       }

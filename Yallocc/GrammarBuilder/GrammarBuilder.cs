@@ -18,8 +18,8 @@ namespace Yallocc
       public GrammarBuilder(GrammarDictionary grammars)
       {
          _grammars = grammars;
-         _current = null;
          _start = new DefaultGrammarTransition();
+         _current = _start;
       }
 
       public GrammarBuilder<T> CreateBranchBuilder()
@@ -132,6 +132,12 @@ namespace Yallocc
          AddTransition(transition);
       }
 
+      public void AddLambda()
+      {
+         var transition = new DefaultGrammarTransition();
+         AddTransition(transition);
+      }
+
       public void AddSubGrammar(string nameOfSubGrammar)
       {
          var proxyTransition = new ProxyTransition(nameOfSubGrammar);
@@ -149,7 +155,7 @@ namespace Yallocc
       {
          branches.ToList().ForEach(x => _current.AddSuccessor(x.Start));
          var branchEndTransition = new Transition();
-         branches.Where(b => !(b is ProxyTransition)).ToList().ForEach(x => x.Current.AddSuccessor(branchEndTransition));
+         branches.Where(b => !(b.Current is ProxyTransition)).ToList().ForEach(x => x.Current.AddSuccessor(branchEndTransition));
          _current = branchEndTransition;
       }
 

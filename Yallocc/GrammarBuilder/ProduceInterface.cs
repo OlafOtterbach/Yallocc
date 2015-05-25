@@ -39,6 +39,7 @@ namespace Yallocc
       {
          get
          {
+            GrammarBuilder.AddLambda();
             return new ProduceInterFaceWithoutActionAttribute<T>(GrammarBuilder);
          }
       }

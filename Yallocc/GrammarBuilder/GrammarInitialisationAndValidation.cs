@@ -16,12 +16,24 @@ namespace Yallocc
             {
                var trans = stack.Pop();
                visited.Add(trans);
-               trans.Successors
-                    .OfType<GrammarTransition>()
-                    .Where(x => x.Start is ProxyTransition)
-                    .Where(x => grammars.Contains((x.Start as ProxyTransition).TargetName))
-                    .ToList()
-                    .ForEach(x => x.Start = grammars.GetGrammar((x.Start as ProxyTransition).TargetName));
+               if(trans is GrammarTransition)
+               {
+                  var grammarTrans = trans as GrammarTransition;
+                  if(grammarTrans.Start is ProxyTransition)
+                  {
+                     var start = grammarTrans.Start as ProxyTransition;
+                     if(grammars.Contains(start.TargetName))
+                     {
+                        grammarTrans.Start = grammars.GetGrammar(start.TargetName);
+                     }
+                  }
+               }
+               //trans.Successors
+               //     .OfType<GrammarTransition>()
+               //     .Where(x => x.Start is ProxyTransition)
+               //     .Where(x => grammars.Contains((x.Start as ProxyTransition).TargetName))
+               //     .ToList()
+               //     .ForEach(x => x.Start = grammars.GetGrammar((x.Start as ProxyTransition).TargetName));
                trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
             }
          }

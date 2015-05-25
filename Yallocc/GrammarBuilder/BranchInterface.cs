@@ -30,6 +30,7 @@ namespace Yallocc
       {
          get
          {
+            GrammarBuilder.AddLambda();
             return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
          }
       }

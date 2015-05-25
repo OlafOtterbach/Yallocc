@@ -7,7 +7,7 @@
     <ProjectGuid>{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LexSharp</RootNamespace>
+    <RootNamespace>YalloccDemo</RootNamespace>
     <AssemblyName>YalloccDemo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,8 +37,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tokens.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
