@@ -14,7 +14,7 @@ namespace YalloccDemoTest
 
          var parser = generator.CreateParser();
          Assert.AreNotEqual(parser, null);
-         var res = parser.Parse("2+3*4");
+         var res = parser.Parse("3*4");
 
          Assert.IsTrue(res.Success);
       }

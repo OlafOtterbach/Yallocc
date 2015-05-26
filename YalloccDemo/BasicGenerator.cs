@@ -31,6 +31,7 @@ namespace YalloccDemo
 
       private void DefineGrammar(Yallocc<Tokens> yacc)
       {
+/*
          yacc.MasterGrammar("Expression")
              .Begin
              .Gosub("Expression")
@@ -75,7 +76,8 @@ namespace YalloccDemo
               )
              .End();
 
-         yacc.Grammar("Term")
+ */ 
+         yacc.MasterGrammar("Term")
              .Begin
              .Gosub("Term")
              .Label("TermStart")
@@ -90,14 +92,13 @@ namespace YalloccDemo
 
          yacc.Grammar("Factor")
              .Begin
-             .Gosub("Factor")
              .Switch
               (
-                 yacc.Branch.Token(Tokens.number),//.Action((Token<Tokens> tok) => System.Console.WriteLine(tok.Value)),
+                 yacc.Branch.Token(Tokens.number).Action((Token<Tokens> tok) => System.Console.WriteLine(tok.Value)),
                  yacc.Branch.Token(Tokens.name),
                  yacc.Branch
                      .Token(Tokens.open)
-                     .Gosub("Expression")
+                     .Gosub("Term")
                      .Token(Tokens.close)
               )
              .End();
