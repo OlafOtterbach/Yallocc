@@ -25,7 +25,7 @@ namespace YalloccDemo
          yacc.AddToken(@"\<", Tokens.less);
          yacc.AddToken(@"\(", Tokens.open);
          yacc.AddToken(@"\)", Tokens.close);
-         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+[.(0|1|2|3|4|5|6|7|8|9)+]", Tokens.number);
+         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", Tokens.number);
          yacc.AddToken(@"\w", Tokens.name);
       }
 
@@ -33,7 +33,7 @@ namespace YalloccDemo
       {
          yacc.MasterGrammar("Expression")
              .Begin
-             .Gosub("SimpleExpression")
+             .Gosub("Expression")
              .Switch
               (
                  yacc.Branch
@@ -77,6 +77,7 @@ namespace YalloccDemo
 
          yacc.Grammar("Term")
              .Begin
+             .Gosub("Term")
              .Label("TermStart")
              .Gosub("Factor")
              .Switch
@@ -89,9 +90,10 @@ namespace YalloccDemo
 
          yacc.Grammar("Factor")
              .Begin
+             .Gosub("Factor")
              .Switch
               (
-                 yacc.Branch.Token(Tokens.number),
+                 yacc.Branch.Token(Tokens.number),//.Action((Token<Tokens> tok) => System.Console.WriteLine(tok.Value)),
                  yacc.Branch.Token(Tokens.name),
                  yacc.Branch
                      .Token(Tokens.open)
