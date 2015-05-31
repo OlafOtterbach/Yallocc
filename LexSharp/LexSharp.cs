@@ -23,13 +23,12 @@ namespace LexSharp
          _patterns.Add(pattern);
       }
 
-      public IEnumerable<Token<T>> Scan(string text)
+      public IEnumerable<TokenResult<T>> Scan(string text)
       {
          var TextCursor = new TextCursor<T>(text, _patterns);
          var tokens = Enumerable.Range(0, int.MaxValue)
                                 .Select(x => TextCursor.GetNextToken())
-                                .TakeWhile(r => r.IsValid)
-                                .Select(t => t.Token);
+                                .TakeWhile(r => TextCursor.IsNotFinished);
          return tokens;
       }
 
