@@ -72,7 +72,7 @@ namespace Yallocc
             if (!(succ.Transition is TokenTypeTransition<T>) || ((succ.Transition as TokenTypeTransition<T>).TokenType.Equals(tokenType)))
             {
                path.Add(succ);
-               found = (succ.Transition is TokenTypeTransition<T>) || Lookahead(succ, path, tokenType, counter++,false);
+               found = (succ.Transition is TokenTypeTransition<T>) || Lookahead(succ, path, tokenType, ++counter,false);
             }
          }
          return found;

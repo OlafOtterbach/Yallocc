@@ -18,7 +18,7 @@ namespace Yallocc
       public GrammarBuilder(GrammarDictionary grammars)
       {
          _grammars = grammars;
-         _start = new DefaultGrammarTransition();
+         _start = null;
          _current = _start;
       }
 
@@ -45,7 +45,7 @@ namespace Yallocc
 
       public void Reset()
       {
-         _start = new DefaultGrammarTransition();
+         _start = null;
          _current = null;
       }
 
@@ -80,6 +80,10 @@ namespace Yallocc
 
       public void EndGrammar()
       {
+         if(_start == null)
+         {
+            AddTransition(new DefaultGrammarTransition());
+         }
          _grammars.AddGrammar(_name, _start);
          GrammarInitialisationAndValidation.ReplaceAndValidateProxiesWithLabels(_start);
          GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammars);
@@ -153,6 +157,10 @@ namespace Yallocc
 
       public void Switch(params GrammarBuilder<T>[] branches)
       {
+         if(_start == null)
+         {
+            AddTransition(new DefaultGrammarTransition());
+         }
          branches.ToList().ForEach(x => _current.AddSuccessor(x.Start));
          var branchEndTransition = new Transition();
          branches.Where(b => !(b.Current is ProxyTransition)).ToList().ForEach(x => x.Current.AddSuccessor(branchEndTransition));
@@ -161,7 +169,7 @@ namespace Yallocc
 
       private void AddTransition(Transition transition)
       {
-         if (_start is DefaultGrammarTransition)
+         if (_start == null)
          {
             _start = transition;
             _current = _start;

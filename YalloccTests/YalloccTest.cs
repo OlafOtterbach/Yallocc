@@ -14,6 +14,67 @@ namespace Yallocc
       }
 
       [TestMethod]
+      public void SwitchTest()
+      {
+         var yacc = new Yallocc<Token>();
+         yacc.AddToken(@"a", Token.A);
+         yacc.AddToken(@"b", Token.B);
+         yacc.AddToken(@"c", Token.C);
+
+         yacc.MasterGrammar("MasterGrammar")
+             .Begin
+             .Switch
+              (
+                 yacc.Branch.Token(Token.A),
+                 yacc.Branch.Token(Token.B),
+                 yacc.Branch.Token(Token.C)
+              )
+             .End();
+
+         var parser = yacc.CreateParser();
+
+         var res1 = parser.Parse("a");
+
+         Assert.IsTrue(res1.Success);
+      }
+
+      [TestMethod]
+      public void RecursionTest()
+      {
+         var yacc = new Yallocc<Token>();
+         yacc.AddToken(@"a", Token.A);
+         yacc.AddToken(@"b", Token.B);
+         yacc.AddToken(@"c", Token.C);
+
+         yacc.MasterGrammar("MasterGrammar")
+             .Begin
+             .Label("MasterGrammar")
+             .Token(Token.A)
+             .Gosub("Grammar")
+             .Token(Token.A)
+             .End();
+
+         yacc.Grammar("Grammar")
+             .Begin
+             .Label("Grammar")
+             .Switch
+              (
+                 yacc.Branch.Token(Token.B),
+                 yacc.Branch
+                     .Token(Token.C)
+                     .Gosub("MasterGrammar")
+                     .Token(Token.C)
+              )
+             .End();
+
+         var parser = yacc.CreateParser();
+
+         var res1 = parser.Parse("aba");
+
+         Assert.IsTrue(res1.Success);
+      }
+
+      [TestMethod]
       public void AddTokenAndCreateParserTest_AddABC_NoException()
       {
          var yacc = new Yallocc<Token>();

@@ -31,10 +31,9 @@ namespace YalloccDemo
 
       private void DefineGrammar(Yallocc<Tokens> yacc)
       {
-/*
          yacc.MasterGrammar("Expression")
              .Begin
-             .Gosub("Expression")
+             .Gosub("SimpleExpression")
              .Switch
               (
                  yacc.Branch
@@ -75,11 +74,9 @@ namespace YalloccDemo
                 yacc.Branch.Default
               )
              .End();
-
- */ 
-         yacc.MasterGrammar("Term")
+ 
+         yacc.Grammar("Term")
              .Begin
-             .Gosub("Term")
              .Label("TermStart")
              .Gosub("Factor")
              .Switch
@@ -98,7 +95,7 @@ namespace YalloccDemo
                  yacc.Branch.Token(Tokens.name),
                  yacc.Branch
                      .Token(Tokens.open)
-                     .Gosub("Term")
+                     .Gosub("Expression")
                      .Token(Tokens.close)
               )
              .End();

@@ -1,8 +1,13 @@
-﻿namespace LexSharp
+﻿using System.Collections.Generic;
+
+namespace LexSharp
 {
-   struct ScanResult<T>
+   public struct ScanResult<T>
    {
-      public Token<T> Token {get; set;}
-      public bool IsValid { get; set; }
+      public IEnumerable<Token<T>> TokenSequence { get; set; }
+
+      //public IEnumerable<Token<T>> UnknownTokens { get; set; }
+
+      public bool Success { get; set; }
    }
 }
