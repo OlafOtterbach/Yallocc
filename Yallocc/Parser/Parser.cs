@@ -1,10 +1,11 @@
 ﻿using LexSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Yallocc
 {
-   public class Parser<T>
+   public class Parser<T> where T : struct
    {
       public Parser()
       {
@@ -62,7 +63,7 @@ namespace Yallocc
          }
       }
 
-      private bool Lookahead(SyntaxElement start, List<SyntaxElement> path, T tokenType, int counter, bool first)
+      private bool Lookahead(SyntaxElement start, List<SyntaxElement> path, Nullable<T> tokenType, int counter, bool first)
       {
          var found = false;
          var enumerator = first ? new List<SyntaxElement>{start}.GetEnumerator() : GetSuccessors(start).GetEnumerator();

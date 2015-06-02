@@ -3,7 +3,7 @@ using System;
 
 namespace Yallocc
 {
-   public class BranchInterFaceWithoutNameWithTokActionAttribute<T> : BranchInterface<T>
+   public class BranchInterFaceWithoutNameWithTokActionAttribute<T> : BranchInterface<T> where T : struct
    {
       public BranchInterFaceWithoutNameWithTokActionAttribute(GrammarBuilder<T> grammarBuilder)
          : base(grammarBuilder)

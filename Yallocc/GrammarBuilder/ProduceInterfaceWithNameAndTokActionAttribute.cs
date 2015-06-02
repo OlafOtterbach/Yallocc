@@ -3,7 +3,7 @@ using System;
 
 namespace Yallocc
 {
-   public class ProduceInterfaceWithNameAndTokActionAttribute<T> : ProduceInterface<T>
+   public class ProduceInterfaceWithNameAndTokActionAttribute<T> : ProduceInterface<T> where T : struct
    {
       public ProduceInterfaceWithNameAndTokActionAttribute(GrammarBuilder<T> grammarBuilder)
          : base(grammarBuilder)

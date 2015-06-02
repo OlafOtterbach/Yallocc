@@ -2,7 +2,7 @@
 
 namespace Yallocc
 {
-   public class BranchInterfaceWithNameAndActionAttribute<T> : BranchInterface<T>
+   public class BranchInterfaceWithNameAndActionAttribute<T> : BranchInterface<T> where T : struct
    {
       public BranchInterfaceWithNameAndActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {

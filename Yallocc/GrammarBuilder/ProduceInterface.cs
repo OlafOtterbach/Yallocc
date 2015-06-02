@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Yallocc
 {
-   public class ProduceInterface<T>
+   public class ProduceInterface<T> where T : struct
    {
       protected ProduceInterface(GrammarBuilder<T> grammarBuilder)
       {

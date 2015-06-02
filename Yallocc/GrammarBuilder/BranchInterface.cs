@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Yallocc
 {
-   public class BranchInterface<T> : BranchBuilder<T>
+   public class BranchInterface<T> : BranchBuilder<T> where T : struct
    {
       protected BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}

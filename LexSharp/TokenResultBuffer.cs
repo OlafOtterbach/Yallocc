@@ -1,18 +1,18 @@
 ﻿namespace LexSharp
 {
-   public class TokenResultBuffer<T>
+   public class TokenResultBuffer<T> where T : struct
    {
-      private TokenResult<T> _buffer;
+      private Token<T> _buffer;
 
       public TokenResultBuffer()
       {
-         _buffer = default(TokenResult<T>);
+         _buffer = new Token<T>(string.Empty,0,0);
          IsEmpty = true;
       }
 
       public bool IsEmpty { get; private set; }
 
-      public TokenResult<T> Content
+      public Token<T> Content
       {
          set
          {
@@ -23,7 +23,7 @@
          {
             IsEmpty = true;
             var result = _buffer;
-            _buffer = default(TokenResult<T>);
+            _buffer = new Token<T>(string.Empty, 0, 0);
             return result;
          }
       }

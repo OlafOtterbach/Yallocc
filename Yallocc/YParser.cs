@@ -2,7 +2,7 @@
 
 namespace Yallocc
 {
-   public class YParser<T>
+   public class YParser<T> where T : struct
    {
       private Transition _startOfGrammar;
       private LexSharp<T> _lex;

@@ -1,6 +1,6 @@
 ﻿namespace Yallocc
 {
-   public class BranchInterFaceWithoutActionAttribute<T> : BranchInterface<T>
+   public class BranchInterFaceWithoutActionAttribute<T> : BranchInterface<T> where T : struct
    {
       public BranchInterFaceWithoutActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}

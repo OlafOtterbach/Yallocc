@@ -1,6 +1,6 @@
 ﻿namespace Yallocc
 {
-   public class BranchBuilder<T>
+   public class BranchBuilder<T> where T : struct
    {
       private GrammarBuilder<T> _grammarBuilder;
 

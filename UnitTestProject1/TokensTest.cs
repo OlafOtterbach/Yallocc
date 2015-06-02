@@ -79,10 +79,11 @@ namespace YalloccDemoTest
 
          Assert.AreEqual(one.First().Type, Tokens.number);
          Assert.AreEqual(oneDot.First().Type, Tokens.number);
+         Assert.IsFalse(oneDot.Last().IsValid);
          Assert.AreEqual(oneDotZeroOneTwoThree.First().Type, Tokens.number);
          Assert.AreEqual(zero.First().Type, Tokens.number);
          Assert.AreEqual(zeroDot.First().Type, Tokens.number);
-         Assert.AreEqual(dotZero.First().Type, Tokens.number);
+         Assert.IsFalse(dotZero.First().IsValid);
          Assert.AreEqual(zeroDotOneTwoThree.First().Type, Tokens.number);
 
          Assert.AreEqual(one.First().Value, "1");
@@ -90,7 +91,7 @@ namespace YalloccDemoTest
          Assert.AreEqual(oneDotZeroOneTwoThree.First().Value, "1.0123");
          Assert.AreEqual(zero.First().Value, "0");
          Assert.AreEqual(zeroDot.First().Value, "0");
-         Assert.AreEqual(dotZero.First().Value, "0");
+         Assert.AreEqual(dotZero.Last().Value, "0");
          Assert.AreEqual(zeroDotOneTwoThree.First().Value, "0.123");
       }
 

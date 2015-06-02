@@ -2,7 +2,7 @@
 
 namespace Yallocc
 {
-   public class ProduceInterfaceWithNameAndActionAttribute<T> : ProduceInterface<T>
+   public class ProduceInterfaceWithNameAndActionAttribute<T> : ProduceInterface<T> where T : struct
    {
       public ProduceInterfaceWithNameAndActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {

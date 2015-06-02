@@ -2,7 +2,7 @@
 
 namespace LexSharp
 {
-   internal class TokenComparer<T> : IComparer<Token<T>>
+   internal class TokenComparer<T> : IComparer<Token<T>> where T : struct
    {
       public TokenComparer(Dictionary<int, int> patternTypeIndexMap)
       {

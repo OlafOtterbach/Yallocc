@@ -1,6 +1,6 @@
 ﻿namespace Yallocc
 {
-   public class BeginInterface<T>
+   public class BeginInterface<T> where T : struct
    {
       private GrammarBuilder<T> _grammarBuilder;
 

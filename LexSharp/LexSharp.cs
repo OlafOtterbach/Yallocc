@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LexSharp
 {
-   public class LexSharp<T>
+   public class LexSharp<T> where T : struct
    {
       private List<Pattern<T>> _patterns;
 
@@ -23,7 +23,7 @@ namespace LexSharp
          _patterns.Add(pattern);
       }
 
-      public IEnumerable<TokenResult<T>> Scan(string text)
+      public IEnumerable<Token<T>> Scan(string text)
       {
          var TextCursor = new TextCursor<T>(text, _patterns);
          var tokens = Enumerable.Range(0, int.MaxValue)

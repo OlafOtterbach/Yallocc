@@ -2,7 +2,7 @@
 
 namespace Yallocc
 {
-   public class ProduceInterFaceWithoutNameAttribute<T> : ProduceInterface<T>
+   public class ProduceInterFaceWithoutNameAttribute<T> : ProduceInterface<T> where T : struct
    {
       public ProduceInterFaceWithoutNameAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}

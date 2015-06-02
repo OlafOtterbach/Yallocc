@@ -7,7 +7,7 @@ using LexSharp;
 
 namespace Yallocc
 {
-   public class Yallocc<T>
+   public class Yallocc<T> where T : struct
    {
       LexSharp<T> _lex;
       BuilderInterface<T> _builderInterface;

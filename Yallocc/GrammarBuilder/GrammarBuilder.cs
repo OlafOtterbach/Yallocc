@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Yallocc
 {
-   public class GrammarBuilder<T>
+   public class GrammarBuilder<T> where T : struct
    {
       private GrammarDictionary _grammars;
 

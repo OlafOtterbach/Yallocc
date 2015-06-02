@@ -1,6 +1,6 @@
 ﻿namespace Yallocc
 {
-   public class ProduceInterFaceWithoutActionAttribute<T> : ProduceInterface<T>
+   public class ProduceInterFaceWithoutActionAttribute<T> : ProduceInterface<T> where T : struct
    {
       public ProduceInterFaceWithoutActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}

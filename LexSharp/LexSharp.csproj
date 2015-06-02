@@ -41,7 +41,6 @@
     <Compile Include="Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenResultBuffer.cs" />
-    <Compile Include="TokenResult.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenComparer.cs" />
     <Compile Include="TokenRegisteredMoreThanOneTimeException.cs" />

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace LexSharp
 {
-   internal class TextCursor<T>
+   internal class TextCursor<T> where T : struct
    {
       private class PatternAndMatch
       {
@@ -32,7 +33,7 @@ namespace LexSharp
 
       public bool IsNotFinished { get; private set; }
 
-      public TokenResult<T> GetNextToken()
+      public Token<T> GetNextToken()
       {
          if(!_buffer.IsEmpty)
          {
@@ -45,36 +46,29 @@ namespace LexSharp
          var longestMinimalMatches = minMatches.Where(x => x.Match.Length == maxLength);
          var minPatternIndex = longestMinimalMatches.Any() ? longestMinimalMatches.Min(x => x.PatternIndex) : 0;
          var minimalPatternIndexAndLongestMininimalMatches = longestMinimalMatches.Where(x => x.PatternIndex == minPatternIndex);
-         var result = new TokenResult<T>() { Token = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token<T>(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).FirstOrDefault(), IsValid = minimalPatternIndexAndLongestMininimalMatches.Count() > 0 };
-         if( result.IsValid)
+         Token<T> result = new Token<T>();
+         if (minimalPatternIndexAndLongestMininimalMatches.Any())
          {
+            result = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token<T>(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).First();
             var cursorPos = _cursorPos;
-            _cursorPos = result.Token.TextIndex + ((result.Token.Length > 0) ? result.Token.Length : 1);
-            if (result.Token.TextIndex > cursorPos)
+            _cursorPos = result.TextIndex + ((result.Length > 0) ? result.Length : 1);
+            if (result.TextIndex > cursorPos)
             {
-               var length = result.Token.TextIndex - cursorPos;
+               var length = result.TextIndex - cursorPos;
                _buffer.Content = result;
-               result = new TokenResult<T>()
-               {
-                  Token = new Token<T>(_text.Substring(cursorPos, length),default(T),cursorPos,length),
-                  IsValid = false
-               };
+               result = new Token<T>(_text.Substring(cursorPos, length), cursorPos, length);
             }
             ScanNextMatch();
          }
          else
          {
             var length = _text.Length - _cursorPos;
-            if (length > 0)
+            IsNotFinished = length > 0;
+            if (IsNotFinished)
             {
-               result = new TokenResult<T>()
-               {
-                  Token = new Token<T>(_text.Substring(_cursorPos, length), default(T), _cursorPos, length),
-                  IsValid = false
-               };
+               result = new Token<T>(_text.Substring(_cursorPos, length), _cursorPos, length);
                _cursorPos = _text.Length;
             }
-            IsNotFinished = length > 0;
          }
          return result;
       }
