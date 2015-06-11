@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{DF75A5BD-F67A-4504-922D-04B8801B46AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YalloccDemo</RootNamespace>
-    <AssemblyName>YalloccDemo</AssemblyName>
+    <RootNamespace>YalloccSyntaxTree</RootNamespace>
+    <AssemblyName>YalloccSyntaxTree</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,31 +32,17 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicGenerator.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="SyntaxTree.cs" />
+    <Compile Include="SyntaxTreeLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tokens.cs" />
-    <Compile Include="TokenTreeNode.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
-      <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SyntaxTree\YalloccSyntaxTree.csproj">
-      <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
-      <Name>YalloccSyntaxTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Yallocc\Yallocc.csproj">
-      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
-      <Name>Yallocc</Name>
-    </ProjectReference>
+    <Compile Include="SyntaxTreeNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,12 +33,59 @@ namespace LexSharp
 
       public bool IsNotFinished { get; private set; }
 
+
       public Token<T> GetNextToken()
       {
+         // Return buffer content if not empty
          if(!_buffer.IsEmpty)
          {
             return _buffer.Content;
          }
+
+         var minimalPatternIndexAndLongestMininimalMatches = GetNextMatches();
+         if (minimalPatternIndexAndLongestMininimalMatches.Any())
+         { // Matches are found
+
+            var tokenResult = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token<T>(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).First();
+            var actualCursorPos = _cursorPos;
+            _cursorPos = tokenResult.TextIndex + ((tokenResult.Length > 0) ? tokenResult.Length : 1);
+            ScanNextMatch();
+
+            if (tokenResult.TextIndex == actualCursorPos)
+            {
+               return tokenResult;
+            }
+            else
+            {
+               var length = tokenResult.TextIndex - actualCursorPos;
+               _buffer.Content = tokenResult;
+               var untokenResult = new Token<T>(_text.Substring(actualCursorPos, length), actualCursorPos, length);
+               return untokenResult;
+            }
+
+         }
+         else
+         { // No matches any more
+
+            var length = _text.Length - _cursorPos;
+            IsNotFinished = length > 0;
+
+            if (IsNotFinished)
+            {  // Any text to return at the end?
+               var restResult = new Token<T>(_text.Substring(_cursorPos, length), _cursorPos, length);
+               _cursorPos = _text.Length;
+               return restResult;
+            }
+            else
+            { // No token any more
+               var emptyToken = new Token<T>();
+               return emptyToken;
+            }
+         }
+      }
+
+      private IEnumerable<PatternAndMatch> GetNextMatches()
+      {
          _matches = _matches.Where(x => x.Match.Success).Where(m => m.Match.Index >= _cursorPos).ToList();
          var minIndex = _matches.Any() ? _matches.Min(x => x.Match.Index) : 0;
          var minMatches = _matches.Where(x => x.Match.Index == minIndex);
@@ -46,31 +93,7 @@ namespace LexSharp
          var longestMinimalMatches = minMatches.Where(x => x.Match.Length == maxLength);
          var minPatternIndex = longestMinimalMatches.Any() ? longestMinimalMatches.Min(x => x.PatternIndex) : 0;
          var minimalPatternIndexAndLongestMininimalMatches = longestMinimalMatches.Where(x => x.PatternIndex == minPatternIndex);
-         Token<T> result = new Token<T>();
-         if (minimalPatternIndexAndLongestMininimalMatches.Any())
-         {
-            result = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token<T>(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).First();
-            var cursorPos = _cursorPos;
-            _cursorPos = result.TextIndex + ((result.Length > 0) ? result.Length : 1);
-            if (result.TextIndex > cursorPos)
-            {
-               var length = result.TextIndex - cursorPos;
-               _buffer.Content = result;
-               result = new Token<T>(_text.Substring(cursorPos, length), cursorPos, length);
-            }
-            ScanNextMatch();
-         }
-         else
-         {
-            var length = _text.Length - _cursorPos;
-            IsNotFinished = length > 0;
-            if (IsNotFinished)
-            {
-               result = new Token<T>(_text.Substring(_cursorPos, length), _cursorPos, length);
-               _cursorPos = _text.Length;
-            }
-         }
-         return result;
+         return minimalPatternIndexAndLongestMininimalMatches;
       }
 
       private void ScanNextMatch()

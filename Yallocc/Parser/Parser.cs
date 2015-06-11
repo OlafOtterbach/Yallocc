@@ -26,8 +26,14 @@ namespace Yallocc
             {
                result.Position = token.TextIndex;
                elem = path.Last();
-               path.ToList().ForEach(x => Execute(x.Transition, token));
-               path.Clear();
+               var list = path.ToList();
+               for (int i = 0; i < list.Count; i++ )
+               {
+                  var x = list[i];
+                  Execute(x.Transition, token);
+               }
+                  //               path.ToList().ForEach(x => Execute(x.Transition, token));
+                  path.Clear();
             }
             else
             {

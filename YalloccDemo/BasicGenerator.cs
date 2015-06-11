@@ -1,5 +1,6 @@
 ﻿using LexSharp;
 using Yallocc;
+using YallocSyntaxTree;
 
 namespace YalloccDemo
 {
@@ -9,7 +10,7 @@ namespace YalloccDemo
       {
          var yacc = new Yallocc<Tokens>();
          DefineTokens(yacc);
-         DefineGrammar(yacc);
+//         DefineGrammar(yacc,);
          var parser = yacc.CreateParser();
          return parser;
       }
@@ -29,75 +30,89 @@ namespace YalloccDemo
          yacc.AddToken(@"\w", Tokens.name);
       }
 
-      private void DefineGrammar(Yallocc<Tokens> yacc)
+      private void DefineGrammar(Yallocc<Tokens> yacc, SyntaxTree ctx)
       {
          yacc.MasterGrammar("Expression")
              .Begin
+             .Label("ExpressionStart").Action(() => ctx.Enter())
              .Gosub("SimpleExpression")
              .Switch
               (
                  yacc.Branch
-                     .Gosub("Relation")
+                     .Gosub("Relation").Action(() => ctx.CreateParent(ctx.GetLastChild()))
                      .Gosub("SimpleExpression"),
                  yacc.Branch.Default
               )
+             .Lambda(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Relation")
              .Begin
+             .Label("RelationStart").Action(() => ctx.Enter())
              .Switch
               (
-                 yacc.Branch.Token(Tokens.equal),
-                 yacc.Branch.Token(Tokens.greater),
-                 yacc.Branch.Token(Tokens.less)
+                 yacc.Branch.Token(Tokens.equal).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
+                 yacc.Branch.Token(Tokens.greater).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
+                 yacc.Branch.Token(Tokens.less).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
               )
-              .End();
+             .Lambda(() => ctx.Exit())
+             .End();
 
          yacc.Grammar("SimpleExpression")
              .Begin
+             .Label("SimpleExpressionStart").Action(() => ctx.Enter())
              .Switch
               (
-                yacc.Branch.Token(Tokens.plus),
-                yacc.Branch.Token(Tokens.minus),
+                yacc.Branch.Token(Tokens.plus).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
+                yacc.Branch.Token(Tokens.minus).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
                 yacc.Branch.Default
               )
-             .Label("SimpleExpressionStart")
              .Gosub("Term")
              .Switch
               (
                 yacc.Branch
-                    .Token(Tokens.plus)
+                    .Token(Tokens.plus).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
                     .Goto("SimpleExpressionStart"),
                 yacc.Branch
-                    .Token(Tokens.minus)
+                    .Token(Tokens.minus).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
                     .Goto("SimpleExpressionStart"),
                 yacc.Branch.Default
               )
+             .Lambda(() => ctx.Exit())
              .End();
  
          yacc.Grammar("Term")
              .Begin
-             .Label("TermStart")
+             .Label("TermStart").Action(() => ctx.Enter())
              .Gosub("Factor")
              .Switch
               (
-                yacc.Branch.Token(Tokens.mult).Goto("TermStart"),
-                yacc.Branch.Token(Tokens.div).Goto("TermStart"),
+                yacc.Branch
+                    .Token(Tokens.mult).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
+                    .Goto("TermStart"),
+                yacc.Branch
+                    .Token(Tokens.div).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
+                    .Goto("TermStart"),
                 yacc.Branch.Default
               )
+             .Lambda(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Factor")
              .Begin
+             .Label("FactorStart").Action(() => ctx.Enter())
              .Switch
               (
-                 yacc.Branch.Token(Tokens.number).Action((Token<Tokens> tok) => System.Console.WriteLine(tok.Value)),
-                 yacc.Branch.Token(Tokens.name),
+                 yacc.Branch
+                     .Token(Tokens.number).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
+                 yacc.Branch
+                     .Token(Tokens.name).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
                  yacc.Branch
                      .Token(Tokens.open)
                      .Gosub("Expression")
                      .Token(Tokens.close)
               )
+             .Lambda(() => ctx.Exit())
              .End();
       }
    }
