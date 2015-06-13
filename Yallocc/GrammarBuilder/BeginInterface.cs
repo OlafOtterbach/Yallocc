@@ -9,12 +9,12 @@
          _grammarBuilder = grammarBuilder;
       }
 
-      public ProduceInterFaceWithoutNameAndActionAttribute<T> Begin
+      public ProduceInterFaceWithoutNameAndWithoutAction<T> Begin
       {
          get
          {
             _grammarBuilder.BeginGrammar();
-            return new ProduceInterFaceWithoutNameAndActionAttribute<T>(_grammarBuilder);
+            return new ProduceInterFaceWithoutNameAndWithoutAction<T>(_grammarBuilder);
          }
       }
    }

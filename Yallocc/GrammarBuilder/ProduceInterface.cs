@@ -17,43 +17,43 @@ namespace Yallocc
          GrammarBuilder.EndGrammar();
       }
 
-      public ProduceInterfaceWithNameAndTokActionAttribute<T> Token(T tokenType)
+      public ProduceInterfaceWithNameAndWithTokAction<T> Token(T tokenType)
       {
          GrammarBuilder.AddToken(tokenType);
-         return new ProduceInterfaceWithNameAndTokActionAttribute<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithTokAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndActionAttribute<T> Label(string label)
+      public ProduceInterfaceWithNameAndWithAction<T> Label(string label)
       {
          GrammarBuilder.AddLabel(label);
-         return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndActionAttribute<T> Lambda
+      public ProduceInterfaceWithNameAndWithAction<T> Lambda
       {
          get
          {
             GrammarBuilder.AddLambda();
-            return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+            return new ProduceInterfaceWithNameAndWithAction<T>(GrammarBuilder);
          }
       }
 
-      public ProduceInterfaceWithNameAndActionAttribute<T> Gosub(string nameOfSubGrammar)
+      public ProduceInterfaceWithNameAndWithAction<T> Gosub(string nameOfSubGrammar)
       {
          GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
-         return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithoutNameAndActionAttribute<T> Goto(string label)
+      public ProduceInterFaceWithoutNameAndWithoutAction<T> Goto(string label)
       {
          GrammarBuilder.GotoLabel(label);
-         return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+         return new ProduceInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithoutNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
+      public ProduceInterFaceWithoutNameAndWithoutAction<T> Switch(params BranchBuilder<T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+         return new ProduceInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
       }
    }
 }
