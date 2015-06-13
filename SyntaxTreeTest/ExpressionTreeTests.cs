@@ -95,6 +95,17 @@ namespace YalloccSyntaxTreeTest
          Assert.AreEqual(res.DoubleValue, 134);
       }
 
+      [TestMethod]
+      public void Test_MinusTwoPlusThreeMultClampFourPlusClampFiveMultClampMinusSixClampClampClamp_MinusEighty()
+      {
+         var ctx = Parse("-2+3*(4+(5*(-6)))");
+
+         Assert.IsNotNull(ctx.Root);
+         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsTrue(res.IsDouble);
+         Assert.AreEqual(res.DoubleValue, -80);
+      }
+
       private SyntaxTreeBuilder Parse(string text)
       {
          var generator = new ExpressionGrammarGenerator();

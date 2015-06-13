@@ -8,16 +8,16 @@ namespace Yallocc
       {
       }
 
-      public BranchInterFaceWithoutNameAttribute<T> Name(string name)
+      public BranchInterFaceWithoutNameAndWithAction<T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new BranchInterFaceWithoutNameAttribute<T>(GrammarBuilder);
+         return new BranchInterFaceWithoutNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithoutActionAttribute<T> Action(Action action)
+      public BranchInterFaceWithNameAndWithoutAction<T> Action(Action action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchInterFaceWithoutActionAttribute<T>(GrammarBuilder);
+         return new BranchInterFaceWithNameAndWithoutAction<T>(GrammarBuilder);
       }
    }
 }

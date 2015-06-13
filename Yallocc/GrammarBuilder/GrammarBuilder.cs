@@ -82,7 +82,7 @@ namespace Yallocc
       {
          if(_start == null)
          {
-            AddTransition(new DefaultGrammarTransition());
+            AddTransition(new Transition());
          }
          _grammars.AddGrammar(_name, _start);
          GrammarInitialisationAndValidation.ReplaceAndValidateProxiesWithLabels(_start);
@@ -132,7 +132,7 @@ namespace Yallocc
 
       public void AddLambda()
       {
-         var transition = new DefaultGrammarTransition();
+         var transition = new ActionTransition();
          AddTransition(transition);
       }
 
@@ -153,7 +153,7 @@ namespace Yallocc
       {
          if(_start == null)
          {
-            AddTransition(new DefaultGrammarTransition());
+            AddTransition(new ActionTransition());
          }
          branches.ToList().ForEach(x => _current.AddSuccessor(x.Start));
          var branchEndTransition = new Transition();

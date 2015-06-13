@@ -48,10 +48,10 @@
     <Compile Include="GrammarBuilder\BeginInterface.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndWithAction.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndWithTokAction.cs" />
-    <Compile Include="GrammarBuilder\BranchInterfaceWithoutActionAttribute.cs" />
-    <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAndActionAttribute.cs" />
-    <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAttribute.cs" />
-    <Compile Include="GrammarBuilder\BranchInterFaceWithoutNameWithTokActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterFaceWithNameAndWithoutAction.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAndWithoutAction.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAndWithAction.cs" />
+    <Compile Include="GrammarBuilder\BranchInterFaceWithoutNameAndWithTokAction.cs" />
     <Compile Include="GrammarBuilder\BuilderInterface.cs" />
     <Compile Include="GrammarBuilder\ProduceInterfaceWithNameAndActionAttribute.cs" />
     <Compile Include="GrammarBuilder\ProduceInterfaceWithNameAndTokActionAttribute.cs" />
@@ -63,7 +63,6 @@
     <Compile Include="GrammarBuilder\GrammarBuilder.cs" />
     <Compile Include="GrammarBuilder\GrammarInitialisationAndValidation.cs" />
     <Compile Include="GrammarBuilder\SyntaxElement.cs" />
-    <Compile Include="Parser\DefaultGrammarTransition.cs" />
     <Compile Include="Parser\GrammarTransition.cs" />
     <Compile Include="Parser\LabelTransition.cs" />
     <Compile Include="Parser\Parser.cs" />

@@ -33,6 +33,7 @@ namespace Yallocc
       {
          get
          {
+            GrammarBuilder.AddLambda();
             return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
          }
       }

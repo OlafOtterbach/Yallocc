@@ -24,6 +24,7 @@ namespace Yallocc
       {
          get
          {
+            GrammarBuilder.AddLambda();
             return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
          }
       }
@@ -43,16 +44,16 @@ namespace Yallocc
          return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithoutNameAndActionAttribute<T> Goto(string label)
+      public BranchInterFaceWithoutNameAndWithoutAction<T> Goto(string label)
       {
          GrammarBuilder.GotoLabel(label);
-         return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithoutNameAndActionAttribute<T> Switch(params BranchBuilder<T>[] branches)
+      public BranchInterFaceWithoutNameAndWithoutAction<T> Switch(params BranchBuilder<T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
       }
    }
 }

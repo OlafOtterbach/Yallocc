@@ -10,13 +10,13 @@ namespace YalloccDemoTest
       [TestMethod]
       public void Test()
       {
-         var generator = new BasicGenerator();
+         //var generator = new BasicGenerator();
 
-         var parser = generator.CreateParser();
-         Assert.AreNotEqual(parser, null);
-         var res = parser.Parse("-2+3*(4+(5*(-6)))");
+         //var parser = generator.CreateParser();
+         //Assert.AreNotEqual(parser, null);
+         //var res = parser.Parse("-2+3*(4+(5*(-6)))");
 
-         Assert.IsTrue(res.Success);
+         //Assert.IsTrue(res.Success);
       }
    }
 }

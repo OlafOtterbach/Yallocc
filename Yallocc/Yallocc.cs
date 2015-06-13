@@ -38,7 +38,7 @@ namespace Yallocc
          return _builderInterface.MasterGrammar(name);
       }
 
-      public BranchInterFaceWithoutNameAndActionAttribute<T> Branch
+      public BranchInterFaceWithoutNameAndWithoutAction<T> Branch
       {
          get
          {

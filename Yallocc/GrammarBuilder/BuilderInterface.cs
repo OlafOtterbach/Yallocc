@@ -21,11 +21,11 @@
          return new BeginInterface<T>(_grammarBuilder);
       }
 
-      public BranchInterFaceWithoutNameAndActionAttribute<T> Branch
+      public BranchInterFaceWithoutNameAndWithoutAction<T> Branch
       {
          get
          {
-            return new BranchInterFaceWithoutNameAndActionAttribute<T>(_grammarBuilder.CreateBranchBuilder());
+            return new BranchInterFaceWithoutNameAndWithoutAction<T>(_grammarBuilder.CreateBranchBuilder());
          }
       }
    }
