@@ -38,7 +38,7 @@ namespace YalloccDemo
          yacc.AddToken(@"\w", Token.name);
 
          yacc.Grammar("Relation")
-             .Begin
+             .Enter
              .Switch
               (
                  yacc.Branch.Token(Token.equal),
@@ -48,8 +48,7 @@ namespace YalloccDemo
               .End();
 
          yacc.Grammar("Term")
-             .Begin
-             .Label("TermStart")
+             .Enter.Name("TermStart")
              .Gosub("Factor")
              .Switch
               (
@@ -60,7 +59,7 @@ namespace YalloccDemo
              .End();
 
          yacc.Grammar("SimpleExpression")
-             .Begin
+             .Enter
              .Switch
               (
                 yacc.Branch.Token(Token.plus),
@@ -82,7 +81,7 @@ namespace YalloccDemo
              .End();
 
          yacc.Grammar("Expression")
-             .Begin
+             .Enter
              .Gosub("SimpleExpression")
              .Switch
               (
@@ -94,7 +93,7 @@ namespace YalloccDemo
              .End();
 
          yacc.Grammar("Factor")
-             .Begin
+             .Enter
              .Switch
               (
                  yacc.Branch.Token(Token.number),

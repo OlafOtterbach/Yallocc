@@ -45,7 +45,7 @@
     <Compile Include="Parser\ActionTransition.cs" />
     <Compile Include="GrammarBuilder\BranchBuilder.cs" />
     <Compile Include="GrammarBuilder\BranchInterface.cs" />
-    <Compile Include="GrammarBuilder\BeginInterface.cs" />
+    <Compile Include="GrammarBuilder\EnterInterface.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndWithAction.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndWithTokAction.cs" />
     <Compile Include="GrammarBuilder\BranchInterFaceWithNameAndWithoutAction.cs" />

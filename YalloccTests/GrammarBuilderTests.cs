@@ -18,7 +18,7 @@ namespace Yallocc
       {
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
-         b.MasterGrammar("Grammar").Begin.End();
+         b.MasterGrammar("Grammar").Enter.End();
 
          Assert.IsTrue(Parser("", grammarDictionary.GetMasterGrammar()));
       }
@@ -29,7 +29,7 @@ namespace Yallocc
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
          b.MasterGrammar("Grammar")
-          .Begin
+          .Enter
           .Token(AbcTokenType.a_token)
           .Token(AbcTokenType.b_token)
           .End();
@@ -43,7 +43,7 @@ namespace Yallocc
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
          b.MasterGrammar("Grammar")
-          .Begin
+          .Enter
           .Token(AbcTokenType.a_token)
           .Label("JumpIn")
           .Switch
@@ -66,9 +66,9 @@ namespace Yallocc
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
 
-         b.Grammar("Container").Begin.Token(AbcTokenType.c_token).Token(AbcTokenType.b_token).Token(AbcTokenType.a_token).End();
+         b.Grammar("Container").Enter.Token(AbcTokenType.c_token).Token(AbcTokenType.b_token).Token(AbcTokenType.a_token).End();
          b.MasterGrammar("Grammar")
-          .Begin
+          .Enter
           .Token(AbcTokenType.a_token)
           .Gosub("Container")
           .Label("JumpIn")
@@ -92,7 +92,7 @@ namespace Yallocc
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
          b.MasterGrammar("Grammar")
-          .Begin
+          .Enter
           .Token(AbcTokenType.a_token)
           .Goto("Target")
           .Token(AbcTokenType.b_token).Name("Target")
@@ -110,7 +110,7 @@ namespace Yallocc
             var grammarDictionary = new GrammarDictionary();
             var b = CreateBuilder(grammarDictionary);
             b.MasterGrammar("Grammar")
-             .Begin
+             .Enter
              .Token(AbcTokenType.a_token)
              .Goto("Target2")
              .Token(AbcTokenType.b_token).Name("Target")
@@ -133,7 +133,7 @@ namespace Yallocc
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
          b.MasterGrammar("Grammar")
-          .Begin
+          .Enter
           .Token(AbcTokenType.c_token)
           .Switch
            (
@@ -161,9 +161,9 @@ namespace Yallocc
          {
             var grammarDictionary = new GrammarDictionary();
             var b = CreateBuilder(grammarDictionary);
-            b.Grammar("Container").Begin.Token(AbcTokenType.a_token).Name("InvalidTarget").End();
+            b.Grammar("Container").Enter.Token(AbcTokenType.a_token).Name("InvalidTarget").End();
             b.MasterGrammar("Grammar")
-             .Begin
+             .Enter
              .Token(AbcTokenType.b_token)
              .Goto("InvalidTarget")
              .Gosub("Container")
@@ -189,9 +189,9 @@ namespace Yallocc
          {
             var grammarDictionary = new GrammarDictionary();
             var b = CreateBuilder(grammarDictionary);
-            b.Grammar("Container").Begin.Token(AbcTokenType.a_token).Goto("InvalidTarget").End();
+            b.Grammar("Container").Enter.Token(AbcTokenType.a_token).Goto("InvalidTarget").End();
             b.MasterGrammar("Grammar")
-             .Begin
+             .Enter
              .Token(AbcTokenType.b_token)
              .Gosub("Container")
              .Token(AbcTokenType.c_token).Name("InvalidTarget")
@@ -221,12 +221,12 @@ namespace Yallocc
          var b = CreateBuilder(grammarDictionary);
 
          b.Grammar("Container")
-            .Begin
+            .Enter
             .Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
             .End();
 
          b.MasterGrammar("Grammar")
-          .Begin
+          .Enter
           .Label("Start").Action(() => res.Text += "[Start]")
           .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
           .Gosub("Container").Action(()=>res.Text += "<Gosub>")

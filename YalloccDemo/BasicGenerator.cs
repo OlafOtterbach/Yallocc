@@ -33,8 +33,7 @@ namespace YalloccDemo
       private void DefineGrammar(Yallocc<Tokens> yacc, SyntaxTreeBuilder ctx)
       {
          yacc.MasterGrammar("Expression")
-             .Begin
-             .Label("ExpressionStart").Action(() => ctx.Enter())
+             .Enter.Name("ExpressionStart").Action(() => ctx.Enter())
              .Gosub("SimpleExpression")
              .Switch
               (
@@ -47,8 +46,7 @@ namespace YalloccDemo
              .End();
 
          yacc.Grammar("Relation")
-             .Begin
-             .Label("RelationStart").Action(() => ctx.Enter())
+             .Enter.Name("RelationStart").Action(() => ctx.Enter())
              .Switch
               (
                  yacc.Branch.Token(Tokens.equal).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
@@ -59,8 +57,7 @@ namespace YalloccDemo
              .End();
 
          yacc.Grammar("SimpleExpression")
-             .Begin
-             .Label("SimpleExpressionStart").Action(() => ctx.Enter())
+             .Enter.Name("SimpleExpressionStart").Action(() => ctx.Enter())
              .Switch
               (
                 yacc.Branch.Token(Tokens.plus).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
@@ -82,8 +79,7 @@ namespace YalloccDemo
              .End();
  
          yacc.Grammar("Term")
-             .Begin
-             .Label("TermStart").Action(() => ctx.Enter())
+             .Enter.Name("TermStart").Action(() => ctx.Enter())
              .Gosub("Factor")
              .Switch
               (
@@ -99,8 +95,7 @@ namespace YalloccDemo
              .End();
 
          yacc.Grammar("Factor")
-             .Begin
-             .Label("FactorStart").Action(() => ctx.Enter())
+             .Enter.Name("FactorStart").Action(() => ctx.Enter())
              .Switch
               (
                  yacc.Branch

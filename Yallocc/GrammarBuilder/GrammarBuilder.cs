@@ -72,9 +72,9 @@ namespace Yallocc
          }
       }
 
-      public GrammarBuilder<T> BeginGrammar()
+      public GrammarBuilder<T> EnterGrammar()
       {
-         _current = new Transition();
+         AddLambda();
          return this;
       }
 

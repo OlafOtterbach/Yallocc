@@ -27,13 +27,13 @@ namespace Yallocc
          _lex.Register(patternText, tokenType);
       }
 
-      public BeginInterface<T> Grammar(string name)
+      public EnterInterface<T> Grammar(string name)
       {
 
          return _builderInterface.Grammar(name);
       }
 
-      public BeginInterface<T> MasterGrammar(string name)
+      public EnterInterface<T> MasterGrammar(string name)
       {
          return _builderInterface.MasterGrammar(name);
       }
