@@ -29,18 +29,11 @@ namespace Yallocc
          return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithoutNameAndActionAttribute<T> Lambda(Action action)
-      {
-         GrammarBuilder.AddLambda(action);
-         return new ProduceInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
-      }
-
-      public ProduceInterFaceWithoutActionAttribute<T> Default
+      public ProduceInterfaceWithNameAndActionAttribute<T> Lambda
       {
          get
          {
-            GrammarBuilder.AddLambda();
-            return new ProduceInterFaceWithoutActionAttribute<T>(GrammarBuilder);
+            return new ProduceInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
          }
       }
 

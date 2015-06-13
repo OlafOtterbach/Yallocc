@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace YallocSyntaxTree
 {
-   public class SyntaxTree
+   public class SyntaxTreeBuilder
    {
-      private Stack<SyntaxTreeLevel> _levels;
+      private Stack<RecursionLevel> _levels;
 
-      public SyntaxTree()
+      public SyntaxTreeBuilder()
       {
-         _levels = new Stack<SyntaxTreeLevel>();
+         _levels = new Stack<RecursionLevel>();
       }
 
-      public void Enter(int index)
+      public void Enter()
       {
-         var level = new SyntaxTreeLevel();
+         var level = new RecursionLevel();
          _levels.Push(level);
       }
 
@@ -25,7 +25,7 @@ namespace YallocSyntaxTree
             var level = _levels.Peek();
             if (level.HasParentNode)
             {
-               var newLevel = new SyntaxTreeLevel() { ParentNode = parent };
+               var newLevel = new RecursionLevel() { ParentNode = parent };
                level = _levels.Pop();
                var node = level.CreateNode();
                newLevel.AddChild(node);
@@ -52,7 +52,7 @@ namespace YallocSyntaxTree
          return lastChild;
       }
 
-      public void Exit(int index)
+      public void Exit()
       {
          var level = _levels.Pop();
          var node = level.CreateNode();

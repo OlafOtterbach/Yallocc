@@ -36,14 +36,18 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithNameAndAction.cs" />
+    <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithNameAndWithoutAction.cs" />
+    <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithoutNameAndWithAction.cs" />
+    <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithoutNameAndWithoutAction.cs" />
     <Compile Include="GrammarBuilder\GrammarBuildingException.cs" />
     <Compile Include="GrammarBuilder\GrammarDictionary.cs" />
     <Compile Include="Parser\ActionTransition.cs" />
     <Compile Include="GrammarBuilder\BranchBuilder.cs" />
     <Compile Include="GrammarBuilder\BranchInterface.cs" />
     <Compile Include="GrammarBuilder\BeginInterface.cs" />
-    <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndActionAttribute.cs" />
-    <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndTokActionAttribute.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndWithAction.cs" />
+    <Compile Include="GrammarBuilder\BranchInterfaceWithNameAndWithTokAction.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithoutActionAttribute.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAndActionAttribute.cs" />
     <Compile Include="GrammarBuilder\BranchInterfaceWithoutNameAttribute.cs" />

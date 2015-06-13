@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace YallocSyntaxTree
 {
-   public class SyntaxTreeLevel
+   public class RecursionLevel
    {
       private List<SyntaxTreeNode> _childrenNodes;
 
-      public SyntaxTreeLevel()
+      public RecursionLevel()
       {
          ParentNode = null;
          _childrenNodes = new List<SyntaxTreeNode>();

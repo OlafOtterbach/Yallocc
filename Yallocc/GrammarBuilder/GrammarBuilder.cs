@@ -130,12 +130,6 @@ namespace Yallocc
          AddTransition(labelTransition);
       }
 
-      public void AddLambda(Action action)
-      {
-         var transition = new ActionTransition(action);
-         AddTransition(transition);
-      }
-
       public void AddLambda()
       {
          var transition = new DefaultGrammarTransition();

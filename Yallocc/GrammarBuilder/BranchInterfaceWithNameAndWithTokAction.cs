@@ -3,9 +3,9 @@ using System;
 
 namespace Yallocc
 {
-   public class BranchInterfaceWithNameAndTokActionAttribute<T> : BranchInterface<T> where T : struct
+   public class BranchInterfaceWithNameAndWithTokAction<T> : BranchInterface<T> where T : struct
    {
-      public BranchInterfaceWithNameAndTokActionAttribute(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public BranchInterfaceWithNameAndWithTokAction(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {
       }
 

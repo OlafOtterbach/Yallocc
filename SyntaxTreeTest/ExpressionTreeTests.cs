@@ -95,10 +95,10 @@ namespace YalloccSyntaxTreeTest
          Assert.AreEqual(res.DoubleValue, 134);
       }
 
-      private SyntaxTree Parse(string text)
+      private SyntaxTreeBuilder Parse(string text)
       {
          var generator = new ExpressionGrammarGenerator();
-         var context = new SyntaxTree();
+         var context = new SyntaxTreeBuilder();
          var parser = generator.CreateParser(context);
          var res = parser.Parse(text);
          context = res.Success ? context : null;

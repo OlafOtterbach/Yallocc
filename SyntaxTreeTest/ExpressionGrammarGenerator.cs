@@ -6,7 +6,7 @@ namespace YalloccSyntaxTreeTest
 {
    public class ExpressionGrammarGenerator
    {
-      public YParser<ExpressionTokens> CreateParser(SyntaxTree ctx)
+      public YParser<ExpressionTokens> CreateParser(SyntaxTreeBuilder ctx)
       {
          var yacc = new Yallocc<ExpressionTokens>();
          DefineExpressionTokens(yacc);
@@ -29,11 +29,11 @@ namespace YalloccSyntaxTreeTest
          yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", ExpressionTokens.number);
       }
 
-      private void DefineGrammar(Yallocc<ExpressionTokens> yacc, SyntaxTree ctx)
+      private void DefineGrammar(Yallocc<ExpressionTokens> yacc, SyntaxTreeBuilder ctx)
       {
          yacc.MasterGrammar("Expression")
              .Begin
-             .Label("ExpressionStart").Action(() => ctx.Enter(1))
+             .Label("ExpressionStart").Action(() => ctx.Enter())
              .Gosub("SimpleExpression")
              .Switch
               (
@@ -42,24 +42,24 @@ namespace YalloccSyntaxTreeTest
                      .Gosub("SimpleExpression"),
                  yacc.Branch.Default
               )
-             .Lambda(() => ctx.Exit(1))
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Relation")
              .Begin
-             .Label("RelationStart").Action(() => ctx.Enter(77))
+             .Label("RelationStart").Action(() => ctx.Enter())
              .Switch
               (
                  yacc.Branch.Token(ExpressionTokens.equal).Action((Token<ExpressionTokens> tok) => ctx.CreateParent(new TokenTreeNode<ExpressionTokens>(tok))),
                  yacc.Branch.Token(ExpressionTokens.greater).Action((Token<ExpressionTokens> tok) => ctx.CreateParent(new TokenTreeNode<ExpressionTokens>(tok))),
                  yacc.Branch.Token(ExpressionTokens.less).Action((Token<ExpressionTokens> tok) => ctx.CreateParent(new TokenTreeNode<ExpressionTokens>(tok)))
               )
-             .Lambda(() => ctx.Exit(77))
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("SimpleExpression")
              .Begin
-             .Lambda(() => ctx.Enter(2))
+             .Lambda.Action(() => ctx.Enter())
              .Label("SimpleExpressionStart")
              .Switch
               (
@@ -78,12 +78,12 @@ namespace YalloccSyntaxTreeTest
                     .Goto("SimpleExpressionStart"),
                 yacc.Branch.Default
               )
-             .Lambda(() => ctx.Exit(2))
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Term")
              .Begin
-             .Lambda(() => ctx.Enter(3))
+             .Lambda.Action(() => ctx.Enter())
              .Label("TermStart")
              .Gosub("Factor")
              .Switch
@@ -96,12 +96,12 @@ namespace YalloccSyntaxTreeTest
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
-             .Lambda(() => ctx.Exit(3))
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Factor")
              .Begin
-             .Label("FactorStart").Action(() => ctx.Enter(4))
+             .Label("FactorStart").Action(() => ctx.Enter())
              .Switch
               (
                  yacc.Branch
@@ -111,7 +111,7 @@ namespace YalloccSyntaxTreeTest
                      .Gosub("Expression")
                      .Token(ExpressionTokens.close)
               )
-             .Lambda(() => ctx.Exit(4))
+             .Lambda.Action(() => ctx.Exit())
              .End();
       }
    }

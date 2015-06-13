@@ -18,22 +18,16 @@ namespace Yallocc
       {
          ParserResult result = new ParserResult();
          SyntaxElement elem = new SyntaxElement(start,null);
-         var path = new List<SyntaxElement>();
+         var path = new Stack<SyntaxElement>();
          int index = 0;
          foreach (var token in sequence)
          {
             if (Lookahead(elem, path, token.Type, 0, index++ == 0))
             {
                result.Position = token.TextIndex;
-               elem = path.Last();
-               var list = path.ToList();
-               for (int i = 0; i < list.Count; i++ )
-               {
-                  var x = list[i];
-                  Execute(x.Transition, token);
-               }
-                  //               path.ToList().ForEach(x => Execute(x.Transition, token));
-                  path.Clear();
+               elem = path.Peek();
+               path.Reverse().ToList().ForEach(x => Execute(x.Transition, token));
+               path.Clear();
             }
             else
             {
@@ -69,7 +63,7 @@ namespace Yallocc
          }
       }
 
-      private bool Lookahead(SyntaxElement start, List<SyntaxElement> path, Nullable<T> tokenType, int counter, bool first)
+      private bool Lookahead(SyntaxElement start, Stack<SyntaxElement> path, Nullable<T> tokenType, int counter, bool first)
       {
          var found = false;
          var enumerator = first ? new List<SyntaxElement>{start}.GetEnumerator() : GetSuccessors(start).GetEnumerator();
@@ -78,8 +72,15 @@ namespace Yallocc
             var succ = enumerator.Current;
             if (!(succ.Transition is TokenTypeTransition<T>) || ((succ.Transition as TokenTypeTransition<T>).TokenType.Equals(tokenType)))
             {
-               path.Add(succ);
-               found = (succ.Transition is TokenTypeTransition<T>) || Lookahead(succ, path, tokenType, ++counter,false);
+               path.Push(succ);
+               if((succ.Transition is TokenTypeTransition<T>) || Lookahead(succ, path, tokenType, ++counter,false))
+               {
+                  found = true;
+               }
+               else
+               {
+                  path.Pop();
+               }
             }
          }
          return found;

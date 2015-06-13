@@ -19,10 +19,12 @@ namespace Yallocc
          var b = CreateBuilder();
          b.Grammar("Grammar")
           .Begin
-          .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => {}).Name("eins")
+          .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => { }).Name("eins")
           .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { })
           .Switch(b.Branch.Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => { }).Name("eins")
-                          .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { })
+                          .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { }),
+                  b.Branch.Default.Action(() => { }).Name("Default1"),
+                  b.Branch.Default.Name("Default1").Action(() => { })
                  )
           .End();
 

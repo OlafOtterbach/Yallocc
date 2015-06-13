@@ -30,7 +30,7 @@ namespace YalloccDemo
          yacc.AddToken(@"\w", Tokens.name);
       }
 
-      private void DefineGrammar(Yallocc<Tokens> yacc, SyntaxTree ctx)
+      private void DefineGrammar(Yallocc<Tokens> yacc, SyntaxTreeBuilder ctx)
       {
          yacc.MasterGrammar("Expression")
              .Begin
@@ -43,7 +43,7 @@ namespace YalloccDemo
                      .Gosub("SimpleExpression"),
                  yacc.Branch.Default
               )
-             .Lambda(() => ctx.Exit())
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Relation")
@@ -55,7 +55,7 @@ namespace YalloccDemo
                  yacc.Branch.Token(Tokens.greater).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
                  yacc.Branch.Token(Tokens.less).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
               )
-             .Lambda(() => ctx.Exit())
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("SimpleExpression")
@@ -78,7 +78,7 @@ namespace YalloccDemo
                     .Goto("SimpleExpressionStart"),
                 yacc.Branch.Default
               )
-             .Lambda(() => ctx.Exit())
+             .Lambda.Action(() => ctx.Exit())
              .End();
  
          yacc.Grammar("Term")
@@ -95,7 +95,7 @@ namespace YalloccDemo
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
-             .Lambda(() => ctx.Exit())
+             .Lambda.Action(() => ctx.Exit())
              .End();
 
          yacc.Grammar("Factor")
@@ -112,7 +112,7 @@ namespace YalloccDemo
                      .Gosub("Expression")
                      .Token(Tokens.close)
               )
-             .Lambda(() => ctx.Exit())
+             .Lambda.Action(() => ctx.Exit())
              .End();
       }
    }

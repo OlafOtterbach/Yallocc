@@ -8,37 +8,39 @@ namespace Yallocc
       protected BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public BranchInterfaceWithNameAndTokActionAttribute<T> Token(T tokenType)
+      public BranchInterfaceWithNameAndWithTokAction<T> Token(T tokenType)
       {
          GrammarBuilder.AddToken(tokenType);
-         return new BranchInterfaceWithNameAndTokActionAttribute<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndWithTokAction<T>(GrammarBuilder);
       }
 
-      public BranchInterfaceWithNameAndActionAttribute<T> Label(string label)
+      public BranchInterfaceWithNameAndWithAction<T> Label(string label)
       {
          GrammarBuilder.AddLabel(label);
-         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithoutNameAndActionAttribute<T> Lambda(Action action)
+      public BranchInterfaceWithNameAndWithAction<T> Lambda
       {
-         GrammarBuilder.AddLambda(action);
-         return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+         get
+         {
+            return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+         }
       }
 
-      public BranchInterFaceWithoutNameAndActionAttribute<T> Default
+      public BranchDefaultInterfaceWithNameAndWithAction<T> Default
       {
          get
          {
             GrammarBuilder.AddLambda();
-            return new BranchInterFaceWithoutNameAndActionAttribute<T>(GrammarBuilder);
+            return new BranchDefaultInterfaceWithNameAndWithAction<T>(GrammarBuilder);
          }
       }
 
-      public BranchInterfaceWithNameAndActionAttribute<T> Gosub(string nameOfSubGrammar)
+      public BranchInterfaceWithNameAndWithAction<T> Gosub(string nameOfSubGrammar)
       {
          GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
-         return new BranchInterfaceWithNameAndActionAttribute<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
       }
 
       public BranchInterFaceWithoutNameAndActionAttribute<T> Goto(string label)

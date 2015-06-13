@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SyntaxTree.cs" />
-    <Compile Include="SyntaxTreeLevel.cs" />
+    <Compile Include="SyntaxTreeBuilder.cs" />
+    <Compile Include="RecursionLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxTreeNode.cs" />
   </ItemGroup>
