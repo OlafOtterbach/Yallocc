@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccTests", "YalloccTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccDemoTest", "UnitTestProject1\YalloccDemoTest.csproj", "{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccSyntaxTree", "SyntaxTree\YalloccSyntaxTree.csproj", "{DF75A5BD-F67A-4504-922D-04B8801B46AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTree", "SyntaxTree\SyntaxTree.csproj", "{DF75A5BD-F67A-4504-922D-04B8801B46AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccSyntaxTreeTest", "SyntaxTreeTest\YalloccSyntaxTreeTest.csproj", "{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTreeTest", "SyntaxTreeTest\SyntaxTreeTest.csproj", "{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

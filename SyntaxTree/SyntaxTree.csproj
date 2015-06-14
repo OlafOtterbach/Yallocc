@@ -7,8 +7,8 @@
     <ProjectGuid>{DF75A5BD-F67A-4504-922D-04B8801B46AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YalloccSyntaxTree</RootNamespace>
-    <AssemblyName>YalloccSyntaxTree</AssemblyName>
+    <RootNamespace>SyntaxTree</RootNamespace>
+    <AssemblyName>SyntaxTree</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

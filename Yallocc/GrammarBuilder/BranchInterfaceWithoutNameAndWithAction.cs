@@ -7,10 +7,10 @@ namespace Yallocc
       public BranchInterFaceWithoutNameAndWithAction(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public BranchInterFaceWithoutNameAndWithoutAction<T> Action(Action action)
+      public BranchInterface<T> Action(Action action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchInterface<T>(GrammarBuilder);
       }
    }
 }

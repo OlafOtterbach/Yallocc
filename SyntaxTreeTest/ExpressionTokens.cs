@@ -1,4 +1,4 @@
-﻿namespace YalloccSyntaxTreeTest
+﻿namespace SyntaxTreeTest
 {
    public enum ExpressionTokens
    {

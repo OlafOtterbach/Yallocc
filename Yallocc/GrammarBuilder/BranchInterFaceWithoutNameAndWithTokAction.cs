@@ -9,10 +9,10 @@ namespace Yallocc
          : base(grammarBuilder)
       {}
 
-      public BranchInterFaceWithoutNameAndWithoutAction<T> Action(Action<Token<T>> action)
+      public BranchInterface<T> Action(Action<Token<T>> action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchInterface<T>(GrammarBuilder);
       }
    }
 }

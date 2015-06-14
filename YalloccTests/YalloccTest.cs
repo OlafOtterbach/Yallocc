@@ -29,7 +29,8 @@ namespace Yallocc
                  yacc.Branch.Token(Token.B),
                  yacc.Branch.Token(Token.C)
               )
-             .End();
+             .Exit
+             .EndGrammar();
 
          var parser = yacc.CreateParser();
 
@@ -52,7 +53,8 @@ namespace Yallocc
              .Token(Token.A)
              .Gosub("Grammar")
              .Token(Token.A)
-             .End();
+             .Exit
+             .EndGrammar();
 
          yacc.Grammar("Grammar")
              .Enter
@@ -65,7 +67,8 @@ namespace Yallocc
                      .Gosub("MasterGrammar")
                      .Token(Token.C)
               )
-             .End();
+             .Exit
+             .EndGrammar();
 
          var parser = yacc.CreateParser();
 
@@ -82,7 +85,7 @@ namespace Yallocc
          yacc.AddToken(@"b", Token.B);
          yacc.AddToken(@"c", Token.C);
 
-         yacc.MasterGrammar("Grammar").Enter.End();
+         yacc.MasterGrammar("Grammar").Enter.Exit.EndGrammar();
          var parser = yacc.CreateParser();
 
          Assert.AreNotEqual(parser, null);
@@ -96,7 +99,7 @@ namespace Yallocc
          yacc.AddToken(@"a", Token.A);
          yacc.AddToken(@"b", Token.B);
 
-         yacc.MasterGrammar("Grammar").Enter.End();
+         yacc.MasterGrammar("Grammar").Enter.Exit.EndGrammar();
          try
          {
             var parser = yacc.CreateParser();
@@ -119,7 +122,7 @@ namespace Yallocc
          yacc.AddToken(@"b", Token.B);
          yacc.AddToken(@"b", Token.C);
 
-         yacc.Grammar("Grammar").Enter.End();
+         yacc.Grammar("Grammar").Enter.Exit.EndGrammar();
          try
          {
             var parser = yacc.CreateParser();
@@ -142,8 +145,8 @@ namespace Yallocc
          yacc.AddToken(@"b", Token.B);
          yacc.AddToken(@"b", Token.C);
 
-         yacc.Grammar("Grammar").Enter.End();
-         yacc.MasterGrammar("MasterGrammar").Enter.End();
+         yacc.Grammar("Grammar").Enter.Exit.EndGrammar();
+         yacc.MasterGrammar("MasterGrammar").Enter.Exit.EndGrammar();
          var parser = yacc.CreateParser();
 
          Assert.IsTrue(parser.Parse("").Success);
@@ -160,8 +163,8 @@ namespace Yallocc
 
          try
          {
-            yacc.MasterGrammar("MasterGrammar1").Enter.End();
-            yacc.MasterGrammar("MasterGrammar2").Enter.End();
+            yacc.MasterGrammar("MasterGrammar1").Enter.Exit.EndGrammar();
+            yacc.MasterGrammar("MasterGrammar2").Enter.Exit.EndGrammar();
          }
          catch (GrammarBuildingException e)
          {
@@ -185,7 +188,8 @@ namespace Yallocc
          yacc.MasterGrammar("Grammar")
              .Enter
           .Gosub("NoWhere")
-             .End();
+          .Exit
+          .EndGrammar();
          try
          {
             var parser = yacc.CreateParser();
@@ -211,12 +215,14 @@ namespace Yallocc
 
          yacc.MasterGrammar("MasterGrammar")
              .Enter
-          .Gosub("Grammar")
-             .End();
+             .Gosub("Grammar")
+             .Exit
+             .EndGrammar();
          yacc.Grammar("Grammar")
              .Enter
-          .Gosub("NoWhere")
-             .End();
+             .Gosub("NoWhere")
+             .Exit
+             .EndGrammar();
          try
          {
             var parser = yacc.CreateParser();

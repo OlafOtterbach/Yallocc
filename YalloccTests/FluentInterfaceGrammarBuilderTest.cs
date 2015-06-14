@@ -26,7 +26,8 @@ namespace Yallocc
                   b.Branch.Default.Action(() => { }).Name("Default1"),
                   b.Branch.Default.Name("Default1").Action(() => { })
                  )
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(true);
       }

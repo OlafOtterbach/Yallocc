@@ -12,9 +12,13 @@ namespace Yallocc
 
       protected GrammarBuilder<T> GrammarBuilder { get; private set; }
 
-      public void End()
+      public ExitInterfaceWithNameAndWithAction<T> Exit
       {
-         GrammarBuilder.EndGrammar();
+         get
+         {
+            GrammarBuilder.AddLambda();
+            return new ExitInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+         }
       }
 
       public ProduceInterfaceWithNameAndWithTokAction<T> Token(T tokenType)

@@ -5,7 +5,7 @@ namespace Yallocc
 {
    public class BranchInterface<T> : BranchBuilder<T> where T : struct
    {
-      protected BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}
 
       public BranchInterfaceWithNameAndWithTokAction<T> Token(T tokenType)
@@ -44,16 +44,16 @@ namespace Yallocc
          return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithoutNameAndWithoutAction<T> Goto(string label)
+      public BranchInterface<T> Goto(string label)
       {
          GrammarBuilder.GotoLabel(label);
-         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchInterface<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithoutNameAndWithoutAction<T> Switch(params BranchBuilder<T>[] branches)
+      public BranchInterface<T> Switch(params BranchBuilder<T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchInterface<T>(GrammarBuilder);
       }
    }
 }

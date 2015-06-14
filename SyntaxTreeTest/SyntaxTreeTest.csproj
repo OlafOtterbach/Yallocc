@@ -6,8 +6,8 @@
     <ProjectGuid>{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YalloccSyntaxTreeTest</RootNamespace>
-    <AssemblyName>YalloccSyntaxTreeTest</AssemblyName>
+    <RootNamespace>SyntaxTreeTest</RootNamespace>
+    <AssemblyName>SyntaxTreeTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -63,9 +63,9 @@
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>LexSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SyntaxTree\YalloccSyntaxTree.csproj">
+    <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
       <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
-      <Name>YalloccSyntaxTree</Name>
+      <Name>SyntaxTree</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yallocc\Yallocc.csproj">
       <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>

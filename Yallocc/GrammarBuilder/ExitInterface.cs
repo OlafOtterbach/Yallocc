@@ -1,10 +1,10 @@
 ﻿namespace Yallocc
 {
-   public class BranchBuilder<T> where T : struct
+   public class ExitInterface<T> where T : struct
    {
       private GrammarBuilder<T> _grammarBuilder;
 
-      public BranchBuilder(GrammarBuilder<T> grammarBuilder)
+      public ExitInterface(GrammarBuilder<T> grammarBuilder)
       {
          _grammarBuilder = grammarBuilder;
       }
@@ -15,6 +15,11 @@
          {
             return _grammarBuilder;
          }
+      }
+
+      public void EndGrammar()
+      {
+         _grammarBuilder.EndGrammar();
       }
    }
 }

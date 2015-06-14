@@ -18,7 +18,7 @@ namespace Yallocc
       {
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
-         b.MasterGrammar("Grammar").Enter.End();
+         b.MasterGrammar("Grammar").Enter.Exit.EndGrammar();
 
          Assert.IsTrue(Parser("", grammarDictionary.GetMasterGrammar()));
       }
@@ -32,7 +32,8 @@ namespace Yallocc
           .Enter
           .Token(AbcTokenType.a_token)
           .Token(AbcTokenType.b_token)
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(Parser("ab", grammarDictionary.GetMasterGrammar()));
       }
@@ -55,7 +56,8 @@ namespace Yallocc
                .Token(AbcTokenType.c_token)
            )
           .Token(AbcTokenType.a_token)
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(Parser("abbbca", grammarDictionary.GetMasterGrammar()));
       }
@@ -66,7 +68,7 @@ namespace Yallocc
          var grammarDictionary = new GrammarDictionary();
          var b = CreateBuilder(grammarDictionary);
 
-         b.Grammar("Container").Enter.Token(AbcTokenType.c_token).Token(AbcTokenType.b_token).Token(AbcTokenType.a_token).End();
+         b.Grammar("Container").Enter.Token(AbcTokenType.c_token).Token(AbcTokenType.b_token).Token(AbcTokenType.a_token).Exit.EndGrammar();
          b.MasterGrammar("Grammar")
           .Enter
           .Token(AbcTokenType.a_token)
@@ -81,7 +83,8 @@ namespace Yallocc
                .Token(AbcTokenType.c_token)
            )
           .Token(AbcTokenType.a_token)
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(Parser("acbabbbca", grammarDictionary.GetMasterGrammar()));
       }
@@ -96,7 +99,8 @@ namespace Yallocc
           .Token(AbcTokenType.a_token)
           .Goto("Target")
           .Token(AbcTokenType.b_token).Name("Target")
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(Parser("ab", grammarDictionary.GetMasterGrammar()));
       }
@@ -114,7 +118,8 @@ namespace Yallocc
              .Token(AbcTokenType.a_token)
              .Goto("Target2")
              .Token(AbcTokenType.b_token).Name("Target")
-             .End();
+             .Exit
+             .EndGrammar();
          }
          catch (GrammarBuildingException e)
          {
@@ -147,7 +152,8 @@ namespace Yallocc
                .Token(AbcTokenType.a_token).Name("Two")
            )
           .Token(AbcTokenType.c_token)
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(Parser("caac", grammarDictionary.GetMasterGrammar()));
          Assert.IsTrue(Parser("cbbc", grammarDictionary.GetMasterGrammar()));
@@ -161,14 +167,15 @@ namespace Yallocc
          {
             var grammarDictionary = new GrammarDictionary();
             var b = CreateBuilder(grammarDictionary);
-            b.Grammar("Container").Enter.Token(AbcTokenType.a_token).Name("InvalidTarget").End();
+            b.Grammar("Container").Enter.Token(AbcTokenType.a_token).Name("InvalidTarget").Exit.EndGrammar();
             b.MasterGrammar("Grammar")
              .Enter
              .Token(AbcTokenType.b_token)
              .Goto("InvalidTarget")
              .Gosub("Container")
              .Token(AbcTokenType.c_token)
-             .End();
+             .Exit
+             .EndGrammar();
          }
          catch (GrammarBuildingException e)
          {
@@ -189,13 +196,14 @@ namespace Yallocc
          {
             var grammarDictionary = new GrammarDictionary();
             var b = CreateBuilder(grammarDictionary);
-            b.Grammar("Container").Enter.Token(AbcTokenType.a_token).Goto("InvalidTarget").End();
+            b.Grammar("Container").Enter.Token(AbcTokenType.a_token).Goto("InvalidTarget").Exit.EndGrammar();
             b.MasterGrammar("Grammar")
              .Enter
              .Token(AbcTokenType.b_token)
              .Gosub("Container")
              .Token(AbcTokenType.c_token).Name("InvalidTarget")
-             .End();
+             .Exit
+             .EndGrammar();
          }
          catch (GrammarBuildingException e)
          {
@@ -223,7 +231,8 @@ namespace Yallocc
          b.Grammar("Container")
             .Enter
             .Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
-            .End();
+            .Exit
+            .EndGrammar();
 
          b.MasterGrammar("Grammar")
           .Enter
@@ -239,7 +248,8 @@ namespace Yallocc
              b.Branch.Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
            )
           .Label("End").Action(() => res.Text += "[End]")
-          .End();
+          .Exit
+          .EndGrammar();
 
          Assert.IsTrue(Parser("acbaaaaaac", grammarDictionary.GetMasterGrammar()));
          string expected = @"[Start]a<Gosub>c<\Gosub>b[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]c[End]";

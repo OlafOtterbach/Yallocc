@@ -8,10 +8,10 @@ namespace Yallocc
          : base(grammarBuilder)
       { }
 
-      public BranchDefaultInterfaceWithoutNameAndWithoutAction<T> Action(Action action)
+      public BranchBuilder<T> Action(Action action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchDefaultInterfaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchBuilder<T>(GrammarBuilder);
       }
    }
 }

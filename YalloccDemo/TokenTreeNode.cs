@@ -1,5 +1,5 @@
 ﻿using LexSharp;
-using YallocSyntaxTree;
+using SyntaxTree;
 
 namespace YalloccDemo
 {

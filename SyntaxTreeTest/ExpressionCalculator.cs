@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using YallocSyntaxTree;
+using SyntaxTree;
 
-namespace YalloccSyntaxTreeTest
+namespace SyntaxTreeTest
 {
    public static class ExpressionCalculator
    {

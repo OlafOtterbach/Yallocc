@@ -1,8 +1,8 @@
 ﻿using LexSharp;
 using Yallocc;
-using YallocSyntaxTree;
+using SyntaxTree;
 
-namespace YalloccSyntaxTreeTest
+namespace SyntaxTreeTest
 {
    public class ExpressionGrammarGenerator
    {
@@ -41,8 +41,8 @@ namespace YalloccSyntaxTreeTest
                      .Gosub("SimpleExpression"),
                  yacc.Branch.Default
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("Relation")
              .Enter.Name("RelationStart").Action(() => ctx.Enter())
@@ -52,8 +52,8 @@ namespace YalloccSyntaxTreeTest
                  yacc.Branch.Token(ExpressionTokens.greater).Action((Token<ExpressionTokens> tok) => ctx.CreateParent(new TokenTreeNode<ExpressionTokens>(tok))),
                  yacc.Branch.Token(ExpressionTokens.less).Action((Token<ExpressionTokens> tok) => ctx.CreateParent(new TokenTreeNode<ExpressionTokens>(tok)))
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("SimpleExpression")
              .Enter.Action(() => ctx.Enter())
@@ -75,8 +75,8 @@ namespace YalloccSyntaxTreeTest
                     .Goto("SimpleExpressionStart"),
                 yacc.Branch.Default
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("Term")
              .Enter.Action(() => ctx.Enter())
@@ -92,8 +92,8 @@ namespace YalloccSyntaxTreeTest
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("Factor")
              .Enter.Name("FactorStart").Action(() => ctx.Enter())
@@ -106,8 +106,8 @@ namespace YalloccSyntaxTreeTest
                      .Gosub("Expression")
                      .Token(ExpressionTokens.close)
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
       }
    }
 }

@@ -1,6 +1,6 @@
 ﻿using LexSharp;
 using Yallocc;
-using YallocSyntaxTree;
+using SyntaxTree;
 
 namespace YalloccDemo
 {
@@ -42,8 +42,8 @@ namespace YalloccDemo
                      .Gosub("SimpleExpression"),
                  yacc.Branch.Default
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("Relation")
              .Enter.Name("RelationStart").Action(() => ctx.Enter())
@@ -53,8 +53,8 @@ namespace YalloccDemo
                  yacc.Branch.Token(Tokens.greater).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok))),
                  yacc.Branch.Token(Tokens.less).Action((Token<Tokens> tok) => ctx.CreateParent(new TokenTreeNode<Tokens>(tok)))
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("SimpleExpression")
              .Enter.Name("SimpleExpressionStart").Action(() => ctx.Enter())
@@ -75,8 +75,8 @@ namespace YalloccDemo
                     .Goto("SimpleExpressionStart"),
                 yacc.Branch.Default
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
  
          yacc.Grammar("Term")
              .Enter.Name("TermStart").Action(() => ctx.Enter())
@@ -91,8 +91,8 @@ namespace YalloccDemo
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
 
          yacc.Grammar("Factor")
              .Enter.Name("FactorStart").Action(() => ctx.Enter())
@@ -107,8 +107,8 @@ namespace YalloccDemo
                      .Gosub("Expression")
                      .Token(Tokens.close)
               )
-             .Lambda.Action(() => ctx.Exit())
-             .End();
+             .Exit.Action(() => ctx.Exit())
+             .EndGrammar();
       }
    }
 }

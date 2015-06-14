@@ -5,10 +5,10 @@
       public BranchInterFaceWithNameAndWithoutAction(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public BranchInterFaceWithoutNameAndWithoutAction<T> Name(string name)
+      public BranchInterface<T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new BranchInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchInterface<T>(GrammarBuilder);
       }
    }
 }

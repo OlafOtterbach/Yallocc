@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace YallocSyntaxTree
+namespace SyntaxTree
 {
    public class RecursionLevel
    {
