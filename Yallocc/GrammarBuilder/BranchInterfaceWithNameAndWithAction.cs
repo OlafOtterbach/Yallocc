@@ -14,10 +14,10 @@ namespace Yallocc
          return new BranchInterFaceWithoutNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public BranchInterFaceWithNameAndWithoutAction<T> Action(Action action)
+      public BranchInterfaceWithNameAndWithoutAction<T> Action(Action action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchInterFaceWithNameAndWithoutAction<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
       }
    }
 }

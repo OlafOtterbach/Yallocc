@@ -38,10 +38,10 @@ namespace Yallocc
          }
       }
 
-      public BranchInterfaceWithNameAndWithAction<T> Gosub(string nameOfSubGrammar)
+      public BranchGosubInterfaceWithoutNameAndWithAction<T> Gosub(string nameOfSubGrammar)
       {
          GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
-         return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+         return new BranchGosubInterfaceWithoutNameAndWithAction<T>(GrammarBuilder);
       }
 
       public BranchInterface<T> Goto(string label)

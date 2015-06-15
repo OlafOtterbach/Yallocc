@@ -5,11 +5,13 @@ namespace SyntaxTree
 {
    public class RecursionLevel
    {
+      private SyntaxTreeNode _parentNode;
+
       private List<SyntaxTreeNode> _childrenNodes;
 
       public RecursionLevel()
       {
-         ParentNode = null;
+         _parentNode = null;
          _childrenNodes = new List<SyntaxTreeNode>();
       }
 
@@ -21,7 +23,21 @@ namespace SyntaxTree
          }
       }
 
-      public SyntaxTreeNode ParentNode { get; set; }
+      public SyntaxTreeNode ParentNode 
+      { 
+         get
+         {
+            return _parentNode;
+         }
+         set
+         {
+            _parentNode = value;
+            if( _childrenNodes.Contains(_parentNode))
+            {
+               _childrenNodes.Remove(_parentNode);
+            }
+         }
+      }
 
       public bool HasParentNode
       {
@@ -33,7 +49,14 @@ namespace SyntaxTree
 
       public void AddChild(SyntaxTreeNode child)
       {
-         _childrenNodes.Add(child);
+         if ((child != null) && (!_childrenNodes.Contains(child)))
+         {
+            _childrenNodes.Add(child);
+            if(child == _parentNode)
+            {
+               _parentNode = null;
+            }
+         }
       }
 
       public SyntaxTreeNode CreateNode()

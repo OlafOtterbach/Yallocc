@@ -238,8 +238,8 @@ namespace Yallocc
           .Enter
           .Label("Start").Action(() => res.Text += "[Start]")
           .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
-          .Gosub("Container").Action(()=>res.Text += "<Gosub>")
-          .Lambda.Action(() => res.Text += "<\\Gosub>")
+          .Lambda.Action(() => res.Text += "<Gosub>")
+          .Gosub("Container").Action(() => res.Text += "<\\Gosub>")
           .Token(AbcTokenType.b_token).Name("Target").Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
           .Label("Loop").Action(() => res.Text += "[Loop]")
           .Switch

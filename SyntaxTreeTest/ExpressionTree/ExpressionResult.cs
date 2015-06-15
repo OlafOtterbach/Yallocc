@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SyntaxTreeTest
+﻿namespace SyntaxTreeTest.ExpressionTree
 {
    public struct ExpressionResult
    {
@@ -16,16 +10,16 @@ namespace SyntaxTreeTest
 
       public ExpressionResult(bool val) :this()
       {
-         BoolValue = val;
-         IsBool = true;
+         BooleanValue = val;
+         IsBoolean = true;
       }
 
       public bool IsDouble { get; private set; }
 
       public double DoubleValue { get; private set; }
 
-      public bool IsBool { get; private set; }
+      public bool IsBoolean { get; private set; }
 
-      public bool BoolValue { get; private set; }
+      public bool BooleanValue { get; private set; }
    }
 }

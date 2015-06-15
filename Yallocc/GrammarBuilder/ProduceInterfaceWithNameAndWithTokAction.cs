@@ -10,16 +10,16 @@ namespace Yallocc
       {
       }
 
-      public ProduceInterFaceWithoutNameAndWithTokAction<T> Name(string name)
+      public ProduceInterfaceWithoutNameAndWithTokAction<T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new ProduceInterFaceWithoutNameAndWithTokAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithoutNameAndWithTokAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithNameAndWithoutAction<T> Action(Action<Token<T>> action)
+      public ProduceInterfaceWithNameAndWithoutAction<T> Action(Action<Token<T>> action)
       {
          GrammarBuilder.AddAction(action);
-         return new ProduceInterFaceWithNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
       }
    }
 }

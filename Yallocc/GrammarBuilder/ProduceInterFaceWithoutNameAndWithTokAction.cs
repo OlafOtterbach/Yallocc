@@ -3,16 +3,16 @@ using System;
 
 namespace Yallocc
 {
-   public class ProduceInterFaceWithoutNameAndWithTokAction<T> : ProduceInterface<T> where T : struct
+   public class ProduceInterfaceWithoutNameAndWithTokAction<T> : ProduceInterface<T> where T : struct
    {
-      public ProduceInterFaceWithoutNameAndWithTokAction(GrammarBuilder<T> grammarBuilder)
+      public ProduceInterfaceWithoutNameAndWithTokAction(GrammarBuilder<T> grammarBuilder)
          : base(grammarBuilder)
       {}
 
-      public ProduceInterFaceWithoutNameAndWithoutAction<T> Action(Action<Token<T>> action)
+      public ProduceInterface<T> Action(Action<Token<T>> action)
       {
          GrammarBuilder.AddAction(action);
-         return new ProduceInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterface<T>(GrammarBuilder);
       }
    }
 }

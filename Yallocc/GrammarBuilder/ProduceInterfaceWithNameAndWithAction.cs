@@ -8,16 +8,16 @@ namespace Yallocc
       {
       }
 
-      public ProduceInterFaceWithoutNameAndWithAction<T> Name(string name)
+      public ProduceInterfaceWithoutNameAndWithAction<T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new ProduceInterFaceWithoutNameAndWithAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithoutNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithNameAndWithoutAction<T> Action(Action action)
+      public ProduceInterfaceWithNameAndWithoutAction<T> Action(Action action)
       {
          GrammarBuilder.AddAction(action);
-         return new ProduceInterFaceWithNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
       }
    }
 }

@@ -50,11 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ExpressionCalculator.cs" />
-    <Compile Include="ExpressionGrammarGenerator.cs" />
-    <Compile Include="ExpressionResult.cs" />
-    <Compile Include="ExpressionTokens.cs" />
-    <Compile Include="TokenTreeNode.cs" />
+    <Compile Include="ExpressionTree\ExpressionCalculator.cs" />
+    <Compile Include="ExpressionTree\ExpressionGrammarGenerator.cs" />
+    <Compile Include="ExpressionTree\ExpressionResult.cs" />
+    <Compile Include="ExpressionTree\ExpressionTokenType.cs" />
+    <Compile Include="ExpressionTree\TokenTreeNode.cs" />
     <Compile Include="ExpressionTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

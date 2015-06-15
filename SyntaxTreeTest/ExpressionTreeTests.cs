@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SyntaxTree;
+using SyntaxTreeTest.ExpressionTree;
 
 namespace SyntaxTreeTest
 {
@@ -16,6 +16,30 @@ namespace SyntaxTreeTest
          var res = ExpressionCalculator.Calculate(ctx.Root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 5);
+      }
+
+      [TestMethod]
+      public void Test_FiveEqualsTwoPlusThree_True()
+      {
+         var ctx = Parse("5=2+3");
+
+         Assert.IsNotNull(ctx.Root);
+         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsFalse(res.IsDouble);
+         Assert.IsTrue(res.IsBoolean);
+         Assert.AreEqual(res.BooleanValue, true);
+      }
+
+      [TestMethod]
+      public void Test_BooleanExpressionEqualsBooleanExpression_True()
+      {
+         var ctx = Parse("((5=2+3)=(2+2=4))");
+
+         Assert.IsNotNull(ctx.Root);
+         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsFalse(res.IsDouble);
+         Assert.IsTrue(res.IsBoolean);
+         Assert.AreEqual(res.BooleanValue, true);
       }
 
       [TestMethod]

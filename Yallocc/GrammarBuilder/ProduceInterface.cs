@@ -5,7 +5,7 @@ namespace Yallocc
 {
    public class ProduceInterface<T> where T : struct
    {
-      protected ProduceInterface(GrammarBuilder<T> grammarBuilder)
+      public ProduceInterface(GrammarBuilder<T> grammarBuilder)
       {
          GrammarBuilder = grammarBuilder;
       }
@@ -42,22 +42,22 @@ namespace Yallocc
          }
       }
 
-      public ProduceInterfaceWithNameAndWithAction<T> Gosub(string nameOfSubGrammar)
+      public GosubInterfaceWithoutNameAndWithAction<T> Gosub(string nameOfSubGrammar)
       {
          GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
-         return new ProduceInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+         return new GosubInterfaceWithoutNameAndWithAction<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithoutNameAndWithoutAction<T> Goto(string label)
+      public ProduceInterface<T> Goto(string label)
       {
          GrammarBuilder.GotoLabel(label);
-         return new ProduceInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterface<T>(GrammarBuilder);
       }
 
-      public ProduceInterFaceWithoutNameAndWithoutAction<T> Switch(params BranchBuilder<T>[] branches)
+      public ProduceInterface<T> Switch(params BranchBuilder<T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new ProduceInterFaceWithoutNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterface<T>(GrammarBuilder);
       }
    }
 }

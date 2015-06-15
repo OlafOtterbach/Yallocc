@@ -21,9 +21,11 @@ namespace Yallocc
           .Enter
           .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => { }).Name("eins")
           .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { })
+          .Gosub("A1").Action(() => {})
           .Switch(b.Branch.Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => { }).Name("eins")
                           .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { }),
-                  b.Branch.Default.Action(() => { }).Name("Default1"),
+                  b.Branch.Gosub("A2").Action(() => { }),
+                  b.Branch.Default.Action(() => {}).Name("Default1"),
                   b.Branch.Default.Name("Default1").Action(() => { })
                  )
           .Exit

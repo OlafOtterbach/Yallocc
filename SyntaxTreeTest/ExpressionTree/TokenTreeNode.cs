@@ -1,7 +1,7 @@
 ﻿using LexSharp;
 using SyntaxTree;
 
-namespace SyntaxTreeTest
+namespace SyntaxTreeTest.ExpressionTree
 {
    public class TokenTreeNode<T> : SyntaxTreeNode where T : struct
    {

@@ -1,6 +1,6 @@
-﻿namespace SyntaxTreeTest
+﻿namespace SyntaxTreeTest.ExpressionTree
 {
-   public enum ExpressionTokens
+   public enum ExpressionTokenType
    {
       plus,
       minus,
