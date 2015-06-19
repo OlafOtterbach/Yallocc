@@ -57,6 +57,9 @@
     <Compile Include="ExpressionTree\TokenTreeNode.cs" />
     <Compile Include="ExpressionTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecursionLevelTests.cs" />
+    <Compile Include="SimpleTestHelp\NamedTreeNode.cs" />
+    <Compile Include="SyntaxTreeBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">

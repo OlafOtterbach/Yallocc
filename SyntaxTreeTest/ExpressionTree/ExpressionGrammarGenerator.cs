@@ -31,6 +31,13 @@ namespace SyntaxTreeTest.ExpressionTree
 
       private void DefineGrammar(Yallocc<ExpressionTokenType> yacc, SyntaxTreeBuilder stb)
       {
+         // Expression
+         //                                               |---------[Relation]------>----|
+         //                                               |                              |
+         //                                               |-----[SimpleExpression]-->----|
+         //                                               |                             \|/
+         // --"ExpressionStart"-->--[SimpleExpression]----------------------------------------->
+         //
          yacc.MasterGrammar("Expression")
              .Enter.Name("ExpressionStart").Action(() => stb.Enter())
              .Gosub("SimpleExpression")
@@ -44,6 +51,13 @@ namespace SyntaxTreeTest.ExpressionTree
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
+         // Relation
+         //                         |-------equal-->--|
+         //                         |                 |
+         //                         |------greater->--|
+         //                         |                \|/
+         // --"RelationStart"--->-----------less--->--------->
+         //
          yacc.Grammar("Relation")
              .Enter.Name("RelationStart").Action(() => stb.Enter())
              .Switch
@@ -55,6 +69,14 @@ namespace SyntaxTreeTest.ExpressionTree
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
+         // SimpleExpression
+         //
+         //                            |--plus---|            |-------------------plus----|
+         //                            |         |            |                           |
+         //                            |--minus--|            |-------------------minus---|
+         //                            |        \|/          \|/                          |
+         // --"SimpleExpressionStart"----------------"SimpleExpreesionLoop"------[Term]---------------->
+         //
          yacc.Grammar("SimpleExpression")
              .Enter.Action(() => stb.Enter())
              .Label("SimpleExpressionStart")
@@ -64,20 +86,28 @@ namespace SyntaxTreeTest.ExpressionTree
                 yacc.Branch.Token(ExpressionTokenType.minus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
                 yacc.Branch.Default
               )
+             .Label("SimpleExpressionLoop")
              .Gosub("Term")
              .Switch
               (
                 yacc.Branch
                     .Token(ExpressionTokenType.plus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
-                    .Goto("SimpleExpressionStart"),
+                    .Goto("SimpleExpressionLoop"),
                 yacc.Branch
                     .Token(ExpressionTokenType.minus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
-                    .Goto("SimpleExpressionStart"),
+                    .Goto("SimpleExpressionLoop"),
                 yacc.Branch.Default
               )
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
+         // Term
+         //           |------------mult---------|
+         //           |                         |
+         //           |------------div----------|
+         //          \|/                        |               
+         // -----"TermStart"-->--[Factor]-------------->
+         //
          yacc.Grammar("Term")
              .Enter.Action(() => stb.Enter())
              .Label("TermStart")
@@ -95,6 +125,12 @@ namespace SyntaxTreeTest.ExpressionTree
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
+         // Factor
+         //                                             
+         //                      |---------number------->---|
+         //                      |                          |
+         // --"FactorStart"-->-------(-[Expression]-)--->- \|/----->
+         //
          yacc.Grammar("Factor")
              .Enter.Name("FactorStart").Action(() => stb.Enter())
              .Switch

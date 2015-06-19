@@ -54,18 +54,21 @@ namespace SyntaxTree
 
       public void Exit()
       {
-         var level = _levels.Pop();
-         var node = level.CreateNode();
          if (_levels.Count > 0)
          {
-            if (node != null)
+            var level = _levels.Pop();
+            var node = level.CreateNode();
+            if (_levels.Count > 0)
             {
-               _levels.Peek().AddChild(node);
+               if (node != null)
+               {
+                  _levels.Peek().AddChild(node);
+               }
             }
-         }
-         else
-         {
-            Root = node;
+            else
+            {
+               Root = node;
+            }
          }
       }
 
