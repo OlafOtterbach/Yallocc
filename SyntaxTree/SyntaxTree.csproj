@@ -42,7 +42,15 @@
     <Compile Include="SyntaxTreeBuilder.cs" />
     <Compile Include="RecursionLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyntaxTreeGenerator.cs" />
     <Compile Include="SyntaxTreeNode.cs" />
+    <Compile Include="SyntaxTreeBuilderResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Yallocc\Yallocc.csproj">
+      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
+      <Name>Yallocc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,17 +2,18 @@
 using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YalloccDemo;
+using YalloccDemo.Grammar;
 
 namespace YalloccDemoTest
 {
    [TestClass]
-   public class TokensTest
+   public class TokenTypeTest
    {
       [TestMethod]
-      public void SpecialCharactersTest_SpecialCharacters_RecognizingTokens()
+      public void SpecialCharactersTest_SpecialCharacters_RecognizingTokenType()
       {
-         LexSharp<Tokens> lex = new LexSharp<Tokens>();
-         DefineTokens(lex);
+         LexSharp<TokenType> lex = new LexSharp<TokenType>();
+         DefineTokenType(lex);
 
          var plus = lex.Scan("+").ToList();
          var minus = lex.Scan("-").ToList();
@@ -34,15 +35,15 @@ namespace YalloccDemoTest
          Assert.IsTrue(open.Any());
          Assert.IsTrue(close.Any());
 
-         Assert.AreEqual(plus.First().Type, Tokens.plus);
-         Assert.AreEqual(minus.First().Type, Tokens.minus);
-         Assert.AreEqual(mult.First().Type, Tokens.mult);
-         Assert.AreEqual(div.First().Type, Tokens.div);
-         Assert.AreEqual(equal.First().Type, Tokens.equal);
-         Assert.AreEqual(greater.First().Type, Tokens.greater);
-         Assert.AreEqual(less.First().Type, Tokens.less);
-         Assert.AreEqual(open.First().Type, Tokens.open);
-         Assert.AreEqual(close.First().Type, Tokens.close);
+         Assert.AreEqual(plus.First().Type, TokenType.plus);
+         Assert.AreEqual(minus.First().Type, TokenType.minus);
+         Assert.AreEqual(mult.First().Type, TokenType.mult);
+         Assert.AreEqual(div.First().Type, TokenType.div);
+         Assert.AreEqual(equal.First().Type, TokenType.equal);
+         Assert.AreEqual(greater.First().Type, TokenType.greater);
+         Assert.AreEqual(less.First().Type, TokenType.less);
+         Assert.AreEqual(open.First().Type, TokenType.open);
+         Assert.AreEqual(close.First().Type, TokenType.close);
 
          Assert.AreEqual(plus.First().Value, "+");
          Assert.AreEqual(minus.First().Value, "-");
@@ -58,8 +59,8 @@ namespace YalloccDemoTest
       [TestMethod]
       public void NumberTest_Number_RecognizingNumber()
       {
-         LexSharp<Tokens> lex = new LexSharp<Tokens>();
-         DefineTokens(lex);
+         LexSharp<TokenType> lex = new LexSharp<TokenType>();
+         DefineTokenType(lex);
 
          var one = lex.Scan("1").ToList();
          var oneDot = lex.Scan("1.").ToList();
@@ -77,14 +78,14 @@ namespace YalloccDemoTest
          Assert.IsTrue(dotZero.Any());
          Assert.IsTrue(zeroDotOneTwoThree.Any());
 
-         Assert.AreEqual(one.First().Type, Tokens.number);
-         Assert.AreEqual(oneDot.First().Type, Tokens.number);
+         Assert.AreEqual(one.First().Type, TokenType.number);
+         Assert.AreEqual(oneDot.First().Type, TokenType.number);
          Assert.IsFalse(oneDot.Last().IsValid);
-         Assert.AreEqual(oneDotZeroOneTwoThree.First().Type, Tokens.number);
-         Assert.AreEqual(zero.First().Type, Tokens.number);
-         Assert.AreEqual(zeroDot.First().Type, Tokens.number);
+         Assert.AreEqual(oneDotZeroOneTwoThree.First().Type, TokenType.number);
+         Assert.AreEqual(zero.First().Type, TokenType.number);
+         Assert.AreEqual(zeroDot.First().Type, TokenType.number);
          Assert.IsFalse(dotZero.First().IsValid);
-         Assert.AreEqual(zeroDotOneTwoThree.First().Type, Tokens.number);
+         Assert.AreEqual(zeroDotOneTwoThree.First().Type, TokenType.number);
 
          Assert.AreEqual(one.First().Value, "1");
          Assert.AreEqual(oneDot.First().Value, "1");
@@ -95,19 +96,19 @@ namespace YalloccDemoTest
          Assert.AreEqual(zeroDotOneTwoThree.First().Value, "0.123");
       }
 
-      private void DefineTokens(LexSharp<Tokens> lex)
+      private void DefineTokenType(LexSharp<TokenType> lex)
       {
-         lex.Register(@"\+", Tokens.plus);
-         lex.Register(@"\-", Tokens.minus);
-         lex.Register(@"\*", Tokens.mult);
-         lex.Register(@"\/", Tokens.div);
-         lex.Register(@"=", Tokens.equal);
-         lex.Register(@"\>", Tokens.greater);
-         lex.Register(@"\<", Tokens.less);
-         lex.Register(@"\(", Tokens.open);
-         lex.Register(@"\)", Tokens.close);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", Tokens.number);
-         lex.Register(@"\w", Tokens.name);
+         lex.Register(@"\+", TokenType.plus);
+         lex.Register(@"\-", TokenType.minus);
+         lex.Register(@"\*", TokenType.mult);
+         lex.Register(@"\/", TokenType.div);
+         lex.Register(@"=", TokenType.equal);
+         lex.Register(@"\>", TokenType.greater);
+         lex.Register(@"\<", TokenType.less);
+         lex.Register(@"\(", TokenType.open);
+         lex.Register(@"\)", TokenType.close);
+         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", TokenType.number);
+//         lex.Register(@"\w", TokenType.name);
       }
 
    }

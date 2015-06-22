@@ -12,6 +12,12 @@ namespace SyntaxTree
          _levels = new Stack<RecursionLevel>();
       }
 
+      public void Reset()
+      {
+         _levels.Clear();
+         Root = null;
+      }
+
       public void Enter()
       {
          var level = new RecursionLevel();

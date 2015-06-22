@@ -51,13 +51,18 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BasicGeneratorTest.cs" />
+    <Compile Include="ExpresssionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokensTest.cs" />
+    <Compile Include="TokenTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>LexSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
+      <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
+      <Name>SyntaxTree</Name>
     </ProjectReference>
     <ProjectReference Include="..\YalloccDemo\YalloccDemo.csproj">
       <Project>{c0e57f6a-1e5d-49c1-ba4c-483cf583e653}</Project>

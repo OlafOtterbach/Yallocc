@@ -2,35 +2,11 @@
 using SyntaxTree;
 using Yallocc;
 
-namespace SyntaxTreeTest.ExpressionTree
+namespace YalloccDemo.Grammar
 {
-   public class ExpressionGrammarGenerator
+   public class ExpressionGrammar
    {
-      public SyntaxTreeGenerator<ExpressionTokenType> CreateParser()
-      {
-         var stb = new SyntaxTreeBuilder();
-         var yacc = new Yallocc<ExpressionTokenType>();
-         DefineExpressionTokens(yacc);
-         DefineGrammar(yacc,stb);
-         var generator = new SyntaxTreeGenerator<ExpressionTokenType>(yacc, stb);
-         return generator;
-      }
-
-      private void DefineExpressionTokens(Yallocc<ExpressionTokenType> yacc)
-      {
-         yacc.AddToken(@"\+", ExpressionTokenType.plus);
-         yacc.AddToken(@"\-", ExpressionTokenType.minus);
-         yacc.AddToken(@"\*", ExpressionTokenType.mult);
-         yacc.AddToken(@"\/", ExpressionTokenType.div);
-         yacc.AddToken(@"=", ExpressionTokenType.equal);
-         yacc.AddToken(@"\>", ExpressionTokenType.greater);
-         yacc.AddToken(@"\<", ExpressionTokenType.less);
-         yacc.AddToken(@"\(", ExpressionTokenType.open);
-         yacc.AddToken(@"\)", ExpressionTokenType.close);
-         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", ExpressionTokenType.number);
-      }
-
-      private void DefineGrammar(Yallocc<ExpressionTokenType> yacc, SyntaxTreeBuilder stb)
+      public void DefineGrammar(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
          // Expression
          //                                               |---------[Relation]------>----|
@@ -39,7 +15,7 @@ namespace SyntaxTreeTest.ExpressionTree
          //                                               |                             \|/
          // --"ExpressionStart"-->--[SimpleExpression]----------------------------------------->
          //
-         yacc.MasterGrammar("Expression")
+         yacc.Grammar("Expression")
              .Enter.Name("ExpressionStart").Action(() => stb.Enter())
              .Gosub("SimpleExpression")
              .Switch
@@ -63,9 +39,9 @@ namespace SyntaxTreeTest.ExpressionTree
              .Enter.Name("RelationStart").Action(() => stb.Enter())
              .Switch
               (
-                 yacc.Branch.Token(ExpressionTokenType.equal).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
-                 yacc.Branch.Token(ExpressionTokenType.greater).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
-                 yacc.Branch.Token(ExpressionTokenType.less).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
+                 yacc.Branch.Token(TokenType.equal).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                 yacc.Branch.Token(TokenType.greater).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                 yacc.Branch.Token(TokenType.less).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
               )
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
@@ -83,8 +59,8 @@ namespace SyntaxTreeTest.ExpressionTree
              .Label("SimpleExpressionStart")
              .Switch
               (
-                yacc.Branch.Token(ExpressionTokenType.plus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
-                yacc.Branch.Token(ExpressionTokenType.minus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
+                yacc.Branch.Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                yacc.Branch.Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
@@ -92,10 +68,10 @@ namespace SyntaxTreeTest.ExpressionTree
              .Switch
               (
                 yacc.Branch
-                    .Token(ExpressionTokenType.plus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
+                    .Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
-                    .Token(ExpressionTokenType.minus).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
+                    .Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch.Default
               )
@@ -116,10 +92,10 @@ namespace SyntaxTreeTest.ExpressionTree
              .Switch
               (
                 yacc.Branch
-                    .Token(ExpressionTokenType.mult).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
+                    .Token(TokenType.mult).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(ExpressionTokenType.div).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok)))
+                    .Token(TokenType.div).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
@@ -137,11 +113,11 @@ namespace SyntaxTreeTest.ExpressionTree
              .Switch
               (
                  yacc.Branch
-                     .Token(ExpressionTokenType.number).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
+                     .Token(TokenType.number).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch
-                     .Token(ExpressionTokenType.open)
+                     .Token(TokenType.open)
                      .Gosub("Expression")
-                     .Token(ExpressionTokenType.close)
+                     .Token(TokenType.close)
               )
              .Exit.Action(() => stb.Exit())
              .EndGrammar();

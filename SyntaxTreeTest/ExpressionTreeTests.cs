@@ -10,10 +10,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoPlusThree_Five()
       {
-         var ctx = Parse("2+3");
+         var root = Parse("2+3");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 5);
       }
@@ -21,10 +21,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_FiveEqualsTwoPlusThree_True()
       {
-         var ctx = Parse("5=2+3");
+         var root = Parse("5=2+3");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsFalse(res.IsDouble);
          Assert.IsTrue(res.IsBoolean);
          Assert.AreEqual(res.BooleanValue, true);
@@ -33,10 +33,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_BooleanExpressionEqualsBooleanExpression_True()
       {
-         var ctx = Parse("((5=2+3)=(2+2=4))");
+         var root = Parse("((5=2+3)=(2+2=4))");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsFalse(res.IsDouble);
          Assert.IsTrue(res.IsBoolean);
          Assert.AreEqual(res.BooleanValue, true);
@@ -45,10 +45,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoMultThree_Six()
       {
-         var ctx = Parse("2*3");
+         var root = Parse("2*3");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 6);
       }
@@ -56,10 +56,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoPlusThreeMultFour_Twenty()
       {
-         var ctx = Parse("2+3*4");
+         var root = Parse("2+3*4");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 14);
       }
@@ -67,10 +67,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoPlusThreePlusFour_Nine()
       {
-         var ctx = Parse("2+3+4");
+         var root = Parse("2+3+4");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 9);
       }
@@ -78,10 +78,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoNultThreeNultFour_TwentyFour()
       {
-         var ctx = Parse("2*3*4");
+         var root = Parse("2*3*4");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 24);
       }
@@ -89,10 +89,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_ClampTwoPlusThreeClamp_Five()
       {
-         var ctx = Parse("(2+3)");
+         var root = Parse("(2+3)");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 5);
       }
@@ -100,10 +100,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoMultClampThreePlusFourClamp_Fourteen()
       {
-         var ctx = Parse("2*(3+4)");
+         var root = Parse("2*(3+4)");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 14);
       }
@@ -111,10 +111,10 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_TwoPlusThreeMultFourMultClampFivePusSixClamp_OneHundreThirtyFour()
       {
-         var ctx = Parse("2+3*4*(5+6)");
+         var root = Parse("2+3*4*(5+6)");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, 134);
       }
@@ -122,22 +122,21 @@ namespace SyntaxTreeTest
       [TestMethod]
       public void Test_MinusTwoPlusThreeMultClampFourPlusClampFiveMultClampMinusSixClampClampClamp_MinusEighty()
       {
-         var ctx = Parse("-2+3*(4+(5*(-6)))");
+         var root = Parse("-2+3*(4+(5*(-6)))");
 
-         Assert.IsNotNull(ctx.Root);
-         var res = ExpressionCalculator.Calculate(ctx.Root);
+         Assert.IsNotNull(root);
+         var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
          Assert.AreEqual(res.DoubleValue, -80);
       }
 
-      private SyntaxTreeBuilder Parse(string text)
+      private SyntaxTreeNode Parse(string text)
       {
          var generator = new ExpressionGrammarGenerator();
-         var context = new SyntaxTreeBuilder();
-         var parser = generator.CreateParser(context);
+         var parser = generator.CreateParser();
          var res = parser.Parse(text);
-         context = res.Success ? context : null;
-         return context;
+         var node = res.Success ? res.Root : null;
+         return node;
       }
    }
 }

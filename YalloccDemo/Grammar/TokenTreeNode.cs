@@ -1,7 +1,7 @@
 ﻿using LexSharp;
 using SyntaxTree;
 
-namespace YalloccDemo
+namespace YalloccDemo.Grammar
 {
    public class TokenTreeNode<T> : SyntaxTreeNode where T : struct
    {
