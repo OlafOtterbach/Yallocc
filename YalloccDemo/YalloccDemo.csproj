@@ -37,12 +37,28 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\BasicBoolean.cs" />
-    <Compile Include="Basic\BasicFloat.cs" />
-    <Compile Include="Basic\BasicInteger.cs" />
-    <Compile Include="Basic\BasicMemory.cs" />
-    <Compile Include="Basic\BasicString.cs" />
-    <Compile Include="Basic\BasicType.cs" />
+    <Compile Include="Basic\Operators\BasicAddition.cs" />
+    <Compile Include="Basic\Operators\BasicAdditionSign.cs" />
+    <Compile Include="Basic\VariableTypes\BasicBoolean.cs" />
+    <Compile Include="Basic\BasicComandFactory.cs" />
+    <Compile Include="Basic\BasicCommand.cs" />
+    <Compile Include="Basic\Operators\BasicDivision.cs" />
+    <Compile Include="Basic\Operators\BasicEquals.cs" />
+    <Compile Include="Basic\VariableTypes\BasicFloat.cs" />
+    <Compile Include="Basic\Operators\BasicGreater.cs" />
+    <Compile Include="Basic\VariableTypes\BasicInteger.cs" />
+    <Compile Include="Basic\Operators\BasicLess.cs" />
+    <Compile Include="Basic\BasicEngine.cs" />
+    <Compile Include="Basic\Operators\BasicMultiplication.cs" />
+    <Compile Include="Basic\Operators\BasicBinaryOperator.cs" />
+    <Compile Include="Basic\Operators\BasicNegation.cs" />
+    <Compile Include="Basic\VariableTypes\BasicString.cs" />
+    <Compile Include="Basic\BasicEntity.cs" />
+    <Compile Include="Basic\Operators\BasicSubtraction.cs" />
+    <Compile Include="Basic\Operators\BasicUnaryOperator.cs" />
+    <Compile Include="Basic\Commands\DefCommand.cs" />
+    <Compile Include="Basic\Commands\ExpressionCommand.cs" />
+    <Compile Include="Basic\TypeMissmatchException.cs" />
     <Compile Include="Grammar\BasicGrammarGenerator.cs" />
     <Compile Include="Grammar\ExpressionGrammar.cs" />
     <Compile Include="Grammar\TokenDefinition.cs" />
@@ -68,6 +84,7 @@
       <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
