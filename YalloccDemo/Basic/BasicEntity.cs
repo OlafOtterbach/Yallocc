@@ -2,17 +2,18 @@
 {
    public abstract class BasicEntity
    {
-      protected enum BasicType
+      public enum BasicType
       {
          e_boolean,
          e_integer,
          e_float,
          e_string,
+         e_array,
          e_binary_operator,
          e_unary_operator
       }
 
-      protected abstract BasicType Type { get; }
+      public abstract BasicType Type { get; }
 
       public bool IsBoolean 
       { 
@@ -43,6 +44,14 @@
          get
          {
             return Type == BasicType.e_string;
+         }
+      }
+
+      public bool IsArray
+      {
+         get
+         {
+            return Type == BasicType.e_array;
          }
       }
 

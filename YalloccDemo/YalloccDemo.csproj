@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="Basic\Operators\BasicAddition.cs" />
     <Compile Include="Basic\Operators\BasicAdditionSign.cs" />
+    <Compile Include="Basic\VariableTypes\BasicArray.cs" />
+    <Compile Include="Basic\VariableTypes\BasicArrayElementAccessor.cs" />
     <Compile Include="Basic\VariableTypes\BasicBoolean.cs" />
     <Compile Include="Basic\BasicComandFactory.cs" />
     <Compile Include="Basic\BasicCommand.cs" />

@@ -2,14 +2,17 @@
 {
    public class BasicAdditionSign : BasicUnaryOperator
    {
-      protected override int ExecuteInteger(int variable)
+      public override BasicEntity Execute(BasicEntity variable)
       {
-         return variable;
-      }
-
-      protected override double ExecuteFloat(double variable)
-      {
-         return variable;
+         if (variable.IsInteger)
+         {
+            return variable;
+         }
+         if (variable.IsFloat)
+         {
+            return variable;
+         }
+         throw new TypeMissmatchException("Can not set plus before type.");
       }
    }
 }

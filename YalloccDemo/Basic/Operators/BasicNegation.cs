@@ -1,15 +1,18 @@
 ﻿namespace YalloccDemo.Basic
 {
-   public class BasicNegationSign : BasicUnaryOperator
+   public class BasicNegation : BasicUnaryOperator
    {
-      protected override int ExecuteInteger(int variable)
+      public override BasicEntity Execute(BasicEntity variable)
       {
-         return -variable;
-      }
-
-      protected override double ExecuteFloat(double variable)
-      {
-         return -variable;
+         if (variable.IsInteger)
+         {
+            return new BasicInteger(-(variable as BasicInteger).Value);
+         }
+         if (variable.IsFloat)
+         {
+            return new BasicFloat(-(variable as BasicFloat).Value);
+         }
+         throw new TypeMissmatchException("Can not negate wrong types.");
       }
    }
 }

@@ -11,11 +11,11 @@
          Value = value;
       }
 
-      protected override BasicType Type
+      public override BasicType Type
       {
          get
          {
-            return BasicType.e_float;
+            return BasicType.e_string;
          }
       }
 

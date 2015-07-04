@@ -50,9 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BasicArrayElementAccessorTest.cs" />
+    <Compile Include="BasicArrayTest.cs" />
     <Compile Include="BasicGeneratorTest.cs" />
     <Compile Include="ExpressionCommandTest.cs" />
-    <Compile Include="ExpresssionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenTypeTest.cs" />
   </ItemGroup>

@@ -11,7 +11,7 @@
          Value = value;
       }
 
-      protected override BasicType Type
+      public override BasicType Type
       {
          get
          {

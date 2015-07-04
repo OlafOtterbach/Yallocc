@@ -2,24 +2,25 @@
 {
    public class BasicSubtraction : BasicBinaryOperator
    {
-      protected override int ExecuteIntegerInteger(int left, int right)
+      public override BasicEntity Execute(BasicEntity left, BasicEntity right)
       {
-         return left - right;
-      }
-
-      protected override double ExecuteFloatFloat(double left, double right)
-      {
-         return left - right;
-      }
-
-      protected override bool ExecuteBooleanBoolean(bool left, bool right)
-      {
-         throw new TypeMissmatchException("Can not subtract two boolean values.");
-      }
-
-      protected override bool ExecuteStringString(string left, string right)
-      {
-         throw new TypeMissmatchException("Can not subtract two string values.");
+         if (left.IsInteger && right.IsInteger)
+         {
+            return new BasicInteger((left as BasicInteger).Value - (right as BasicInteger).Value);
+         }
+         if (left.IsFloat && right.IsInteger)
+         {
+            return new BasicFloat((left as BasicFloat).Value - (double)(right as BasicInteger).Value);
+         }
+         if (left.IsInteger && right.IsFloat)
+         {
+            return new BasicFloat((double)(left as BasicInteger).Value - (right as BasicFloat).Value);
+         }
+         if (left.IsFloat && right.IsFloat)
+         {
+            return new BasicFloat((left as BasicFloat).Value - (right as BasicFloat).Value);
+         }
+         throw new TypeMissmatchException("Can not subtract wrong types.");
       }
    }
 }
