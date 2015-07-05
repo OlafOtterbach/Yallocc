@@ -41,7 +41,7 @@ namespace Yallocc
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
          Assert.IsFalse(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 0);
+         Assert.AreEqual(0,result.Position);
       }
 
       [TestMethod]
@@ -56,7 +56,7 @@ namespace Yallocc
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
-         Assert.AreEqual(result.Position, 2);
+         Assert.AreEqual(2, result.Position);
          Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
@@ -87,7 +87,7 @@ namespace Yallocc
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
-         Assert.AreEqual(result.Position, 2);
+         Assert.AreEqual(2,result.Position);
          Assert.IsFalse(result.GrammarOfTextNotComplete);
       }
 
@@ -119,7 +119,7 @@ namespace Yallocc
          Assert.IsFalse(result.Success);
          Assert.IsFalse(result.SyntaxError);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 5);
+         Assert.AreEqual(5,result.Position);
       }
 
       [TestMethod]
@@ -135,7 +135,7 @@ namespace Yallocc
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
          Assert.IsFalse(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 7);
+         Assert.AreEqual(7,result.Position);
       }
 
       [TestMethod]
@@ -150,7 +150,7 @@ namespace Yallocc
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 4);
+         Assert.AreEqual(4,result.Position);
       }
 
       [TestMethod]
@@ -178,7 +178,7 @@ namespace Yallocc
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 0);
+         Assert.AreEqual(0,result.Position);
       }
 
       [TestMethod]
@@ -193,7 +193,7 @@ namespace Yallocc
          var result = parser.ParseTokens(grammar, sequence);
 
          Assert.IsTrue(result.Success);
-         Assert.AreEqual(res.Text, "[Start][Label]a[Label]a[Label]a[Label]a[Label]a[Label]b");
+         Assert.AreEqual("[Start][Label]a[Label]a[Label]a[Label]a[Label]a[Label]b",res.Text);
       }
 
       private Transition CreateSimpleGrammar()

@@ -15,7 +15,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 5);
+         Assert.AreEqual(5, res.DoubleValue);
       }
 
       [TestMethod]
@@ -27,7 +27,7 @@ namespace SyntaxTreeTest
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsFalse(res.IsDouble);
          Assert.IsTrue(res.IsBoolean);
-         Assert.AreEqual(res.BooleanValue, true);
+         Assert.AreEqual(true, res.BooleanValue);
       }
 
       [TestMethod]
@@ -39,7 +39,7 @@ namespace SyntaxTreeTest
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsFalse(res.IsDouble);
          Assert.IsTrue(res.IsBoolean);
-         Assert.AreEqual(res.BooleanValue, true);
+         Assert.AreEqual(true, res.BooleanValue);
       }
 
       [TestMethod]
@@ -50,7 +50,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 6);
+         Assert.AreEqual(6, res.DoubleValue);
       }
 
       [TestMethod]
@@ -61,7 +61,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 14);
+         Assert.AreEqual(14, res.DoubleValue);
       }
 
       [TestMethod]
@@ -72,7 +72,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 9);
+         Assert.AreEqual(9, res.DoubleValue);
       }
 
       [TestMethod]
@@ -83,7 +83,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 24);
+         Assert.AreEqual(24, res.DoubleValue);
       }
 
       [TestMethod]
@@ -94,7 +94,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 5);
+         Assert.AreEqual(5, res.DoubleValue);
       }
 
       [TestMethod]
@@ -105,7 +105,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 14);
+         Assert.AreEqual(14, res.DoubleValue);
       }
 
       [TestMethod]
@@ -116,7 +116,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, 134);
+         Assert.AreEqual(134, res.DoubleValue);
       }
 
       [TestMethod]
@@ -127,7 +127,7 @@ namespace SyntaxTreeTest
          Assert.IsNotNull(root);
          var res = ExpressionCalculator.Calculate(root);
          Assert.IsTrue(res.IsDouble);
-         Assert.AreEqual(res.DoubleValue, -80);
+         Assert.AreEqual(-80, res.DoubleValue);
       }
 
       private SyntaxTreeNode Parse(string text)

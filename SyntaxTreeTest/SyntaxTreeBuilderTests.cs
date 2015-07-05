@@ -62,10 +62,10 @@ namespace SyntaxTreeTest
 
          Assert.IsNotNull(builder.Root);
          var one = builder.Root as NamedTreeNode;
-         Assert.AreEqual(one.Name, "One");
-         Assert.AreEqual(one.Children.Count(), 1);
+         Assert.AreEqual("One", one.Name);
+         Assert.AreEqual(1, one.Children.Count());
          var two = one.Children.First() as NamedTreeNode;
-         Assert.AreEqual(two.Name, "Two");
+         Assert.AreEqual("Two", two.Name);
       }
 
       [TestMethod]
@@ -91,7 +91,7 @@ namespace SyntaxTreeTest
 
          var last = builder.GetLastChild();
 
-         Assert.AreEqual(last, three);
+         Assert.AreEqual(three, last);
       }
 
       [TestMethod]
@@ -107,9 +107,9 @@ namespace SyntaxTreeTest
          builder.CreateParent(three);
          builder.Exit();
 
-         Assert.AreEqual(builder.Root, three);
-         Assert.AreEqual(builder.Root.Children.First(), one);
-         Assert.AreEqual(builder.Root.Children.Last(), two);
+         Assert.AreEqual(three, builder.Root);
+         Assert.AreEqual(one, builder.Root.Children.First());
+         Assert.AreEqual(two, builder.Root.Children.Last());
       }
 
       [TestMethod]
@@ -125,11 +125,11 @@ namespace SyntaxTreeTest
          builder.CreateParent(three);
          builder.Exit();
 
-         Assert.AreEqual(builder.Root, three);
-         Assert.AreEqual(builder.Root.Children.Count(), 1);
-         Assert.AreEqual(builder.Root.Children.First(), two);
-         Assert.AreEqual(two.Children.Count(), 1);
-         Assert.AreEqual(two.Children.First(), one);
+         Assert.AreEqual(three, builder.Root);
+         Assert.AreEqual(1, builder.Root.Children.Count());
+         Assert.AreEqual(two, builder.Root.Children.First());
+         Assert.AreEqual(1, two.Children.Count());
+         Assert.AreEqual(one, two.Children.First());
       }
    }
 }

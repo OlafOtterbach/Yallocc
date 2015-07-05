@@ -124,8 +124,8 @@ namespace Yallocc
          catch (GrammarBuildingException e)
          {
             exeptionThrown = true;
-            Assert.AreEqual(e.Message, "Missing target label \"Target2\" for goto command.");
-            Assert.AreEqual(e.Label, "Target2");
+            Assert.AreEqual("Missing target label \"Target2\" for goto command.",e.Message);
+            Assert.AreEqual("Target2",e.Label);
             Assert.IsTrue(e.HasUndefinedGotoLabel);
          }
 
@@ -180,8 +180,8 @@ namespace Yallocc
          catch (GrammarBuildingException e)
          {
             exeptionThrown = true;
-            Assert.AreEqual(e.Message, "Missing target label \"InvalidTarget\" for goto command.");
-            Assert.AreEqual(e.Label, "InvalidTarget");
+            Assert.AreEqual("Missing target label \"InvalidTarget\" for goto command.",e.Message);
+            Assert.AreEqual("InvalidTarget",e.Label);
             Assert.IsTrue(e.HasUndefinedGotoLabel);
          }
 
@@ -208,8 +208,8 @@ namespace Yallocc
          catch (GrammarBuildingException e)
          {
             exeptionThrown = true;
-            Assert.AreEqual(e.Message, "Missing target label \"InvalidTarget\" for goto command.");
-            Assert.AreEqual(e.Label, "InvalidTarget");
+            Assert.AreEqual("Missing target label \"InvalidTarget\" for goto command.",e.Message);
+            Assert.AreEqual("InvalidTarget",e.Label);
             Assert.IsTrue(e.HasUndefinedGotoLabel);
          }
 
@@ -253,7 +253,7 @@ namespace Yallocc
 
          Assert.IsTrue(Parser("acbaaaaaac", grammarDictionary.GetMasterGrammar()));
          string expected = @"[Start]a<Gosub>c<\Gosub>b[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]a[Loop]c[End]";
-         Assert.AreEqual(res.Text, expected);
+         Assert.AreEqual(expected,res.Text);
       }
 
       private bool Parser(string text, Transition grammar)

@@ -36,8 +36,8 @@ namespace SyntaxTreeTest
          const string NAME = "One";
          level.AddChild(new NamedTreeNode(NAME));
 
-         Assert.AreEqual(level.ChildrenNodes.Count(),1);
-         Assert.AreEqual((level.ChildrenNodes.First() as NamedTreeNode).Name, NAME);
+         Assert.AreEqual(1, level.ChildrenNodes.Count());
+         Assert.AreEqual(NAME, (level.ChildrenNodes.First() as NamedTreeNode).Name);
       }
 
       [TestMethod]
@@ -48,8 +48,8 @@ namespace SyntaxTreeTest
          const string NAME = "One";
          level.ParentNode = new NamedTreeNode(NAME);
 
-         Assert.AreEqual(level.ChildrenNodes.Count(), 0);
-         Assert.AreEqual((level.ParentNode as NamedTreeNode).Name, NAME);
+         Assert.AreEqual(0, level.ChildrenNodes.Count());
+         Assert.AreEqual(NAME, (level.ParentNode as NamedTreeNode).Name);
       }
 
       [TestMethod]
@@ -65,9 +65,9 @@ namespace SyntaxTreeTest
          level.AddChild(two);
          level.AddChild(one);
 
-         Assert.AreEqual(level.ChildrenNodes.Count(), 2);
-         Assert.AreEqual((level.ChildrenNodes.First() as NamedTreeNode).Name, NAME1);
-         Assert.AreEqual((level.ChildrenNodes.Last() as NamedTreeNode).Name, NAME2);
+         Assert.AreEqual(2, level.ChildrenNodes.Count());
+         Assert.AreEqual(NAME1, (level.ChildrenNodes.First() as NamedTreeNode).Name);
+         Assert.AreEqual(NAME2, (level.ChildrenNodes.Last() as NamedTreeNode).Name);
       }
 
       [TestMethod]
@@ -83,9 +83,9 @@ namespace SyntaxTreeTest
          level.AddChild(two);
          level.ParentNode = one;
 
-         Assert.AreEqual(level.ChildrenNodes.Count(), 1);
-         Assert.AreEqual((level.ChildrenNodes.First() as NamedTreeNode).Name, NAME2);
-         Assert.AreEqual((level.ParentNode as NamedTreeNode).Name, NAME1);
+         Assert.AreEqual(1, level.ChildrenNodes.Count());
+         Assert.AreEqual(NAME2, (level.ChildrenNodes.First() as NamedTreeNode).Name);
+         Assert.AreEqual(NAME1, (level.ParentNode as NamedTreeNode).Name);
       }
 
       [TestMethod]
@@ -101,9 +101,9 @@ namespace SyntaxTreeTest
          level.AddChild(one);
          level.AddChild(two);
 
-         Assert.AreEqual(level.ChildrenNodes.Count(), 2);
-         Assert.AreEqual((level.ChildrenNodes.First() as NamedTreeNode).Name, NAME1);
-         Assert.AreEqual((level.ChildrenNodes.Last() as NamedTreeNode).Name, NAME2);
+         Assert.AreEqual(2, level.ChildrenNodes.Count());
+         Assert.AreEqual(NAME1, (level.ChildrenNodes.First() as NamedTreeNode).Name);
+         Assert.AreEqual(NAME2, (level.ChildrenNodes.Last() as NamedTreeNode).Name);
          Assert.IsFalse(level.HasParentNode);
          Assert.IsNull(level.ParentNode);
       }
@@ -126,9 +126,9 @@ namespace SyntaxTreeTest
          var node = level.CreateNode() as NamedTreeNode;
 
          Assert.IsNotNull(node);
-         Assert.AreEqual(node.Name, NAME1);
-         Assert.AreEqual((node.Children.First() as NamedTreeNode).Name, NAME2);
-         Assert.AreEqual((node.Children.Last() as NamedTreeNode).Name, NAME3);
+         Assert.AreEqual(NAME1, node.Name);
+         Assert.AreEqual(NAME2, (node.Children.First() as NamedTreeNode).Name);
+         Assert.AreEqual(NAME3, (node.Children.Last() as NamedTreeNode).Name);
       }
 
       [TestMethod]
@@ -149,9 +149,9 @@ namespace SyntaxTreeTest
          var node = level.CreateNode() as NamedTreeNode;
 
          Assert.IsNotNull(node);
-         Assert.AreEqual(node.Name, NAME1);
-         Assert.AreEqual((node.Children.First() as NamedTreeNode).Name, NAME2);
-         Assert.AreEqual((node.Children.Last() as NamedTreeNode).Name, NAME3);
+         Assert.AreEqual(NAME1, node.Name);
+         Assert.AreEqual(NAME2, (node.Children.First() as NamedTreeNode).Name);
+         Assert.AreEqual(NAME3, (node.Children.Last() as NamedTreeNode).Name);
       }
    }
 }

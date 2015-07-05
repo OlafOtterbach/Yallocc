@@ -88,7 +88,7 @@ namespace Yallocc
          yacc.MasterGrammar("Grammar").Enter.Exit.EndGrammar();
          var parser = yacc.CreateParser();
 
-         Assert.AreNotEqual(parser, null);
+         Assert.AreNotEqual(null, parser);
       }
 
       [TestMethod]
@@ -104,9 +104,9 @@ namespace Yallocc
          {
             var parser = yacc.CreateParser();
          }
-         catch(MissingTokenDefinitionException e)
+         catch (MissingTokenDefinitionException e)
          {
-            Assert.AreEqual(e.Message, "Not all types of tokens are defined.");
+            Assert.AreEqual("Not all types of tokens are defined.", e.Message);
             exceptionFound = true;
          }
 
@@ -129,7 +129,7 @@ namespace Yallocc
          }
          catch (GrammarBuildingException e)
          {
-            Assert.AreEqual(e.Message, "Master grammar is not defined.");
+            Assert.AreEqual("Master grammar is not defined.", e.Message);
             Assert.IsTrue(e.MasterGrammarIsNotDefined);
             exceptionFound = true;
          }
@@ -168,7 +168,7 @@ namespace Yallocc
          }
          catch (GrammarBuildingException e)
          {
-            Assert.AreEqual(e.Message, "Master grammar already defined.");
+            Assert.AreEqual("Master grammar already defined.", e.Message);
             Assert.IsTrue(e.MasterGrammarAlreadyDefined);
             exceptionFound = true;
          }
@@ -196,7 +196,7 @@ namespace Yallocc
          }
          catch (GrammarBuildingException e)
          {
-            Assert.AreEqual(e.Message, "Not all subgrammars are defined");
+            Assert.AreEqual("Not all subgrammars are defined", e.Message);
             Assert.IsTrue(e.HasUndefinedSubgrammars);
             exceptionFound = true;
          }
@@ -229,7 +229,7 @@ namespace Yallocc
          }
          catch (GrammarBuildingException e)
          {
-            Assert.AreEqual(e.Message, "Not all subgrammars are defined");
+            Assert.AreEqual("Not all subgrammars are defined", e.Message);
             Assert.IsTrue(e.HasUndefinedSubgrammars);
             exceptionFound = true;
          }

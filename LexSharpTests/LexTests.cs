@@ -59,8 +59,8 @@ namespace LexSharp
          catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType> e)
          {
             exeptionThrown = true;
-            Assert.AreEqual(e.Message, "Not allowed to register Token more than one time");
-            Assert.AreEqual(e.TokenType, AbcTokenType.a_token);
+            Assert.AreEqual("Not allowed to register Token more than one time", e.Message);
+            Assert.AreEqual(AbcTokenType.a_token, e.TokenType);
          }
 
          Assert.IsTrue(exeptionThrown);
@@ -88,7 +88,7 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, text.Length + 1);
+         Assert.AreEqual(text.Length + 1, tokens.Count);
          Assert.IsTrue(tokens.All(x => x.Type.Equals(AbcTokenType.a_token)));
       }
 
@@ -101,7 +101,7 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, 0);
+         Assert.AreEqual(0, tokens.Count);
       }
 
 
@@ -113,7 +113,7 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, 0);
+         Assert.AreEqual(0, tokens.Count);
       }
 
 
@@ -126,7 +126,7 @@ namespace LexSharp
          var tokens = lex.Scan(text).ToList();
 
          Assert.IsTrue(tokens.All(tok => !tok.IsValid));
-         Assert.AreEqual(tokens.Count, 1);
+         Assert.AreEqual(1, tokens.Count);
       }
 
 
@@ -138,11 +138,11 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, 2);
+         Assert.AreEqual(2, tokens.Count);
          Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.aabb_token));
          Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.c_token));
-         Assert.AreEqual(tokens[0].Value, "aabb");
-         Assert.AreEqual(tokens[1].Value, "cc");
+         Assert.AreEqual("aabb", tokens[0].Value);
+         Assert.AreEqual("cc", tokens[1].Value);
       }
 
 
@@ -154,11 +154,11 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, 2);
+         Assert.AreEqual(2, tokens.Count);
          Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.aXYZb_token));
          Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.c_token));
-         Assert.AreEqual(tokens[0].Value, "aabbbb");
-         Assert.AreEqual(tokens[1].Value, "cc");
+         Assert.AreEqual("aabbbb", tokens[0].Value);
+         Assert.AreEqual("cc", tokens[1].Value);
       }
 
 
@@ -170,7 +170,7 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, 11);
+         Assert.AreEqual(11, tokens.Count);
          Assert.IsFalse(tokens[0].IsValid);
          Assert.IsTrue(tokens[1].IsValid);
          Assert.IsTrue(tokens[1].Type.Equals(AbcTokenType.a_token));
@@ -187,11 +187,11 @@ namespace LexSharp
          Assert.IsTrue(tokens[9].IsValid);
          Assert.IsTrue(tokens[9].Type.Equals(AbcTokenType.aXYZb_token));
          Assert.IsFalse(tokens[10].IsValid);
-         Assert.AreEqual(tokens[1].Value, "aa");
-         Assert.AreEqual(tokens[3].Value, "bb");
-         Assert.AreEqual(tokens[5].Value, "cc");
-         Assert.AreEqual(tokens[7].Value, "aabb");
-         Assert.AreEqual(tokens[9].Value, "accb");
+         Assert.AreEqual("aa", tokens[1].Value);
+         Assert.AreEqual("bb", tokens[3].Value);
+         Assert.AreEqual("cc", tokens[5].Value);
+         Assert.AreEqual("aabb", tokens[7].Value);
+         Assert.AreEqual("accb", tokens[9].Value);
       }
 
 
@@ -203,7 +203,7 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(tokens.Count, 9);
+         Assert.AreEqual(9, tokens.Count);
          Assert.IsTrue(tokens[0].IsValid);
          Assert.IsTrue(tokens[0].Type.Equals(AbcTokenType.a_token));
          Assert.IsFalse(tokens[1].IsValid);
@@ -219,11 +219,11 @@ namespace LexSharp
          Assert.IsTrue(tokens[8].IsValid);
          Assert.IsTrue(tokens[8].Type.Equals(AbcTokenType.aabb_token));
          Assert.IsFalse(tokens[1].IsValid);
-         Assert.AreEqual(tokens[0].Value, "aa");
-         Assert.AreEqual(tokens[2].Value, "bb");
-         Assert.AreEqual(tokens[4].Value, "cc");
-         Assert.AreEqual(tokens[6].Value, "accb");
-         Assert.AreEqual(tokens[8].Value, "aabb");
+         Assert.AreEqual("aa", tokens[0].Value);
+         Assert.AreEqual("bb", tokens[2].Value);
+         Assert.AreEqual("cc", tokens[4].Value);
+         Assert.AreEqual("accb", tokens[6].Value);
+         Assert.AreEqual("aabb", tokens[8].Value);
       }
 
 

@@ -17,7 +17,7 @@ namespace YalloccTests
          Assert.IsTrue(res.Success);
          Assert.IsFalse(res.SyntaxError);
          Assert.IsFalse(res.GrammarOfTextNotComplete);
-         Assert.AreEqual(res.Position, 0);
+         Assert.AreEqual(0,res.Position);
       }
 
       [TestMethod]

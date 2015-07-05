@@ -73,7 +73,7 @@ namespace Yallocc
          Assert.IsFalse(result.Success);
          Assert.IsFalse(result.SyntaxError);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 13);
+         Assert.AreEqual(13,result.Position);
       }
 
       [TestMethod]
@@ -82,7 +82,7 @@ namespace Yallocc
          var result = CheckText("2+");
          Assert.IsFalse(result.SyntaxError);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
-         Assert.AreEqual(result.Position, 1);
+         Assert.AreEqual(1,result.Position);
       }
 
       private ParserResult CheckText(string text)
