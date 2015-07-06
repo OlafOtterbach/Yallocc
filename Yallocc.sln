@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccDemo", "YalloccDemo\YalloccDemo.csproj", "{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicDemo", "BasicDemo\BasicDemo.csproj", "{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpTests", "LexSharpTests\LexSharpTests.csproj", "{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}"
 EndProject
@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yallocc", "Yallocc\Yallocc.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccTests", "YalloccTests\YalloccTests.csproj", "{9D00DB73-60B6-4362-ADEC-3873F21580E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccDemoTest", "UnitTestProject1\YalloccDemoTest.csproj", "{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicDemoTest", "BasicDemoTests\BasicDemoTests.csproj", "{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTree", "SyntaxTree\SyntaxTree.csproj", "{DF75A5BD-F67A-4504-922D-04B8801B46AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTreeTest", "SyntaxTreeTest\SyntaxTreeTest.csproj", "{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTreeTest", "SyntaxTreeTests\SyntaxTreeTests.csproj", "{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
