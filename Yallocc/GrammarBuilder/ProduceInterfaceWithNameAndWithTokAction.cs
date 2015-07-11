@@ -16,6 +16,12 @@ namespace Yallocc
          return new ProduceInterfaceWithoutNameAndWithTokAction<T>(GrammarBuilder);
       }
 
+      public ProduceInterfaceWithNameAndWithoutAction<T> Action(Action action)
+      {
+         GrammarBuilder.AddAction(action);
+         return new ProduceInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
+      }
+
       public ProduceInterfaceWithNameAndWithoutAction<T> Action(Action<Token<T>> action)
       {
          GrammarBuilder.AddAction(action);

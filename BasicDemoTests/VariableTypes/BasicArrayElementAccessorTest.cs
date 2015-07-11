@@ -1,9 +1,5 @@
-﻿using System.Linq;
-using LexSharp;
+﻿using BasicDemo.Basic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BasicDemo;
-using BasicDemo.Grammar;
-using BasicDemo.Basic;
 using System.Collections.Generic;
 
 namespace BasicDemoTest

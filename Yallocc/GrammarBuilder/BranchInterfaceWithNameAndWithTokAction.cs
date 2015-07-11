@@ -15,6 +15,12 @@ namespace Yallocc
          return new BranchInterfaceWithoutNameAndWithTokAction<T>(GrammarBuilder);
       }
 
+      public BranchInterfaceWithNameAndWithoutAction<T> Action(Action action)
+      {
+         GrammarBuilder.AddAction(action);
+         return new BranchInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
+      }
+
       public BranchInterfaceWithNameAndWithoutAction<T> Action(Action<Token<T>> action)
       {
          GrammarBuilder.AddAction(action);

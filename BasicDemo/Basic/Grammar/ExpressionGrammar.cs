@@ -2,7 +2,7 @@
 using SyntaxTree;
 using Yallocc;
 
-namespace BasicDemo.Grammar
+namespace BasicDemo.Basic
 {
    public class ExpressionGrammar
    {
@@ -39,9 +39,9 @@ namespace BasicDemo.Grammar
              .Enter.Name("RelationStart").Action(() => stb.Enter())
              .Switch
               (
-                 yacc.Branch.Token(TokenType.equal).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
-                 yacc.Branch.Token(TokenType.greater).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
-                 yacc.Branch.Token(TokenType.less).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                 yacc.Branch.Token(TokenType.equal).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                 yacc.Branch.Token(TokenType.greater).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                 yacc.Branch.Token(TokenType.less).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
               )
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
@@ -59,8 +59,8 @@ namespace BasicDemo.Grammar
              .Label("SimpleExpressionStart")
              .Switch
               (
-                yacc.Branch.Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
-                yacc.Branch.Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                yacc.Branch.Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                yacc.Branch.Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
@@ -68,10 +68,10 @@ namespace BasicDemo.Grammar
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
-                    .Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch.Default
               )
@@ -92,10 +92,10 @@ namespace BasicDemo.Grammar
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.mult).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.mult).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.div).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.div).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
@@ -113,7 +113,9 @@ namespace BasicDemo.Grammar
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.number).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                     .Token(TokenType.integer).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                 yacc.Branch
+                     .Token(TokenType.real).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                  yacc.Branch
                      .Token(TokenType.open)
                      .Gosub("Expression")

@@ -1,0 +1,25 @@
+﻿namespace BasicDemo.Basic
+{
+   public enum TokenType
+   {
+      plus,          // +
+      minus,         // -
+      mult,          // *
+      div,           // /
+      equal,         // =
+      greater,       // >
+      less,          // <
+      open,          // (
+      close,         // )
+      open_clamp,    // [
+      close_clamp,   // ]
+      comma,         // ,
+      Return         // \n
+      integer,       // 1, 2, 3, 12, 123, ...
+      real,          // 1.0, 12.0, 1.0, 0.2, .4, ...
+      text,          // "Hallo", ...
+      dim,           // DIM
+      let,           // LET
+      name,          // x, y, index, ...
+   }
+}

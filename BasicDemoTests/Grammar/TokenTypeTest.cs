@@ -2,7 +2,8 @@
 using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BasicDemo;
-using BasicDemo.Grammar;
+using BasicDemo.Basic;
+using System.Text.RegularExpressions;
 
 namespace BasicDemoTest
 {
@@ -78,21 +79,21 @@ namespace BasicDemoTest
          Assert.IsTrue(dotZero.Any());
          Assert.IsTrue(zeroDotOneTwoThree.Any());
 
-         Assert.AreEqual(one.First().Type, TokenType.number);
-         Assert.AreEqual(oneDot.First().Type, TokenType.number);
+         Assert.AreEqual(one.First().Type, TokenType.integer);
+         Assert.AreEqual(oneDot.First().Type, TokenType.integer);
          Assert.IsFalse(oneDot.Last().IsValid);
-         Assert.AreEqual(oneDotZeroOneTwoThree.First().Type, TokenType.number);
-         Assert.AreEqual(zero.First().Type, TokenType.number);
-         Assert.AreEqual(zeroDot.First().Type, TokenType.number);
-         Assert.IsFalse(dotZero.First().IsValid);
-         Assert.AreEqual(zeroDotOneTwoThree.First().Type, TokenType.number);
+         Assert.AreEqual(oneDotZeroOneTwoThree.First().Type, TokenType.real);
+         Assert.AreEqual(zero.First().Type, TokenType.integer);
+         Assert.AreEqual(zeroDot.First().Type, TokenType.integer);
+         Assert.IsTrue(dotZero.Last().IsValid);
+         Assert.AreEqual(zeroDotOneTwoThree.First().Type, TokenType.real);
 
          Assert.AreEqual(one.First().Value, "1");
          Assert.AreEqual(oneDot.First().Value, "1");
          Assert.AreEqual(oneDotZeroOneTwoThree.First().Value, "1.0123");
          Assert.AreEqual(zero.First().Value, "0");
          Assert.AreEqual(zeroDot.First().Value, "0");
-         Assert.AreEqual(dotZero.Last().Value, "0");
+         Assert.AreEqual(dotZero.Last().Value, ".0");
          Assert.AreEqual(zeroDotOneTwoThree.First().Value, "0.123");
       }
 
@@ -107,9 +108,8 @@ namespace BasicDemoTest
          lex.Register(@"\<", TokenType.less);
          lex.Register(@"\(", TokenType.open);
          lex.Register(@"\)", TokenType.close);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", TokenType.number);
-//         lex.Register(@"\w", TokenType.name);
+         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
+         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
       }
-
    }
 }

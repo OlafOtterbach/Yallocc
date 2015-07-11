@@ -9,6 +9,12 @@ namespace Yallocc
          : base(grammarBuilder)
       {}
 
+      public ProduceInterface<T> Action(Action action)
+      {
+         GrammarBuilder.AddAction(action);
+         return new ProduceInterface<T>(GrammarBuilder);
+      }
+
       public ProduceInterface<T> Action(Action<Token<T>> action)
       {
          GrammarBuilder.AddAction(action);

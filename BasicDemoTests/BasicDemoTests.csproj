@@ -50,12 +50,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BasicArrayElementAccessorTest.cs" />
-    <Compile Include="BasicArrayTest.cs" />
-    <Compile Include="BasicGeneratorTest.cs" />
-    <Compile Include="ExpressionCommandTest.cs" />
+    <Compile Include="VariableTypes\BasicArrayElementAccessorTest.cs" />
+    <Compile Include="VariableTypes\BasicArrayTest.cs" />
+    <Compile Include="Grammar\BasicGeneratorTest.cs" />
+    <Compile Include="Commands\ExpressionCommandTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenTypeTest.cs" />
+    <Compile Include="Grammar\TokenTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">
@@ -75,6 +75,7 @@
       <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

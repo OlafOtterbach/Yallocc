@@ -45,8 +45,8 @@ namespace LexSharp
          var minimalPatternIndexAndLongestMininimalMatches = GetNextMatches();
          if (minimalPatternIndexAndLongestMininimalMatches.Any())
          { // Matches are found
-
-            var tokenResult = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token<T>(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length)).First();
+            var tokens = minimalPatternIndexAndLongestMininimalMatches.Select(x => new Token<T>(x.Match.Value, x.Pattern.TokenType, x.Match.Index, x.Match.Length));
+            var tokenResult = tokens.First();
             var actualCursorPos = _cursorPos;
             _cursorPos = tokenResult.TextIndex + ((tokenResult.Length > 0) ? tokenResult.Length : 1);
             ScanNextMatch();

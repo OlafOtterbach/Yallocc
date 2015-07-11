@@ -2,7 +2,7 @@
 using SyntaxTree;
 using Yallocc;
 
-namespace BasicDemo.Grammar
+namespace BasicDemo.Basic
 {
    public class BasicGrammarGenerator
    {

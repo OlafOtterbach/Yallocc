@@ -64,14 +64,14 @@
     <Compile Include="Basic\Commands\LetCommand.cs" />
     <Compile Include="Basic\Commands\ExpressionCommand.cs" />
     <Compile Include="Basic\BasicTypeMissmatchException.cs" />
-    <Compile Include="Grammar\AssignmentGrammar.cs" />
-    <Compile Include="Grammar\BasicGrammarGenerator.cs" />
-    <Compile Include="Grammar\ExpressionGrammar.cs" />
-    <Compile Include="Grammar\TokenDefinition.cs" />
-    <Compile Include="Grammar\TokenType.cs" />
+    <Compile Include="Basic\Grammar\LetGrammar.cs" />
+    <Compile Include="Basic\Grammar\BasicGrammarGenerator.cs" />
+    <Compile Include="Basic\Grammar\ExpressionGrammar.cs" />
+    <Compile Include="Basic\Grammar\TokenDefinition.cs" />
+    <Compile Include="Basic\Grammar\TokenType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Grammar\TokenTreeNode.cs" />
+    <Compile Include="Basic\Grammar\TokenTreeNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
