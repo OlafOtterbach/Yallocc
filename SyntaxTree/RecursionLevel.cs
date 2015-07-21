@@ -59,18 +59,14 @@ namespace SyntaxTree
          }
       }
 
-      public SyntaxTreeNode CreateNode()
+      public IEnumerable<SyntaxTreeNode> CreateNodes()
       {
          if (ParentNode != null)
          {
             ParentNode.Children = _childrenNodes;
          }
-         else  if(_childrenNodes.Any())
-         {
-            ParentNode = _childrenNodes.First();
-            ParentNode.Children = ParentNode.Children.Concat(_childrenNodes.Where(x => x != ParentNode));
-         }
-         return ParentNode;
+         var nodes = (ParentNode != null) ? new List<SyntaxTreeNode>{ ParentNode } : _childrenNodes;
+         return nodes;
       }
    }
 }

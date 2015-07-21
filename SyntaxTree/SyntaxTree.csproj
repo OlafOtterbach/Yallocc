@@ -39,10 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratorInterfaceWithRegisterWithCreate.cs" />
+    <Compile Include="GeneratorInterfaceWithRegisterWithoutCreate.cs" />
+    <Compile Include="ITokenAndGrammarDefinition.cs" />
     <Compile Include="SyntaxTreeBuilder.cs" />
     <Compile Include="RecursionLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxTreeGenerator.cs" />
+    <Compile Include="SyntaxTreeGeneratorNotReadyException.cs" />
     <Compile Include="SyntaxTreeNode.cs" />
     <Compile Include="SyntaxTreeBuilderResult.cs" />
   </ItemGroup>

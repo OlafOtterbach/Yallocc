@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic\Commands\DimCommand.cs" />
+    <Compile Include="Basic\Grammar\ProgramGrammar.cs" />
     <Compile Include="Basic\Operators\BasicAddition.cs" />
     <Compile Include="Basic\Operators\BasicAdditionSign.cs" />
     <Compile Include="Basic\VariableTypes\BasicArray.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="Basic\Commands\LetCommand.cs" />
     <Compile Include="Basic\Commands\ExpressionCommand.cs" />
     <Compile Include="Basic\BasicTypeMissmatchException.cs" />
-    <Compile Include="Basic\Grammar\LetGrammar.cs" />
+    <Compile Include="Basic\Grammar\LetStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\BasicGrammarGenerator.cs" />
     <Compile Include="Basic\Grammar\ExpressionGrammar.cs" />
     <Compile Include="Basic\Grammar\TokenDefinition.cs" />

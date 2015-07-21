@@ -33,8 +33,8 @@ namespace SyntaxTree
             {
                var newLevel = new RecursionLevel() { ParentNode = parent };
                level = _levels.Pop();
-               var node = level.CreateNode();
-               newLevel.AddChild(node);
+               var nodes = level.CreateNodes().ToList();
+               nodes.ForEach(node => newLevel.AddChild(node));
                _levels.Push(newLevel);
             }
             else
@@ -63,17 +63,15 @@ namespace SyntaxTree
          if (_levels.Count > 0)
          {
             var level = _levels.Pop();
-            var node = level.CreateNode();
+            var nodes = level.CreateNodes().ToList();
             if (_levels.Count > 0)
             {
-               if (node != null)
-               {
-                  _levels.Peek().AddChild(node);
-               }
+               nodes.ForEach(node => _levels.Peek().AddChild(node));
             }
             else
             {
-               Root = node;
+               // ToDo: Exception werfen
+               Root = (nodes.Count == 1) ? nodes.First() : null;
             }
          }
       }

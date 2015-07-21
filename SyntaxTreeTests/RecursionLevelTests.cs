@@ -123,7 +123,7 @@ namespace SyntaxTreeTest
          level.AddChild(two);
          level.AddChild(three);
 
-         var node = level.CreateNode() as NamedTreeNode;
+         var node = level.CreateNodes().OfType<NamedTreeNode>().FirstOrDefault();
 
          Assert.IsNotNull(node);
          Assert.AreEqual(NAME1, node.Name);
@@ -146,12 +146,12 @@ namespace SyntaxTreeTest
          level.AddChild(two);
          level.AddChild(three);
 
-         var node = level.CreateNode() as NamedTreeNode;
+         var nodes = level.CreateNodes().OfType<NamedTreeNode>().ToList();
 
-         Assert.IsNotNull(node);
-         Assert.AreEqual(NAME1, node.Name);
-         Assert.AreEqual(NAME2, (node.Children.First() as NamedTreeNode).Name);
-         Assert.AreEqual(NAME3, (node.Children.Last() as NamedTreeNode).Name);
+         Assert.IsTrue(nodes.Count > 1);
+         Assert.AreEqual(NAME1, nodes[0].Name);
+         Assert.AreEqual(NAME2, nodes[1].Name);
+         Assert.AreEqual(NAME3, nodes[2].Name);
       }
    }
 }

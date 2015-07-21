@@ -22,9 +22,23 @@ namespace Yallocc
          _lex = new LexSharp<T>();
       }
 
+
+      public LexSharp<T> Lex
+      {
+         get
+         {
+            return _lex;
+         }
+      }
+
       public void AddToken(string patternText, T tokenType)
       {
          _lex.Register(patternText, tokenType);
+      }
+
+      public void AddTokenToIgnore(string patternText, T tokenType)
+      {
+         _lex.RegisterIgnorePattern(patternText, tokenType);
       }
 
       public EnterInterface<T> Grammar(string name)

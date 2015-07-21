@@ -4,12 +4,106 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BasicDemo;
 using BasicDemo.Basic;
 using System.Text.RegularExpressions;
+using Yallocc;
+using System.IO;
+using SyntaxTree;
 
 namespace BasicDemoTest
 {
    [TestClass]
    public class TokenTypeTest
    {
+      [TestMethod]
+      public void NameTest_OneName_SyntaxTreeBuilderDoesNotInfluenceResult()
+      {
+         var yacc1 = new Yallocc<TokenType>();
+         var yacc2 = new Yallocc<TokenType>();
+         var builder = new SyntaxTreeBuilder();
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc1, null);
+         tokenDefinition.Define(yacc2, null);
+         var lex1 = yacc1.Lex;
+         var lex2 = yacc1.Lex;
+
+         var tokens1 = lex1.Scan("Hallo").ToList();
+         var tokens2 = lex2.Scan("Hallo").ToList();
+
+         Assert.IsTrue(tokens1.Any());
+         Assert.AreEqual(tokens1.First().Type, TokenType.name);
+         Assert.AreEqual(tokens1.First().Value, "Hallo");
+         Assert.IsTrue(tokens2.Any());
+         Assert.AreEqual(tokens2.First().Type, TokenType.name);
+         Assert.AreEqual(tokens2.First().Value, "Hallo");
+      }
+
+
+      [TestMethod]
+      public void NameTest_OneName_NameScanned()
+      {
+         var yacc = new Yallocc<TokenType>();
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc, null);
+         var lex = yacc.Lex;
+
+         var tokens1 = lex.Scan("Hallo").ToList();
+
+         Assert.IsTrue(tokens1.Any());
+         Assert.AreEqual(tokens1.First().Type, TokenType.name);
+         Assert.AreEqual(tokens1.First().Value, "Hallo");
+
+         var tokens2 = lex.Scan("PROGRAM \"text\"\r\nLET a = 2").ToList();
+      }
+
+      [TestMethod]
+      public void NameTest_ProgramText_NameScanned()
+      {
+         var yacc = new Yallocc<TokenType>();
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc, null);
+         var lex = yacc.Lex;
+
+         var text = "PROGRAM \"LET Statement\"\r\nLET a";
+//         var tokens = lex.Scan("PROGRAM \"text\"\r\nLET a = 2").ToList();
+         var tokens = lex.Scan(text).ToList();
+
+         Assert.IsTrue(tokens.Any());
+         Assert.AreEqual(tokens[4].Type, TokenType.name);
+         Assert.AreEqual(tokens[4].Value, "a");
+      }
+
+      [TestMethod]
+      public void ScannerStressTest()
+      {
+         var yacc = new Yallocc<TokenType>();
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc, null);
+         var lex = yacc.Lex;
+
+         var text = "\"LET Statement\" LET a";
+         var tokens = lex.Scan(text).ToList();
+
+         Assert.IsTrue(tokens.Any());
+         Assert.AreEqual(tokens[2].Type, TokenType.name);
+         Assert.AreEqual(tokens[2].Value, "a");
+      }
+
+      [TestMethod]
+      public void Name_FileAsInput_NameScanned()
+      {
+         var yacc = new Yallocc<TokenType>();
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc, null);
+         var lex = yacc.Lex;
+
+         var programText = File.ReadAllText(@"Grammar\TestData\LetStatementProgram.basic");
+         var tokens = lex.Scan(programText).ToList();
+
+         Assert.IsTrue(tokens.Any());
+         Assert.AreEqual(tokens[4].Type, TokenType.name);
+         Assert.AreEqual(tokens[4].Value, "a");
+      }
+
+
       [TestMethod]
       public void SpecialCharactersTest_SpecialCharacters_RecognizingTokenType()
       {

@@ -8,6 +8,28 @@ namespace LexSharp
    public class TokenTypeTest
    {
       [TestMethod]
+      public void TextTest()
+      {
+         var pattern = "\".*\"";
+         var text = "\"Hallo\" \"Test\"";
+         var matches = Regex.Match(text, pattern);
+         var captures = matches.Captures;
+      }
+
+      [TestMethod]
+      public void NameTest()
+      {
+         LexSharp<TokenType> lex = new LexSharp<TokenType>();
+         DefineTokenType(lex);
+
+         var name = lex.Scan("Hallo").ToList();
+
+         Assert.IsTrue(name.Any());
+         Assert.AreEqual(name.First().Type, TokenType.name);
+         Assert.AreEqual(name.First().Value, "Hallo");
+      }
+
+      [TestMethod]
       public void SpecialCharactersTest_SpecialCharacters_RecognizingTokenType()
       {
          LexSharp<TokenType> lex = new LexSharp<TokenType>();
@@ -107,6 +129,7 @@ namespace LexSharp
          lex.Register(@"\)", TokenType.close);
          lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
          lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
+         lex.Register(@"(\w)+", TokenType.name);
       }
 
       private enum TokenType

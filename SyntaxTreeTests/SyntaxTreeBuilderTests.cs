@@ -60,12 +60,7 @@ namespace SyntaxTreeTest
          builder.AddChild(new NamedTreeNode("Two"));
          builder.Exit();
 
-         Assert.IsNotNull(builder.Root);
-         var one = builder.Root as NamedTreeNode;
-         Assert.AreEqual("One", one.Name);
-         Assert.AreEqual(1, one.Children.Count());
-         var two = one.Children.First() as NamedTreeNode;
-         Assert.AreEqual("Two", two.Name);
+         Assert.IsNull(builder.Root);
       }
 
       [TestMethod]

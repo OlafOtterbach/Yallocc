@@ -1,0 +1,2 @@
+PROGRAM "LET Statement"
+LET a = 2 + 3

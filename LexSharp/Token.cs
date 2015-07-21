@@ -3,6 +3,15 @@ namespace LexSharp
 {
    public struct Token<T> where T : struct
    {
+      public Token(T type)
+         : this()
+      {
+         Value = string.Empty;
+         Type = type;
+         TextIndex = -1;
+         Length = 0;
+      }
+
       public Token(string value, int textIndex, int length) : this()
       {
          Value = value;

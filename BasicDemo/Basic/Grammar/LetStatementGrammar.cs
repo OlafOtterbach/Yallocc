@@ -4,9 +4,9 @@ using Yallocc;
 
 namespace BasicDemo.Basic
 {
-   public class LetGrammar
+   public class LetStatementGrammar : ITokenAndGrammarDefinition<TokenType>
    {
-      public void DefineGrammar(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
          yacc.Grammar("LetStatement")
              .Enter                                    .Action(() => stb.Enter())
@@ -16,6 +16,7 @@ namespace BasicDemo.Basic
                      .Token(TokenType.let),
                  yacc.Branch.Default
               )
+             .Lambda                                   .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.let))))
              .Token(TokenType.name)                    .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Switch
               (

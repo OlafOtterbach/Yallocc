@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BasicDemo;
+using System.IO;
+using BasicDemo.Basic;
+using SyntaxTree;
 
 namespace BasicDemoTest
 {
@@ -10,13 +13,11 @@ namespace BasicDemoTest
       [TestMethod]
       public void Test()
       {
-         //var generator = new BasicGenerator();
-
-         //var parser = generator.CreateParser();
-         //Assert.AreNotEqual(parser, null);
-         //var res = parser.Parse("-2+3*(4+(5*(-6)))");
-
-         //Assert.IsTrue(res.Success);
+         var programText = File.ReadAllText(@"Grammar\TestData\LetStatementProgram.basic");
+         var stb = new SyntaxTreeBuilder();
+         var generator = new BasicGrammarGenerator();
+         var res = generator.Parse(programText);
+         Assert.IsTrue(res.Success);
       }
    }
 }

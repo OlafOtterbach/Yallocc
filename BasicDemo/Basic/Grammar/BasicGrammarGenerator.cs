@@ -6,17 +6,22 @@ namespace BasicDemo.Basic
 {
    public class BasicGrammarGenerator
    {
-      public YParser<TokenType> CreateParser(SyntaxTreeBuilder stb)
+      SyntaxTreeGenerator<TokenType> _generator;
+
+      public BasicGrammarGenerator()
       {
-         var yacc = new Yallocc<TokenType>();
+         _generator
+         = SyntaxTreeGenerator<TokenType>.Make()
+                                          .Register(new TokenDefinition())
+                                          .Register(new ProgramGrammar())
+                                          .Register(new ExpressionGrammar())
+                                          .Register(new LetStatementGrammar())
+                                          .Create;
+      }
 
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.DefineExpressionTokens(yacc);
-         var expressionGrammar = new ExpressionGrammar();
-         expressionGrammar.DefineGrammar(yacc, stb);
-
-         var parser = yacc.CreateParser();
-         return parser;
+      public SyntaxTreeBuilderResult Parse(string text)
+      {
+         return _generator.Parse(text);
       }
    }
 }

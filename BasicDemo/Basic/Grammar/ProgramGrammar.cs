@@ -4,14 +4,17 @@ using Yallocc;
 
 namespace BasicDemo.Basic
 {
-   public class ProgramGrammar
+   public class ProgramGrammar : ITokenAndGrammarDefinition<TokenType>
    {
-      public void DefineGrammar(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
          yacc.MasterGrammar("Program")
-             .Enter
+             .Enter.Action(() => stb.Enter())
+             .Token(TokenType.program).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+             .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.Return)
              .Gosub("StatementSequence")
-             .Exit
+             .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
          yacc.Grammar("StatementSequence")
@@ -25,7 +28,6 @@ namespace BasicDemo.Basic
                      .Goto("NextStatement"),
                  yacc.Branch.Default
               )
-             .Token(TokenType.Return)
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 

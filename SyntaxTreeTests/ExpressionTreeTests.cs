@@ -132,9 +132,9 @@ namespace SyntaxTreeTest
 
       private SyntaxTreeNode Parse(string text)
       {
-         var generator = new ExpressionGrammarGenerator();
-         var parser = generator.CreateParser();
-         var res = parser.Parse(text);
+         var grammarGenerator = new ExpressionGrammarGenerator();
+         var treeGenerator = grammarGenerator.CreateParser();
+         var res = treeGenerator.Parse(text);
          var node = res.Success ? res.Root : null;
          return node;
       }

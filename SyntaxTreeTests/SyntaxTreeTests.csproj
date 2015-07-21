@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExpressionTree\ExpressionGrammarDefinition.cs" />
+    <Compile Include="ExpressionTree\ExpressionTokenDefinition.cs" />
     <Compile Include="ExpressionTree\ExpressionCalculator.cs" />
     <Compile Include="ExpressionTree\ExpressionGrammarGenerator.cs" />
     <Compile Include="ExpressionTree\ExpressionResult.cs" />

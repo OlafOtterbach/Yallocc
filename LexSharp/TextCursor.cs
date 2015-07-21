@@ -100,7 +100,7 @@ namespace LexSharp
       {
          foreach (var match in _matches)
          {
-            if (match.Match.Index < _cursorPos)
+            while ( (match.Match.Captures.Count > 0) && (match.Match.Index < _cursorPos))
             {
                match.Match = match.Match.NextMatch();
             }

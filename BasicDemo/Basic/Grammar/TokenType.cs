@@ -2,6 +2,7 @@
 {
    public enum TokenType
    {
+      program,       // PROGRAM
       plus,          // +
       minus,         // -
       mult,          // *
@@ -14,12 +15,13 @@
       open_clamp,    // [
       close_clamp,   // ]
       comma,         // ,
-      Return         // \n
+      Return,        // \n
       integer,       // 1, 2, 3, 12, 123, ...
       real,          // 1.0, 12.0, 1.0, 0.2, .4, ...
       text,          // "Hallo", ...
       dim,           // DIM
       let,           // LET
       name,          // x, y, index, ...
+      white_space    // _, TAB
    }
 }
