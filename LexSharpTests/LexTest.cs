@@ -4,7 +4,7 @@ using System.Linq;
 namespace LexSharp
 {
    [TestClass]
-   public class LexTests
+   public class LexTest
    {
       [TestMethod]
       public void IsCompleteTest_CompleteRegisteredTokens_IsComplite()

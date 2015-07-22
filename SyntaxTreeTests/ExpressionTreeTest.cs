@@ -5,7 +5,7 @@ using SyntaxTreeTest.ExpressionTree;
 namespace SyntaxTreeTest
 {
    [TestClass]
-   public class ExpressionTreeTests
+   public class ExpressionTreeTest
    {
       [TestMethod]
       public void Test_TwoPlusThree_Five()

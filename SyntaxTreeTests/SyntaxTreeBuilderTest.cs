@@ -6,7 +6,7 @@ using System.Linq;
 namespace SyntaxTreeTest
 {
    [TestClass]
-   public class SyntaxTreeBuilderTests
+   public class SyntaxTreeBuilderTest
    {
       [TestMethod]
       public void ConstructorTest_Nothing_RootIsEmpty ()

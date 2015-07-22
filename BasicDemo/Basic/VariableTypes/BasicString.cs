@@ -11,6 +11,11 @@
          Value = value;
       }
 
+      public abstract BasicEntity CreateNew()
+      {
+         return new BasicString(string.Empty);
+      }
+
       public override BasicType Type
       {
          get

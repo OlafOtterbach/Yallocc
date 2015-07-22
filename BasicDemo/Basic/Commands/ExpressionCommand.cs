@@ -34,5 +34,7 @@ namespace BasicDemo.Basic
          }
          return stack.Pop();
       }
+
+
    }
 }

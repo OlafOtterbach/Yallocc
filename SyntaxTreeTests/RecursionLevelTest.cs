@@ -6,7 +6,7 @@ using System.Linq;
 namespace SyntaxTreeTest
 {
    [TestClass]
-   public class RecursionLevelTests
+   public class RecursionLevelTest
    {
       [TestMethod]
       public void ConstructorTest()

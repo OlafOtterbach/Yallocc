@@ -11,6 +11,11 @@
          Value = value;
       }
 
+      public abstract BasicEntity CreateNew()
+      {
+         return new BasicBoolean(false);
+      }
+
       public override BasicType Type
       {
          get

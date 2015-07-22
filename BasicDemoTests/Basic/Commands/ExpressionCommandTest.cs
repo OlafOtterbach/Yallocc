@@ -155,6 +155,50 @@ namespace BasicDemoTest
          Assert.AreEqual(7.0, floatRes.Value);
       }
 
+      [TestMethod]
+      public void ExecuteTest_TwoMultThreePlusOneLessEight_True()
+      {
+         var postorder = new List<BasicEntity> 
+         { 
+            new BasicFloat(2.0),
+            new BasicFloat(3.0),
+            new BasicMultiplication(),
+            new BasicFloat(1.0), 
+            new BasicAddition(),
+            new BasicFloat(8.0),
+            new BasicLess()
+         };
+         var expressionCmd = new ExpressionCommand(postorder);
+
+         var res = expressionCmd.Execute();
+
+         Assert.IsTrue(res.IsBoolean);
+         var boolRes = res as BasicBoolean;
+         Assert.IsTrue(boolRes.Value);
+      }
+
+      [TestMethod]
+      public void ExecuteTest_TwoMultThreePlusOneLessSeven_False()
+      {
+         var postorder = new List<BasicEntity> 
+         { 
+            new BasicFloat(2.0),
+            new BasicFloat(3.0),
+            new BasicMultiplication(),
+            new BasicFloat(1.0), 
+            new BasicAddition(),
+            new BasicFloat(7.0),
+            new BasicLess()
+         };
+         var expressionCmd = new ExpressionCommand(postorder);
+
+         var res = expressionCmd.Execute();
+
+         Assert.IsTrue(res.IsBoolean);
+         var boolRes = res as BasicBoolean;
+         Assert.IsFalse(boolRes.Value);
+      }
+
       private bool BinaryOperatorExpressionTest(int left, BasicBinaryOperator op, int right, int result)
       {
          var resInt = result;
