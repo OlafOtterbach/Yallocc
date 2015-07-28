@@ -27,8 +27,8 @@ namespace BasicDemo.Basic
             }
             else
             {
-               var right = stack.Pop();
                var left = stack.Pop();
+               var right = stack.Pop();
                stack.Push((entity as BasicBinaryOperator).Execute(left, right));
             }
          }

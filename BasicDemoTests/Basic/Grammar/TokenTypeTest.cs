@@ -95,7 +95,7 @@ namespace BasicDemoTest
          tokenDefinition.Define(yacc, null);
          var lex = yacc.Lex;
 
-         var programText = File.ReadAllText(@"Grammar\TestData\LetStatementProgram.basic");
+         var programText = File.ReadAllText(@"Basic\Grammar\TestData\LetStatementProgram.basic");
          var tokens = lex.Scan(programText).ToList();
 
          Assert.IsTrue(tokens.Any());

@@ -14,7 +14,7 @@ namespace BasicDemo.Basic
          _program = new List<BasicCommand>();
       }
 
-      public void Register(string name, BasicEntity variable)
+      public void RegisterVariable(string name, BasicEntity variable)
       {
          if(string.IsNullOrEmpty(name))
          {
@@ -27,7 +27,7 @@ namespace BasicDemo.Basic
          _memory[name] = variable;
       }
 
-      public BasicEntity Get(string Name)
+      public BasicEntity GetVariable(string Name)
       {
          return _memory[Name];
       }

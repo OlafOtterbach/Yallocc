@@ -18,7 +18,7 @@ namespace BasicDemo.Basic
       {
          get
          {
-            return Value.Type;
+            return BasicType.e_array;
          }
       }
 

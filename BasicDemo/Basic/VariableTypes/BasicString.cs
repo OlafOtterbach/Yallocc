@@ -1,6 +1,6 @@
 ﻿namespace BasicDemo.Basic
 {
-   public class BasicString : BasicEntity
+   public class BasicString : BasicVariable
    {
       public BasicString()
       {
@@ -11,7 +11,7 @@
          Value = value;
       }
 
-      public abstract BasicEntity CreateNew()
+      public override BasicEntity CreateNew()
       {
          return new BasicString(string.Empty);
       }

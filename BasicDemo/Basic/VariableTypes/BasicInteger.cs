@@ -1,6 +1,6 @@
 ﻿namespace BasicDemo.Basic
 {
-   public class BasicInteger : BasicEntity
+   public class BasicInteger : BasicVariable
    {
       public BasicInteger()
       {
@@ -11,7 +11,7 @@
          Value = value;
       }
 
-      public abstract BasicEntity CreateNew()
+      public override BasicEntity CreateNew()
       {
          return new BasicInteger(0);
       }

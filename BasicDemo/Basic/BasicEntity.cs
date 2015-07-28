@@ -13,8 +13,6 @@
          e_unary_operator
       }
 
-      public abstract BasicEntity Createnew();
-
       public abstract BasicType Type { get; }
 
       public bool IsBoolean 

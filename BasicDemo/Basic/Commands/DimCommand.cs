@@ -27,7 +27,7 @@ namespace BasicDemo.Basic
                                     .Select(intVar => intVar.Value)
                                     .ToArray();
          var array = new BasicArray(indices);
-         Machine.Register(Name, array);
+         Machine.RegisterVariable(Name, array);
       }
    }
 }

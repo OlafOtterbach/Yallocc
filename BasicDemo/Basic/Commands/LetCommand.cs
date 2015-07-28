@@ -22,7 +22,7 @@ namespace BasicDemo.Basic
       public override void Execute()
       {
          var variable = Expression.Execute();
-         Machine.Register(Name, variable);
+         Machine.RegisterVariable(Name, variable);
       }
    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BasicDemo.Basic
 {
-   public class BasicFloat : BasicEntity
+   public class BasicFloat : BasicVariable
    {
       public BasicFloat()
       {
@@ -11,7 +11,7 @@
          Value = value;
       }
 
-      public abstract BasicEntity CreateNew()
+      public override BasicEntity CreateNew()
       {
          return new BasicFloat(0.0);
       }

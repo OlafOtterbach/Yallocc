@@ -1,6 +1,6 @@
 ﻿namespace BasicDemo.Basic
 {
-   public class BasicBoolean : BasicEntity
+   public class BasicBoolean : BasicVariable
    {
       public BasicBoolean()
       {
@@ -11,7 +11,7 @@
          Value = value;
       }
 
-      public abstract BasicEntity CreateNew()
+      public override BasicEntity CreateNew()
       {
          return new BasicBoolean(false);
       }

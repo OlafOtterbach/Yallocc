@@ -13,7 +13,7 @@ namespace BasicDemoTest
       [TestMethod]
       public void Test()
       {
-         var programText = File.ReadAllText(@"Grammar\TestData\LetStatementProgram.basic");
+         var programText = File.ReadAllText(@"Basic\Grammar\TestData\LetStatementProgram.basic");
          var stb = new SyntaxTreeBuilder();
          var generator = new BasicGrammarGenerator();
          var res = generator.Parse(programText);

@@ -119,8 +119,26 @@ namespace BasicDemo.Basic
                  yacc.Branch
                      .Token(TokenType.open)
                      .Gosub("Expression")
-                     .Token(TokenType.close)
-              )
+                     .Token(TokenType.close),
+                 yacc.Branch
+                     .Token(TokenType.name).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                     .Switch
+                      (
+                         yacc.Branch
+                             .Token(TokenType.open)
+                             .Label("ParamList")
+                             .Gosub("Expression")
+                             .Switch
+                              (
+                                 yacc.Branch
+                                     .Token(TokenType.comma)
+                                     .Goto("ParamList"),
+                                 yacc.Branch.Default
+                              )
+                             .Token(TokenType.close),
+                         yacc.Branch.Default
+                      )
+               )
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
       }
