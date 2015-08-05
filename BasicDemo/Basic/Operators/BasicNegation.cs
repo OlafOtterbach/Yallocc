@@ -12,9 +12,9 @@
          {
             return new BasicInteger(-(variable as BasicInteger).Value);
          }
-         if (variable.IsFloat)
+         if (variable.IsReal)
          {
-            return new BasicFloat(-(variable as BasicFloat).Value);
+            return new BasicReal(-(variable as BasicReal).Value);
          }
          throw new BasicTypeMissmatchException("Can not negate wrong types.");
       }

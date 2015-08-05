@@ -2,7 +2,7 @@
 
 namespace BasicDemo.Basic
 {
-   public class BasicTypeMissmatchException : Exception
+   public class BasicTypeMissmatchException : BasicException
    {
       public BasicTypeMissmatchException()
       {

@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using LexSharp;
+using System.Collections.Generic;
 
 namespace BasicDemo.Basic
 {
    public class LetCommand : BasicCommand
    {
-      public LetCommand(BasicEngine machine) : base(machine)
-      {
-         Expression = new ExpressionCommand(new List<BasicEntity>().ToArray());
-      }
-
-      public LetCommand(BasicEngine machine, string name, ExpressionCommand expression) : base(machine)
+      public LetCommand(Token<TokenType> startToken, BasicEngine engine, string name, ExpressionCommand expression)
+         : base(startToken, engine)
       {
          Name = name;
          Expression = expression;
@@ -22,7 +19,7 @@ namespace BasicDemo.Basic
       public override void Execute()
       {
          var variable = Expression.Execute();
-         Machine.RegisterVariable(Name, variable);
+         Engine.RegisterVariable(Name, variable);
       }
    }
 }

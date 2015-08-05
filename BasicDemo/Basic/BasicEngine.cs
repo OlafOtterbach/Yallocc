@@ -30,6 +30,7 @@ namespace BasicDemo.Basic
       public BasicEntity GetVariable(string Name)
       {
          return _memory[Name];
+         // ToDo: ExceptionUnknownVariable
       }
 
       public void Add(BasicCommand command)

@@ -26,7 +26,7 @@ namespace BasicDemo.Basic
          yacc.AddToken("\".*\"", TokenType.text);
          yacc.AddToken(@"DIM", TokenType.dim);
          yacc.AddToken(@"LET", TokenType.let);
-         yacc.AddToken(@"(\w)+", TokenType.name);
+         yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);
          yacc.AddTokenToIgnore(@"( )+", TokenType.white_space);
       }
    }

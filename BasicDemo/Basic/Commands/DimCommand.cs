@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using LexSharp;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BasicDemo.Basic
 {
    public class DimCommand : BasicCommand
    {
-      public DimCommand(BasicEngine machine) : base(machine)
-      {
-         Expressions = new List<ExpressionCommand>().ToArray();
-      }
-
-      public DimCommand(BasicEngine machine, string name, params ExpressionCommand[] expressions) : base(machine)
+      public DimCommand(Token<TokenType> startToken, BasicEngine engine, string name, params ExpressionCommand[] expressions) : base(startToken, engine)
       {
          Name = name;
          Expressions = expressions;
@@ -27,7 +23,7 @@ namespace BasicDemo.Basic
                                     .Select(intVar => intVar.Value)
                                     .ToArray();
          var array = new BasicArray(indices);
-         Machine.RegisterVariable(Name, array);
+         Engine.RegisterVariable(Name, array);
       }
    }
 }

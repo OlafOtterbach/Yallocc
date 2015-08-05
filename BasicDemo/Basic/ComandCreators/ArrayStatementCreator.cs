@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using SyntaxTree;
+﻿using SyntaxTree;
+using System.Linq;
 
 namespace BasicDemo.Basic
 {

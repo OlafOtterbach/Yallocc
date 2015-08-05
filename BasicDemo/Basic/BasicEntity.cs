@@ -6,7 +6,7 @@
       {
          e_boolean,
          e_integer,
-         e_float,
+         e_real,
          e_string,
          e_array,
          e_binary_operator,
@@ -31,11 +31,11 @@
          }
       }
 
-      public bool IsFloat
+      public bool IsReal
       { 
          get
          {
-            return Type == BasicType.e_float;
+            return Type == BasicType.e_real;
          }
       }
 

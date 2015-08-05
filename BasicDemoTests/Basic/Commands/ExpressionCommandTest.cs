@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using BasicDemo.Basic;
+using LexSharp;
 
 namespace BasicDemoTest
 {
@@ -52,7 +53,7 @@ namespace BasicDemoTest
             new BasicString("Hallo"),
             new BasicEquals(),
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("Hallo", 0, 5), postorder);
 
          var res = expressionCmd.Execute();
 
@@ -89,15 +90,15 @@ namespace BasicDemoTest
       {
          var postorder = new List<BasicEntity> 
          { 
-            new BasicFloat(2.0),
+            new BasicReal(2.0),
             new BasicNegation(),
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorder);
 
          var res = expressionCmd.Execute();
 
-         Assert.IsTrue(res.IsFloat);
-         var floatRes = res as BasicFloat;
+         Assert.IsTrue(res.IsReal);
+         var floatRes = res as BasicReal;
          Assert.AreEqual(-2.0, floatRes.Value);
       }
 
@@ -106,15 +107,15 @@ namespace BasicDemoTest
       {
          var postorder = new List<BasicEntity> 
          { 
-            new BasicFloat(2.0),
+            new BasicReal(2.0),
             new BasicAdditionSign(),
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorder);
 
          var res = expressionCmd.Execute();
 
-         Assert.IsTrue(res.IsFloat);
-         var floatRes = res as BasicFloat;
+         Assert.IsTrue(res.IsReal);
+         var floatRes = res as BasicReal;
          Assert.AreEqual(2.0, floatRes.Value);
       }
 
@@ -122,12 +123,12 @@ namespace BasicDemoTest
       public void ExecuteTest_AddTwoStrings_ConcatedString()
       {
          var postorder = new List<BasicEntity> 
-         { 
-            new BasicString("Halli"),
+         {
             new BasicString("Hallo"),
+            new BasicString("Halli"),
             new BasicAddition(),
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("Hallo", 0, 5), postorder);
 
          var res = expressionCmd.Execute();
 
@@ -140,18 +141,18 @@ namespace BasicDemoTest
       {
          var postorder = new List<BasicEntity> 
          { 
-            new BasicFloat(2.0),
-            new BasicFloat(3.0),
+            new BasicReal(2.0),
+            new BasicReal(3.0),
             new BasicMultiplication(),
-            new BasicFloat(1.0), 
+            new BasicReal(1.0), 
             new BasicAddition()
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorder);
 
          var res = expressionCmd.Execute();
 
-         Assert.IsTrue(res.IsFloat);
-         var floatRes = res as BasicFloat;
+         Assert.IsTrue(res.IsReal);
+         var floatRes = res as BasicReal;
          Assert.AreEqual(7.0, floatRes.Value);
       }
 
@@ -160,15 +161,15 @@ namespace BasicDemoTest
       {
          var postorder = new List<BasicEntity> 
          { 
-            new BasicFloat(2.0),
-            new BasicFloat(3.0),
+            new BasicReal(8.0),
+            new BasicReal(2.0),
+            new BasicReal(3.0),
             new BasicMultiplication(),
-            new BasicFloat(1.0), 
+            new BasicReal(1.0), 
             new BasicAddition(),
-            new BasicFloat(8.0),
             new BasicLess()
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("8.0", 0, 3), postorder);
 
          var res = expressionCmd.Execute();
 
@@ -182,15 +183,15 @@ namespace BasicDemoTest
       {
          var postorder = new List<BasicEntity> 
          { 
-            new BasicFloat(2.0),
-            new BasicFloat(3.0),
+            new BasicReal(7.0),
+            new BasicReal(2.0),
+            new BasicReal(3.0),
             new BasicMultiplication(),
-            new BasicFloat(1.0), 
+            new BasicReal(1.0), 
             new BasicAddition(),
-            new BasicFloat(7.0),
             new BasicLess()
          };
-         var expressionCmd = new ExpressionCommand(postorder);
+         var expressionCmd = new ExpressionCommand(new Token<TokenType>("7.0", 0, 3), postorder);
 
          var res = expressionCmd.Execute();
 
@@ -204,45 +205,45 @@ namespace BasicDemoTest
          var resInt = result;
          var resFloat = (double)result;
          var leftInteger = new BasicInteger(left);
-         var leftFloat = new BasicFloat((double)left);
+         var leftFloat = new BasicReal((double)left);
          var rightInteger = new BasicInteger(right);
-         var rightFloat = new BasicFloat((double)right);
+         var rightFloat = new BasicReal((double)right);
 
-         var postorderIntInt = new List<BasicEntity> { leftInteger, rightInteger, op };
-         var postorderIntFloat = new List<BasicEntity> { leftInteger, rightFloat, op };
-         var postorderFloatInt = new List<BasicEntity> { leftFloat, rightInteger, op };
-         var postorderFloatFloat = new List<BasicEntity> { leftFloat, rightFloat, op };
-         var resIntInt = new ExpressionCommand(postorderIntInt).Execute();
-         var resIntFloat = new ExpressionCommand(postorderIntFloat).Execute();
-         var resFloatInt = new ExpressionCommand(postorderFloatInt).Execute();
-         var resFloatFloat = new ExpressionCommand(postorderFloatFloat).Execute();
+         var postorderIntInt = new List<BasicEntity> { rightInteger, leftInteger, op };
+         var postorderIntFloat = new List<BasicEntity> { rightFloat, leftInteger, op };
+         var postorderFloatInt = new List<BasicEntity> { rightInteger, leftFloat, op };
+         var postorderFloatFloat = new List<BasicEntity> { rightFloat, leftFloat, op };
+         var resIntInt = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderIntInt).Execute();
+         var resIntFloat = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderIntFloat).Execute();
+         var resFloatInt = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderFloatInt).Execute();
+         var resFloatFloat = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderFloatFloat).Execute();
 
          Assert.IsTrue(resIntInt.IsInteger);
-         Assert.IsTrue(resFloatInt.IsFloat);
-         Assert.IsTrue(resIntFloat.IsFloat);
-         Assert.IsTrue(resFloatFloat.IsFloat);
+         Assert.IsTrue(resFloatInt.IsReal);
+         Assert.IsTrue(resIntFloat.IsReal);
+         Assert.IsTrue(resFloatFloat.IsReal);
          Assert.AreEqual(resInt, (resIntInt as BasicInteger).Value);
-         Assert.AreEqual(resFloat, (resFloatInt as BasicFloat).Value);
-         Assert.AreEqual(resFloat, (resIntFloat as BasicFloat).Value);
-         Assert.AreEqual(resFloat, (resFloatFloat as BasicFloat).Value);
+         Assert.AreEqual(resFloat, (resFloatInt as BasicReal).Value);
+         Assert.AreEqual(resFloat, (resIntFloat as BasicReal).Value);
+         Assert.AreEqual(resFloat, (resFloatFloat as BasicReal).Value);
          return true;
       }
 
       private bool BinaryOperatorCompareTest(int left, BasicBinaryOperator op, int right, bool result)
       {
          var leftInteger = new BasicInteger(left);
-         var leftFloat = new BasicFloat((double)left);
+         var leftFloat = new BasicReal((double)left);
          var rightInteger = new BasicInteger(right);
-         var rightFloat = new BasicFloat((double)right);
+         var rightFloat = new BasicReal((double)right);
 
-         var postorderIntInt = new List<BasicEntity> { leftInteger, rightInteger, op };
-         var postorderIntFloat = new List<BasicEntity> { leftInteger, rightFloat, op };
-         var postorderFloatInt = new List<BasicEntity> { leftFloat, rightInteger, op };
-         var postorderFloatFloat = new List<BasicEntity> { leftFloat, rightFloat, op };
-         var resIntInt = new ExpressionCommand(postorderIntInt).Execute();
-         var resIntFloat = new ExpressionCommand(postorderIntFloat).Execute();
-         var resFloatInt = new ExpressionCommand(postorderFloatInt).Execute();
-         var resFloatFloat = new ExpressionCommand(postorderFloatFloat).Execute();
+         var postorderIntInt = new List<BasicEntity> { rightInteger, leftInteger, op };
+         var postorderIntFloat = new List<BasicEntity> { rightFloat, leftInteger, op };
+         var postorderFloatInt = new List<BasicEntity> { rightInteger, leftFloat, op };
+         var postorderFloatFloat = new List<BasicEntity> { rightFloat, leftFloat, op };
+         var resIntInt = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderIntInt).Execute();
+         var resIntFloat = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderIntFloat).Execute();
+         var resFloatInt = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderFloatInt).Execute();
+         var resFloatFloat = new ExpressionCommand(new Token<TokenType>("2.0", 0, 3), postorderFloatFloat).Execute();
 
          Assert.IsTrue(resIntInt.IsBoolean);
          Assert.IsTrue(resFloatInt.IsBoolean);
@@ -259,7 +260,7 @@ namespace BasicDemoTest
       private BasicEntity ExecuteBinaryOperatorExpression(BasicEntity left, BasicBinaryOperator op, BasicEntity right)
       {
          var postorder = new List<BasicEntity> { left, right, op };
-         return new ExpressionCommand(postorder).Execute();
+         return new ExpressionCommand(new Token<TokenType>("left", 0, 4), postorder).Execute();
       }
    }
 }

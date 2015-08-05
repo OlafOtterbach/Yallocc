@@ -1,13 +1,18 @@
-﻿namespace BasicDemo.Basic
+﻿using LexSharp;
+
+namespace BasicDemo.Basic
 {
    public abstract class BasicCommand
    {
-      public BasicCommand(BasicEngine machine)
+      public BasicCommand(Token<TokenType> startToken, BasicEngine engine)
       {
-         Machine = machine;
+         Engine = engine;
+         StartToken = startToken;
       }
 
-      public BasicEngine Machine { get; private set; }
+      public BasicEngine Engine { get; private set; }
+
+      protected Token<TokenType> StartToken { get; private set; }
 
       public abstract void Execute();
    }

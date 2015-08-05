@@ -16,17 +16,17 @@
          {
             return new BasicInteger((left as BasicInteger).Value / (right as BasicInteger).Value);
          }
-         if (left.IsFloat && right.IsInteger)
+         if (left.IsReal && right.IsInteger)
          {
-            return new BasicFloat((left as BasicFloat).Value / (double)(right as BasicInteger).Value);
+            return new BasicReal((left as BasicReal).Value / (double)(right as BasicInteger).Value);
          }
-         if (left.IsInteger && right.IsFloat)
+         if (left.IsInteger && right.IsReal)
          {
-            return new BasicFloat((double)(left as BasicInteger).Value / (right as BasicFloat).Value);
+            return new BasicReal((double)(left as BasicInteger).Value / (right as BasicReal).Value);
          }
-         if (left.IsFloat && right.IsFloat)
+         if (left.IsReal && right.IsReal)
          {
-            return new BasicFloat((left as BasicFloat).Value / (right as BasicFloat).Value);
+            return new BasicReal((left as BasicReal).Value / (right as BasicReal).Value);
          }
          throw new BasicTypeMissmatchException("Can not dividide wrong types.");
       }

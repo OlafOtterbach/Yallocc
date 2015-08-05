@@ -32,6 +32,7 @@ namespace BasicDemo.Basic
          get
          {
             var indices = _indexEvaluations.Select(cmd => cmd.Execute())
+                                           .Select(x => x.IsArray ? (x as BasicArrayElementAccessor).Value : x)
                                            .OfType<BasicInteger>()
                                            .Select(intVar => intVar.Value)
                                            .ToArray();

@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using SyntaxTree;
+﻿using SyntaxTree;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace BasicDemo.Basic
 {
@@ -19,7 +19,7 @@ namespace BasicDemo.Basic
          var postOrderExpression = new List<BasicEntity>();
          Traverse(node, postOrderExpression);
 
-         var expressionCommand = new ExpressionCommand(postOrderExpression);
+         var expressionCommand = new ExpressionCommand((node as TokenTreeNode).Token, postOrderExpression);
 
          return expressionCommand;
       }
@@ -45,7 +45,7 @@ namespace BasicDemo.Basic
                   elem = new BasicInteger(int.Parse(tokNode.Token.Value));
                   break;
                case TokenType.real:
-                  elem = new BasicFloat(double.Parse(tokNode.Token.Value, CultureInfo.InvariantCulture));
+                  elem = new BasicReal(double.Parse(tokNode.Token.Value, CultureInfo.InvariantCulture));
                   break;
                case TokenType.text:
                   elem = new BasicString(tokNode.Token.Value);

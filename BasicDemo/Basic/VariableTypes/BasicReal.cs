@@ -1,26 +1,26 @@
 ﻿namespace BasicDemo.Basic
 {
-   public class BasicFloat : BasicVariable
+   public class BasicReal : BasicVariable
    {
-      public BasicFloat()
+      public BasicReal()
       {
       }
 
-      public BasicFloat(double value)
+      public BasicReal(double value)
       {
          Value = value;
       }
 
       public override BasicEntity CreateNew()
       {
-         return new BasicFloat(0.0);
+         return new BasicReal(0.0);
       }
 
       public override BasicType Type
       {
          get
          {
-            return BasicType.e_float;
+            return BasicType.e_real;
          }
       }
 

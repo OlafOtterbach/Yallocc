@@ -159,10 +159,10 @@ namespace BasicDemoTest
       public void CreateTest_OneDimensionalField_NoAssertions()
       {
          var expression = Create("field(0)");
-         ValidateArrayAccessor(expression, 1.0);
+         ValidateRealArrayAccessor(expression, 1.0);
 
          expression = Create("field(2 - 1)");
-         ValidateArrayAccessor(expression, 2.0);
+         ValidateRealArrayAccessor(expression, 2.0);
 
          expression = Create("2.0 * field(9)");
          ValidateFloat(expression, 20.0);
@@ -171,7 +171,38 @@ namespace BasicDemoTest
          ValidateFloat(expression, 20.0);
 
          expression = Create("field(2 * (1+2))");
-         ValidateArrayAccessor(expression, 7.0);
+         ValidateRealArrayAccessor(expression, 7.0);
+      }
+
+      [TestMethod]
+      public void CreateTest_TwoDimensionalFieldTwoConstantParameters_NoAssertions()
+      {
+         var expression = Create("matrix(4,7)");
+         ValidateIntegerArrayAccessor(expression, 48);
+      }
+
+      [TestMethod]
+      public void CreateTest_TwoDimensionalFieldTwoExpressions_NoAssertions()
+      {
+         var expression = Create("matrix(i3 * (2+i1),4 * i2 / 2)");
+         ValidateIntegerArrayAccessor(expression, 95);
+      }
+
+      [TestMethod]
+      public void CreateTest_TwoDimensionalField_NoAssertions()
+      {
+         var expression = Create("matrix(matrix(4 - 5 + 1, 1) * 4 - 1, matrix(2 - 2, 2) - 1)");
+         ValidateIntegerArrayAccessor(expression, 73);
+
+         expression = Create("matrix( matrix(0, 1), matrix(1, 0) /10 )");
+         ValidateIntegerArrayAccessor(expression, 22);
+      }
+
+      [TestMethod]
+      public void CreateTest_ThreeDimensionalField_NoAssertions()
+      {
+         var expression = Create("cube(cube(0,0,1),cube(0,1,0) / 10, cube(1,0,0) / 100)");
+         ValidateIntegerArrayAccessor(expression, 101);
       }
 
       public void ValidateInteger(ExpressionCommand expression, int expectedValue)
@@ -185,16 +216,24 @@ namespace BasicDemoTest
       public void ValidateFloat(ExpressionCommand expression, double expectedValue)
       {
          Assert.IsNotNull(expression);
-         Assert.IsTrue(expression.Execute().IsFloat);
-         var actualValue = (expression.Execute() as BasicFloat).Value;
+         Assert.IsTrue(expression.Execute().IsReal);
+         var actualValue = (expression.Execute() as BasicReal).Value;
          Assert.AreEqual(expectedValue, actualValue);
       }
 
-      public void ValidateArrayAccessor(ExpressionCommand expression, double expectedValue)
+      public void ValidateRealArrayAccessor(ExpressionCommand expression, double expectedValue)
       {
          Assert.IsNotNull(expression);
          Assert.IsTrue(expression.Execute().IsArray);
-         var actualValue = ((expression.Execute() as BasicArrayElementAccessor).Value as BasicFloat).Value;
+         var actualValue = ((expression.Execute() as BasicArrayElementAccessor).Value as BasicReal).Value;
+         Assert.AreEqual(expectedValue, actualValue);
+      }
+
+      public void ValidateIntegerArrayAccessor(ExpressionCommand expression, double expectedValue)
+      {
+         Assert.IsNotNull(expression);
+         Assert.IsTrue(expression.Execute().IsArray);
+         var actualValue = ((expression.Execute() as BasicArrayElementAccessor).Value as BasicInteger).Value;
          Assert.AreEqual(expectedValue, actualValue);
       }
 
@@ -229,21 +268,62 @@ namespace BasicDemoTest
          var engine = new BasicEngine();
 
          engine.RegisterVariable("three", new BasicInteger(3));
-         
-         var field = new BasicArray(10);
-         field.Set(new BasicFloat(1.0), 0);
-         field.Set(new BasicFloat(2.0), 1);
-         field.Set(new BasicFloat(3.0), 2);
-         field.Set(new BasicFloat(4.0), 3);
-         field.Set(new BasicFloat(5.0), 4);
-         field.Set(new BasicFloat(6.0), 5);
-         field.Set(new BasicFloat(7.0), 6);
-         field.Set(new BasicFloat(8.0), 7);
-         field.Set(new BasicFloat(9.0), 8);
-         field.Set(new BasicFloat(10.0), 9);
-         engine.RegisterVariable("field", field);
+         engine.RegisterVariable("i1", new BasicInteger(1));
+         engine.RegisterVariable("i2", new BasicInteger(2));
+         engine.RegisterVariable("i3", new BasicInteger(3));
+         CreateField(engine);
+         CreateMatrix(engine);
+         CreateCube(engine);
 
          return engine;
+      }
+
+      private void CreateField(BasicEngine engine)
+      {
+         var field = new BasicArray(10);
+         field.Set(new BasicReal(1.0), 0);
+         field.Set(new BasicReal(2.0), 1);
+         field.Set(new BasicReal(3.0), 2);
+         field.Set(new BasicReal(4.0), 3);
+         field.Set(new BasicReal(5.0), 4);
+         field.Set(new BasicReal(6.0), 5);
+         field.Set(new BasicReal(7.0), 6);
+         field.Set(new BasicReal(8.0), 7);
+         field.Set(new BasicReal(9.0), 8);
+         field.Set(new BasicReal(10.0), 9);
+         engine.RegisterVariable("field", field);
+      }
+
+      private void CreateMatrix(BasicEngine engine)
+      {
+         var matrix = new BasicArray(10, 10);
+         var index = 1;
+         for (int i = 0; i < 10; i++ )
+         {
+            for (int j = 0; j < 10; j++)
+            {
+               matrix.Set(new BasicInteger(index++), i, j);
+            }
+         }
+         engine.RegisterVariable("matrix", matrix);
+      }
+
+      private void CreateCube(BasicEngine engine)
+      {
+         const int max = 5;
+         var cube = new BasicArray(max, max, max);
+         var index = 1;
+         for (int i = 0; i < max; i++)
+         {
+            for (int j = 0; j < max; j++)
+            {
+               for (int k = 0; k < max; k++)
+               {
+                  cube.Set(new BasicInteger(index++), i, j, k);
+               }
+            }
+         }
+         engine.RegisterVariable("cube", cube);
       }
    }
 }

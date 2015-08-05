@@ -12,7 +12,7 @@
          {
             return variable;
          }
-         if (variable.IsFloat)
+         if (variable.IsReal)
          {
             return variable;
          }
