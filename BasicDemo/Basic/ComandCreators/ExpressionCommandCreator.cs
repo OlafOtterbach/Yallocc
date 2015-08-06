@@ -7,7 +7,7 @@ namespace BasicDemo.Basic
 {
    public class ExpressionCommandCreator
    {
-      private BasicEngine _engine;
+      BasicEngine _engine;
 
       public ExpressionCommandCreator(BasicEngine engine)
       {
@@ -94,14 +94,14 @@ namespace BasicDemo.Basic
                   elem = new BasicGreater();
                   break;
                default:
-                  // Throw unknown type exception
+                  throw new BasicTypeMissmatchException("Wrong element for expression.");
                   break;
             }
             postOrderExpr.Add(elem);
          }
          else
          {
-            // Throw ExpressionMismatchError
+            throw new BasicTypeMissmatchException("No expression.");
          }
       }
    }

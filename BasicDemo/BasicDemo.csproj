@@ -37,6 +37,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic\ComandCreators\CommandCreator.cs" />
+    <Compile Include="Basic\ComandCreators\DimCommandCreator.cs" />
+    <Compile Include="Basic\ComandCreators\LetCommandCreator.cs" />
     <Compile Include="Basic\Exceptions\BasicException.cs" />
     <Compile Include="Basic\ComandCreators\ArrayStatementCreator.cs" />
     <Compile Include="Basic\ComandCreators\ExpressionCommandCreator.cs" />
@@ -48,7 +51,7 @@
     <Compile Include="Basic\VariableTypes\BasicArray.cs" />
     <Compile Include="Basic\VariableTypes\BasicArrayElementAccessor.cs" />
     <Compile Include="Basic\VariableTypes\BasicBoolean.cs" />
-    <Compile Include="Basic\BasicCommand.cs" />
+    <Compile Include="Basic\Commands\BasicCommand.cs" />
     <Compile Include="Basic\Operators\BasicDivision.cs" />
     <Compile Include="Basic\Operators\BasicEquals.cs" />
     <Compile Include="Basic\VariableTypes\BasicReal.cs" />

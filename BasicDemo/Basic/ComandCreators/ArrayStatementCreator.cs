@@ -5,7 +5,7 @@ namespace BasicDemo.Basic
 {
    public class ArrayStatementCreator
    {
-      private BasicEngine _engine;
+      BasicEngine _engine;
 
       public ArrayStatementCreator(BasicEngine engine)
       {
@@ -38,12 +38,12 @@ namespace BasicDemo.Basic
             }
             else
             {
-               // Throw ExpressionMismatchError
+               throw new BasicTypeMissmatchException("No arry expression name.");
             }
          }
          else
          {
-            // Throw ExpressionMismatchError
+            throw new BasicTypeMissmatchException("No array expression.");
          }
          return accessor;
       }
