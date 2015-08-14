@@ -12,8 +12,6 @@
       less,          // <
       open,          // (
       close,         // )
-      open_clamp,    // [
-      close_clamp,   // ]
       comma,         // ,
       Return,        // \n
       integer,       // 1, 2, 3, 12, 123, ...

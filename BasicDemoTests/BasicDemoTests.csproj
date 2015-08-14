@@ -53,6 +53,8 @@
     <Compile Include="Basic\CommandCreators\DimCommandCreatorTest.cs" />
     <Compile Include="Basic\CommandCreators\ExpressionCommandCreatorTest.cs" />
     <Compile Include="Basic\CommandCreators\LetCommandCreatorTest.cs" />
+    <Compile Include="Basic\Commands\DimCommandTest.cs" />
+    <Compile Include="Basic\Commands\LetCommandTest.cs" />
     <Compile Include="Basic\VariableTypes\BasicArrayElementAccessorTest.cs" />
     <Compile Include="Basic\VariableTypes\BasicArrayTest.cs" />
     <Compile Include="Basic\Grammar\BasicGeneratorTest.cs" />

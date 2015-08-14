@@ -21,17 +21,17 @@ namespace BasicDemo.Basic
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.open_clamp)      .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+                     .Token(TokenType.open)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
                      .Label("ParamList")
                      .Gosub("Expression")
                      .Switch
                       (
                          yacc.Branch
-                             .Token(TokenType.comma)   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+                             .Token(TokenType.comma)
                              .Goto("ParamList"),
                          yacc.Branch.Default
                       )
-                     .Token(TokenType.close_clamp)     .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok))),
+                     .Token(TokenType.close)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok))),
                  yacc.Branch.Default
               )
              .Token(TokenType.equal)                   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))

@@ -16,6 +16,29 @@
          return new BasicInteger(0);
       }
 
+      public override void Set(BasicInteger second)
+      {
+         Value = second.Value;
+      }
+
+      public override void Set(BasicReal second)
+      {
+         Value = (int)second.Value;
+      }
+
+      public override void Set(BasicString second)
+      {
+         string text = second.Value;
+         int outVal;
+         if(int.TryParse(text, out outVal))
+         {
+            Value = outVal;
+         }
+         else
+         {
+            Value = 0;
+         }
+      }
 
       public override BasicType Type 
       { 

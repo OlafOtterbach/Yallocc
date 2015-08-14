@@ -11,6 +11,8 @@ namespace BasicDemo.Basic
 
       public BasicEngine Engine { get; set; }
 
+      public abstract bool CanCreate(SyntaxTreeNode node);
+
       public abstract BasicCommand Create(SyntaxTreeNode node);
    }
 }

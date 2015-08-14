@@ -16,6 +16,13 @@ namespace BasicDemoTest
       }
 
       [TestMethod]
+      public void CreateTest_Two_ExpressionCommandForMinus()
+      {
+         var expression = Create("2");
+         ValidateInteger(expression, 2);
+      }
+
+      [TestMethod]
       public void CreateTest_MinusTwo_ExpressionCommandForMinus()
       {
          var expression = Create("-2");

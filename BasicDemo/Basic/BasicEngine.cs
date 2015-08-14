@@ -24,13 +24,30 @@ namespace BasicDemo.Basic
          {
             return;
          }
+         if(_memory.ContainsKey(name))
+         {
+            throw new BasicVariableAlreadyDefinedException();
+         }
          _memory[name] = variable;
       }
 
-      public BasicEntity GetVariable(string Name)
+      public bool  HasVariable(string name)
       {
-         return _memory[Name];
-         // ToDo: ExceptionUnknownVariable
+         if (string.IsNullOrEmpty(name))
+         {
+            return false;
+         }
+
+         return _memory.ContainsKey(name);
+      }
+
+      public BasicEntity GetVariable(string name)
+      {
+         if (string.IsNullOrEmpty(name))
+         {
+            return null;
+         }
+         return HasVariable(name) ? _memory[name] : null;
       }
 
       public void Add(BasicCommand command)

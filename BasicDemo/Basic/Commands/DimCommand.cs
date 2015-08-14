@@ -1,5 +1,4 @@
 ﻿using LexSharp;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BasicDemo.Basic
@@ -23,7 +22,15 @@ namespace BasicDemo.Basic
                                     .Select(intVar => intVar.Value)
                                     .ToArray();
          var array = new BasicArray(indices);
-         Engine.RegisterVariable(Name, array);
+         try
+         {
+            Engine.RegisterVariable(Name, array);
+         }
+         catch(BasicVariableAlreadyDefinedException e)
+         {
+            e.StartPosition = StartToken.TextIndex;
+            throw;
+         }
       }
    }
 }

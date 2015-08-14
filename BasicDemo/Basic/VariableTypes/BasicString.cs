@@ -1,4 +1,5 @@
-﻿namespace BasicDemo.Basic
+﻿using System.Globalization;
+namespace BasicDemo.Basic
 {
    public class BasicString : BasicVariable
    {
@@ -9,6 +10,21 @@
       public BasicString(string value)
       {
          Value = value;
+      }
+
+      public override void Set(BasicInteger second)
+      {
+         Value = second.Value.ToString();
+      }
+
+      public override void Set(BasicReal second)
+      {
+         Value = second.Value.ToString(CultureInfo.InvariantCulture);
+      }
+
+      public override void Set(BasicString second)
+      {
+         Value = second.Value;
       }
 
       public override BasicEntity CreateNew()

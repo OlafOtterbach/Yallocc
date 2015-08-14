@@ -14,6 +14,12 @@ namespace BasicDemo.Basic
          _indexEvaluations = new List<ExpressionCommand>();
       }
 
+      public BasicArrayElementAccessor(BasicArray array, params ExpressionCommand[] expressions)
+      {
+         _array = array;
+         _indexEvaluations = expressions.ToList();
+      }
+
       public override BasicType Type
       {
          get

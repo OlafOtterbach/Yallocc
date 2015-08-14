@@ -45,6 +45,8 @@
     <Compile Include="Basic\ComandCreators\ExpressionCommandCreator.cs" />
     <Compile Include="Basic\Commands\DimCommand.cs" />
     <Compile Include="Basic\Exceptions\BasicInvalidExpressionException.cs" />
+    <Compile Include="Basic\Exceptions\BasicVariableAlreadyDefinedException.cs" />
+    <Compile Include="Basic\Grammar\DimStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\ProgramGrammar.cs" />
     <Compile Include="Basic\Operators\BasicAddition.cs" />
     <Compile Include="Basic\Operators\BasicAdditionSign.cs" />

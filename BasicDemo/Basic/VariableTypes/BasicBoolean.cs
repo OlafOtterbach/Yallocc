@@ -11,6 +11,11 @@
          Value = value;
       }
 
+      public override void Set(BasicBoolean second)
+      {
+         Value = second.Value;
+      }
+
       public override BasicEntity CreateNew()
       {
          return new BasicBoolean(false);

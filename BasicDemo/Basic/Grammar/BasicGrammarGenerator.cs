@@ -16,6 +16,7 @@ namespace BasicDemo.Basic
                                           .Register(new ProgramGrammar())
                                           .Register(new ExpressionGrammar())
                                           .Register(new LetStatementGrammar())
+                                          .Register(new DimStatementGrammar())
                                           .Create;
       }
 

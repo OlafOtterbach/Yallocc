@@ -44,11 +44,11 @@ namespace BasicDemo.Basic
          catch(BasicTypeMissmatchException typeMissmatchException)
          {
             typeMissmatchException.StartPosition = _startToken.TextIndex;
-            throw typeMissmatchException;
+            throw;
          }
          catch (InvalidOperationException e)
          {
-            throw e;
+            throw;
          }
 
          return result;

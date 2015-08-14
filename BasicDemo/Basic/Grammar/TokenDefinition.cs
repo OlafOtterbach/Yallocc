@@ -17,8 +17,6 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"\<", TokenType.less);
          yacc.AddToken(@"\(", TokenType.open);
          yacc.AddToken(@"\)", TokenType.close);
-         yacc.AddToken(@"\[", TokenType.open_clamp);
-         yacc.AddToken(@"\]", TokenType.close_clamp);
          yacc.AddToken(@",", TokenType.comma);
          yacc.AddToken("\r\n", TokenType.Return);
          yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);

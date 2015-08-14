@@ -41,6 +41,19 @@ namespace BasicDemo.Basic
          _array[GetIndex(indices, _dimensions)] = value;
       }
 
+      public int Dimensions
+      {
+         get
+         {
+            return _dimensions.Length;
+         }
+      }
+
+      public int DimensionSize(int dim)
+      {
+         return _dimensions[dim];
+      }
+
       private bool Validate(int[] indices)
       {
          var isValid = _dimensions.Zip(indices, (dim, index) => (index >= 0) && (index < dim)).All(result => result)

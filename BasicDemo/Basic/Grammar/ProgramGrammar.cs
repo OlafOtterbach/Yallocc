@@ -37,6 +37,8 @@ namespace BasicDemo.Basic
               (
                  yacc.Branch
                      .Gosub("LetStatement"),
+                 yacc.Branch
+                     .Gosub("DimStatement"),
                  yacc.Branch.Default
               )
              .Exit.Action(() => stb.Exit())
