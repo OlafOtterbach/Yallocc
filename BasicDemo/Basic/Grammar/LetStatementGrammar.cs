@@ -23,7 +23,7 @@ namespace BasicDemo.Basic
                  yacc.Branch
                      .Token(TokenType.open)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
                      .Label("ParamList")
-                     .Gosub("Expression")
+                     .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
                      .Switch
                       (
                          yacc.Branch
@@ -35,7 +35,7 @@ namespace BasicDemo.Basic
                  yacc.Branch.Default
               )
              .Token(TokenType.equal)                   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
-             .Gosub("Expression")
+             .Gosub("Expression")                      .Action(() => stb.AdoptInnerNodes())
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
       }

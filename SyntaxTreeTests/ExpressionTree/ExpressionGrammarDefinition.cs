@@ -17,12 +17,12 @@ namespace SyntaxTreeTest.ExpressionTree
          //
          yacc.MasterGrammar("Expression")
              .Enter.Name("ExpressionStart").Action(() => stb.Enter())
-             .Gosub("SimpleExpression")
+             .Gosub("SimpleExpression").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
-                     .Gosub("Relation").Action(() => stb.CreateParent(stb.GetLastChild()))
-                     .Gosub("SimpleExpression"),
+                     .Gosub("Relation").Action(() => stb.CapInnerNodeToParent())
+                     .Gosub("SimpleExpression").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
              .Exit.Action(() => stb.Exit())
@@ -64,7 +64,7 @@ namespace SyntaxTreeTest.ExpressionTree
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
-             .Gosub("Term")
+             .Gosub("Term").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
@@ -88,7 +88,7 @@ namespace SyntaxTreeTest.ExpressionTree
          yacc.Grammar("Term")
              .Enter.Action(() => stb.Enter())
              .Label("TermStart")
-             .Gosub("Factor")
+             .Gosub("Factor").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
@@ -116,7 +116,7 @@ namespace SyntaxTreeTest.ExpressionTree
                      .Token(ExpressionTokenType.number).Action((Token<ExpressionTokenType> tok) => stb.CreateParent(new TokenTreeNode<ExpressionTokenType>(tok))),
                  yacc.Branch
                      .Token(ExpressionTokenType.open)
-                     .Gosub("Expression")
+                     .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
                      .Token(ExpressionTokenType.close)
               )
              .Exit.Action(() => stb.Exit())

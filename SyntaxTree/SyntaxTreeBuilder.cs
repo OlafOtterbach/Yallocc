@@ -52,10 +52,26 @@ namespace SyntaxTree
          }
       }
 
-      public SyntaxTreeNode GetLastChild()
+      //public SyntaxTreeNode GetLastChild()
+      //{
+      //   var lastChild = (_levels.Count > 0) ?  _levels.Peek().ChildrenNodes.LastOrDefault() : null;
+      //   return lastChild;
+      //}
+
+      public void AdoptInnerNodes()
       {
-         var lastChild = (_levels.Count > 0) ?  _levels.Peek().ChildrenNodes.LastOrDefault() : null;
-         return lastChild;
+         if (_levels.Count > 0)
+         {
+            _levels.Peek().MakeInnerNodesToChildren();
+          }
+      }
+
+      public void CapInnerNodeToParent()
+      {
+         if (_levels.Count > 0)
+         {
+            _levels.Peek().MakeInnerNodesToParentAndChildren();
+         }
       }
 
       public void Exit()
@@ -66,7 +82,7 @@ namespace SyntaxTree
             var nodes = level.CreateNodes().ToList();
             if (_levels.Count > 0)
             {
-               nodes.ForEach(node => _levels.Peek().AddChild(node));
+               nodes.ForEach(node => _levels.Peek().AddInnerNode(node));
             }
             else
             {

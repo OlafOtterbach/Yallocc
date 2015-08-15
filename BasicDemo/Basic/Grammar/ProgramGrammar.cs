@@ -13,14 +13,14 @@ namespace BasicDemo.Basic
              .Token(TokenType.program).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
              .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Token(TokenType.Return)
-             .Gosub("StatementSequence")
+             .Gosub("StatementSequence").Action(() => stb.AdoptInnerNodes())
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
          yacc.Grammar("StatementSequence")
              .Enter.Action(() => stb.Enter())
              .Label("NextStatement")
-             .Gosub("Statement")
+             .Gosub("Statement").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
@@ -36,9 +36,9 @@ namespace BasicDemo.Basic
              .Switch
               (
                  yacc.Branch
-                     .Gosub("LetStatement"),
+                     .Gosub("LetStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("DimStatement"),
+                     .Gosub("DimStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
              .Exit.Action(() => stb.Exit())

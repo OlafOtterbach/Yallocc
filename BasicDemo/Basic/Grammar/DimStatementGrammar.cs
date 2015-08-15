@@ -14,7 +14,7 @@ namespace BasicDemo.Basic
              .Token(TokenType.name)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Token(TokenType.open)
              .Label("ParamList")
-             .Gosub("Expression")
+             .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch

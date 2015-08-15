@@ -64,29 +64,14 @@ namespace SyntaxTreeTest
       }
 
       [TestMethod]
-      public void GetLastChildTest_Nothing_LastChildIsNull()
+      public void CapInnerNodeToParentTest_Nothing_LastChildIsNull()
       {
          var builder = new SyntaxTreeBuilder();
          builder.Enter();
 
-         var last = builder.GetLastChild();
+         builder.CapInnerNodeToParent();
 
-         Assert.IsNull(last);
-      }
-
-      [TestMethod]
-      public void GetLastChildTest_ThreeChildren_LastChildIsThirdChild()
-      {
-         var builder = new SyntaxTreeBuilder();
-         builder.Enter();
-         builder.AddChild(new NamedTreeNode("One"));
-         builder.AddChild(new NamedTreeNode("Two"));
-         var three = new NamedTreeNode("Three");
-         builder.AddChild(three);
-
-         var last = builder.GetLastChild();
-
-         Assert.AreEqual(three, last);
+         Assert.IsNull(builder.Root);
       }
 
       [TestMethod]

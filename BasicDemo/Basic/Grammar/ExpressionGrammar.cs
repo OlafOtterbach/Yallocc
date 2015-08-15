@@ -17,12 +17,12 @@ namespace BasicDemo.Basic
          //
          yacc.Grammar("Expression")
              .Enter.Name("ExpressionStart").Action(() => stb.Enter())
-             .Gosub("SimpleExpression")
+             .Gosub("SimpleExpression").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
-                     .Gosub("Relation").Action(() => stb.CreateParent(stb.GetLastChild()))
-                     .Gosub("SimpleExpression"),
+                     .Gosub("Relation").Action(() => stb.CapInnerNodeToParent())
+                     .Gosub("SimpleExpression").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
              .Exit.Action(() => stb.Exit())
@@ -64,7 +64,7 @@ namespace BasicDemo.Basic
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
-             .Gosub("Term")
+             .Gosub("Term").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
@@ -88,7 +88,7 @@ namespace BasicDemo.Basic
          yacc.Grammar("Term")
              .Enter.Action(() => stb.Enter())
              .Label("TermStart")
-             .Gosub("Factor")
+             .Gosub("Factor").Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
@@ -118,7 +118,7 @@ namespace BasicDemo.Basic
                      .Token(TokenType.real).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                  yacc.Branch
                      .Token(TokenType.open)
-                     .Gosub("Expression")
+                     .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
                      .Token(TokenType.close),
                  yacc.Branch
                      .Token(TokenType.name).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
@@ -127,7 +127,7 @@ namespace BasicDemo.Basic
                          yacc.Branch
                              .Token(TokenType.open)
                              .Label("ParamList")
-                             .Gosub("Expression")
+                             .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
                              .Switch
                               (
                                  yacc.Branch

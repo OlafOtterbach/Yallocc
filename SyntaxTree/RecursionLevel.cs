@@ -9,10 +9,13 @@ namespace SyntaxTree
 
       private List<SyntaxTreeNode> _childrenNodes;
 
+      private List<SyntaxTreeNode> _innerNodes;
+
       public RecursionLevel()
       {
          _parentNode = null;
          _childrenNodes = new List<SyntaxTreeNode>();
+         _innerNodes = new List<SyntaxTreeNode>();
       }
 
       public IEnumerable<SyntaxTreeNode> ChildrenNodes
@@ -57,6 +60,35 @@ namespace SyntaxTree
                _parentNode = null;
             }
          }
+      }
+
+      public void AddInnerNode(SyntaxTreeNode node)
+      {
+         if ((node != null) && (!_innerNodes.Contains(node)))
+         {
+            _innerNodes.Add(node);
+            if (node == _parentNode)
+            {
+               _parentNode = null;
+            }
+         }
+      }
+
+      public void MakeInnerNodesToChildren()
+      {
+         _childrenNodes.AddRange(_innerNodes);
+         _innerNodes.Clear();
+      }
+
+      public void MakeInnerNodesToParentAndChildren()
+      {
+         if(!_innerNodes.Any())
+         {
+            return;
+         }
+         ParentNode = _innerNodes.First();
+         _childrenNodes.AddRange(_innerNodes.Skip(1));
+         _innerNodes.Clear();
       }
 
       public IEnumerable<SyntaxTreeNode> CreateNodes()
