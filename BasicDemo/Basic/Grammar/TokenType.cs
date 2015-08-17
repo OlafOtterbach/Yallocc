@@ -3,6 +3,7 @@
    public enum TokenType
    {
       program,       // PROGRAM
+      end,           // END
       plus,          // +
       minus,         // -
       mult,          // *

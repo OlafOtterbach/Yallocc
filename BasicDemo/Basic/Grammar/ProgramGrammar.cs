@@ -14,6 +14,7 @@ namespace BasicDemo.Basic
              .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Token(TokenType.Return)
              .Gosub("StatementSequence").Action(() => stb.AdoptInnerNodes())
+             .Token(TokenType.end).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 

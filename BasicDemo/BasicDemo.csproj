@@ -39,7 +39,12 @@
   <ItemGroup>
     <Compile Include="Basic\ComandCreators\CommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\DimCommandCreator.cs" />
+    <Compile Include="Basic\ComandCreators\EndOfProgramCommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\LetCommandCreator.cs" />
+    <Compile Include="Basic\ComandCreators\ProgramCreator.cs" />
+    <Compile Include="Basic\ComandCreators\StatementSequenceCreator.cs" />
+    <Compile Include="Basic\Commands\EndOfProgramCommand.cs" />
+    <Compile Include="Basic\Engine\BasicCursor.cs" />
     <Compile Include="Basic\Exceptions\BasicException.cs" />
     <Compile Include="Basic\ComandCreators\ArrayStatementCreator.cs" />
     <Compile Include="Basic\ComandCreators\ExpressionCommandCreator.cs" />
@@ -60,7 +65,7 @@
     <Compile Include="Basic\Operators\BasicGreater.cs" />
     <Compile Include="Basic\VariableTypes\BasicInteger.cs" />
     <Compile Include="Basic\Operators\BasicLess.cs" />
-    <Compile Include="Basic\BasicEngine.cs" />
+    <Compile Include="Basic\Engine\BasicEngine.cs" />
     <Compile Include="Basic\Operators\BasicMultiplication.cs" />
     <Compile Include="Basic\Operators\BasicBinaryOperator.cs" />
     <Compile Include="Basic\Operators\BasicNegation.cs" />

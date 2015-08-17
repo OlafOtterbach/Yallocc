@@ -8,6 +8,7 @@ namespace BasicDemo.Basic
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
          yacc.AddToken(@"PROGRAM", TokenType.program);
+         yacc.AddToken(@"END", TokenType.end);
          yacc.AddToken(@"\+", TokenType.plus);
          yacc.AddToken(@"\-", TokenType.minus);
          yacc.AddToken(@"\*", TokenType.mult);

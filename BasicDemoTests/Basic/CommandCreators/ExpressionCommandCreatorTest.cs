@@ -263,7 +263,7 @@ namespace BasicDemoTest
       
       private SyntaxTreeNode CreateSyntaxTree(string text)
       {
-         var programText = "PROGRAM \"ExpressionTest\"\r\nLET nothing=" + text;
+         var programText = "PROGRAM \"ExpressionTest\"\r\nLET nothing=" + text + "\r\nEND";
          var grammarGenerator = new BasicGrammarGenerator();
          var res = grammarGenerator.Parse(programText);
          var node = res.Success ? res.Root.Children.ToArray()[1].Children.ToArray()[2] : null;

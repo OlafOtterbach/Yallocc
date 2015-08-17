@@ -57,6 +57,7 @@ namespace BasicDemo.Basic
          {
             Engine.RegisterVariable(_name, variable);
          }
+         Engine.Cursor.Next();
       }
    }
 }

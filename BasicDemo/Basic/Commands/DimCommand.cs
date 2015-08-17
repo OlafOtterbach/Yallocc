@@ -31,6 +31,7 @@ namespace BasicDemo.Basic
             e.StartPosition = StartToken.TextIndex;
             throw;
          }
+         Engine.Cursor.Next();
       }
    }
 }

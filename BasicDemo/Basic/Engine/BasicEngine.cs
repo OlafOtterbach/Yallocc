@@ -8,10 +8,37 @@ namespace BasicDemo.Basic
 
       private List<BasicCommand> _program;
 
+      private BasicCursor _cursor;
+
       public BasicEngine()
       {
          _memory = new Dictionary<string, BasicEntity>();
          _program = new List<BasicCommand>();
+         _cursor = new BasicCursor(this);
+      }
+
+      public IEnumerable<BasicCommand> Program
+      {
+         get
+         {
+            return _program;
+         }
+      }
+
+      public Dictionary<string, BasicEntity> Memory
+      {
+         get
+         {
+            return _memory;
+         }
+      }
+
+      public BasicCursor Cursor
+      {
+         get
+         {
+            return _cursor;
+         }
       }
 
       public void RegisterVariable(string name, BasicEntity variable)
@@ -31,7 +58,7 @@ namespace BasicDemo.Basic
          _memory[name] = variable;
       }
 
-      public bool  HasVariable(string name)
+      public bool HasVariable(string name)
       {
          if (string.IsNullOrEmpty(name))
          {
@@ -53,6 +80,15 @@ namespace BasicDemo.Basic
       public void Add(BasicCommand command)
       {
          _program.Add(command);
+      }
+
+      public void Run()
+      {
+         _cursor.Reset();
+         while(!_cursor.EndOfProgram)
+         {
+            _cursor.Current.Execute();
+         }
       }
    }
 }
