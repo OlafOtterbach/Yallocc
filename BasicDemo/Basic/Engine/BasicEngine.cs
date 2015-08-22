@@ -82,6 +82,11 @@ namespace BasicDemo.Basic
          _program.Add(command);
       }
 
+      public void Reset()
+      {
+         _cursor.Reset();
+      }
+
       public void Run()
       {
          _cursor.Reset();

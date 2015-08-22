@@ -56,6 +56,8 @@
     <Compile Include="Basic\CommandCreators\ProgramCreatorTest.cs" />
     <Compile Include="Basic\Commands\DimCommandTest.cs" />
     <Compile Include="Basic\Commands\LetCommandTest.cs" />
+    <Compile Include="Basic\Engine\BasicCursorTest.cs" />
+    <Compile Include="Basic\Engine\BasicEngineTest.cs" />
     <Compile Include="Basic\VariableTypes\BasicArrayElementAccessorTest.cs" />
     <Compile Include="Basic\VariableTypes\BasicArrayTest.cs" />
     <Compile Include="Basic\Grammar\BasicGeneratorTest.cs" />

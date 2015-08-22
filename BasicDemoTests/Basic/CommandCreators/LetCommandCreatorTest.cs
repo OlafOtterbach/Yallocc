@@ -1,4 +1,5 @@
 ﻿using BasicDemo.Basic;
+using LexSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SyntaxTree;
 using System.Collections.Generic;
@@ -117,6 +118,9 @@ namespace BasicDemoTest
          var synTree = CreateSyntaxTree(text);
          var letCreator = new LetCommandCreator(_engine);
          var letCommand = letCreator.Create(synTree);
+         _engine.Add(letCommand);
+         _engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), _engine));
+         _engine.Reset();
          return letCommand;
       }
 

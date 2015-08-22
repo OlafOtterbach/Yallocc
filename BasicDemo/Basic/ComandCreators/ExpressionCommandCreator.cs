@@ -33,7 +33,6 @@ namespace BasicDemo.Basic
             // Post traverse
             if (tokNode.Token.Type != TokenType.name)
             {
-               // Search only if not array variable node
                node.Children.Reverse().ToList().ForEach(child => Traverse(child, postOrderExpr));
             }
 
@@ -51,11 +50,14 @@ namespace BasicDemo.Basic
                   elem = new BasicString(tokNode.Token.Value);
                   break;
                case TokenType.name:
-                  elem = _engine.GetVariable(tokNode.Token.Value);
-                  if(elem is BasicArray)
+                  if (node.Children.Any())
                   {
                      var arrayCreator = new ArrayStatementCreator(_engine);
                      elem = arrayCreator.Create(node);
+                  }
+                  else
+                  {
+                     elem = new VariableProxy(_engine, tokNode.Token.Value);
                   }
                   break;
                case TokenType.plus:
@@ -95,7 +97,6 @@ namespace BasicDemo.Basic
                   break;
                default:
                   throw new BasicTypeMissmatchException("Wrong element for expression.");
-                  break;
             }
             postOrderExpr.Add(elem);
          }

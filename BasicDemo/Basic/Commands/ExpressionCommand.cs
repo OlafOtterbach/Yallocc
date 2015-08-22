@@ -26,7 +26,14 @@ namespace BasicDemo.Basic
             {
                if (entity.IsVariable)
                {
-                  stack.Push(entity);
+                  if (entity is VariableProxy)
+                  {
+                     stack.Push((entity as VariableProxy).Value);
+                  }
+                  else
+                  {
+                     stack.Push(entity);
+                  }
                }
                else if (entity.IsUnaryOperator)
                {
@@ -53,7 +60,5 @@ namespace BasicDemo.Basic
 
          return result;
       }
-
-
    }
 }

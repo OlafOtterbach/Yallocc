@@ -16,6 +16,9 @@ namespace BasicDemoTest
          var engine = new BasicEngine();
          engine.RegisterVariable("x", x);
          var letCommand = new LetCommand(new Token<TokenType>("x", 0, 1), engine, "x", expressionCmd);
+         engine.Add(letCommand);
+         engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), engine));
+         engine.Reset();
 
          letCommand.Execute();
 
@@ -30,6 +33,9 @@ namespace BasicDemoTest
          var engine = new BasicEngine();
          engine.RegisterVariable("x", x);
          var letCommand = new LetCommand(new Token<TokenType>("x", 0, 1), engine, "x", expressionCmd);
+         engine.Add(letCommand);
+         engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), engine));
+         engine.Reset();
 
          letCommand.Execute();
 
@@ -44,6 +50,9 @@ namespace BasicDemoTest
          var engine = new BasicEngine();
          engine.RegisterVariable("x", x);
          var letCommand = new LetCommand(new Token<TokenType>("x", 0, 1), engine, "x", expressionCmd);
+         engine.Add(letCommand);
+         engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), engine));
+         engine.Reset();
 
          letCommand.Execute();
 

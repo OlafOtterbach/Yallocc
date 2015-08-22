@@ -5,18 +5,24 @@ namespace BasicDemo.Basic
 {
    public class BasicArrayElementAccessor : BasicEntity
    {
+      private BasicEngine _engine;
+      private string _name;
       private BasicArray _array;
       private List<ExpressionCommand> _indexEvaluations;
 
-      public BasicArrayElementAccessor(BasicArray array)
-      {
-         _array = array;
-         _indexEvaluations = new List<ExpressionCommand>();
-      }
-
       public BasicArrayElementAccessor(BasicArray array, params ExpressionCommand[] expressions)
       {
+         _name = null;
+         _engine = null;
          _array = array;
+         _indexEvaluations = expressions.ToList();
+      }
+
+      public BasicArrayElementAccessor(BasicEngine engine, string name, params ExpressionCommand[] expressions)
+      {
+         _array = null;
+         _engine = engine;
+         _name = name;
          _indexEvaluations = expressions.ToList();
       }
 
@@ -42,7 +48,8 @@ namespace BasicDemo.Basic
                                            .OfType<BasicInteger>()
                                            .Select(intVar => intVar.Value)
                                            .ToArray();
-            return _array.Get(indices);
+            var array = (_name == null) ? _array : _engine.GetVariable(_name) as BasicArray;
+            return array.Get(indices);
          }
       }
    }

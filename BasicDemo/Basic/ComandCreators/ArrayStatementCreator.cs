@@ -26,9 +26,9 @@ namespace BasicDemo.Basic
                   var basicArray = elem as BasicArray;
                   if (tokNode.Children.Any())
                   {
-                     accessor = new BasicArrayElementAccessor(basicArray);
                      var creator = new ExpressionCommandCreator(_engine);
-                     tokNode.Children.Select(child => creator.Create(child)).ToList().ForEach(expr => accessor.Add(expr));
+                     var expressions = tokNode.Children.Select(child => creator.Create(child)).ToArray();
+                     accessor = new BasicArrayElementAccessor(_engine, tokNode.Token.Value, expressions);
                   }
                   else
                   {

@@ -17,9 +17,12 @@ namespace BasicDemoTest
          };
          var expressionCmd = new ExpressionCommand(new Token<TokenType>("0.0", 0, 3), postorder);
          var engine = new BasicEngine();
-         var dim = new DimCommand(new Token<TokenType>("a", 0, 1), engine, "a", expressionCmd);
+         var dimCommand = new DimCommand(new Token<TokenType>("a", 0, 1), engine, "a", expressionCmd);
+         engine.Add(dimCommand);
+         engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), engine));
+         engine.Reset();
 
-         dim.Execute();
+         dimCommand.Execute();
 
          var a = engine.GetVariable("a") as BasicArray;
          Assert.IsNotNull(a);
@@ -41,9 +44,12 @@ namespace BasicDemoTest
          var expressionCmd1 = new ExpressionCommand(new Token<TokenType>("0.0", 0, 3), postorder1);
          var expressionCmd2 = new ExpressionCommand(new Token<TokenType>("0.0", 0, 3), postorder2);
          var engine = new BasicEngine();
-         var dim = new DimCommand(new Token<TokenType>("a", 0, 1), engine, "a", expressionCmd1, expressionCmd2);
+         var dimCommand = new DimCommand(new Token<TokenType>("a", 0, 1), engine, "a", expressionCmd1, expressionCmd2);
+         engine.Add(dimCommand);
+         engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), engine));
+         engine.Reset();
 
-         dim.Execute();
+         dimCommand.Execute();
 
          var a = engine.GetVariable("a") as BasicArray;
          Assert.IsNotNull(a);
@@ -71,9 +77,12 @@ namespace BasicDemoTest
          var expressionCmd2 = new ExpressionCommand(new Token<TokenType>("0.0", 0, 3), postorder2);
          var expressionCmd3 = new ExpressionCommand(new Token<TokenType>("0.0", 0, 3), postorder3);
          var engine = new BasicEngine();
-         var dim = new DimCommand(new Token<TokenType>("a", 0, 1), engine, "a", expressionCmd1, expressionCmd2, expressionCmd3);
+         var dimCommand = new DimCommand(new Token<TokenType>("a", 0, 1), engine, "a", expressionCmd1, expressionCmd2, expressionCmd3);
+         engine.Add(dimCommand);
+         engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), engine));
+         engine.Reset();
 
-         dim.Execute();
+         dimCommand.Execute();
 
          var a = engine.GetVariable("a") as BasicArray;
          Assert.IsNotNull(a);
