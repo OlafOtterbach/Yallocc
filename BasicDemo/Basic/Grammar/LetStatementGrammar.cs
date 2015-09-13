@@ -10,20 +10,14 @@ namespace BasicDemo.Basic
       {
          yacc.Grammar("LetStatement")
              .Enter                                    .Action(() => stb.Enter())
-             .Switch
-              (
-                 yacc.Branch
-                     .Token(TokenType.let),
-                 yacc.Branch.Default
-              )
-             .Lambda                                   .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.let))))
+             .Token(TokenType.let_keyword)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
              .Token(TokenType.name)                    .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Switch
               (
                  yacc.Branch
                      .Token(TokenType.open)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
                      .Label("ParamList")
-                     .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
+                     .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
                      .Switch
                       (
                          yacc.Branch

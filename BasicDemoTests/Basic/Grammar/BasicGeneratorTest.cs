@@ -1,9 +1,7 @@
-﻿using System;
+﻿using BasicDemo.Basic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BasicDemo;
-using System.IO;
-using BasicDemo.Basic;
 using SyntaxTree;
+using System.IO;
 
 namespace BasicDemoTest
 {

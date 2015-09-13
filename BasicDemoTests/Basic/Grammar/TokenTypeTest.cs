@@ -14,6 +14,23 @@ namespace BasicDemoTest
    public class TokenTypeTest
    {
       [TestMethod]
+      public void ColonTest_OneColon_Colon()
+      {
+         var yacc = new Yallocc<TokenType>();
+         var builder = new SyntaxTreeBuilder();
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc, null);
+         var lex = yacc.Lex;
+
+         var tokens = lex.Scan("Hallo:123").ToList();
+
+         Assert.IsTrue(tokens.Any());
+         Assert.AreEqual(tokens.First().Type, TokenType.name);
+         Assert.AreEqual(tokens[1].Type, TokenType.colon);
+         Assert.AreEqual(tokens[2].Type, TokenType.integer);
+      }
+
+      [TestMethod]
       public void NameTest_OneName_SyntaxTreeBuilderDoesNotInfluenceResult()
       {
          var yacc1 = new Yallocc<TokenType>();

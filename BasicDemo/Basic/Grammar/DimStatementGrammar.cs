@@ -10,11 +10,11 @@ namespace BasicDemo.Basic
       {
          yacc.Grammar("DimStatement")
              .Enter                           .Action(() => stb.Enter())
-             .Token(TokenType.dim)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+             .Token(TokenType.dim_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
              .Token(TokenType.name)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Token(TokenType.open)
              .Label("ParamList")
-             .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
+             .Gosub("Expression")             .Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch

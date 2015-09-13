@@ -16,16 +16,16 @@ namespace BasicDemo.Basic
          // --"ExpressionStart"-->--[SimpleExpression]----------------------------------------->
          //
          yacc.Grammar("Expression")
-             .Enter.Name("ExpressionStart").Action(() => stb.Enter())
-             .Gosub("SimpleExpression").Action(() => stb.AdoptInnerNodes())
+             .Enter.Name("ExpressionStart")       .Action(() => stb.Enter())
+             .Gosub("SimpleExpression")           .Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
-                     .Gosub("Relation").Action(() => stb.CapInnerNodeToParent())
-                     .Gosub("SimpleExpression").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("Relation")           .Action(() => stb.CapInnerNodeToParent())
+                     .Gosub("SimpleExpression")   .Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit                                .Action(() => stb.Exit())
              .EndGrammar();
 
          // Relation

@@ -43,7 +43,14 @@ namespace BasicDemo.Basic
                   if( entity is BasicArray)
                   {
                      var accessor = new BasicArrayElementAccessor((entity as BasicArray), _arrayExpressions);
-                     (accessor.Value as BasicVariable).Set(variable);
+                     if (accessor.Value != null)
+                     {
+                        (accessor.Value as BasicVariable).Set(variable);
+                     }
+                     else
+                     {
+                        accessor.Set(variable);
+                     }
                   }
                }
             }

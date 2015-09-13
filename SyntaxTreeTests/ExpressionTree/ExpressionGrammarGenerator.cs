@@ -9,10 +9,10 @@ namespace SyntaxTreeTest.ExpressionTree
       public SyntaxTreeGenerator<ExpressionTokenType> CreateParser()
       {
          var generator
-             = SyntaxTreeGenerator<ExpressionTokenType>.Make()
+             = SyntaxTreeGenerator<ExpressionTokenType>.Make
                                                        .Register(new ExpressionTokenDefinition())
                                                        .Register(new ExpressionGrammarDefinition())
-                                                       .Create;
+                                                       .Create();
          return generator;
       }
    }

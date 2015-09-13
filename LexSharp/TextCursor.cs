@@ -25,7 +25,7 @@ namespace LexSharp
       public TextCursor(string text, IEnumerable<Pattern<T>> patterns)
       {
          _text = text;
-         _matches = patterns.Select((p, i) => new PatternAndMatch { PatternIndex = i, Pattern = p, Match = p.TokenPattern.Match(text) });
+         _matches = patterns.Select((p, i) => new PatternAndMatch { PatternIndex = i, Pattern = p, Match = p.TokenPattern != null ? p.TokenPattern.Match(text) : null }).Where(m => m.Match != null);
          _cursorPos = 0;
          _buffer = new TokenResultBuffer<T>();
          IsNotFinished = true;

@@ -11,13 +11,15 @@ namespace BasicDemo.Basic
       public BasicGrammarGenerator()
       {
          _generator
-         = SyntaxTreeGenerator<TokenType>.Make()
-                                          .Register(new TokenDefinition())
-                                          .Register(new ProgramGrammar())
-                                          .Register(new ExpressionGrammar())
-                                          .Register(new LetStatementGrammar())
-                                          .Register(new DimStatementGrammar())
-                                          .Create;
+         = SyntaxTreeGenerator<TokenType>.Make
+                                         .Register(new TokenDefinition())
+                                         .Register(new ProgramGrammar())
+                                         .Register(new ExpressionGrammar())
+                                         .Register(new LetStatementGrammar())
+                                         .Register(new DimStatementGrammar())
+                                         .Register(new GotoStatementGrammar())
+                                         .Register(new LabelStatementGrammar())
+                                         .Create();
       }
 
       public SyntaxTreeBuilderResult Parse(string text)

@@ -41,16 +41,9 @@ namespace BasicDemoTest
       }
 
       [TestMethod]
-      public void ExecuteTest_FiledOfThreeAndExpression_TwentyThree()
+      public void ExecuteTest_LetFiledOfThreeAndExpression_Twenty()
       {
-         CreateAndExecute("field(3) = 3.0 + 4.0 * 5.0");
-         ValidateRealField("field", 23.0);
-      }
-
-      [TestMethod]
-      public void ExecuteTest_FiledOfThreeAndExpression_Twenty()
-      {
-         CreateAndExecute("field(3) = 20");
+         CreateAndExecute("LET field(3) = 20");
          ValidateRealField("field", 20.0);
       }
 
@@ -62,16 +55,9 @@ namespace BasicDemoTest
       }
 
       [TestMethod]
-      public void ExecuteTest_MatrixOfThreeOfTwoAndExpression_TwentyThree()
+      public void ExecuteTest_LetMatrixOfThreeOfTwoAndExpression_Twenty()
       {
-         CreateAndExecute("matrix(3,2) = 3 + 4 * 5");
-         ValidateMatrix(23);
-      }
-
-      [TestMethod]
-      public void ExecuteTest_MatrixOfThreeOfTwoAndExpression_Twenty()
-      {
-         CreateAndExecute("matrix(3,2) = 20");
+         CreateAndExecute("LET matrix(3,2) = 20");
          ValidateMatrix(20);
       }
 

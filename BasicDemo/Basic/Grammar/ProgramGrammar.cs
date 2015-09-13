@@ -10,11 +10,11 @@ namespace BasicDemo.Basic
       {
          yacc.MasterGrammar("Program")
              .Enter.Action(() => stb.Enter())
-             .Token(TokenType.program).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+             .Token(TokenType.program_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
              .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Token(TokenType.Return)
              .Gosub("StatementSequence").Action(() => stb.AdoptInnerNodes())
-             .Token(TokenType.end).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.end_keyword).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 
@@ -40,6 +40,10 @@ namespace BasicDemo.Basic
                      .Gosub("LetStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch
                      .Gosub("DimStatement").Action(() => stb.AdoptInnerNodes()),
+                 yacc.Branch
+                     .Gosub("GotoStatement").Action(() => stb.AdoptInnerNodes()),
+                 yacc.Branch
+                     .Gosub("LabelStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
              .Exit.Action(() => stb.Exit())

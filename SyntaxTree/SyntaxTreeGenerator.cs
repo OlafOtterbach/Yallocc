@@ -16,10 +16,13 @@ namespace SyntaxTree
          _parser = null;
       }
 
-      public static GeneratorInterfaceWithRegisterWithoutCreate<T> Make()
+      public static GeneratorInterfaceWithRegisterWithoutCreate<T> Make
       {
-         var generator = new SyntaxTreeGenerator<T>();
-         return new GeneratorInterfaceWithRegisterWithoutCreate<T>(generator);
+         get
+         {
+            var generator = new SyntaxTreeGenerator<T>();
+            return new GeneratorInterfaceWithRegisterWithoutCreate<T>(generator);
+         }
       }
 
       internal void Register(ITokenAndGrammarDefinition<T> grammarDefinition)

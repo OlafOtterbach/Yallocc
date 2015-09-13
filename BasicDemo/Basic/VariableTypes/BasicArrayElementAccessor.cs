@@ -52,5 +52,16 @@ namespace BasicDemo.Basic
             return array.Get(indices);
          }
       }
+
+      public void Set(BasicEntity entity)
+      {
+         var indices = _indexEvaluations.Select(cmd => cmd.Execute())
+                                        .Select(x => x.IsArray ? (x as BasicArrayElementAccessor).Value : x)
+                                        .OfType<BasicInteger>()
+                                        .Select(intVar => intVar.Value)
+                                        .ToArray();
+         var array = (_name == null) ? _array : _engine.GetVariable(_name) as BasicArray;
+         array.Set(entity, indices);
+      }
    }
 }

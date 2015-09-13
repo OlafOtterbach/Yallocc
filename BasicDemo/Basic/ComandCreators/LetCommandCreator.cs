@@ -10,7 +10,7 @@ namespace BasicDemo.Basic
 
       public override bool CanCreate(SyntaxTreeNode node)
       {
-         var result = (node is TokenTreeNode) && ((node as TokenTreeNode).Token.Type == TokenType.let);
+         var result = (node is TokenTreeNode) && ((node as TokenTreeNode).Token.Type == TokenType.let_keyword);
          return result;
       }
 

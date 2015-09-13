@@ -15,13 +15,10 @@
          return new GeneratorInterfaceWithRegisterWithCreate<T>(_generator);
       }
 
-      public SyntaxTreeGenerator<T> Create
+      public SyntaxTreeGenerator<T> Create()
       {
-         get
-         {
-            _generator.Init();
-            return _generator;
-         }
+         _generator.Init();
+         return _generator;
       }
    }
 }
