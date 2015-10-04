@@ -22,6 +22,8 @@ namespace BasicDemo.Basic
       public string Name { get; set; }
 
       public override void Execute()
-      {}
+      {
+         Engine.Cursor.Next();
+      }
    }
 }

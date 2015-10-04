@@ -9,6 +9,52 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void IfThenEndTest_IfIsTrue_IfStatementExecuted()
+      {
+         var program = "LET a=1\r\nIF a < 2 THEN LET a = a + 2 END";
+         var engine = Create(program);
+         engine.Run();
+
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(a, 3);
+      }
+
+      [TestMethod]
+      public void IfThenEndTest_IfIsFalse_IfStatementExecuted()
+      {
+         var program = "LET a=1\r\nIF a = 77 THEN LET a = a + 2 END";
+         var engine = Create(program);
+         engine.Run();
+
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(a, 1);
+      }
+
+      [TestMethod]
+      public void IfThenElseEndTest_IfIsTrue_IfStatementExecutedElseStatementNotExecuted()
+      {
+         var program = "LET a=1\r\nIF a < 2 THEN LET a = 2 ELSE LET a = 3 END";
+         var engine = Create(program);
+         engine.Run();
+
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(a, 2);
+      }
+
+      [TestMethod]
+      public void IfThenElseEndTest_IfIsFalse_IfStatementNotExecutedElseStatementExecuted()
+      {
+         var program = "LET a = 1\r\nLET b = 1\r\nIF a > 2 THEN\r\n  LET a = 2\r\n  LET b = 3\r\nELSE\r\n  LET a = 3\r\n  LET b = 4\r\nEND";
+         var engine = Create(program);
+         engine.Run();
+
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         var b = (engine.Memory["b"] as BasicInteger).Value;
+         Assert.AreEqual(a, 3);
+         Assert.AreEqual(b, 4);
+      }
+
+      [TestMethod]
       public void GotoTest()
       {
          var program = "LET a=1\r\nGOTO Hallo\r\nLET a = 2\r\nHallo:\r\nLET b = 3";

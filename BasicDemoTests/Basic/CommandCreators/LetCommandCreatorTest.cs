@@ -103,8 +103,8 @@ namespace BasicDemoTest
          _engine = CreateEngine();
          var synTree = CreateSyntaxTree(text);
          var letCreator = new LetCommandCreator(_engine);
-         var letCommand = letCreator.Create(synTree);
-         _engine.Add(letCommand);
+         letCreator.Create(synTree);
+         var letCommand = _engine.Program.Last();
          _engine.Add(new EndOfProgramCommand(new Token<TokenType>("end", 0, 3), _engine));
          _engine.Reset();
          return letCommand;

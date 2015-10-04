@@ -3,19 +3,23 @@ using System.Linq;
 
 namespace BasicDemo.Basic
 {
-   public class ProgramCreator
+   public class ProgramCreator : CommandCreator
    {
-      private StatementSequenceCreator _creator;
-
-      public ProgramCreator(BasicEngine engine)
+      public ProgramCreator(BasicEngine engine) : base(engine)
       {
-         _creator = new StatementSequenceCreator(engine);
       }
 
-      public void Create(SyntaxTreeNode root)
+      public override bool CanCreate(SyntaxTreeNode node)
+      {
+         var result = (node is TokenTreeNode) && ((node as TokenTreeNode).Token.Type == TokenType.program_keyword);
+         return result;
+      }
+
+      public override void Create(SyntaxTreeNode root)
       {
          var nodes = root.Children.Skip(1);
-         _creator.Create(nodes);
+         var creator = new StatementSequenceCreator(Engine);
+         creator.Create(nodes);
       }
    }
 }

@@ -41,12 +41,14 @@
     <Compile Include="Basic\ComandCreators\DimCommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\EndOfProgramCommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\GotoCommandCreator.cs" />
+    <Compile Include="Basic\ComandCreators\IfCommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\LabelCommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\LetCommandCreator.cs" />
     <Compile Include="Basic\ComandCreators\ProgramCreator.cs" />
     <Compile Include="Basic\ComandCreators\StatementSequenceCreator.cs" />
     <Compile Include="Basic\Commands\EndOfProgramCommand.cs" />
     <Compile Include="Basic\Commands\GotoCommand.cs" />
+    <Compile Include="Basic\Commands\IfCommand.cs" />
     <Compile Include="Basic\Commands\LabelCommand.cs" />
     <Compile Include="Basic\Engine\BasicCursor.cs" />
     <Compile Include="Basic\Grammar\GotoStatementGrammar.cs" />

@@ -7,13 +7,12 @@ namespace BasicDemo.Basic
    public class StatementSequenceCreator
    {
       private List<CommandCreator> _creators;
-      private BasicEngine _engine;
 
       public StatementSequenceCreator(BasicEngine engine)
       {
-         _engine = engine;
          _creators = new List<CommandCreator>
          {
+            new IfCommandCreator(engine),
             new LetCommandCreator(engine),
             new DimCommandCreator(engine),
             new GotoCommandCreator(engine),
@@ -30,8 +29,7 @@ namespace BasicDemo.Basic
             if(canCreators.Any())
             {
                var canCreator = canCreators.First();
-               var command = canCreator.Create(node);
-               _engine.Add(command);
+               canCreator.Create(node);
             }
          }
       }

@@ -14,7 +14,7 @@ namespace BasicDemo.Basic
          return result;
       }
 
-      public override BasicCommand Create(SyntaxTreeNode node)
+      public override void Create(SyntaxTreeNode node)
       {
          var tokNode = (node as TokenTreeNode);
          var children = node.Children.OfType<TokenTreeNode>().ToList();
@@ -24,8 +24,7 @@ namespace BasicDemo.Basic
                                     .Select(n => new ExpressionCommandCreator(Engine).Create(n))
                                     .ToArray();
          var command = new DimCommand(tokNode.Token, Engine, name, expressions);
-
-         return command;
+         Engine.Add(command);
       }
    }
 }

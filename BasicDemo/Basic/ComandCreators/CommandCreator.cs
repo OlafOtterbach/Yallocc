@@ -13,6 +13,6 @@ namespace BasicDemo.Basic
 
       public abstract bool CanCreate(SyntaxTreeNode node);
 
-      public abstract BasicCommand Create(SyntaxTreeNode node);
+      public abstract void Create(SyntaxTreeNode node);
    }
 }

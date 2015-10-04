@@ -15,6 +15,7 @@ namespace BasicDemo.Basic
                                          .Register(new TokenDefinition())
                                          .Register(new ProgramGrammar())
                                          .Register(new ExpressionGrammar())
+                                         .Register(new IfStatementGrammar())
                                          .Register(new LetStatementGrammar())
                                          .Register(new DimStatementGrammar())
                                          .Register(new GotoStatementGrammar())

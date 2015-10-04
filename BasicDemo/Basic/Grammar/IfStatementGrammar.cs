@@ -10,18 +10,18 @@ namespace BasicDemo.Basic
       {
          yacc.Grammar("IfStatement")
              .Enter                                  .Action(() => stb.Enter())
-             .Token(TokenType.if_keyword)            .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.if_keyword))))
+             .Token(TokenType.if_keyword)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
              .Gosub("Expression")                    .Action(() => stb.AdoptInnerNodes())
-             .Token(TokenType.then_keyword)          .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.then_keyword))))
+             .Token(TokenType.then_keyword)          .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Gosub("StatementSequence")             .Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.end_keyword)   .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.end_keyword)))),
+                     .Token(TokenType.end_keyword)   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok))),
                  yacc.Branch
-                     .Token(TokenType.else_keyword)  .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.else_keyword))))
+                     .Token(TokenType.else_keyword)  .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
                      .Gosub("StatementSequence")     .Action(() => stb.AdoptInnerNodes())
-                     .Token(TokenType.end_keyword)   .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.end_keyword))))
+                     .Token(TokenType.end_keyword)   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
               )
              .Exit                                   .Action(() => stb.Exit())
              .EndGrammar();

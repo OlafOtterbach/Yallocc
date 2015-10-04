@@ -14,11 +14,11 @@ namespace BasicDemo.Basic
          return result;
       }
 
-      public override BasicCommand Create(SyntaxTreeNode node)
+      public override void Create(SyntaxTreeNode node)
       {
          var tokNode = (node as TokenTreeNode);
          var command = new EndOfProgramCommand(tokNode.Token, Engine);
-         return command;
+         Engine.Add(command);
       }
    }
 }
