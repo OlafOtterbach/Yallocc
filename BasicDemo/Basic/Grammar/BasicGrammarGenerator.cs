@@ -16,6 +16,8 @@ namespace BasicDemo.Basic
                                          .Register(new ProgramGrammar())
                                          .Register(new ExpressionGrammar())
                                          .Register(new IfStatementGrammar())
+                                         .Register(new WhileStatementGrammar())
+                                         .Register(new ForStatementGrammar())
                                          .Register(new LetStatementGrammar())
                                          .Register(new DimStatementGrammar())
                                          .Register(new GotoStatementGrammar())

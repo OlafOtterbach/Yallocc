@@ -29,6 +29,11 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"IF", TokenType.if_keyword);
          yacc.AddToken(@"THEN", TokenType.then_keyword);
          yacc.AddToken(@"ELSE", TokenType.else_keyword);
+         yacc.AddToken(@"WHILE", TokenType.while_keyword);
+         yacc.AddToken(@"FOR", TokenType.for_keyword);
+         yacc.AddToken(@"TO", TokenType.to_keyword);
+         yacc.AddToken(@"STEP", TokenType.step_keyword);
+         yacc.AddToken(@"DO", TokenType.do_keyword);
          yacc.AddToken(@"GOTO", TokenType.goto_keyword);
          yacc.AddToken(null, TokenType.label);
          yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);

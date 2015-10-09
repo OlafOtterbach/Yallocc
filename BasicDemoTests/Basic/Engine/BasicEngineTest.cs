@@ -9,6 +9,17 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void WhileTest_UntilTen_IndexIsTen()
+      {
+         var program = "LET i=1\r\nWHILE i < 10 DO\r\n  LET i = i + 1\r\nEND";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         Assert.AreEqual(i, 10);
+      }
+
+      [TestMethod]
       public void IfThenEndTest_IfIsTrue_IfStatementExecuted()
       {
          var program = "LET a=1\r\nIF a < 2 THEN LET a = a + 2 END";

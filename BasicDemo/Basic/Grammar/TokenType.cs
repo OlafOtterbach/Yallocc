@@ -24,6 +24,11 @@
       if_keyword,      // IF
       then_keyword,    // THEN
       else_keyword,    // ELSE
+      while_keyword,   // WHILE
+      for_keyword,     // FOR
+      to_keyword,      // TO
+      step_keyword,    // STEP
+      do_keyword,      // DO
       goto_keyword,    // GOTO
       label,           // Label:
       name,            // x, y, index, ...

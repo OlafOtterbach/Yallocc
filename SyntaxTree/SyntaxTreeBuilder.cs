@@ -52,12 +52,6 @@ namespace SyntaxTree
          }
       }
 
-      //public SyntaxTreeNode GetLastChild()
-      //{
-      //   var lastChild = (_levels.Count > 0) ?  _levels.Peek().ChildrenNodes.LastOrDefault() : null;
-      //   return lastChild;
-      //}
-
       public void AdoptInnerNodes()
       {
          if (_levels.Count > 0)

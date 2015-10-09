@@ -13,6 +13,8 @@ namespace BasicDemo.Basic
          _creators = new List<CommandCreator>
          {
             new IfCommandCreator(engine),
+            new WhileCommandCreator(engine),
+            new ForCommandCreator(engine),
             new LetCommandCreator(engine),
             new DimCommandCreator(engine),
             new GotoCommandCreator(engine),
