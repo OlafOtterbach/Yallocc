@@ -17,8 +17,8 @@ namespace BasicDemoTest.Basic
 
          var i = (engine.Memory["i"] as BasicInteger).Value;
          var a = (engine.Memory["a"] as BasicInteger).Value;
-         Assert.AreEqual(i, 10);
-         Assert.AreEqual(a, 10);
+         Assert.AreEqual(10, i);
+         Assert.AreEqual(10, a);
       }
 
       [TestMethod]
@@ -30,8 +30,21 @@ namespace BasicDemoTest.Basic
 
          var i = (engine.Memory["i"] as BasicInteger).Value;
          var a = (engine.Memory["a"] as BasicInteger).Value;
-         Assert.AreEqual(i, 2);
-         Assert.AreEqual(a, 4);
+         Assert.AreEqual(2, i);
+         Assert.AreEqual(4, a);
+      }
+
+      [TestMethod]
+      public void ForTest_UntilTenStepTwo_IndexIsTen()
+      {
+         var program = "LET a = 0\r\nFOR i=0 TO 10 STEP 1+1 DO\r\n  LET a = a + i\r\nEND";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(10, i);
+         Assert.AreEqual(2+4+6+8+10, a);
       }
 
       [TestMethod]

@@ -44,7 +44,7 @@ namespace BasicDemo.Basic
          var forCommand = new ForCommand(tokNode.Token, Engine, afterForLabelName, lessEqualExpression);
          Engine.Add(forCommand);
 
-         var nodes = children.Skip(5)
+         var nodes = children.Skip(6)
                              .TakeWhile(x => x.Token.Type != TokenType.end_keyword)
                              .ToList();
          var statementCreator = new StatementSequenceCreator(Engine);
@@ -58,8 +58,8 @@ namespace BasicDemo.Basic
          Engine.Add(ifCommand);
 
          var addNode = new TokenTreeNode(new Token<TokenType>(TokenType.plus));
-         var stepNode = new TokenTreeNode(new Token<TokenType>("1", TokenType.integer, 0, 1));
-         addNode.Children = new List<SyntaxTreeNode>() { nameNode, stepNode };
+         var stepExpressionNode = children[5];
+         addNode.Children = new List<SyntaxTreeNode>() { nameNode, stepExpressionNode };
          var addExpressionCreator = new ExpressionCommandCreator(Engine);
          var addExpression = addExpressionCreator.Create(addNode);
          var addCommand = new LetCommand(tokNode.Token, Engine, name, addExpression);
