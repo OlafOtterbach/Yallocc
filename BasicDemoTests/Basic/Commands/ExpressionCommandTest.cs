@@ -86,6 +86,12 @@ namespace BasicDemoTest
       }
 
       [TestMethod]
+      public void ExecuteTest_TwoGreaterTwo_False()
+      {
+         Assert.IsTrue(BinaryOperatorCompareTest(2, new BasicGreater(), 2, false));
+      }
+
+      [TestMethod]
       public void ExecuteTest_NegateTwo_False()
       {
          var postorder = new List<BasicEntity> 

@@ -92,8 +92,14 @@ namespace BasicDemo.Basic
                case TokenType.less:
                   elem = new BasicLess();
                   break;
+               case TokenType.lessEqual:
+                  elem = new BasicLessEqual();
+                  break;
                case TokenType.greater:
                   elem = new BasicGreater();
+                  break;
+               case TokenType.greaterEqual:
+                  elem = new BasicGreaterEqual();
                   break;
                default:
                   throw new BasicTypeMissmatchException("Wrong element for expression.");

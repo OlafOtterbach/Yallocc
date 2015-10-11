@@ -10,7 +10,9 @@
       div,             // /
       equal,           // =
       greater,         // >
+      greaterEqual,    // >=
       less,            // <
+      lessEqual,       // <
       open,            // (
       close,           // )
       comma,           // ,

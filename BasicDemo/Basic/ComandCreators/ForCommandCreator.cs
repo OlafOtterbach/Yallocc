@@ -36,13 +36,13 @@ namespace BasicDemo.Basic
          var afterForLabelCommand = new LabelCommand(tokNode.Token, Engine, afterForLabelName);
 
          var nameNode = children[0];
-         var greaterNode = new TokenTreeNode(new Token<TokenType>(TokenType.greater));
+         var lessEqualNode = new TokenTreeNode(new Token<TokenType>(TokenType.lessEqual));
          var expressionNode = children[4];
-         greaterNode.Children = new List<SyntaxTreeNode>() { nameNode, expressionNode };
-         var greaterExpressionCreator = new ExpressionCommandCreator(Engine);
-         var greaterExpression = greaterExpressionCreator.Create(greaterNode);
-         var ifCommand = new IfCommand(tokNode.Token, Engine, afterForLabelName, greaterExpression);
-         Engine.Add(ifCommand);
+         lessEqualNode.Children = new List<SyntaxTreeNode>() { nameNode, expressionNode };
+         var lessEqualExpressionCreator = new ExpressionCommandCreator(Engine);
+         var lessEqualExpression = lessEqualExpressionCreator.Create(lessEqualNode);
+         var forCommand = new ForCommand(tokNode.Token, Engine, afterForLabelName, lessEqualExpression);
+         Engine.Add(forCommand);
 
          var nodes = children.Skip(5)
                              .TakeWhile(x => x.Token.Type != TokenType.end_keyword)
@@ -50,11 +50,18 @@ namespace BasicDemo.Basic
          var statementCreator = new StatementSequenceCreator(Engine);
          statementCreator.Create(nodes);
 
+         var lessNode = new TokenTreeNode(new Token<TokenType>(TokenType.less));
+         lessNode.Children = new List<SyntaxTreeNode>() { nameNode, expressionNode };
+         var lessExpressionCreator = new ExpressionCommandCreator(Engine);
+         var lessExpression = lessExpressionCreator.Create(lessNode);
+         var ifCommand = new IfCommand(tokNode.Token, Engine, afterForLabelName, lessExpression);
+         Engine.Add(ifCommand);
+
          var addNode = new TokenTreeNode(new Token<TokenType>(TokenType.plus));
          var stepNode = new TokenTreeNode(new Token<TokenType>("1", TokenType.integer, 0, 1));
          addNode.Children = new List<SyntaxTreeNode>() { nameNode, stepNode };
          var addExpressionCreator = new ExpressionCommandCreator(Engine);
-         var addExpression = greaterExpressionCreator.Create(addNode);
+         var addExpression = addExpressionCreator.Create(addNode);
          var addCommand = new LetCommand(tokNode.Token, Engine, name, addExpression);
          Engine.Add(addCommand);
 

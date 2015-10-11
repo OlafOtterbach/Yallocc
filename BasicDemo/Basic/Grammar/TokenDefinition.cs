@@ -15,7 +15,9 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"\/", TokenType.div);
          yacc.AddToken(@"=", TokenType.equal);
          yacc.AddToken(@"\>", TokenType.greater);
+         yacc.AddToken(@"\>=", TokenType.greaterEqual);
          yacc.AddToken(@"\<", TokenType.less);
+         yacc.AddToken(@"\<=", TokenType.lessEqual);
          yacc.AddToken(@"\(", TokenType.open);
          yacc.AddToken(@"\)", TokenType.close);
          yacc.AddToken(@",", TokenType.comma);

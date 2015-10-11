@@ -9,6 +9,32 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void ForTest_UntilTen_IndexIsTen()
+      {
+         var program = "FOR i=1 TO 10 DO\r\n  LET a = i\r\nEND";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(i, 10);
+         Assert.AreEqual(a, 10);
+      }
+
+      [TestMethod]
+      public void ForTest_UntilTWo_IndexIsTwo()
+      {
+         var program = "FOR i=1 TO 2 DO\r\n  LET a = i * 2\r\nEND";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(i, 2);
+         Assert.AreEqual(a, 4);
+      }
+
+      [TestMethod]
       public void WhileTest_UntilTen_IndexIsTen()
       {
          var program = "LET i=1\r\nWHILE i < 10 DO\r\n  LET i = i + 1\r\nEND";

@@ -41,6 +41,8 @@ namespace BasicDemo.Basic
                  yacc.Branch
                      .Gosub("WhileStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch
+                     .Gosub("ForStatement").Action(() => stb.AdoptInnerNodes()),
+                 yacc.Branch
                      .Gosub("LetStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch
                      .Gosub("DimStatement").Action(() => stb.AdoptInnerNodes()),
