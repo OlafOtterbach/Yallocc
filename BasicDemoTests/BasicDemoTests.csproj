@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BasicDemoTest</RootNamespace>
     <AssemblyName>BasicDemoTest</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +67,10 @@
     <Compile Include="Basic\Grammar\TokenTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BasicDemo\BasicDemo.csproj">
+      <Project>{b9d7dfd7-f85c-4b19-bde3-885e0686b516}</Project>
+      <Name>BasicDemo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>LexSharp</Name>
@@ -73,10 +78,6 @@
     <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
       <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
       <Name>SyntaxTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BasicDemo\BasicDemo.csproj">
-      <Project>{c0e57f6a-1e5d-49c1-ba4c-483cf583e653}</Project>
-      <Name>BasicDemo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yallocc\Yallocc.csproj">
       <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>

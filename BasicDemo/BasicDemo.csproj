@@ -1,16 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C0E57F6A-1E5D-49C1-BA4C-483CF583E653}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{B9D7DFD7-F85C-4B19-BDE3-885E0686B516}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BasicDemo</RootNamespace>
     <AssemblyName>BasicDemo</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,81 +37,136 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\ComandCreators\CommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\DimCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\EndOfProgramCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\ForCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\GotoCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\IfCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\LabelCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\LetCommandCreator.cs" />
-    <Compile Include="Basic\ComandCreators\ProgramCreator.cs" />
-    <Compile Include="Basic\ComandCreators\StatementSequenceCreator.cs" />
-    <Compile Include="Basic\ComandCreators\WhileCommand.cs" />
-    <Compile Include="Basic\ComandCreators\WhileCommandCreator.cs" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="View\Canvas2D.cs" />
+    <Compile Include="View\Canvas2DWpf.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Basic\BasicEntity.cs" />
+    <Compile Include="Basic\CommandCreators\ArrayStatementCreator.cs" />
+    <Compile Include="Basic\CommandCreators\CommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\DimCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\EndOfProgramCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\ExpressionCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\ForCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\GotoCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\IfCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\LabelCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\LetCommandCreator.cs" />
+    <Compile Include="Basic\CommandCreators\ProgramCreator.cs" />
+    <Compile Include="Basic\CommandCreators\StatementSequenceCreator.cs" />
+    <Compile Include="Basic\CommandCreators\WhileCommand.cs" />
+    <Compile Include="Basic\CommandCreators\WhileCommandCreator.cs" />
+    <Compile Include="Basic\Commands\BasicCommand.cs" />
+    <Compile Include="Basic\Commands\DimCommand.cs" />
     <Compile Include="Basic\Commands\EndOfProgramCommand.cs" />
+    <Compile Include="Basic\Commands\ExpressionCommand.cs" />
     <Compile Include="Basic\Commands\ForCommand.cs" />
     <Compile Include="Basic\Commands\GotoCommand.cs" />
     <Compile Include="Basic\Commands\IfCommand.cs" />
     <Compile Include="Basic\Commands\LabelCommand.cs" />
+    <Compile Include="Basic\Commands\LetCommand.cs" />
     <Compile Include="Basic\Engine\BasicCursor.cs" />
+    <Compile Include="Basic\Engine\BasicEngine.cs" />
+    <Compile Include="Basic\Exceptions\BasicException.cs" />
+    <Compile Include="Basic\Exceptions\BasicInvalidExpressionException.cs" />
+    <Compile Include="Basic\Exceptions\BasicOutOfDimensionException.cs" />
+    <Compile Include="Basic\Exceptions\BasicOutOfRangeException.cs" />
+    <Compile Include="Basic\Exceptions\BasicTypeMissmatchException.cs" />
+    <Compile Include="Basic\Exceptions\BasicVariableAlreadyDefinedException.cs" />
+    <Compile Include="Basic\Grammar\BasicGrammarGenerator.cs" />
+    <Compile Include="Basic\Grammar\DimStatementGrammar.cs" />
+    <Compile Include="Basic\Grammar\ExpressionGrammar.cs" />
     <Compile Include="Basic\Grammar\ForStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\GotoStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\IfStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\LabelStatementGrammar.cs" />
-    <Compile Include="Basic\Grammar\WhileStatementGrammar.cs" />
-    <Compile Include="Basic\Operators\BasicGreaterEqual.cs" />
-    <Compile Include="Basic\Operators\BasicLessEqual.cs" />
-    <Compile Include="Basic\VariableTypes\VariableProxy.cs" />
-    <Compile Include="Basic\Exceptions\BasicException.cs" />
-    <Compile Include="Basic\ComandCreators\ArrayStatementCreator.cs" />
-    <Compile Include="Basic\ComandCreators\ExpressionCommandCreator.cs" />
-    <Compile Include="Basic\Commands\DimCommand.cs" />
-    <Compile Include="Basic\Exceptions\BasicInvalidExpressionException.cs" />
-    <Compile Include="Basic\Exceptions\BasicVariableAlreadyDefinedException.cs" />
-    <Compile Include="Basic\Grammar\DimStatementGrammar.cs" />
+    <Compile Include="Basic\Grammar\LetStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\ProgramGrammar.cs" />
+    <Compile Include="Basic\Grammar\TokenDefinition.cs" />
+    <Compile Include="Basic\Grammar\TokenTreeNode.cs" />
+    <Compile Include="Basic\Grammar\TokenType.cs" />
+    <Compile Include="Basic\Grammar\WhileStatementGrammar.cs" />
     <Compile Include="Basic\Operators\BasicAddition.cs" />
     <Compile Include="Basic\Operators\BasicAdditionSign.cs" />
+    <Compile Include="Basic\Operators\BasicBinaryOperator.cs" />
+    <Compile Include="Basic\Operators\BasicDivision.cs" />
+    <Compile Include="Basic\Operators\BasicEquals.cs" />
+    <Compile Include="Basic\Operators\BasicGreater.cs" />
+    <Compile Include="Basic\Operators\BasicGreaterEqual.cs" />
+    <Compile Include="Basic\Operators\BasicLess.cs" />
+    <Compile Include="Basic\Operators\BasicLessEqual.cs" />
+    <Compile Include="Basic\Operators\BasicMultiplication.cs" />
+    <Compile Include="Basic\Operators\BasicNegation.cs" />
+    <Compile Include="Basic\Operators\BasicSubtraction.cs" />
+    <Compile Include="Basic\Operators\BasicUnaryOperator.cs" />
     <Compile Include="Basic\VariableTypes\BasicArray.cs" />
     <Compile Include="Basic\VariableTypes\BasicArrayElementAccessor.cs" />
     <Compile Include="Basic\VariableTypes\BasicBoolean.cs" />
-    <Compile Include="Basic\Commands\BasicCommand.cs" />
-    <Compile Include="Basic\Operators\BasicDivision.cs" />
-    <Compile Include="Basic\Operators\BasicEquals.cs" />
-    <Compile Include="Basic\VariableTypes\BasicReal.cs" />
-    <Compile Include="Basic\Operators\BasicGreater.cs" />
     <Compile Include="Basic\VariableTypes\BasicInteger.cs" />
-    <Compile Include="Basic\Operators\BasicLess.cs" />
-    <Compile Include="Basic\Engine\BasicEngine.cs" />
-    <Compile Include="Basic\Operators\BasicMultiplication.cs" />
-    <Compile Include="Basic\Operators\BasicBinaryOperator.cs" />
-    <Compile Include="Basic\Operators\BasicNegation.cs" />
-    <Compile Include="Basic\Exceptions\BasicOutOfDimensionException.cs" />
-    <Compile Include="Basic\Exceptions\BasicOutOfRangeException.cs" />
+    <Compile Include="Basic\VariableTypes\BasicReal.cs" />
     <Compile Include="Basic\VariableTypes\BasicString.cs" />
-    <Compile Include="Basic\BasicEntity.cs" />
-    <Compile Include="Basic\Operators\BasicSubtraction.cs" />
-    <Compile Include="Basic\Operators\BasicUnaryOperator.cs" />
-    <Compile Include="Basic\Commands\LetCommand.cs" />
-    <Compile Include="Basic\Commands\ExpressionCommand.cs" />
-    <Compile Include="Basic\Exceptions\BasicTypeMissmatchException.cs" />
-    <Compile Include="Basic\Grammar\LetStatementGrammar.cs" />
-    <Compile Include="Basic\Grammar\BasicGrammarGenerator.cs" />
-    <Compile Include="Basic\Grammar\ExpressionGrammar.cs" />
-    <Compile Include="Basic\Grammar\TokenDefinition.cs" />
-    <Compile Include="Basic\Grammar\TokenType.cs" />
     <Compile Include="Basic\VariableTypes\BasicVariable.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Basic\Grammar\TokenTreeNode.cs" />
+    <Compile Include="Basic\VariableTypes\VariableProxy.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Programs\AppleMan.basic" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Screen.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">
@@ -123,7 +182,6 @@
       <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
