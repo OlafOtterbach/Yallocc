@@ -5,23 +5,15 @@ using System.Windows.Media.Imaging;
 
 namespace Basic.View
 {
-   /// <summary>
-   /// WPF bitmap canvas to draw 2D geometry.
-   /// </summary>
    public class Canvas2DWpf : Canvas2D
    {
-      Canvas _canvas;
-
       private Image _image;
 
       private WriteableBitmap _bitmap;
 
-      public Canvas2DWpf(Canvas canvas) : base()
+      public Canvas2DWpf(Image image) : base()
       {
-         Resize();
-         _canvas = canvas;
-         _image = new Image();
-         canvas.Children.Add(_image);
+         _image = image;
       }
 
       public override void Resize()

@@ -2,6 +2,9 @@
 {
    public abstract class BasicEntity
    {
+      static int _top = 0;
+      int _id;
+
       public enum BasicType
       {
          e_boolean,
@@ -11,6 +14,19 @@
          e_array,
          e_binary_operator,
          e_unary_operator
+      }
+
+      public BasicEntity()
+      {
+         _id = ++_top;
+      }
+
+      public int Id
+      {
+         get
+         {
+            return _id;
+         }
       }
 
       public abstract BasicType Type { get; }

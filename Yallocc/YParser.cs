@@ -1,4 +1,5 @@
 ﻿using LexSharp;
+using System.Linq;
 
 namespace Yallocc
 {

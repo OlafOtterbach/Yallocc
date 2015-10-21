@@ -9,6 +9,17 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void ForTest_TwoForLoops_Four()
+      {
+         var program = "LET a = 0\r\nFOR i=1 TO 2 DO\r\nFOR j=1 TO 2 DO\r\nLET a = a+1\r\nEND\r\nEND";
+         var engine = Create(program);
+         engine.Run();
+
+         var a = (engine.Memory["a"] as BasicInteger).Value;
+         Assert.AreEqual(4, a);
+      }
+
+      [TestMethod]
       public void ForTest_UntilTen_IndexIsTen()
       {
          var program = "FOR i=1 TO 10 DO\r\n  LET a = i\r\nEND";

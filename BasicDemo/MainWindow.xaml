@@ -12,8 +12,7 @@
     </Window.InputBindings>
     <Grid>
         <StackPanel>
-            <Image Source="Images/Screen.jpg" Stretch="Fill" />
-            <Canvas Name ="BasicCanvas" />
+            <Image Name="BasicImage" Source="Images/Screen.png" Stretch="Fill" />
         </StackPanel>
     </Grid>
 </Window>

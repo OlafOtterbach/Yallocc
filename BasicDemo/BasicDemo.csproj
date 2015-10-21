@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Basic\BasicInterpreter.cs" />
+    <Compile Include="Basic\CommandCreators\PlotCommandCreator.cs" />
+    <Compile Include="Basic\Commands\PlotCommand.cs" />
+    <Compile Include="Basic\Grammar\PlotStatementGrammar.cs" />
     <Compile Include="View\Canvas2D.cs" />
     <Compile Include="View\Canvas2DWpf.cs" />
     <Page Include="MainWindow.xaml">
@@ -155,7 +159,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Programs\AppleMan.basic" />
+    <Content Include="Programs\AppleMan.basic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -164,9 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Screen.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexSharp\LexSharp.csproj">
@@ -181,6 +184,9 @@
       <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
       <Name>Yallocc</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Screen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

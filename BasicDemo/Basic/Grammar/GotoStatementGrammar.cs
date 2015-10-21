@@ -10,8 +10,8 @@ namespace BasicDemo.Basic
       {
          yacc.Grammar("GotoStatement")
              .Enter.Action(() => stb.Enter())
-             .Token(TokenType.goto_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
-             .Token(TokenType.name).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.goto_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+             .Token(TokenType.name)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
       }

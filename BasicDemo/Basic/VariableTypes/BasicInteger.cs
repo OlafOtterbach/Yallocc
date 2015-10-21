@@ -11,6 +11,11 @@
          Value = value;
       }
 
+      public override BasicVariable Clone()
+      {
+         return new BasicInteger(Value);
+      }
+
       public override BasicEntity CreateNew()
       {
          return new BasicInteger(0);

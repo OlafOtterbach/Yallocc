@@ -18,6 +18,7 @@ namespace BasicDemo.Basic
             new LetCommandCreator(engine),
             new DimCommandCreator(engine),
             new GotoCommandCreator(engine),
+            new PlotCommandCreator(engine),
             new LabelCommandCreator(engine),
             new EndOfProgramCommandCreator(engine)
          };

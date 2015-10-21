@@ -37,6 +37,7 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"STEP", TokenType.step_keyword);
          yacc.AddToken(@"DO", TokenType.do_keyword);
          yacc.AddToken(@"GOTO", TokenType.goto_keyword);
+         yacc.AddToken(@"PLOT", TokenType.plot_keyword);
          yacc.AddToken(null, TokenType.label);
          yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);
          yacc.AddTokenToIgnore(@"( )+", TokenType.white_space);

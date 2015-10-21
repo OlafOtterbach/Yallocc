@@ -32,6 +32,7 @@
       step_keyword,    // STEP
       do_keyword,      // DO
       goto_keyword,    // GOTO
+      plot_keyword,    // PLOT
       label,           // Label:
       name,            // x, y, index, ...
       white_space      // _, TAB

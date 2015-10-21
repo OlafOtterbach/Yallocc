@@ -1,18 +1,8 @@
 ﻿using Basic.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BasicDemo.Basic;
+using System.IO;
+using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BasicDemo
 {
@@ -26,19 +16,36 @@ namespace BasicDemo
       public MainWindow()
       {
          InitializeComponent();
-         //InitCanvas();
+         InitCanvas();
       }
 
       private void InitCanvas()
       {
          var parent = Application.Current.MainWindow;
-         _canvas = new Canvas2DWpf(this.BasicCanvas);
+         _canvas = new Canvas2DWpf(BasicImage);
       }
 
       private void OnKeyDown(object sender, RoutedEventArgs e)
       {
+         _canvas.Resize();
+
+         var programText = File.ReadAllText(@"Programs/AppleMan.basic");
+         var basic = new BasicInterpreter(_canvas);
+         basic.Load(programText);
+         basic.Run();
+         _canvas.Refresh();
       }
 
+      private string GetTextResourceFile(string resourceName)
+      {
+         var reso = this.Resources;
+         var res = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+         var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+         using (var sr = new StreamReader(stream))
+         {
+            return sr.ReadToEnd();
+         }
+      }
 
       private void OnResize(object t_sender, SizeChangedEventArgs t_event)
       {

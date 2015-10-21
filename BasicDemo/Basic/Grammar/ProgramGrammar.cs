@@ -49,6 +49,8 @@ namespace BasicDemo.Basic
                  yacc.Branch
                      .Gosub("GotoStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch
+                     .Gosub("PlotStatement").Action(() => stb.AdoptInnerNodes()),
+                 yacc.Branch
                      .Gosub("LabelStatement").Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )

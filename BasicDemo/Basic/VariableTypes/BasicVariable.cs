@@ -4,6 +4,8 @@
    {
       public abstract BasicEntity CreateNew();
 
+      public abstract BasicVariable Clone();
+
       public void Set(BasicEntity second)
       {
          if(second is BasicInteger)

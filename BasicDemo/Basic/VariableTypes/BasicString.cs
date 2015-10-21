@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+
 namespace BasicDemo.Basic
 {
    public class BasicString : BasicVariable
@@ -10,6 +11,11 @@ namespace BasicDemo.Basic
       public BasicString(string value)
       {
          Value = value;
+      }
+
+      public override BasicVariable Clone()
+      {
+         return new BasicString(Value);
       }
 
       public override void Set(BasicInteger second)

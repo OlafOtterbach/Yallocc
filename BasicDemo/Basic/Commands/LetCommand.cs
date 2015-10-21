@@ -62,7 +62,8 @@ namespace BasicDemo.Basic
          }
          else
          {
-            Engine.RegisterVariable(_name, variable);
+            var newVariable = (variable as BasicVariable).Clone();
+            Engine.RegisterVariable(_name, newVariable);
          }
          Engine.Cursor.Next();
       }

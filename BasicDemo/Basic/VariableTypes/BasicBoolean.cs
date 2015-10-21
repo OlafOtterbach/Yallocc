@@ -11,6 +11,11 @@
          Value = value;
       }
 
+      public override BasicVariable Clone()
+      {
+         return new BasicBoolean(Value);
+      }
+
       public override void Set(BasicBoolean second)
       {
          Value = second.Value;

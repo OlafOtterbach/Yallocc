@@ -7,7 +7,7 @@ namespace BasicDemo.Basic
    {
       private string _name;
 
-      public ExpressionCommand _expression;
+      private ExpressionCommand _expression;
 
       public IfCommand(Token<TokenType> startToken, BasicEngine engine, string name, ExpressionCommand expression) : base(startToken, engine)
       {

@@ -19,6 +19,7 @@ namespace BasicDemo.Basic
                                          .Register(new LetStatementGrammar())
                                          .Register(new DimStatementGrammar())
                                          .Register(new GotoStatementGrammar())
+                                         .Register(new PlotStatementGrammar())
                                          .Register(new LabelStatementGrammar())
                                          .Create();
       }

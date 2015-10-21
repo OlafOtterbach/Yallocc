@@ -1,3 +1,12 @@
-PROGRAM "LET Statement"
-LET a = 2 + 3
+PROGRAM "Appleman"
+  LET color = 0
+  FOR row = 0 TO 199 DO
+    FOR col = 0 TO 319 DO
+      PLOT col, row, color
+      LET color = color + 1
+      IF color > 3 THEN 
+        LET color = 0 
+      END 
+    END
+  END
 END

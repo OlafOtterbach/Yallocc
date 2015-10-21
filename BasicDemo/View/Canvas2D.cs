@@ -1,8 +1,4 @@
-﻿/// <summary>Definition of the class Canvas2D.</summary>
-/// <author>Olaf Otterbach</author>
-/// <state>2015.02.26</state>
-
-using System;
+﻿using System;
 
 namespace Basic.View
 {
@@ -40,7 +36,7 @@ namespace Basic.View
          uint ured = (uint)red;
          uint ugreen = (uint)green;
          uint ublue = (uint)blue;
-         _penColor = ublue | (ugreen << 8) | (ublue << 16) | (0xFF000000);
+         _penColor = ublue | (ugreen << 8) | (ured << 16) | (0xFF000000);
       }
 
       public void SetPen(uint color)

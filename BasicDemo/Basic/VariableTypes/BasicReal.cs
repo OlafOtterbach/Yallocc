@@ -12,6 +12,11 @@ namespace BasicDemo.Basic
          Value = value;
       }
 
+      public override BasicVariable Clone()
+      {
+         return new BasicReal(Value);
+      }
+
       public override void Set(BasicInteger second)
       {
          Value = (double)second.Value;

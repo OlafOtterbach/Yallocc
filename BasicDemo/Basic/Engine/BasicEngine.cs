@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Basic.View;
+using System.Collections.Generic;
 
 namespace BasicDemo.Basic
 {
@@ -16,6 +17,8 @@ namespace BasicDemo.Basic
          _program = new List<BasicCommand>();
          _cursor = new BasicCursor(this);
       }
+
+      public Canvas2D Canvas  { get; set; }
 
       public IEnumerable<BasicCommand> Program
       {
