@@ -40,7 +40,7 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"PLOT", TokenType.plot_keyword);
          yacc.AddToken(null, TokenType.label);
          yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);
-         yacc.AddTokenToIgnore(@"( )+", TokenType.white_space);
+         yacc.AddTokenToIgnore(@"( |\t)+", TokenType.white_space);
       }
    }
 }

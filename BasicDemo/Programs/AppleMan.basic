@@ -1,5 +1,5 @@
 PROGRAM "Appleman"
-  LET color = 0
+	LET color = 0
   FOR row = 0 TO 199 DO
     FOR col = 0 TO 319 DO
       PLOT col, row, color
