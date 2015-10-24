@@ -38,6 +38,10 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"DO", TokenType.do_keyword);
          yacc.AddToken(@"GOTO", TokenType.goto_keyword);
          yacc.AddToken(@"PLOT", TokenType.plot_keyword);
+         yacc.AddToken(@"NOT", TokenType.not_keyword);
+         yacc.AddToken(@"AND", TokenType.and_keyword);
+         yacc.AddToken(@"OR", TokenType.or_keyword);
+         yacc.AddToken(@"MOD", TokenType.mod_keyword);
          yacc.AddToken(null, TokenType.label);
          yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);
          yacc.AddTokenToIgnore(@"( |\t)+", TokenType.white_space);

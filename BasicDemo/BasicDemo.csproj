@@ -60,6 +60,10 @@
     <Compile Include="Basic\CommandCreators\PlotCommandCreator.cs" />
     <Compile Include="Basic\Commands\PlotCommand.cs" />
     <Compile Include="Basic\Grammar\PlotStatementGrammar.cs" />
+    <Compile Include="Basic\Operators\BasicAnd.cs" />
+    <Compile Include="Basic\Operators\BasicModulo.cs" />
+    <Compile Include="Basic\Operators\BasicNot.cs" />
+    <Compile Include="Basic\Operators\BasicOr.cs" />
     <Compile Include="View\Canvas2D.cs" />
     <Compile Include="View\Canvas2DWpf.cs" />
     <Page Include="MainWindow.xaml">

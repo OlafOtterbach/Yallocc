@@ -80,6 +80,18 @@ namespace BasicDemo.Basic
                      elem = new BasicSubtraction();
                   }
                   break;
+               case TokenType.not_keyword:
+                  elem = new BasicNot();
+                  break;
+               case TokenType.mod_keyword:
+                  elem = new BasicModulo();
+                  break;
+               case TokenType.and_keyword:
+                  elem = new BasicAnd();
+                  break;
+               case TokenType.or_keyword:
+                  elem = new BasicOr();
+                  break;
                case TokenType.mult:
                   elem = new BasicMultiplication();
                   break;

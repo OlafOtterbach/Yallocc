@@ -52,13 +52,13 @@ namespace Basic.View
                SetPen(0, 0, 0);
                break;
             case 1:
-               SetPen(0, 0, 255);
+               SetPen(255, 220, 0);
                break;
             case 2:
-               SetPen(0, 255, 0);
+               SetPen(255, 150, 0);
                break;
             default:
-               SetPen(255, 0, 0);
+               SetPen(255, 100, 0);
                break;
          }
 

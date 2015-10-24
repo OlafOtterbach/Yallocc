@@ -61,6 +61,7 @@ namespace BasicDemo.Basic
               (
                 yacc.Branch.Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                 yacc.Branch.Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                yacc.Branch.Token(TokenType.not_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
@@ -69,6 +70,9 @@ namespace BasicDemo.Basic
               (
                 yacc.Branch
                     .Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Goto("SimpleExpressionLoop"),
+                yacc.Branch
+                    .Token(TokenType.or_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
                     .Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
@@ -96,6 +100,12 @@ namespace BasicDemo.Basic
                     .Goto("TermStart"),
                 yacc.Branch
                     .Token(TokenType.div).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Goto("TermStart"),
+                yacc.Branch
+                    .Token(TokenType.and_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Goto("TermStart"),
+                yacc.Branch
+                    .Token(TokenType.mod_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )

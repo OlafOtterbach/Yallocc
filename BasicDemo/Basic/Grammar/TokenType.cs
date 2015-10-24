@@ -21,6 +21,10 @@
       integer,         // 1, 2, 3, 12, 123, ...
       real,            // 1.0, 12.0, 1.0, 0.2, .4, ...
       text,            // "Hallo", ...
+      and_keyword,     // AND
+      or_keyword,      // OR
+      not_keyword,     // NOT
+      mod_keyword,     // MOD
       dim_keyword,     // DIM
       let_keyword,     // LET
       if_keyword,      // IF
