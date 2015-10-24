@@ -63,10 +63,11 @@ namespace Basic.View
          }
 
          var ywidth = _alignWidth / _PixelSize;
-         var adresse = (_height - y - 1) * ywidth + x;
+         var adresse = (_height - y - 1) * ywidth + x * 2;
          if (adresse < _buffer.Length)
          {
             _buffer[adresse] = _penColor;
+            _buffer[adresse+1] = _penColor;
          }
       }
 
