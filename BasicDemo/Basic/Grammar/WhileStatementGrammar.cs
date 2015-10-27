@@ -8,6 +8,10 @@ namespace BasicDemo.Basic
    {
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
+         // WHILE DO END
+         //
+         // --(WHILE)->-[Expression]->-(DO)->-[StatementSequence]->-(END)-->
+         //
          yacc.Grammar("WhileStatement")
              .Enter.Action(() => stb.Enter())
              .Token(TokenType.while_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))

@@ -8,6 +8,12 @@ namespace BasicDemo.Basic
    {
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
+         // DIM
+         // 
+         //                        |-------(,)------|
+         //                       \|/               |
+         // --(DIM)-->--(name)-->-----[Expression]------>
+         //
          yacc.Grammar("DimStatement")
              .Enter                           .Action(() => stb.Enter())
              .Token(TokenType.dim_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))

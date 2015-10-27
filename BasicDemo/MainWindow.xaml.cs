@@ -29,7 +29,7 @@ namespace BasicDemo
       {
          _canvas.Resize();
 
-         var programText = File.ReadAllText(@"Programs/AppleMan.basic");
+         var programText = File.ReadAllText(@"AppleMan.basic");
          var basic = new BasicInterpreter(_canvas);
          basic.Load(programText);
          basic.Run();

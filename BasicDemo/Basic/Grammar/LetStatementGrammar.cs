@@ -6,6 +6,15 @@ namespace BasicDemo.Basic
 {
    public class LetStatementGrammar : ITokenAndGrammarDefinition<TokenType>
    {
+      // DIM
+      //                             --------(,)-------
+      //                             |                |
+      //                            \|/               |
+      //                    --(()->-----[Expression]----())--
+      //                    |                               |
+      //                    |                              \|/
+      // --(LET)-->--(name)-------------------------------------(=)--[Expression]---->
+      //
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
          yacc.Grammar("LetStatement")

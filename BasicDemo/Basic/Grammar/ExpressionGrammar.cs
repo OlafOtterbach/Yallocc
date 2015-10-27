@@ -36,14 +36,14 @@ namespace BasicDemo.Basic
          // --"RelationStart"--->-----------less--->--------->
          //
          yacc.Grammar("Relation")
-             .Enter.Name("RelationStart").Action(() => stb.Enter())
+             .Enter.Name("RelationStart")              .Action(() => stb.Enter())
              .Switch
               (
-                 yacc.Branch.Token(TokenType.equal).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                 yacc.Branch.Token(TokenType.greater).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                 yacc.Branch.Token(TokenType.less).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                 yacc.Branch.Token(TokenType.equal)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                 yacc.Branch.Token(TokenType.greater)  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                 yacc.Branch.Token(TokenType.less)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit                                     .Action(() => stb.Exit())
              .EndGrammar();
 
          // SimpleExpression
@@ -55,31 +55,31 @@ namespace BasicDemo.Basic
          // --"SimpleExpressionStart"----------------"SimpleExpreesionLoop"------[Term]---------------->
          //
          yacc.Grammar("SimpleExpression")
-             .Enter.Action(() => stb.Enter())
+             .Enter                                        .Action(() => stb.Enter())
              .Label("SimpleExpressionStart")
              .Switch
               (
-                yacc.Branch.Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                yacc.Branch.Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                yacc.Branch.Token(TokenType.not_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                yacc.Branch.Token(TokenType.plus)          .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                yacc.Branch.Token(TokenType.minus)         .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                yacc.Branch.Token(TokenType.not_keyword)   .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
-             .Gosub("Term").Action(() => stb.AdoptInnerNodes())
+             .Gosub("Term")                                .Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.plus)                 .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
-                    .Token(TokenType.or_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.or_keyword)           .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
-                    .Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.minus)                .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit                                        .Action(() => stb.Exit())
              .EndGrammar();
 
          // Term
@@ -90,26 +90,26 @@ namespace BasicDemo.Basic
          // -----"TermStart"-->--[Factor]-------------->
          //
          yacc.Grammar("Term")
-             .Enter.Action(() => stb.Enter())
+             .Enter                                   .Action(() => stb.Enter())
              .Label("TermStart")
-             .Gosub("Factor").Action(() => stb.AdoptInnerNodes())
+             .Gosub("Factor")                         .Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.mult).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.mult)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.div).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.div)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.and_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.and_keyword)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.mod_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.mod_keyword)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit                                    .Action(() => stb.Exit())
              .EndGrammar();
 
          // Factor
@@ -119,25 +119,25 @@ namespace BasicDemo.Basic
          // --"FactorStart"-->-------(-[Expression]-)--->- \|/----->
          //
          yacc.Grammar("Factor")
-             .Enter.Name("FactorStart").Action(() => stb.Enter())
+             .Enter.Name("FactorStart")                      .Action(() => stb.Enter())
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.integer).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                     .Token(TokenType.integer)               .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                  yacc.Branch
-                     .Token(TokenType.real).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                     .Token(TokenType.real)                  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
                  yacc.Branch
                      .Token(TokenType.open)
-                     .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
+                     .Gosub("Expression")                    .Action(() => stb.AdoptInnerNodes())
                      .Token(TokenType.close),
                  yacc.Branch
-                     .Token(TokenType.name).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                     .Token(TokenType.name)                  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
                      .Switch
                       (
                          yacc.Branch
                              .Token(TokenType.open)
                              .Label("ParamList")
-                             .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
+                             .Gosub("Expression")            .Action(() => stb.AdoptInnerNodes())
                              .Switch
                               (
                                  yacc.Branch
@@ -149,7 +149,7 @@ namespace BasicDemo.Basic
                          yacc.Branch.Default
                       )
                )
-             .Exit.Action(() => stb.Exit())
+             .Exit                                           .Action(() => stb.Exit())
              .EndGrammar();
       }
    }

@@ -8,6 +8,10 @@ namespace BasicDemo.Basic
    {
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
+         // GOTO
+         //
+         // --(GOTO)->-(name)->
+         //
          yacc.Grammar("GotoStatement")
              .Enter.Action(() => stb.Enter())
              .Token(TokenType.goto_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))

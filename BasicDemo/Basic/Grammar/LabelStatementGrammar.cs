@@ -8,12 +8,16 @@ namespace BasicDemo.Basic
    {
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {
+         // LABEL
+         //
+         // --(NAME)->-(:)->
+         //
          yacc.Grammar("LabelStatement")
-             .Enter.Action(() => stb.Enter()).Name("LabelBegin")
-             .Token(TokenType.name).Name("LabelName").Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
-             .Token(TokenType.colon).Name("LabelColon")
-             .Lambda.Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.label))))
-             .Exit.Action(() => stb.Exit()).Name("LabelEnd")
+             .Enter                          .Action(() => stb.Enter()).Name("LabelBegin")
+             .Token(TokenType.name)          .Name("LabelName").Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.colon)         .Name("LabelColon")
+             .Lambda                         .Action(() => stb.CreateParent(new TokenTreeNode(new Token<TokenType>(TokenType.label))))
+             .Exit                           .Action(() => stb.Exit()).Name("LabelEnd")
              .EndGrammar();
       }
    }
