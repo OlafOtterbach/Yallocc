@@ -36,7 +36,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LexSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Yalloc\LexSharp\bin\Debug\LexSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Yalloc\SyntaxTree\bin\Debug\SyntaxTree.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="Yalloc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Yalloc\Yallocc\bin\Debug\Yalloc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -70,18 +82,6 @@
     <ProjectReference Include="..\BasicDemo\BasicDemo.csproj">
       <Project>{b9d7dfd7-f85c-4b19-bde3-885e0686b516}</Project>
       <Name>BasicDemo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
-      <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
-      <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
-      <Name>SyntaxTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Yallocc\Yallocc.csproj">
-      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
-      <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

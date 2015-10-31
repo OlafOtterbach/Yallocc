@@ -11,13 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yallocc", "Yallocc\Yallocc.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YalloccTests", "YalloccTests\YalloccTests.csproj", "{9D00DB73-60B6-4362-ADEC-3873F21580E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicDemoTests", "BasicDemoTests\BasicDemoTests.csproj", "{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTree", "SyntaxTree\SyntaxTree.csproj", "{DF75A5BD-F67A-4504-922D-04B8801B46AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTreeTests", "SyntaxTreeTests\SyntaxTreeTests.csproj", "{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicDemo", "BasicDemo\BasicDemo.csproj", "{B9D7DFD7-F85C-4B19-BDE3-885E0686B516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +37,6 @@ Global
 		{9D00DB73-60B6-4362-ADEC-3873F21580E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D00DB73-60B6-4362-ADEC-3873F21580E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D00DB73-60B6-4362-ADEC-3873F21580E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBDFC24D-FEE8-406C-8D80-F7DD28CB6BDB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF75A5BD-F67A-4504-922D-04B8801B46AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF75A5BD-F67A-4504-922D-04B8801B46AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF75A5BD-F67A-4504-922D-04B8801B46AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,10 +45,6 @@ Global
 		{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B324AF1-2936-4F90-91D3-BDA6C8C472DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9D7DFD7-F85C-4B19-BDE3-885E0686B516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9D7DFD7-F85C-4B19-BDE3-885E0686B516}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9D7DFD7-F85C-4B19-BDE3-885E0686B516}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9D7DFD7-F85C-4B19-BDE3-885E0686B516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
