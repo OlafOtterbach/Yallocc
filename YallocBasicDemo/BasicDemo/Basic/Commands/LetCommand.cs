@@ -62,6 +62,12 @@ namespace BasicDemo.Basic
          }
          else
          {
+            if (variable is BasicArrayElementAccessor)
+            {
+               var accessor = variable as BasicArrayElementAccessor;
+               variable = accessor.Value;
+            }
+
             var newVariable = (variable as BasicVariable).Clone();
             Engine.RegisterVariable(_name, newVariable);
          }

@@ -5,13 +5,14 @@ PROGRAM "Appleman"
   LET ymax = 0.103
   LET depthMax = 254
 
+  DIM map(160, 200)
   LET dx = (xmax - xmin) / 319.0
   LET dy = (ymax - ymin) / 199.0
   LET cx = xmin
   LET cy = ymax
 
   FOR row = 0 TO 199 DO
-    FOR col = 0 TO 319 DO
+    FOR col = 0 TO 159 DO
 
 	  LET depth = 0
 	  LET xval = 0.0
@@ -32,11 +33,17 @@ PROGRAM "Appleman"
 	  ELSE
 	    LET color = (depth MOD 3) + 1
 	  END
-      PLOT col, row, color
+      LET map(col, row) = color
 
 	  LET cx = cx + dx
     END
 	LET cx = xmin
 	LET cy = cy - dy
+  END
+
+  FOR y = 0 TO 199 DO
+    FOR x = 0 TO 159 DO
+	  PLOT x, y, map(x,y)
+    END
   END
 END

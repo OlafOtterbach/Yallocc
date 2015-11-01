@@ -20,20 +20,15 @@ namespace BasicDemo.Basic
             var tokNode = node as TokenTreeNode;
             if (tokNode.Token.Type == TokenType.name)
             {
-               var elem = _engine.GetVariable(tokNode.Token.Value);
-               if (elem is BasicArray)
+               if (tokNode.Children.Any())
                {
-                  var basicArray = elem as BasicArray;
-                  if (tokNode.Children.Any())
-                  {
-                     var creator = new ExpressionCommandCreator(_engine);
-                     var expressions = tokNode.Children.Select(child => creator.Create(child)).ToArray();
-                     accessor = new BasicArrayElementAccessor(_engine, tokNode.Token.Value, expressions);
-                  }
-                  else
-                  {
-                     // Throw Array without parameters
-                  }
+                  var creator = new ExpressionCommandCreator(_engine);
+                  var expressions = tokNode.Children.Select(child => creator.Create(child)).ToArray();
+                  accessor = new BasicArrayElementAccessor(_engine, tokNode.Token.Value, expressions);
+               }
+               else
+               {
+                  // Throw Array without parameters
                }
             }
             else

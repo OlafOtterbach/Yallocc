@@ -30,6 +30,10 @@ namespace BasicDemo.Basic
                throw new BasicTypeMissmatchException("Plot expression for y value is not of integer type.");
             }
             var colorVar = _colorExpression.Execute();
+            if(colorVar is BasicArrayElementAccessor)
+            {
+               colorVar = (colorVar as BasicArrayElementAccessor).Value;
+            }
             if (!(colorVar is BasicInteger))
             {
                throw new BasicTypeMissmatchException("Plot expression for color value is not of integer type.");

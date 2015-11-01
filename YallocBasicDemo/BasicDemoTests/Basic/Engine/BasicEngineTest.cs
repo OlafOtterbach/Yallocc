@@ -9,6 +9,62 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void AssignTest_AssignXYArrayElementValueToVariable_AssignedValue()
+      {
+         var program = "DIM a(2,4)\r\nLET x=0\r\nLET y=2\r\nLET a(x,y)=77\r\nLET i = a(x,y)";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         Assert.AreEqual(77, i);
+      }
+
+      [TestMethod]
+      public void AssignTest_AssignTwoDimensionArrayElementValueToVariable_AssignedValue()
+      {
+         var program = "DIM a(3,3)\r\nLET a(2,2)=77\r\nLET i = a(2,2)";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         Assert.AreEqual(77, i);
+      }
+
+      [TestMethod]
+      public void AssignTest_AssignArrayElementValueToVariable_AssignedValue()
+      {
+         var program = "DIM a(1)\r\nLET a(0)=77\r\nLET i = a(0)";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         Assert.AreEqual(77, i);
+      }
+
+      [TestMethod]
+      public void AssignTest_AssignVariableToVariable_AssignedValue()
+      {
+         var program = "LET j = 77\r\nLET i = j";
+         var engine = Create(program);
+         engine.Run();
+
+         var i = (engine.Memory["i"] as BasicInteger).Value;
+         Assert.AreEqual(77, i);
+      }
+
+      [TestMethod]
+      public void AssignTest_AssignValueToArrayElement_AssignedValue()
+      {
+         var program = "LET i = 77\r\nDIM a(1)\r\nLET a(0)=i";
+         var engine = Create(program);
+         engine.Run();
+
+         var a = (engine.Memory["a"] as BasicArray);
+         var val = (a.Get(0) as BasicInteger).Value;
+         Assert.AreEqual(77, val);
+      }
+
+      [TestMethod]
       public void ForTest_TwoForLoops_Four()
       {
          var program = "LET a = 0\r\nFOR i=1 TO 2 DO\r\nFOR j=1 TO 2 DO\r\nLET a = a+1\r\nEND\r\nEND";

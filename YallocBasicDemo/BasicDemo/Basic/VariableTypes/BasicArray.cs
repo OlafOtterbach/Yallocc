@@ -38,7 +38,20 @@ namespace BasicDemo.Basic
          {
             throw new BasicOutOfRangeException("Out of range error.");
          }
-         _array[GetIndex(indices, _dimensions)] = value;
+         if (value is BasicVariable);
+         {
+            var variable = value as BasicVariable;
+            var elem = _array[GetIndex(indices, _dimensions)];
+            if (elem != null)
+            {
+               var varElem = elem as BasicVariable;
+               varElem.Set(value);
+            }
+            else
+            {
+               _array[GetIndex(indices, _dimensions)] = variable.Clone();
+            }
+         }
       }
 
       public int Dimensions
@@ -63,7 +76,8 @@ namespace BasicDemo.Basic
 
       private static int GetIndex(int[] indices, int[] dimensions)
       {
-         var factors = dimensions.Skip(1).Concat(new List<int> { 1 }).ToList();
+         var factors = (new List<int> { 1 }).Concat(dimensions.Reverse().Skip(1).Reverse()).ToList();
+         var pairs = indices.Select((index, pos) => new { Index = index, Pos = pos }).ToList();
          var resultIndex = indices.Select((index, pos) => new { Index = index, Pos = pos })
                                   .Select(pair => pair.Index * factors[pair.Pos])
                                   .Aggregate((current, x) => current = current + x);
