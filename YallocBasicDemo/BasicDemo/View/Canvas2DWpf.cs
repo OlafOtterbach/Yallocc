@@ -18,7 +18,7 @@ namespace Basic.View
 
       public override void Resize()
       {
-         int width = 160;
+         int width = 320;
          int height = 200;
          if( ( width > 0 ) && ( height > 0 ) )
          {
