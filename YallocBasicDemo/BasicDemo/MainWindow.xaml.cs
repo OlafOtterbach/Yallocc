@@ -2,6 +2,7 @@
 using BasicDemo.Basic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace BasicDemo
@@ -25,14 +26,26 @@ namespace BasicDemo
          _canvas = new Canvas2DWpf(BasicImage);
       }
 
-      private void OnKeyDown(object sender, RoutedEventArgs e)
+      private async void OnKeyDown(object sender, RoutedEventArgs e)
       {
+         BasicImage.Visibility = Visibility.Hidden;
+         StartImage.Visibility = Visibility.Hidden;
+         RunImage.Visibility = Visibility.Visible;
          _canvas.Resize();
 
-         var programText = File.ReadAllText(@"AppleMan.basic");
-         var basic = new BasicInterpreter(_canvas);
-         basic.Load(programText);
-         basic.Run();
+         Task future = Task.Factory.StartNew
+         ( () =>
+         {
+            var programText = File.ReadAllText(@"AppleMan.basic");
+            var basic = new BasicInterpreter(_canvas);
+            basic.Load(programText);
+            basic.Run();
+         });
+
+         await future;
+         BasicImage.Visibility = Visibility.Visible;
+         StartImage.Visibility = Visibility.Hidden;
+         RunImage.Visibility = Visibility.Hidden;
          _canvas.Refresh();
       }
 

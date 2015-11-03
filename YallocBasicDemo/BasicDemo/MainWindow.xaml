@@ -10,9 +10,9 @@
     <Window.InputBindings>
         <KeyBinding Key="Space" Command="{Binding Path=SpaceCommand}" />
     </Window.InputBindings>
-    <Grid>
-        <StackPanel>
-            <Image Name="BasicImage" Source="Images/Screen.png" Stretch="Fill" />
-        </StackPanel>
+    <Grid Name="BasicGrid">
+        <Image Name="BasicImage" Stretch="Fill" />
+        <Image Name="RunImage" Source="Images/AppleManRun.png" Stretch="Fill" />
+        <Image Name="StartImage" Source="Images/AppleManStart.png" Stretch="Fill" />
     </Grid>
 </Window>
