@@ -12,7 +12,7 @@
       greater,         // >
       greaterEqual,    // >=
       less,            // <
-      lessEqual,       // <
+      lessEqual,       // <=
       open,            // (
       close,           // )
       comma,           // ,
