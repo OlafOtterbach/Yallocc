@@ -49,16 +49,16 @@ namespace Basic.View
          switch(color)
          {
             case 0:
-               SetPen(0, 0, 0);
+               SetPen(0, 0, 255);
                break;
             case 1:
-               SetPen(255, 220, 0);
+               SetPen(255, 255, 255);
                break;
             case 2:
-               SetPen(255, 150, 0);
+               SetPen(220, 220, 220);
                break;
             default:
-               SetPen(255, 100, 0);
+               SetPen(180, 180, 180);
                break;
          }
 
