@@ -19,16 +19,16 @@ namespace BasicDemo.Basic
          var postOrderExpression = new List<BasicEntity>();
          Traverse(node, postOrderExpression);
 
-         var expressionCommand = new ExpressionCommand((node as TokenTreeNode).Token, postOrderExpression);
+         var expressionCommand = new ExpressionCommand((node as TokenTreeNode<TokenType>).Token, postOrderExpression);
 
          return expressionCommand;
       }
 
       private void Traverse(SyntaxTreeNode node, List<BasicEntity> postOrderExpr)
       {
-         if(node is TokenTreeNode)
+         if(node is TokenTreeNode<TokenType>)
          {
-            var tokNode = node as TokenTreeNode;
+            var tokNode = node as TokenTreeNode<TokenType>;
 
             // Post traverse
             if (tokNode.Token.Type != TokenType.name)

@@ -12,14 +12,14 @@ namespace BasicDemo.Basic
 
       public override bool CanCreate(SyntaxTreeNode node)
       {
-         var result = (node is TokenTreeNode) && ((node as TokenTreeNode).Token.Type == TokenType.if_keyword);
+         var result = (node is TokenTreeNode<TokenType>) && ((node as TokenTreeNode<TokenType>).Token.Type == TokenType.if_keyword);
          return result;
       }
 
       public override void Create(SyntaxTreeNode node)
       {
-         var tokNode = (node as TokenTreeNode);
-         var children = node.Children.OfType<TokenTreeNode>().ToList();
+         var tokNode = (node as TokenTreeNode<TokenType>);
+         var children = node.Children.OfType<TokenTreeNode<TokenType>>().ToList();
          var thenLabelName = "IfLabel" + (_counter++).ToString();
          var expressionCreator = new ExpressionCommandCreator(Engine);
          var expression = expressionCreator.Create(children[0]);

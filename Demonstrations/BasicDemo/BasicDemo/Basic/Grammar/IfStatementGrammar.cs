@@ -16,18 +16,18 @@ namespace BasicDemo.Basic
          //
          yacc.Grammar("IfStatement")
              .Enter                                  .Action(() => stb.Enter())
-             .Token(TokenType.if_keyword)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+             .Token(TokenType.if_keyword)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
              .Gosub("Expression")                    .Action(() => stb.AdoptInnerNodes())
-             .Token(TokenType.then_keyword)          .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.then_keyword)          .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Gosub("StatementSequence")             .Action(() => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.else_keyword)  .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+                     .Token(TokenType.else_keyword)  .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
                      .Gosub("StatementSequence")     .Action(() => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
-             .Token(TokenType.end_keyword)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.end_keyword)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Exit                                   .Action(() => stb.Exit())
              .EndGrammar();
       }

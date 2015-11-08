@@ -39,9 +39,9 @@ namespace BasicDemo.Basic
              .Enter.Name("RelationStart")              .Action(() => stb.Enter())
              .Switch
               (
-                 yacc.Branch.Token(TokenType.equal)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                 yacc.Branch.Token(TokenType.greater)  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                 yacc.Branch.Token(TokenType.less)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                 yacc.Branch.Token(TokenType.equal)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                 yacc.Branch.Token(TokenType.greater)  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                 yacc.Branch.Token(TokenType.less)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
               )
              .Exit                                     .Action(() => stb.Exit())
              .EndGrammar();
@@ -59,9 +59,9 @@ namespace BasicDemo.Basic
              .Label("SimpleExpressionStart")
              .Switch
               (
-                yacc.Branch.Token(TokenType.plus)          .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                yacc.Branch.Token(TokenType.minus)         .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
-                yacc.Branch.Token(TokenType.not_keyword)   .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                yacc.Branch.Token(TokenType.plus)          .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                yacc.Branch.Token(TokenType.minus)         .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                yacc.Branch.Token(TokenType.not_keyword)   .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                 yacc.Branch.Default
               )
              .Label("SimpleExpressionLoop")
@@ -69,13 +69,13 @@ namespace BasicDemo.Basic
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.plus)                 .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.plus)                 .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
-                    .Token(TokenType.or_keyword)           .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.or_keyword)           .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch
-                    .Token(TokenType.minus)                .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.minus)                .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("SimpleExpressionLoop"),
                 yacc.Branch.Default
               )
@@ -96,16 +96,16 @@ namespace BasicDemo.Basic
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.mult)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.mult)            .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.div)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.div)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.and_keyword)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.and_keyword)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.mod_keyword)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                    .Token(TokenType.mod_keyword)     .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
@@ -123,15 +123,15 @@ namespace BasicDemo.Basic
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.integer)               .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                     .Token(TokenType.integer)               .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch
-                     .Token(TokenType.real)                  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok))),
+                     .Token(TokenType.real)                  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch
                      .Token(TokenType.open)
                      .Gosub("Expression")                    .Action(() => stb.AdoptInnerNodes())
                      .Token(TokenType.close),
                  yacc.Branch
-                     .Token(TokenType.name)                  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+                     .Token(TokenType.name)                  .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                      .Switch
                       (
                          yacc.Branch

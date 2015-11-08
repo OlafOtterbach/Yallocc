@@ -77,9 +77,10 @@ namespace BasicDemo.Basic
       private static int GetIndex(int[] indices, int[] dimensions)
       {
          var factors = (new List<int> { 1 }).Concat(dimensions.Reverse().Skip(1).Reverse()).ToList();
+         var commulatedFactors = factors.Select((x, i) => (i<=1) ? x : factors.GetRange(0, i+1).Aggregate((current, dim) => current = current * dim)).ToList();
          var pairs = indices.Select((index, pos) => new { Index = index, Pos = pos }).ToList();
          var resultIndex = indices.Select((index, pos) => new { Index = index, Pos = pos })
-                                  .Select(pair => pair.Index * factors[pair.Pos])
+                                  .Select(pair => pair.Index * commulatedFactors[pair.Pos])
                                   .Aggregate((current, x) => current = current + x);
          return resultIndex;
       }

@@ -9,6 +9,17 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void AssignTest_AddOneAddTwoAddThree_Six()
+      {
+         var program = "LET x = 1 + 2 + 3";
+         var engine = Create(program);
+         engine.Run();
+
+         var x = (engine.Memory["x"] as BasicInteger).Value;
+         Assert.AreEqual(6, x);
+      }
+
+      [TestMethod]
       public void AssignTest_AssignXYArrayElementValueToVariable_AssignedValue()
       {
          var program = "DIM a(2,4)\r\nLET x=0\r\nLET y=2\r\nLET a(x,y)=77\r\nLET i = a(x,y)";

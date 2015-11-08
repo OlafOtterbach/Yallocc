@@ -4,7 +4,7 @@ using Yallocc;
 
 namespace SyntaxTreeDemo
 {
-   public class ExpressionGrammarDefinition : ITokenAndGrammarDefinition<TokenType>
+   public class GrammarDefinition : ITokenAndGrammarDefinition<TokenType>
    {
       public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
       {

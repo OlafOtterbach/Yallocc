@@ -10,13 +10,13 @@ namespace BasicDemo.Basic
 
       public override bool CanCreate(SyntaxTreeNode node)
       {
-         var result = (node is TokenTreeNode) && ((node as TokenTreeNode).Token.Type == TokenType.end_keyword);
+         var result = (node is TokenTreeNode<TokenType>) && ((node as TokenTreeNode<TokenType>).Token.Type == TokenType.end_keyword);
          return result;
       }
 
       public override void Create(SyntaxTreeNode node)
       {
-         var tokNode = (node as TokenTreeNode);
+         var tokNode = (node as TokenTreeNode<TokenType>);
          var command = new EndOfProgramCommand(tokNode.Token, Engine);
          Engine.Add(command);
       }

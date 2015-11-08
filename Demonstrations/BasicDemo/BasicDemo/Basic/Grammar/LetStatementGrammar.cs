@@ -19,12 +19,12 @@ namespace BasicDemo.Basic
       {
          yacc.Grammar("LetStatement")
              .Enter                                    .Action(() => stb.Enter())
-             .Token(TokenType.let_keyword)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
-             .Token(TokenType.name)                    .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.let_keyword)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+             .Token(TokenType.name)                    .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.open)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+                     .Token(TokenType.open)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
                      .Label("ParamList")
                      .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
                      .Switch
@@ -34,10 +34,10 @@ namespace BasicDemo.Basic
                              .Goto("ParamList"),
                          yacc.Branch.Default
                       )
-                     .Token(TokenType.close)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok))),
+                     .Token(TokenType.close)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch.Default
               )
-             .Token(TokenType.equal)                   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.equal)                   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Gosub("Expression")                      .Action(() => stb.AdoptInnerNodes())
              .Exit.Action(() => stb.Exit())
              .EndGrammar();

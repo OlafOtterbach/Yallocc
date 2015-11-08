@@ -208,7 +208,11 @@ namespace BasicDemoTest
       [TestMethod]
       public void CreateTest_ThreeDimensionalField_NoAssertions()
       {
-         var expression = Create("cube(cube(0,0,1),cube(0,1,0) / 10, cube(1,0,0) / 100)");
+         // cube(0,0,1)=25
+         // cube(0,1,0)=6
+         // cube(1,0,0)=26
+         // cube(4,3,2); Index 117
+         var expression = Create("cube(cube(0,0,1) / 5 - 1,cube(0,1,0) / 2, cube(1,0,0) / 13)");
          ValidateIntegerArrayAccessor(expression, 101);
       }
 

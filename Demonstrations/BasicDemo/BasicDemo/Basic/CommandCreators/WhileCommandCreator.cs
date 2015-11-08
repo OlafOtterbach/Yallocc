@@ -12,19 +12,19 @@ namespace BasicDemo.Basic
 
       public override bool CanCreate(SyntaxTreeNode node)
       {
-         var result = (node is TokenTreeNode) && ((node as TokenTreeNode).Token.Type == TokenType.while_keyword);
+         var result = (node is TokenTreeNode<TokenType>) && ((node as TokenTreeNode<TokenType>).Token.Type == TokenType.while_keyword);
          return result;
       }
 
       public override void Create(SyntaxTreeNode node)
       {
-         var tokNode = (node as TokenTreeNode);
+         var tokNode = (node as TokenTreeNode<TokenType>);
 
          var whileLabelName = "WhileLabel" + (_counter++).ToString();
          var whileLabelCommand = new LabelCommand(tokNode.Token, Engine, whileLabelName);
          Engine.Add(whileLabelCommand);
 
-         var children = node.Children.OfType<TokenTreeNode>().ToList();
+         var children = node.Children.OfType<TokenTreeNode<TokenType>>().ToList();
          var afterWhileLabelName = "WhileLabel" + (_counter++).ToString();
          var expressionCreator = new ExpressionCommandCreator(Engine);
          var expression = expressionCreator.Create(children[0]);

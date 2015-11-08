@@ -14,7 +14,7 @@ namespace BasicDemo.Basic
          //
          yacc.Grammar("PlotStatement")
              .Enter.Action(() => stb.Enter())
-             .Token(TokenType.plot_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
+             .Token(TokenType.plot_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
              .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
              .Token(TokenType.comma)
              .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())

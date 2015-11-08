@@ -10,11 +10,11 @@ namespace BasicDemo.Basic
       {
          yacc.MasterGrammar("Program")
              .Enter.Action(() => stb.Enter())
-             .Token(TokenType.program_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode(tok)))
-             .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.program_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+             .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Token(TokenType.Return)
              .Gosub("StatementSequence").Action(() => stb.AdoptInnerNodes())
-             .Token(TokenType.end_keyword).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode(tok)))
+             .Token(TokenType.end_keyword).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Exit.Action(() => stb.Exit())
              .EndGrammar();
 

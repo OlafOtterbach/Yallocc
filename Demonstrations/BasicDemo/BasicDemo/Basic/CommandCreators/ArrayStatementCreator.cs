@@ -15,9 +15,9 @@ namespace BasicDemo.Basic
       public BasicArrayElementAccessor Create(SyntaxTreeNode node)
       {
          BasicArrayElementAccessor accessor = null;
-         if (node is TokenTreeNode)
+         if (node is TokenTreeNode<TokenType>)
          {
-            var tokNode = node as TokenTreeNode;
+            var tokNode = node as TokenTreeNode<TokenType>;
             if (tokNode.Token.Type == TokenType.name)
             {
                if (tokNode.Children.Any())
