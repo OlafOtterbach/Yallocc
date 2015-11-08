@@ -25,6 +25,18 @@ namespace SyntaxTreeDemo
             double value = double.Parse(tokNode.Token.Value, CultureInfo.InvariantCulture);
             result = Expression.Constant(value, typeof(double));
          }
+         else if (node.Children.Count() == 1)
+         {
+            var child = CreateExpressionNode(node.Children.First());
+            if(tokNode.Token.Type == TokenType.minus)
+            {
+               result = Expression.Negate(child);
+            }
+            else
+            {
+               result = child;
+            }
+         }
          else if (node.Children.Count() == 2)
          {
             var left = CreateExpressionNode(node.Children.First());
