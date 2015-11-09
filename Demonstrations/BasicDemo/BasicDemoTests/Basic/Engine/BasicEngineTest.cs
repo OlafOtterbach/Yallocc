@@ -9,6 +9,30 @@ namespace BasicDemoTest.Basic
    public class BasicEngineTest
    {
       [TestMethod]
+      public void AssignTest_CubeArrayAccess_SeventySeven()
+      {
+         var program
+            = "DIM a(2,2,2)"
+            + "\r\n"
+            + "LET a(1,0,0)=2"
+            + "\r\n"
+            + "LET a(0,1,0)=2"
+            + "\r\n"
+            + "LET a(0,0,1)=2"
+            + "\r\n"
+            + "LET a(1,1,1)=77"
+            + "\r\n"
+            + "LET x = a( a(1,0,0)-1, a(0,1,0)-1, a(0,0,1)-1 )"
+            + "\r\n";
+         var engine = Create(program);
+         engine.Run();
+
+         var x = (engine.Memory["x"] as BasicInteger).Value;
+         Assert.AreEqual(77, x);
+      }
+
+
+      [TestMethod]
       public void AssignTest_AddOneAddTwoAddThree_Six()
       {
          var program = "LET x = 1 + 2 + 3";

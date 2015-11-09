@@ -205,17 +205,6 @@ namespace BasicDemoTest
          ValidateIntegerArrayAccessor(expression, 22);
       }
 
-      [TestMethod]
-      public void CreateTest_ThreeDimensionalField_NoAssertions()
-      {
-         // cube(0,0,1)=25
-         // cube(0,1,0)=6
-         // cube(1,0,0)=26
-         // cube(4,3,2); Index 117
-         var expression = Create("cube(cube(0,0,1) / 5 - 1,cube(0,1,0) / 2, cube(1,0,0) / 13)");
-         ValidateIntegerArrayAccessor(expression, 101);
-      }
-
       public void ValidateInteger(ExpressionCommand expression, int expectedValue)
       {
          Assert.IsNotNull(expression);
