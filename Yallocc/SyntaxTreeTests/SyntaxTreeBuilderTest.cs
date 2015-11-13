@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SyntaxTree;
-using SyntaxTreeTest.ExpressionTree;
 using System.Linq;
 
 namespace SyntaxTreeTest
@@ -51,7 +50,7 @@ namespace SyntaxTreeTest
       }
 
       [TestMethod]
-      public void AddChildTest_TwoChildren_OneIsRootSecondIsChild()
+      public void AddChildTest_TwoChildren_RootIsNull()
       {
          var builder = new SyntaxTreeBuilder();
 

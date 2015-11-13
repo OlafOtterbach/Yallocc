@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yallocc", "Yallocc", "{A92B1C83-52F7-440C-B9EB-979FDC876325}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demonstrations", "Demonstrations", "{69F7E27A-FDD6-40A8-B0AA-8287F104249C}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharp", "Yallocc\LexSharp\LexSharp.csproj", "{C6A51E86-E00A-4776-B647-4F55634396AA}"
 EndProject
@@ -40,6 +43,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PureParserDemo", "PureParserDemo", "{981CD1DE-6578-4953-ACE3-6E800537CD8B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PureParserDemo", "Demonstrations\PureParserDemo\PureParserDemo.csproj", "{C308E425-1DF8-490D-95E2-DB8E44520596}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanningTextDemo", "ScanningTextDemo", "{5843F41A-1D94-4765-A8EC-CAF9CED03F67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanningTextDemo", "Demonstrations\ScanningTextDemo\ScanningTextDemo.csproj", "{6B27A722-CFAA-4345-A870-61E9D64330B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +102,10 @@ Global
 		{C308E425-1DF8-490D-95E2-DB8E44520596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C308E425-1DF8-490D-95E2-DB8E44520596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C308E425-1DF8-490D-95E2-DB8E44520596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B27A722-CFAA-4345-A870-61E9D64330B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B27A722-CFAA-4345-A870-61E9D64330B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B27A722-CFAA-4345-A870-61E9D64330B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B27A722-CFAA-4345-A870-61E9D64330B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,5 +128,7 @@ Global
 		{4A0DBC96-20F2-4B13-B02F-4CD5BA110F9D} = {7AFE9519-A83F-4787-B24F-787F09E7BA99}
 		{981CD1DE-6578-4953-ACE3-6E800537CD8B} = {69F7E27A-FDD6-40A8-B0AA-8287F104249C}
 		{C308E425-1DF8-490D-95E2-DB8E44520596} = {981CD1DE-6578-4953-ACE3-6E800537CD8B}
+		{5843F41A-1D94-4765-A8EC-CAF9CED03F67} = {69F7E27A-FDD6-40A8-B0AA-8287F104249C}
+		{6B27A722-CFAA-4345-A870-61E9D64330B8} = {5843F41A-1D94-4765-A8EC-CAF9CED03F67}
 	EndGlobalSection
 EndGlobal

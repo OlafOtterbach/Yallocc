@@ -116,7 +116,6 @@
     <Compile Include="Basic\Grammar\LetStatementGrammar.cs" />
     <Compile Include="Basic\Grammar\ProgramGrammar.cs" />
     <Compile Include="Basic\Grammar\TokenDefinition.cs" />
-    <Compile Include="Basic\Grammar\TokenTreeNode.cs" />
     <Compile Include="Basic\Grammar\TokenType.cs" />
     <Compile Include="Basic\Grammar\WhileStatementGrammar.cs" />
     <Compile Include="Basic\Operators\BasicAddition.cs" />

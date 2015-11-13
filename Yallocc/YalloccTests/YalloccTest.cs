@@ -252,5 +252,53 @@ namespace Yallocc
          var grammarBuilder = branchBuilder.GrammarBuilder;
          Assert.AreEqual(grammarBuilder.Start.Name, "BranchStart");
       }
+
+      [TestMethod]
+      public void IsCompletTest_NotAnEnumTypeAndCompletenessChecked_NotAnEnumTypeException()
+      {
+         var yacc = new Yallocc<int>();
+         yacc.AddToken(@"one", 1);
+         yacc.AddToken(@"Two", 2);
+         yacc.AddToken(@"Three", 3);
+
+         bool exeptionThrown = false;
+         try
+         {
+            var parser = yacc.CreateParser();
+         }
+         catch (TokenIsNotAnEnumTypeException)
+         {
+            exeptionThrown = true;
+         }
+         Assert.IsTrue(exeptionThrown);
+      }
+
+      [TestMethod]
+      public void IsCompletTest_NotAnEnumTypeAndCompletenessNotChecked_NoException()
+      {
+         var yacc = new Yallocc<int>() { TokenCompletenessIsChecked = false };
+         yacc.AddToken(@"one", 1);
+         yacc.AddToken(@"Two", 2);
+         yacc.AddToken(@"Three", 3);
+         yacc.MasterGrammar("MasterGrammar")
+             .Enter
+             .Token(1)
+             .Token(2)
+             .Token(3)
+             .Exit
+             .EndGrammar();
+
+         bool exeptionThrown = false;
+         try
+         {
+            var parser = yacc.CreateParser();
+         }
+         catch (TokenIsNotAnEnumTypeException)
+         {
+            exeptionThrown = true;
+         }
+         Assert.IsFalse(exeptionThrown);
+      }
+
    }
 }

@@ -7,7 +7,7 @@ namespace LexSharp
    public class LexTest
    {
       [TestMethod]
-      public void IsCompleteTest_CompleteRegisteredTokens_IsComplite()
+      public void IsCompleteTest_CompleteRegisteredTokens_IsComplete()
       {
          var lex = new LexSharp<AbcTokenType>();
          lex.Register(@"aabb", AbcTokenType.aabb_token);
@@ -17,6 +17,39 @@ namespace LexSharp
          lex.Register("c", AbcTokenType.c_token);
 
          Assert.IsTrue(lex.IsComplete());
+      }
+
+      [TestMethod]
+      public void IsCompleteTest_NotCompleteRegisteredTokens_IsNotComplite()
+      {
+         var lex = new LexSharp<AbcTokenType>();
+         lex.Register(@"aabb", AbcTokenType.aabb_token);
+         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         lex.Register("a", AbcTokenType.a_token);
+
+         lex.Register("c", AbcTokenType.c_token);
+
+         Assert.IsFalse(lex.IsComplete());
+      }
+
+      [TestMethod]
+      public void IsCompleteTest_NotAnEnumType_TokenIsNotAnEnumTypeExceptionThrown()
+      {
+         var lex = new LexSharp<int>();
+         lex.Register(@"one", 1);
+         lex.Register(@"Two", 2);
+         lex.Register(@"Three", 3);
+
+         bool exeptionThrown = false;
+         try
+         {
+            bool isComplete = lex.IsComplete();
+         }
+         catch (TokenIsNotAnEnumTypeException e)
+         {
+            exeptionThrown = true;
+         }
+         Assert.IsTrue(exeptionThrown);
       }
 
       [TestMethod]
@@ -67,20 +100,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void IsCompleteTest_NotCompleteRegisteredTokens_IsNotComplite()
-      {
-         var lex = new LexSharp<AbcTokenType>();
-         lex.Register(@"aabb", AbcTokenType.aabb_token);
-         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
-         lex.Register("a", AbcTokenType.a_token);
-
-         lex.Register("c", AbcTokenType.c_token);
-
-         Assert.IsFalse(lex.IsComplete());
-      }
-
-      [TestMethod]
-      public void ScanTest_EmptyToken_NoToken()
+      public void ScanTest_EmptyToken_AllNonCharactersBetweenTextANdEnd()
       {
          var lex = new LexSharp<AbcTokenType>();
          lex.Register("", AbcTokenType.a_token);
@@ -118,7 +138,7 @@ namespace LexSharp
 
 
       [TestMethod]
-      public void ScanTest_Xyz_NoToken()
+      public void ScanTest_Xyz_NoValidToken()
       {
          var lex = CreateAbcLex();
          var text = @"xxxyyyzzzsssddfflltttrrrr";
@@ -131,7 +151,7 @@ namespace LexSharp
 
 
       [TestMethod]
-      public void ScanTest_TypicalAbcText_FirstPatternAabbFound()
+      public void ScanTest_TypicalAbcText_FirstPatternIsLongestAabb()
       {
          var lex = CreateAbcLex();
          var text = @"aabbcc";

@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Text.RegularExpressions;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace LexSharp
 {
@@ -8,16 +7,7 @@ namespace LexSharp
    public class TokenTypeTest
    {
       [TestMethod]
-      public void TextTest()
-      {
-         var pattern = "\".*\"";
-         var text = "\"Hallo\" \"Test\"";
-         var matches = Regex.Match(text, pattern);
-         var captures = matches.Captures;
-      }
-
-      [TestMethod]
-      public void NameTest()
+      public void ScanTest_Hallo_TokenIsName()
       {
          LexSharp<TokenType> lex = new LexSharp<TokenType>();
          DefineTokenType(lex);

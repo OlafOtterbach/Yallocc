@@ -20,6 +20,7 @@ namespace Yallocc
          var baseBuilder = new GrammarBuilder<T>(_grammers);
          _builderInterface = new BuilderInterface<T>(baseBuilder);
          _lex = new LexSharp<T>();
+         TokenCompletenessIsChecked = true;
       }
 
 
@@ -60,9 +61,11 @@ namespace Yallocc
          }
       }
 
+      public bool TokenCompletenessIsChecked { get; set; }
+
       public YParser<T> CreateParser()
       {
-         if(!_lex.IsComplete())
+         if(TokenCompletenessIsChecked && (!_lex.IsComplete()))
          {
             throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
          }

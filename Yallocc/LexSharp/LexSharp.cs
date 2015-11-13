@@ -43,8 +43,21 @@ namespace LexSharp
 
       public bool IsComplete()
       {
-         var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => _patterns.Any(x => x.TokenType.Equals(tokType)));
-         return isComplete;
+         if(!_patterns.Any())
+         {
+            return false;
+         }
+
+         bool isEnum = _patterns.First().TokenType is Enum;
+         if (isEnum)
+         {
+            var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => _patterns.Any(x => x.TokenType.Equals(tokType)));
+            return isComplete;
+         }
+         else
+         {
+            throw new TokenIsNotAnEnumTypeException("Can not test on completeness. Type is not enum type");
+         }
       }
    }
 }
