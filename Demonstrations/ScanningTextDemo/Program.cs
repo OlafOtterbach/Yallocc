@@ -10,81 +10,71 @@ namespace ScanningTextDemo
 {
    class Program
    {
-      public enum TokenType
+      private static void DefineTokens(LexSharp<long> lex)
       {
-         comma,           // ,
-         dot,             // .
-         minus,           // -
-         colon,           // :
-         semicolon,       // ;
-         tag,             // <tag>
-         word             // word
+         lex.Register(@"000", 0);
+         lex.Register(@"001", 1);
+         lex.Register(@"010", 2);
+         lex.Register(@"011", 3);
+         lex.Register(@"100", 4);
+         lex.Register(@"101", 5);
+         lex.Register(@"110", 6);
+         lex.Register(@"111", 7);
       }
 
-      private static void DefineTokens(LexSharp<TokenType> lex)
-      {
-         lex.Register(@",", TokenType.comma);
-         lex.Register(@"\.", TokenType.dot);
-         lex.Register(@"-", TokenType.minus);
-         lex.Register(@":", TokenType.colon);
-         lex.Register(@";", TokenType.semicolon);
-         lex.Register(@"\<(.)*\>", TokenType.tag);
-         lex.Register(@"(\w)+(\w|\d)*", TokenType.word);
-      }
-
-      private struct Counter
-      {
-         public Counter(TokenType? typ)
-         {
-            Comma = 0;
-            Dot = 0;
-            Minus = 0;
-            Colon = 0;
-            Semicolon = 0;
-            Tag = 0;
-            Word = 0;
-            switch(typ)
-            {
-               case TokenType.comma:
-                  Comma = 1;
-                  break;
-               case TokenType.dot:
-                  Dot = 1;
-                  break;
-               case TokenType.colon:
-                  Colon = 1;
-                  break;
-               case TokenType.semicolon:
-                  Semicolon = 1;
-                  break;
-               case TokenType.tag:
-                  Tag = 1;
-                  break;
-               case TokenType.word:
-                  Word = 1;
-                  break;
-            }
-         }
-
-         public int Comma;
-         public int Dot;
-         public int Minus;
-         public int Colon;
-         public int Semicolon;
-         public int Tag;
-         public int Word;
-      }
 
       static void Main(string[] args)
-      { 
-         var webClient = new WebClient();
-         var pageSourceCode = webClient.DownloadString(@"https://de.wikipedia.org/wiki/Faust._Eine_Trag%C3%B6die.");
-
-         var lex = new LexSharp<TokenType>();
+      {
+         const int limit = 10000;
+         var rand = new Random();
+         var binaries = Enumerable.Range(0, limit)
+                                 .Select(i => rand.Next(0, 2))
+                                 .Select(x => x.ToString())
+                                 .Aggregate((current, elem) => current = current + elem);
+         var lex = new LexSharp<long>();
          DefineTokens(lex);
 
-         var sequence = lex.Scan(pageSourceCode).ToList();
-         var counts = sequence.Where(x => x.Type!= null).Select(x => new Counter(x.Type));
+binaries = "101111110110010000110001111110";
+         var sequence = lex.Scan(binaries).ToList();
+         Console.WriteLine("Text length: {0}", binaries.Length);
+         Console.WriteLine("Sequence length: {0}", sequence.Count);
+         var count0 = sequence.Where(x => x.Type == 0).Count();
+         var count1 = sequence.Where(x => x.Type == 1).Count();
+         var count2 = sequence.Where(x => x.Type == 2).Count();
+         var count3 = sequence.Where(x => x.Type == 3).Count();
+         var count4 = sequence.Where(x => x.Type == 4).Count();
+         var count5 = sequence.Where(x => x.Type == 5).Count();
+         var count6 = sequence.Where(x => x.Type == 6).Count();
+         var count7 = sequence.Where(x => x.Type == 7).Count();
+         var count8 = sequence.Where(x => x.Type == null).Count();
+         var count = count0 + count1 + count2 + count3 + count4 + count5 + count6 + count7 + count8;
+         Console.WriteLine(" 000 X {0}", count0);
+         Console.WriteLine(" 001 X {0}", count1);
+         Console.WriteLine(" 010 X {0}", count2);
+         Console.WriteLine(" 011 X {0}", count3);
+         Console.WriteLine(" 100 X {0}", count4);
+         Console.WriteLine(" 101 X {0}", count5);
+         Console.WriteLine(" 110 X {0}", count6);
+         Console.WriteLine(" 111 X {0}", count7);
+         Console.WriteLine(" ??? X {0}", count8);
+         Console.WriteLine("---------------------");
+         Console.WriteLine("Sum = {0}", count);
+         Console.WriteLine();
+         Console.WriteLine("??? = \"{0}\"", sequence.Where(x => x.Type == null).First().Value);
+         var riddle = sequence.Where(x => x.Type == null).First();
+         Console.WriteLine("??? = \"{0}\", Position = {1}", riddle.Type, riddle.TextIndex);
+         Console.WriteLine("{0}...", binaries.Substring(0, Math.Min(40, limit)));
+         Console.WriteLine(sequence[0].Value);
+         Console.WriteLine(sequence[1].Value);
+         Console.WriteLine(sequence[2].Value);
+         Console.WriteLine(sequence[3].Value);
+         Console.WriteLine(sequence[4].Value);
+         Console.WriteLine(sequence[5].Value);
+         Console.WriteLine(sequence[6].Value);
+         Console.WriteLine(sequence[7].Value);
+         Console.WriteLine(sequence[8].Value);
+         Console.WriteLine("...");
+         Console.ReadKey();
       }
    }
 }
