@@ -97,11 +97,14 @@ namespace LexSharp
 
       private void ScanNextMatch()
       {
-         foreach (var match in _matches)
+         if (_cursorPos < _text.Length)
          {
-            if (match.Match.Success)
+            foreach (var match in _matches)
             {
-               match.Match = match.Pattern.TokenPattern.Match(_text, _cursorPos);
+               if (match.Match.Success)
+               {
+                  match.Match = match.Pattern.TokenPattern.Match(_text, _cursorPos);
+               }
             }
          }
       }

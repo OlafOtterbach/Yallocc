@@ -25,7 +25,7 @@ namespace ScanningTextDemo
 
       static void Main(string[] args)
       {
-         const int elementsLimit = 10000;
+         const int elementsLimit = 100000;
          const int limit = elementsLimit * 3;
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)

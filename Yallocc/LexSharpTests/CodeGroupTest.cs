@@ -46,10 +46,27 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_RandomCodeGroupWithoutTrippelGroups_OneFailedTokens()
+      public void ScanTest_RandomCodeGroupLengthModuloThreeIsOne_OneFailedTokens()
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3 + 1;
+         var lex = Create();
+         var rand = new Random();
+         var binaries = Enumerable.Range(0, limit)
+                                 .Select(i => rand.Next(0, 2))
+                                 .Select(x => x.ToString())
+                                 .Aggregate((current, elem) => current = current + elem);
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(1, sequence.Count(x => x.Type == null));
+      }
+
+      [TestMethod]
+      public void ScanTest_RandomCodeGroupLengthModuloThreeIsTwo_OneFailedTokens()
+      {
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3 + 2;
          var lex = Create();
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)

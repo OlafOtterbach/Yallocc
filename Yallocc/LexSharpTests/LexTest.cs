@@ -108,7 +108,7 @@ namespace LexSharp
 
          var tokens = lex.Scan(text).ToList();
 
-         Assert.AreEqual(text.Length + 1, tokens.Count);
+         Assert.AreEqual(text.Length, tokens.Count);
          Assert.IsTrue(tokens.All(x => x.Type.Equals(AbcTokenType.a_token)));
       }
 
