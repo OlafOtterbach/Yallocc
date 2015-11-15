@@ -25,7 +25,8 @@ namespace ScanningTextDemo
 
       static void Main(string[] args)
       {
-         const int limit = 10000;
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3;
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)
                                  .Select(i => rand.Next(0, 2))
@@ -34,7 +35,6 @@ namespace ScanningTextDemo
          var lex = new LexSharp<long>();
          DefineTokens(lex);
 
-binaries = "101111110110010000110001111110";
          var sequence = lex.Scan(binaries).ToList();
          Console.WriteLine("Text length: {0}", binaries.Length);
          Console.WriteLine("Sequence length: {0}", sequence.Count);
@@ -60,10 +60,12 @@ binaries = "101111110110010000110001111110";
          Console.WriteLine("---------------------");
          Console.WriteLine("Sum = {0}", count);
          Console.WriteLine();
-         Console.WriteLine("??? = \"{0}\"", sequence.Where(x => x.Type == null).First().Value);
-         var riddle = sequence.Where(x => x.Type == null).First();
-         Console.WriteLine("??? = \"{0}\", Position = {1}", riddle.Type, riddle.TextIndex);
-         Console.WriteLine("{0}...", binaries.Substring(0, Math.Min(40, limit)));
+         if (sequence.Any(x => x.Type == null))
+         {
+            var riddle = sequence.Where(x => x.Type == null).First();
+            Console.WriteLine("??? = \"{0}\", Position = {1}", riddle.Value, riddle.TextIndex);
+            //      Console.WriteLine("{0}...", binaries.Substring(0, Math.Min(40, limit)));
+         }
          Console.WriteLine(sequence[0].Value);
          Console.WriteLine(sequence[1].Value);
          Console.WriteLine(sequence[2].Value);

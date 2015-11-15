@@ -99,9 +99,9 @@ namespace LexSharp
       {
          foreach (var match in _matches)
          {
-            while ( (match.Match.Captures.Count > 0) && (match.Match.Index < _cursorPos))
+            if (match.Match.Success)
             {
-               match.Match = match.Match.NextMatch();
+               match.Match = match.Pattern.TokenPattern.Match(_text, _cursorPos);
             }
          }
       }

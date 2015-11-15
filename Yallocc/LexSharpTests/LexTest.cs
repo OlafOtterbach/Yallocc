@@ -100,7 +100,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_EmptyToken_AllNonCharactersBetweenTextANdEnd()
+      public void ScanTest_EmptyToken_AllNonCharactersBetweenTextAndEnd()
       {
          var lex = new LexSharp<AbcTokenType>();
          lex.Register("", AbcTokenType.a_token);

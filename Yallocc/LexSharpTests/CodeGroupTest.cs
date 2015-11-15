@@ -17,23 +17,25 @@ namespace LexSharp
 
          Assert.AreEqual(10, sequence.Count());
          Assert.AreEqual(5, sequence[0].Type);
-         Assert.AreEqual(7, sequence[0].Type);
-         Assert.AreEqual(6, sequence[0].Type);
-         Assert.AreEqual(6, sequence[0].Type);
-         Assert.AreEqual(2, sequence[0].Type);
-         Assert.AreEqual(0, sequence[0].Type);
-         Assert.AreEqual(6, sequence[0].Type);
-         Assert.AreEqual(1, sequence[0].Type);
-         Assert.AreEqual(7, sequence[0].Type);
-         Assert.AreEqual(110, sequence[0].Type);
+         Assert.AreEqual(7, sequence[1].Type);
+         Assert.AreEqual(6, sequence[2].Type);
+         Assert.AreEqual(6, sequence[3].Type);
+         Assert.AreEqual(2, sequence[4].Type);
+         Assert.AreEqual(0, sequence[5].Type);
+         Assert.AreEqual(6, sequence[6].Type);
+         Assert.AreEqual(1, sequence[7].Type);
+         Assert.AreEqual(7, sequence[8].Type);
+         Assert.AreEqual(6, sequence[9].Type);
       }
 
       [TestMethod]
-      public void ScanTest_RandomCodeGroup_NoFailedTokens()
+      public void ScanTest_RandomCodeGroupWithTrippelGroups_NoFailedTokens()
       {
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3;
          var lex = Create();
          var rand = new Random();
-         var binaries = Enumerable.Range(0, 10000)
+         var binaries = Enumerable.Range(0, limit)
                                  .Select(i => rand.Next(0, 2))
                                  .Select(x => x.ToString())
                                  .Aggregate((current, elem) => current = current + elem);
@@ -41,6 +43,23 @@ namespace LexSharp
          var sequence = lex.Scan(binaries).ToList();
 
          Assert.IsTrue(sequence.All(x => x.Type != null));
+      }
+
+      [TestMethod]
+      public void ScanTest_RandomCodeGroupWithoutTrippelGroups_OneFailedTokens()
+      {
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3 + 1;
+         var lex = Create();
+         var rand = new Random();
+         var binaries = Enumerable.Range(0, limit)
+                                 .Select(i => rand.Next(0, 2))
+                                 .Select(x => x.ToString())
+                                 .Aggregate((current, elem) => current = current + elem);
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(1, sequence.Count(x => x.Type == null));
       }
 
       private LexSharp<long> Create()
