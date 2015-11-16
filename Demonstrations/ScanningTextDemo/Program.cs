@@ -25,7 +25,7 @@ namespace ScanningTextDemo
 
       static void Main(string[] args)
       {
-         const int elementsLimit = 100000;
+         const int elementsLimit = 10000;
          const int limit = elementsLimit * 3;
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)
@@ -35,7 +35,13 @@ namespace ScanningTextDemo
          var lex = new LexSharp<long>();
          DefineTokens(lex);
 
+         Console.WriteLine("Sacanning Text with {0} characters...", limit);
+         DateTime startTime = DateTime.Now;
          var sequence = lex.Scan(binaries).ToList();
+         DateTime endTime = DateTime.Now;
+         TimeSpan deltaTime = endTime - startTime;
+         Console.WriteLine("Time: {0} ms", deltaTime.Milliseconds);
+
          Console.WriteLine("Text length: {0}", binaries.Length);
          Console.WriteLine("Sequence length: {0}", sequence.Count);
          var count0 = sequence.Where(x => x.Type == 0).Count();
