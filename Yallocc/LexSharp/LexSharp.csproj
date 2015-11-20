@@ -36,6 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeTok.cs" />
     <Compile Include="MissingTokenDefinitionException.cs" />
     <Compile Include="TextCursor.cs" />
     <Compile Include="LexSharp.cs" />

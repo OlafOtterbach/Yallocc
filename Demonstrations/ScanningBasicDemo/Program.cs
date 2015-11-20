@@ -57,8 +57,8 @@ namespace ScanningBasicDemo
 
       static void Main(string[] args)
       {
-         const int limit = 10000;
-         var lex = new LexSharp<TokenType>();
+         const int limit = 10;
+         var lex = new LeTok<TokenType>();
          lex.Define();
          var basicTest = CreateBasicText(limit);
 

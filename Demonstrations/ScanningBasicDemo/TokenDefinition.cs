@@ -4,7 +4,7 @@ namespace ScanningBasicDemo
 {
    public static class TokenDefinition
    {
-      public static void Define(this LexSharp<TokenType> lex)
+      public static void Define(this LeTok<TokenType> lex)
       {
          lex.Register(@"PROGRAM", TokenType.program_keyword);
          lex.Register(@"END", TokenType.end_keyword);
@@ -44,6 +44,7 @@ namespace ScanningBasicDemo
          lex.Register(null, TokenType.label);
          lex.Register(@"(\w)+(\w|\d)*", TokenType.name);
          lex.RegisterIgnorePattern(@"( |\t)+", TokenType.white_space);
+         lex.Init();
       }
    }
 }
