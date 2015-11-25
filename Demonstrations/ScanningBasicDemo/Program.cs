@@ -57,14 +57,16 @@ namespace ScanningBasicDemo
 
       static void Main(string[] args)
       {
-         const int limit = 10;
+         const int limit = 100000;
          var lex = new LeTok<TokenType>();
          lex.Define();
          var basicTest = CreateBasicText(limit);
 
          Console.WriteLine("Sacanning Text with {0} characters...", limit);
          DateTime startTime = DateTime.Now;
+
          var sequence = lex.Scan(basicTest).ToList();
+
          DateTime endTime = DateTime.Now;
          TimeSpan deltaTime = endTime - startTime;
          Console.WriteLine("Time: {0} ms", deltaTime.Milliseconds);

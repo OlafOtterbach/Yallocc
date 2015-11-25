@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace LexSharp
@@ -7,12 +8,101 @@ namespace LexSharp
    public class LeTokTest
    {
       [TestMethod]
-      public void Test()
+      public void ScanTest_TokenOverlappingCodeGroup_TenTokens()
+      {
+         var lex = Create();
+         var binaries = "101111110110010000110001111110";
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(10, sequence.Count());
+         Assert.AreEqual(5, sequence[0].Type);
+         Assert.AreEqual(7, sequence[1].Type);
+         Assert.AreEqual(6, sequence[2].Type);
+         Assert.AreEqual(6, sequence[3].Type);
+         Assert.AreEqual(2, sequence[4].Type);
+         Assert.AreEqual(0, sequence[5].Type);
+         Assert.AreEqual(6, sequence[6].Type);
+         Assert.AreEqual(1, sequence[7].Type);
+         Assert.AreEqual(7, sequence[8].Type);
+         Assert.AreEqual(6, sequence[9].Type);
+      }
+
+      [TestMethod]
+      public void ScanTest_SequenceWithInvalidCharacters_OneInvalidAllOtersValid()
       {
          var lex = Create();
          var binaries = "101Hugo111110110010000110001111110";
 
          var sequence = lex.Scan(binaries).ToList();
+
+         Assert.IsFalse(sequence.All(tok => tok.IsValid));
+         Assert.AreEqual(1, sequence.Count(tok => !tok.IsValid));
+      }
+
+      [TestMethod]
+      public void ScanTest_RandomCodeGroupWithTrippelGroups_NoFailedTokens()
+      {
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3;
+         var lex = Create();
+         var rand = new Random();
+         var binaries = Enumerable.Range(0, limit)
+                                  .Select(i => rand.Next(0, 2))
+                                  .Select(x => x.ToString())
+                                  .Aggregate((current, elem) => current = current + elem);
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.IsTrue(sequence.All(x => x.Type != null));
+      }
+
+      [TestMethod]
+      public void ScanTest_CodeGroupLengthModuloThreeIsOne_OneFailedTokens()
+      {
+         const int elementsLimit = 2;
+         const int limit = elementsLimit * 3 + 1;
+         var lex = Create();
+         var rand = new Random();
+         var binaries = "0000111100011010100011011000110";
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(1, sequence.Count(x => x.Type == null));
+      }
+
+      [TestMethod]
+      public void ScanTest_RandomCodeGroupLengthModuloThreeIsOne_OneFailedTokens()
+      {
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3 + 1;
+         var lex = Create();
+         var rand = new Random();
+         var binaries = Enumerable.Range(0, limit)
+                                 .Select(i => rand.Next(0, 2))
+                                 .Select(x => x.ToString())
+                                 .Aggregate((current, elem) => current = current + elem);
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(1, sequence.Count(x => x.Type == null));
+      }
+
+      [TestMethod]
+      public void ScanTest_RandomCodeGroupLengthModuloThreeIsTwo_OneFailedTokens()
+      {
+         const int elementsLimit = 10000;
+         const int limit = elementsLimit * 3 + 2;
+         var lex = Create();
+         var rand = new Random();
+         var binaries = Enumerable.Range(0, limit)
+                                 .Select(i => rand.Next(0, 2))
+                                 .Select(x => x.ToString())
+                                 .Aggregate((current, elem) => current = current + elem);
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(1, sequence.Count(x => x.Type == null));
       }
 
       private LeTok<long> Create()

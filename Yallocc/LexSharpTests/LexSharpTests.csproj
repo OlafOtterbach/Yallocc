@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AbcTokenType.cs" />
     <Compile Include="CodeGroupTest.cs" />
+    <Compile Include="LeTokBasicTest.cs" />
     <Compile Include="LeTokTest.cs" />
     <Compile Include="LexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
