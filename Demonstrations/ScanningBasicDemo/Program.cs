@@ -58,8 +58,7 @@ namespace ScanningBasicDemo
       static void Main(string[] args)
       {
          const int limit = 100000;
-         var lex = new LeTok<TokenType>();
-         lex.Define();
+         var lex = TokenDefinition.CreateTokenizer();
          var basicTest = CreateBasicText(limit);
 
          Console.WriteLine("Sacanning Text with {0} characters...", limit);

@@ -8,7 +8,29 @@ namespace LexSharp
    public class LeTokTest
    {
       [TestMethod]
-      public void ScanTest_TokenOverlappingCodeGroup_TenTokens()
+      public void ScanTest_WhenNull_ThenEmptySequence()
+      {
+         var lex = Create();
+         string empty = null;
+
+         var sequence = lex.Scan(empty).ToList();
+
+         Assert.AreEqual(0, sequence.Count);
+      }
+
+      [TestMethod]
+      public void ScanTest_WhenEmptyInput_ThenEmptySequence()
+      {
+         var lex = Create();
+         var empty = "";
+
+         var sequence = lex.Scan(empty).ToList();
+
+         Assert.AreEqual(0, sequence.Count);
+      }
+
+      [TestMethod]
+      public void ScanTest_WhenTokenOverlappingCodeGroup_ThenTenTokens()
       {
          var lex = Create();
          var binaries = "101111110110010000110001111110";
@@ -29,7 +51,45 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_SequenceWithInvalidCharacters_OneInvalidAllOtersValid()
+      public void ScanTest_WhenTextHasInvalidTokens_ThenOneInvalidToken()
+      {
+         var lex = Create();
+         var binaries = "Hugo";
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(1, sequence.Count);
+         Assert.AreEqual(1, sequence.Count(tok => !tok.IsValid));
+      }
+
+      [TestMethod]
+      public void ScanTest_WhenFirstTokenInvalidAndTwoValidTokens_ThenOneInvalidTwoValid()
+      {
+         var lex = Create();
+         var binaries = "Hugo110111";
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(3, sequence.Count);
+         Assert.IsFalse(sequence.First().IsValid);
+         Assert.IsTrue(sequence.Skip(1).All(x => x.IsValid));
+      }
+
+      [TestMethod]
+      public void ScanTest_WhenLastTokenInvalidAndTwoValidTokens_ThenOneInvalidTwoValid()
+      {
+         var lex = Create();
+         var binaries = "110111Hugo";
+
+         var sequence = lex.Scan(binaries).ToList();
+
+         Assert.AreEqual(3, sequence.Count);
+         Assert.IsFalse(sequence.Last().IsValid);
+         Assert.IsTrue(sequence.Take(2).All(x => x.IsValid));
+      }
+
+      [TestMethod]
+      public void ScanTest_WhenSequenceWithInvalidCharacters_ThenOneInvalidAllOtersValid()
       {
          var lex = Create();
          var binaries = "101Hugo111110110010000110001111110";
@@ -41,7 +101,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_RandomCodeGroupWithTrippelGroups_NoFailedTokens()
+      public void ScanTest_WhenRandomCodeGroupWithTrippelGroups_ThenNoFailedTokens()
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3;
@@ -58,10 +118,8 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_CodeGroupLengthModuloThreeIsOne_OneFailedTokens()
+      public void ScanTest_WhenCodeGroupLengthModuloThreeIsOne_ThenOneFailedTokens()
       {
-         const int elementsLimit = 2;
-         const int limit = elementsLimit * 3 + 1;
          var lex = Create();
          var rand = new Random();
          var binaries = "0000111100011010100011011000110";
@@ -72,7 +130,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_RandomCodeGroupLengthModuloThreeIsOne_OneFailedTokens()
+      public void ScanTest_WhenRandomCodeGroupLengthModuloThreeIsOne_ThenOneFailedTokens()
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3 + 1;
@@ -89,7 +147,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanTest_RandomCodeGroupLengthModuloThreeIsTwo_OneFailedTokens()
+      public void ScanTest_WhenRandomCodeGroupLengthModuloThreeIsTwo_ThenOneFailedTokens()
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3 + 2;
@@ -107,16 +165,17 @@ namespace LexSharp
 
       private LeTok<long> Create()
       {
-         var lex = new LeTok<long>();
-         lex.Register(@"000", 0);
-         lex.Register(@"001", 1);
-         lex.Register(@"010", 2);
-         lex.Register(@"011", 3);
-         lex.Register(@"100", 4);
-         lex.Register(@"101", 5);
-         lex.Register(@"110", 6);
-         lex.Register(@"111", 7);
-         lex.Init();
+         var lex = TokenizerBuilder<long>
+            .Create()
+            .Register(@"000", 0)
+            .Register(@"001", 1)
+            .Register(@"010", 2)
+            .Register(@"011", 3)
+            .Register(@"100", 4)
+            .Register(@"101", 5)
+            .Register(@"110", 6)
+            .Register(@"111", 7)
+            .Init();
          return lex;
       }
    }

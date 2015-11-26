@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -21,7 +22,7 @@ namespace LexSharp
 
       private string _patternForAll;
 
-      public LeTok()
+      internal LeTok()
       {
          _dictionary = new Dictionary<string, Pattern<T>>();
          _patterns = new List<Pattern<T>>();
@@ -45,6 +46,25 @@ namespace LexSharp
          _ignoreTokenType.Add(tokenType);
       }
 
+      public bool IsComplete()
+      {
+         if (!_patterns.Any())
+         {
+            return false;
+         }
+
+         bool isEnum = _patterns.First().TokenType is Enum;
+         if (isEnum)
+         {
+            var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => _patterns.Any(x => x.TokenType.Equals(tokType)));
+            return isComplete;
+         }
+         else
+         {
+            throw new TokenIsNotAnEnumTypeException("Can not test on completeness. Type is not enum type");
+         }
+      }
+
       public void Init()
       {
          _patternForAll = _patterns.Where(pattern => pattern.TokenPattern != null)
@@ -54,6 +74,11 @@ namespace LexSharp
 
       public IEnumerable<Token<T>> Scan(string text)
       {
+         if(text == null)
+         {
+            return new List<Token<T>>();
+         }
+
          var regex = new Regex(_patternForAll);
          var groupNames = regex.GetGroupNames();
          var patternNames = _patterns.Select(p => "M" + p.TokenType.ToString());
@@ -68,9 +93,9 @@ namespace LexSharp
 
          var none = new List<MatchPair> { new MatchPair { IsValid = false } };
 
-         var tokens = none.Concat(matches.Reverse().Skip(1).Reverse())
-                            .Zip(matches, (prev, curr) => Create(text, prev, curr))
-                            .SelectMany(x => x);
+         var tokens = none.Concat(matches)
+                          .Zip(matches.Concat(none), (prev, curr) => Create(text, prev, curr))
+                          .SelectMany(x => x);
          var validTokens = tokens.Where(tok => (tok.Type == null) || (!_ignoreTokenType.Contains((T)tok.Type)));
 
          return validTokens;
@@ -78,15 +103,45 @@ namespace LexSharp
 
       private IEnumerable<Token<T>> Create(string text, MatchPair prev, MatchPair curr)
       {
-         if (prev.IsValid)
+         if(prev.IsValid)
          {
-            var delta = curr.Match.Index - prev.Match.Index - prev.Match.Length;
-            if (delta > 0)
+            if(curr.IsValid)
             {
-               yield return CreateDefaultToken(text, prev.Match.Index + delta - 1, delta);
+               var delta = curr.Match.Index - prev.Match.Index - prev.Match.Length;
+               if (delta > 0)
+               {
+                  yield return CreateDefaultToken(text, prev.Match.Index + delta - 1, delta);
+               }
+               yield return CreateToken(curr);
+            }
+            else
+            {
+               var delta = text.Length - prev.Match.Index - prev.Match.Length;
+               if (delta > 0)
+               {
+                  yield return CreateDefaultToken(text, prev.Match.Index + delta - 1, delta);
+               }
             }
          }
-         yield return CreateToken(curr);
+         else
+         {
+            if(curr.IsValid)
+            {
+               var delta = curr.Match.Index;
+               if (delta > 0)
+               {
+                  yield return CreateDefaultToken(text, 0, delta);
+               }
+               yield return CreateToken(curr);
+            }
+            else
+            {
+               if (text.Length > 0)
+               {
+                  yield return CreateDefaultToken(text, 0, text.Length);
+               }
+            }
+         }
       }
 
       private Token<T> CreateToken(MatchPair match)

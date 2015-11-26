@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace LexSharp
 {
@@ -9,7 +8,7 @@ namespace LexSharp
    public class LeTokBasicTest
    {
       [TestMethod]
-      public void Test_GiantRandomText_AllTokensDetected()
+      public void Test_WhenGiantRandomBasicText_ThenAllTokensDetected()
       {
          var lex = CreateLex();
          var text = CreateBasicText(10000);
@@ -20,7 +19,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanText_TestText_AllTokensDetected()
+      public void ScanText_WhenTestBasicText_ThenAllTokensDetected()
       {
          var lex = CreateLex();
          var text = "Name , ) MOD LET";
@@ -31,7 +30,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanText_RandomText_AllTokensDetected()
+      public void ScanText_WhenRandomBasicText_ThenAllTokensDetected()
       {
          var lex = CreateLex();
          var text = CreateBasicText(5);
@@ -42,7 +41,7 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void ScanText_GiantRandomText_AllTokensDetected()
+      public void ScanText_WhenGiantRandomBasicText_ThenAllTokensDetected()
       {
          var lex = CreateLex();
          var text = CreateBasicText(10000);
@@ -96,46 +95,47 @@ namespace LexSharp
 
       private static LeTok<TokenType> CreateLex()
       {
-         var lex = new LeTok<TokenType>();
-         lex.Register(@"PROGRAM", TokenType.program_keyword);
-         lex.Register(@"END", TokenType.end_keyword);
-         lex.Register(@"\+", TokenType.plus);
-         lex.Register(@"\-", TokenType.minus);
-         lex.Register(@"\*", TokenType.mult);
-         lex.Register(@"\/", TokenType.div);
-         lex.Register(@"=", TokenType.equal);
-         lex.Register(@"\>", TokenType.greater);
-         lex.Register(@"\>=", TokenType.greaterEqual);
-         lex.Register(@"\<", TokenType.less);
-         lex.Register(@"\<=", TokenType.lessEqual);
-         lex.Register(@"\(", TokenType.open);
-         lex.Register(@"\)", TokenType.close);
-         lex.Register(@",", TokenType.comma);
-         lex.Register(@":", TokenType.colon);
-         lex.Register("\r\n", TokenType.Return);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
-         lex.Register("\".*\"", TokenType.text);
-         lex.Register(@"DIM", TokenType.dim_keyword);
-         lex.Register(@"LET", TokenType.let_keyword);
-         lex.Register(@"IF", TokenType.if_keyword);
-         lex.Register(@"THEN", TokenType.then_keyword);
-         lex.Register(@"ELSE", TokenType.else_keyword);
-         lex.Register(@"WHILE", TokenType.while_keyword);
-         lex.Register(@"FOR", TokenType.for_keyword);
-         lex.Register(@"TO", TokenType.to_keyword);
-         lex.Register(@"STEP", TokenType.step_keyword);
-         lex.Register(@"DO", TokenType.do_keyword);
-         lex.Register(@"GOTO", TokenType.goto_keyword);
-         lex.Register(@"PLOT", TokenType.plot_keyword);
-         lex.Register(@"NOT", TokenType.not_keyword);
-         lex.Register(@"AND", TokenType.and_keyword);
-         lex.Register(@"OR", TokenType.or_keyword);
-         lex.Register(@"MOD", TokenType.mod_keyword);
-//         lex.Register(null, TokenType.label);
-         lex.Register(@"(\w)+(\w|\d)*", TokenType.name);
-         lex.RegisterIgnorePattern(@"( |\t)+", TokenType.white_space);
-         lex.Init();
+         var lex = TokenizerBuilder<TokenType>
+            .Create()
+            .Register(@"PROGRAM", TokenType.program_keyword)
+            .Register(@"END", TokenType.end_keyword)
+            .Register(@"\+", TokenType.plus)
+            .Register(@"\-", TokenType.minus)
+            .Register(@"\*", TokenType.mult)
+            .Register(@"\/", TokenType.div)
+            .Register(@"=", TokenType.equal)
+            .Register(@"\>", TokenType.greater)
+            .Register(@"\>=", TokenType.greaterEqual)
+            .Register(@"\<", TokenType.less)
+            .Register(@"\<=", TokenType.lessEqual)
+            .Register(@"\(", TokenType.open)
+            .Register(@"\)", TokenType.close)
+            .Register(@",", TokenType.comma)
+            .Register(@":", TokenType.colon)
+            .Register("\r\n", TokenType.Return)
+            .Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer)
+            .Register(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real)
+            .Register("\".*\"", TokenType.text)
+            .Register(@"DIM", TokenType.dim_keyword)
+            .Register(@"LET", TokenType.let_keyword)
+            .Register(@"IF", TokenType.if_keyword)
+            .Register(@"THEN", TokenType.then_keyword)
+            .Register(@"ELSE", TokenType.else_keyword)
+            .Register(@"WHILE", TokenType.while_keyword)
+            .Register(@"FOR", TokenType.for_keyword)
+            .Register(@"TO", TokenType.to_keyword)
+            .Register(@"STEP", TokenType.step_keyword)
+            .Register(@"DO", TokenType.do_keyword)
+            .Register(@"GOTO", TokenType.goto_keyword)
+            .Register(@"PLOT", TokenType.plot_keyword)
+            .Register(@"NOT", TokenType.not_keyword)
+            .Register(@"AND", TokenType.and_keyword)
+            .Register(@"OR", TokenType.or_keyword)
+            .Register(@"MOD", TokenType.mod_keyword)
+            //         lex.Register(null, TokenType.label)
+            .Register(@"(\w)+(\w|\d)*", TokenType.name)
+            .RegisterIgnorePattern(@"( |\t)+", TokenType.white_space)
+            .Init();
          return lex;
       }
 

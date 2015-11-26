@@ -36,6 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITokenizerBuilderInterface.cs" />
     <Compile Include="LeTok.cs" />
     <Compile Include="MissingTokenDefinitionException.cs" />
     <Compile Include="TextCursor.cs" />
@@ -43,6 +44,7 @@
     <Compile Include="Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenIsNotAnEnumTypeException.cs" />
+    <Compile Include="TokenizerBuilder.cs" />
     <Compile Include="TokenResultBuffer.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenRegisteredMoreThanOneTimeException.cs" />
