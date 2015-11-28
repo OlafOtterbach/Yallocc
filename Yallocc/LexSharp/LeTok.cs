@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace LexSharp
 {
-   public class LeTok<T> where T : struct
+   public class LeTok<T> : ITokenizer<T> where T : struct
    {
       private struct MatchPair
       {
@@ -14,36 +14,86 @@ namespace LexSharp
          public bool IsValid;
       }
 
-      private Dictionary<string, Pattern<T>> _dictionary;
-
       private List<Pattern<T>> _patterns;
 
       private List<T> _ignoreTokenType;
 
-      private string _patternForAll;
+      private Regex _regex;
+
+      private int _skipUnnamedGroups;
 
       internal LeTok()
       {
-         _dictionary = new Dictionary<string, Pattern<T>>();
          _patterns = new List<Pattern<T>>();
          _ignoreTokenType = new List<T>();
+         _skipUnnamedGroups = 0;
       }
 
       public void Register(string patternText, T tokenType)
       {
-         var pattern = new Pattern<T>(patternText, tokenType);
+         if(patternText == null)
+         {
+            throw new ArgumentNullException("patternText");
+         }
+
+         var pattern = new Pattern<T>();
+         try
+         {
+             pattern = new Pattern<T>(patternText, tokenType);
+         }
+         catch (ArgumentException)
+         {
+            throw new ArgumentException("patterntext {0} is not a regular expression.", patternText);
+         };
+
          if (_patterns.Any(p => p.TokenType.Equals(tokenType)))
          {
             throw new TokenRegisteredMoreThanOneTimeException<T>(tokenType, "Not allowed to register Token more than one time");
          }
+
          _patterns.Add(pattern);
-         _dictionary.Add("M" + tokenType.ToString(), pattern);
       }
 
       public void RegisterIgnorePattern(string patternText, T tokenType)
       {
          Register(patternText, tokenType);
          _ignoreTokenType.Add(tokenType);
+      }
+
+      public void Initialize()
+      {
+         var patternForAll = _patterns.Where(pattern => pattern.TokenPattern != null)
+                                      .Select(x => string.Format("(?<{0}>{1})", "M" + x.TokenType, x.TokenPattern))
+                                      .Aggregate((current, elem) => current + "|" + elem);
+         _regex = new Regex(patternForAll, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+         var groupNames = _regex.GetGroupNames();
+         var patternNames = _patterns.Select(p => "M" + p.TokenType.ToString());
+         _skipUnnamedGroups = groupNames.Count(x => !patternNames.Contains(x));
+      }
+
+      public IEnumerable<Token<T>> Scan(string text)
+      {
+         if(text == null)
+         {
+            return new List<Token<T>>();
+         }
+
+         var matches = _regex.Matches(text)
+                             .OfType<Match>()
+                             .SelectMany(m => m.Groups.Cast<Group>()
+                                                      .Skip(_skipUnnamedGroups)
+                                                      .Select((x, i) => new MatchPair { Match = m, Index = i, IsValid = x.Success })
+                             .Where(p => p.IsValid).Take(1));
+
+         var none = new List<MatchPair> { new MatchPair { IsValid = false } };
+
+         var tokens = none.Concat(matches)
+                          .Zip(matches.Concat(none), (prev, curr) => Create(text, prev, curr))
+                          .SelectMany(x => x);
+         var validTokens = tokens.Where(tok => (tok.Type == null) || (!_ignoreTokenType.Contains((T)tok.Type)));
+
+         return validTokens;
       }
 
       public bool IsComplete()
@@ -63,42 +113,6 @@ namespace LexSharp
          {
             throw new TokenIsNotAnEnumTypeException("Can not test on completeness. Type is not enum type");
          }
-      }
-
-      public void Init()
-      {
-         _patternForAll = _patterns.Where(pattern => pattern.TokenPattern != null)
-                                   .Select(x => string.Format("(?<{0}>{1})", "M" + x.TokenType, x.TokenPattern))
-                                   .Aggregate((current, elem) => current + "|" + elem);
-      }
-
-      public IEnumerable<Token<T>> Scan(string text)
-      {
-         if(text == null)
-         {
-            return new List<Token<T>>();
-         }
-
-         var regex = new Regex(_patternForAll);
-         var groupNames = regex.GetGroupNames();
-         var patternNames = _patterns.Select(p => "M" + p.TokenType.ToString());
-         var skipUnnamedGroups = groupNames.Count(x => !patternNames.Contains(x));
-
-         var matches = regex.Matches(text)
-                            .Cast<Match>()
-                            .SelectMany(m => m.Groups.Cast<Group>()
-                                                     .Skip(skipUnnamedGroups)
-                                                     .Select((x, i) => new MatchPair { Match = m, Index = i, IsValid = x.Success })
-                            .Where(p => p.IsValid).Take(1));
-
-         var none = new List<MatchPair> { new MatchPair { IsValid = false } };
-
-         var tokens = none.Concat(matches)
-                          .Zip(matches.Concat(none), (prev, curr) => Create(text, prev, curr))
-                          .SelectMany(x => x);
-         var validTokens = tokens.Where(tok => (tok.Type == null) || (!_ignoreTokenType.Contains((T)tok.Type)));
-
-         return validTokens;
       }
 
       private IEnumerable<Token<T>> Create(string text, MatchPair prev, MatchPair curr)

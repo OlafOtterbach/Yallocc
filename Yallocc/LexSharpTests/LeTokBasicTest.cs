@@ -93,9 +93,9 @@ namespace LexSharp
          white_space      // _, TAB
       }
 
-      private static LeTok<TokenType> CreateLex()
+      private static ITokenizer<TokenType> CreateLex()
       {
-         var lex = TokenizerBuilder<TokenType>
+         var lex = LeTokBuilder<TokenType>
             .Create()
             .Register(@"PROGRAM", TokenType.program_keyword)
             .Register(@"END", TokenType.end_keyword)
@@ -135,7 +135,7 @@ namespace LexSharp
             //         lex.Register(null, TokenType.label)
             .Register(@"(\w)+(\w|\d)*", TokenType.name)
             .RegisterIgnorePattern(@"( |\t)+", TokenType.white_space)
-            .Init();
+            .Initialize();
          return lex;
       }
 

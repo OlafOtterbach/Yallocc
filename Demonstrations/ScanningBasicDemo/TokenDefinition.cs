@@ -4,9 +4,9 @@ namespace ScanningBasicDemo
 {
    public static class TokenDefinition
    {
-      public static LeTok<TokenType> CreateTokenizer()
+      public static ITokenizer<TokenType> CreateTokenizer()
       {
-         LeTok<TokenType> lex = TokenizerBuilder<TokenType>
+         ITokenizer<TokenType> lex =LeTokBuilder<TokenType>
             .Create()
             .Register(@"PROGRAM", TokenType.program_keyword)
             .Register(@"END", TokenType.end_keyword)
@@ -46,7 +46,7 @@ namespace ScanningBasicDemo
             .Register(null, TokenType.label)
             .Register(@"(\w)+(\w|\d)*", TokenType.name)
             .RegisterIgnorePattern(@"( |\t)+", TokenType.white_space)
-            .Init();
+            .Initialize();
          return lex;
       }
    }

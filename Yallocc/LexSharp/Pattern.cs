@@ -6,7 +6,7 @@ namespace LexSharp
    {
       public Pattern(string pattern, T tokenType) : this()
       {
-         TokenPattern = pattern != null ? new Regex(pattern, RegexOptions.Compiled) : null;
+         TokenPattern = pattern != null ? new Regex(pattern, RegexOptions.CultureInvariant) : null;
          TokenType = tokenType;
       }
 

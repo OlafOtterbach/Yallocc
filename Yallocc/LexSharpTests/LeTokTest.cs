@@ -163,9 +163,9 @@ namespace LexSharp
          Assert.AreEqual(1, sequence.Count(x => x.Type == null));
       }
 
-      private LeTok<long> Create()
+      private ITokenizer<long> Create()
       {
-         var lex = TokenizerBuilder<long>
+         var lex = LeTokBuilder<long>
             .Create()
             .Register(@"000", 0)
             .Register(@"001", 1)
@@ -175,7 +175,7 @@ namespace LexSharp
             .Register(@"101", 5)
             .Register(@"110", 6)
             .Register(@"111", 7)
-            .Init();
+            .Initialize();
          return lex;
       }
    }
