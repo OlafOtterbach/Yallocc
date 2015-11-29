@@ -7,8 +7,8 @@
     <ProjectGuid>{C6A51E86-E00A-4776-B647-4F55634396AA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LexSharp</RootNamespace>
-    <AssemblyName>LexSharp</AssemblyName>
+    <RootNamespace>Yallocc.Tokenizer</RootNamespace>
+    <AssemblyName>Tokenizer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -38,18 +38,19 @@
   <ItemGroup>
     <Compile Include="ITokenizer.cs" />
     <Compile Include="ITokenizerBuilderInterface.cs" />
-    <Compile Include="LeTok.cs" />
+    <Compile Include="LeTok\LeTok.cs" />
+    <Compile Include="LexSharp\LexSharp.cs" />
+    <Compile Include="LexSharp\TextCursor.cs" />
     <Compile Include="MissingTokenDefinitionException.cs" />
-    <Compile Include="TextCursor.cs" />
-    <Compile Include="LexSharp.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenIsNotAnEnumTypeException.cs" />
-    <Compile Include="LeTokBuilder.cs" />
-    <Compile Include="TokenResultBuffer.cs" />
+    <Compile Include="LeTok\LeTokBuilder.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="Tokenizer.cs" />
     <Compile Include="TokenRegisteredMoreThanOneTimeException.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

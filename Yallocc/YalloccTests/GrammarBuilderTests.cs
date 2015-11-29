@@ -258,10 +258,10 @@ namespace Yallocc
 
       private bool Parser(string text, Transition grammar)
       {
-         var lex = CreateAbcLex();
+         var tokenizer = CreateAbcLex();
          var parser = new Parser<AbcTokenType>();
 
-         var sequence = lex.Scan(text);
+         var sequence = tokenizer.Scan(text);
          var result = parser.ParseTokens(grammar, sequence);
 
          return result.Success;
@@ -274,13 +274,14 @@ namespace Yallocc
          return builderInterface;
       }
 
-      private LexSharp<AbcTokenType> CreateAbcLex()
+      private ITokenizer<AbcTokenType> CreateAbcLex()
       {
-         var lex = new LexSharp<AbcTokenType>();
-         lex.Register(@"a", AbcTokenType.a_token);
-         lex.Register(@"b", AbcTokenType.b_token);
-         lex.Register(@"c", AbcTokenType.c_token);
-         return lex;
+         var tokenizer = LeTokBuilder<AbcTokenType>.Create()
+                           .Register(@"a", AbcTokenType.a_token)
+                           .Register(@"b", AbcTokenType.b_token)
+                           .Register(@"c", AbcTokenType.c_token)
+                           .Initialize();
+         return tokenizer;
       }
    }
 }

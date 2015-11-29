@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    public struct Pattern<T>
    {
-      public Pattern(string pattern, T tokenType) : this()
+      public Pattern(Regex pattern, T tokenType) : this()
       {
-         TokenPattern = pattern != null ? new Regex(pattern, RegexOptions.CultureInvariant) : null;
+         TokenPattern = pattern;
          TokenType = tokenType;
       }
 

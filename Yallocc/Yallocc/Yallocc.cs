@@ -9,7 +9,7 @@ namespace Yallocc
 {
    public class Yallocc<T> where T : struct
    {
-      LexSharp<T> _lex;
+      LeTok<T> _tokenizer;
       BuilderInterface<T> _builderInterface;
       GrammarDictionary _grammers;
 
@@ -19,27 +19,27 @@ namespace Yallocc
          _grammers = new GrammarDictionary();
          var baseBuilder = new GrammarBuilder<T>(_grammers);
          _builderInterface = new BuilderInterface<T>(baseBuilder);
-         _lex = new LexSharp<T>();
+         _tokenizer = new LeTok<T>();
          TokenCompletenessIsChecked = true;
       }
 
 
-      public LexSharp<T> Lex
+      public LeTok<T> Lex
       {
          get
          {
-            return _lex;
+            return _tokenizer;
          }
       }
 
       public void AddToken(string patternText, T tokenType)
       {
-         _lex.Register(patternText, tokenType);
+         _tokenizer.Register(patternText, tokenType);
       }
 
       public void AddTokenToIgnore(string patternText, T tokenType)
       {
-         _lex.RegisterIgnorePattern(patternText, tokenType);
+         _tokenizer.RegisterIgnorePattern(patternText, tokenType);
       }
 
       public EnterInterface<T> Grammar(string name)
@@ -65,10 +65,11 @@ namespace Yallocc
 
       public YParser<T> CreateParser()
       {
-         if(TokenCompletenessIsChecked && (!_lex.IsComplete()))
+         if(TokenCompletenessIsChecked && (!_tokenizer.IsComplete()))
          {
             throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
          }
+         _tokenizer.Initialize();
 
          if (GrammarInitialisationAndValidation.AnyProxyTransitions(_grammers))
          {
@@ -82,7 +83,7 @@ namespace Yallocc
 
          GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammers);
          
-         return new YParser<T>(_grammers.GetMasterGrammar(), _lex);
+         return new YParser<T>(_grammers.GetMasterGrammar(), _tokenizer);
       }
    }
 }

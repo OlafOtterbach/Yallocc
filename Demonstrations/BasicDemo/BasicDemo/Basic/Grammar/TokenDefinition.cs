@@ -23,8 +23,8 @@ namespace BasicDemo.Basic
          yacc.AddToken(@",", TokenType.comma);
          yacc.AddToken(@":", TokenType.colon);
          yacc.AddToken("\r\n", TokenType.Return);
+         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
          yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
-         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
          yacc.AddToken("\".*\"", TokenType.text);
          yacc.AddToken(@"DIM", TokenType.dim_keyword);
          yacc.AddToken(@"LET", TokenType.let_keyword);
@@ -42,7 +42,7 @@ namespace BasicDemo.Basic
          yacc.AddToken(@"AND", TokenType.and_keyword);
          yacc.AddToken(@"OR", TokenType.or_keyword);
          yacc.AddToken(@"MOD", TokenType.mod_keyword);
-         yacc.AddToken(null, TokenType.label);
+         yacc.AddToken(@"(\w)+(\w|\d)*\:", TokenType.label);
          yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);
          yacc.AddTokenToIgnore(@"( |\t)+", TokenType.white_space);
       }

@@ -7,8 +7,8 @@
     <ProjectGuid>{EBC2A6FA-99FF-48B9-A68F-05C901799955}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LexSharpDemo</RootNamespace>
-    <AssemblyName>LexSharpDemo</AssemblyName>
+    <RootNamespace>TokenizerDemo</RootNamespace>
+    <AssemblyName>TokenizerDemo</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Yallocc\LexSharp\LexSharp.csproj">
+    <ProjectReference Include="..\..\Yallocc\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharp</Name>
+      <Name>Tokenizer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

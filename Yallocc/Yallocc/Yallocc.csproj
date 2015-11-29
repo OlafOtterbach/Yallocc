@@ -79,9 +79,9 @@
     <Compile Include="Yallocc.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
+    <ProjectReference Include="..\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharp</Name>
+      <Name>Tokenizer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

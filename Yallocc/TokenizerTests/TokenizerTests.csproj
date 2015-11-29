@@ -6,8 +6,8 @@
     <ProjectGuid>{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LexSharpTests</RootNamespace>
-    <AssemblyName>LexSharpTests</AssemblyName>
+    <RootNamespace>TokenizerTests</RootNamespace>
+    <AssemblyName>TokenizerTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,19 +52,22 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AbcTokenType.cs" />
-    <Compile Include="CodeGroupTest.cs" />
-    <Compile Include="LeTokBasicTest.cs" />
-    <Compile Include="LeTokTest.cs" />
-    <Compile Include="LexTest.cs" />
+    <Compile Include="LeTok\LeTokBasicTest.cs" />
+    <Compile Include="LeTok\LeTokTest.cs" />
+    <Compile Include="LeTok\LexTest.cs" />
+    <Compile Include="LexSharp\CodeGroupTest.cs" />
+    <Compile Include="LexSharp\LexTest.cs" />
+    <Compile Include="LexSharp\TokenTypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenTypeTest.cs" />
+    <Compile Include="LeTok\TokenTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
+    <ProjectReference Include="..\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>LexSharp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

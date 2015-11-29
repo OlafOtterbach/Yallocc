@@ -1,138 +1,29 @@
-﻿using System.Linq;
-using LexSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BasicDemo;
-using BasicDemo.Basic;
-using System.Text.RegularExpressions;
-using Yallocc;
-using System.IO;
-using SyntaxTree;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
-namespace BasicDemoTest
+namespace LexSharp
 {
    [TestClass]
    public class TokenTypeTest
    {
       [TestMethod]
-      public void ColonTest_OneColon_Colon()
+      public void ScanTest_Hallo_TokenIsName()
       {
-         var yacc = new Yallocc<TokenType>();
-         var builder = new SyntaxTreeBuilder();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
+         LeTok<TokenType> lex = new LeTok<TokenType>();
+         DefineTokenType(lex);
 
-         var tokens = lex.Scan("456:123").ToList();
+         var name = lex.Scan("Hallo").ToList();
 
-         Assert.IsTrue(tokens.Any());
-         Assert.AreEqual(tokens.First().Type, TokenType.integer);
-         Assert.AreEqual(tokens[1].Type, TokenType.colon);
-         Assert.AreEqual(tokens[2].Type, TokenType.integer);
+         Assert.IsTrue(name.Any());
+         Assert.AreEqual(name.First().Type, TokenType.name);
+         Assert.AreEqual(name.First().Value, "Hallo");
       }
-
-      [TestMethod]
-      public void NameTest_OneName_SyntaxTreeBuilderDoesNotInfluenceResult()
-      {
-         var yacc1 = new Yallocc<TokenType>();
-         var yacc2 = new Yallocc<TokenType>();
-         var builder = new SyntaxTreeBuilder();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc1, null);
-         tokenDefinition.Define(yacc2, null);
-         var lex1 = yacc1.Lex;
-         var lex2 = yacc1.Lex;
-         lex1.Initialize();
-         lex2.Initialize();
-
-         var tokens1 = lex1.Scan("Hallo").ToList();
-         var tokens2 = lex2.Scan("Hallo").ToList();
-
-         Assert.IsTrue(tokens1.Any());
-         Assert.AreEqual(tokens1.First().Type, TokenType.name);
-         Assert.AreEqual(tokens1.First().Value, "Hallo");
-         Assert.IsTrue(tokens2.Any());
-         Assert.AreEqual(tokens2.First().Type, TokenType.name);
-         Assert.AreEqual(tokens2.First().Value, "Hallo");
-      }
-
-
-      [TestMethod]
-      public void NameTest_OneName_NameScanned()
-      {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
-
-         var tokens1 = lex.Scan("Hallo").ToList();
-
-         Assert.IsTrue(tokens1.Any());
-         Assert.AreEqual(tokens1.First().Type, TokenType.name);
-         Assert.AreEqual(tokens1.First().Value, "Hallo");
-
-         var tokens2 = lex.Scan("PROGRAM \"text\"\r\nLET a = 2").ToList();
-      }
-
-      [TestMethod]
-      public void NameTest_ProgramText_NameScanned()
-      {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
-
-         var text = "PROGRAM \"LET Statement\"\r\nLET a";
-         var tokens = lex.Scan(text).ToList();
-
-         Assert.IsTrue(tokens.Any());
-         Assert.AreEqual(tokens[4].Type, TokenType.name);
-         Assert.AreEqual(tokens[4].Value, "a");
-      }
-
-      [TestMethod]
-      public void ScannerStressTest()
-      {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
-
-         var text = "\"LET Statement\" LET a";
-         var tokens = lex.Scan(text).ToList();
-
-         Assert.IsTrue(tokens.Any());
-         Assert.AreEqual(tokens[2].Type, TokenType.name);
-         Assert.AreEqual(tokens[2].Value, "a");
-      }
-
-      [TestMethod]
-      public void Name_FileAsInput_NameScanned()
-      {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
-
-         var programText = File.ReadAllText(@"Basic\Grammar\TestData\LetStatementProgram.basic");
-         var tokens = lex.Scan(programText).ToList();
-
-         Assert.IsTrue(tokens.Any());
-         Assert.AreEqual(tokens[4].Type, TokenType.name);
-         Assert.AreEqual(tokens[4].Value, "a");
-      }
-
 
       [TestMethod]
       public void SpecialCharactersTest_SpecialCharacters_RecognizingTokenType()
       {
          LeTok<TokenType> lex = new LeTok<TokenType>();
          DefineTokenType(lex);
-         lex.Initialize();
 
          var plus = lex.Scan("+").ToList();
          var minus = lex.Scan("-").ToList();
@@ -179,6 +70,7 @@ namespace BasicDemoTest
       public void NumberTest_Number_RecognizingNumber()
       {
          LeTok<TokenType> lex = new LeTok<TokenType>();
+         DefineTokenType(lex);
 
          var one = lex.Scan("1").ToList();
          var oneDot = lex.Scan("1.").ToList();
@@ -227,7 +119,28 @@ namespace BasicDemoTest
          lex.Register(@"\)", TokenType.close);
          lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
          lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
-         lex.Initialize();
+         lex.Register(@"(\w)+", TokenType.name);
+      }
+
+      private enum TokenType
+      {
+         plus,          // +
+         minus,         // -
+         mult,          // *
+         div,           // /
+         equal,         // =
+         greater,       // >
+         less,          // <
+         open,          // (
+         close,         // )
+         open_clamp,    // [
+         close_clamp,   // }
+         integer,       // 1, 2, 3, 12, 123, ...
+         real,          // 1.0, 12.0, 1.0, 0.2, .4, ...
+         text,          // "Hallo", ...
+         dim,           // DIM
+         let,           // LET
+         name,          // x, y, index, ...
       }
    }
 }

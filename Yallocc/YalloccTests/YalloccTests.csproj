@@ -60,9 +60,9 @@
     <Compile Include="YalloccTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LexSharp\LexSharp.csproj">
+    <ProjectReference Include="..\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharp</Name>
+      <Name>Tokenizer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yallocc\Yallocc.csproj">
       <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>

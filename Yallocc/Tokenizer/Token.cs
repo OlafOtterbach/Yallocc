@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    public struct Token<T> where T : struct
    {

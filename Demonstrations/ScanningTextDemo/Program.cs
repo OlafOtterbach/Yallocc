@@ -10,16 +10,19 @@ namespace ScanningTextDemo
 {
    class Program
    {
-      private static void DefineTokens(LexSharp<long> lex)
+      private static ITokenizer<long> CreateTokenizer()
       {
-         lex.Register(@"000", 0);
-         lex.Register(@"001", 1);
-         lex.Register(@"010", 2);
-         lex.Register(@"011", 3);
-         lex.Register(@"100", 4);
-         lex.Register(@"101", 5);
-         lex.Register(@"110", 6);
-         lex.Register(@"111", 7);
+         var tokenizer = LeTokBuilder<long>.Create()
+                           .Register(@"000", 0)
+                           .Register(@"001", 1)
+                           .Register(@"010", 2)
+                           .Register(@"011", 3)
+                           .Register(@"100", 4)
+                           .Register(@"101", 5)
+                           .Register(@"110", 6)
+                           .Register(@"111", 7)
+                           .Initialize();
+         return tokenizer;
       }
 
 
@@ -32,12 +35,11 @@ namespace ScanningTextDemo
                                  .Select(i => rand.Next(0, 2))
                                  .Select(x => x.ToString())
                                  .Aggregate((current, elem) => current = current + elem);
-         var lex = new LexSharp<long>();
-         DefineTokens(lex);
+         var tokenizer = CreateTokenizer();
 
          Console.WriteLine("Sacanning Text with {0} characters...", limit);
          DateTime startTime = DateTime.Now;
-         var sequence = lex.Scan(binaries).ToList();
+         var sequence = tokenizer.Scan(binaries).ToList();
          DateTime endTime = DateTime.Now;
          TimeSpan deltaTime = endTime - startTime;
          Console.WriteLine("Time: {0} ms", deltaTime.Milliseconds);

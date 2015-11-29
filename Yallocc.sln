@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demonstrations", "Demonstra
 		ReadMe.txt = ReadMe.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharp", "Yallocc\LexSharp\LexSharp.csproj", "{C6A51E86-E00A-4776-B647-4F55634396AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer", "Yallocc\Tokenizer\Tokenizer.csproj", "{C6A51E86-E00A-4776-B647-4F55634396AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpTests", "Yallocc\LexSharpTests\LexSharpTests.csproj", "{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenizerTests", "Yallocc\TokenizerTests\TokenizerTests.csproj", "{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yallocc", "Yallocc\Yallocc\Yallocc.csproj", "{5BD461E9-72AA-44E1-A640-41266FA9C1CA}"
 EndProject
@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicDemoTests", "Demonstra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TokenizerDemo", "TokenizerDemo", "{040761CA-5C89-4EC7-928A-4CF6D727B41C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexSharpDemo", "Demonstrations\TokenizerDemo\LexSharpDemo.csproj", "{EBC2A6FA-99FF-48B9-A68F-05C901799955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenizerDemo", "Demonstrations\TokenizerDemo\TokenizerDemo.csproj", "{EBC2A6FA-99FF-48B9-A68F-05C901799955}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParserDemo", "ParserDemo", "{AC0AF828-D0C2-4015-9979-01180C43A9EA}"
 EndProject

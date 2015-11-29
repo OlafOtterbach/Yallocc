@@ -10,7 +10,7 @@ namespace PureParserDemo
       static void Main(string[] args)
       {
          // Create tokenizer
-         var lex = new LexSharp<TokenType>();
+         var lex = new LeTok<TokenType>();
          lex.DefineTokens();
 
          // Create grammarbuilder and grammar

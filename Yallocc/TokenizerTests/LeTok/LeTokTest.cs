@@ -121,7 +121,6 @@ namespace LexSharp
       public void ScanTest_WhenCodeGroupLengthModuloThreeIsOne_ThenOneFailedTokens()
       {
          var lex = Create();
-         var rand = new Random();
          var binaries = "0000111100011010100011011000110";
 
          var sequence = lex.Scan(binaries).ToList();

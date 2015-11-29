@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer.LexSharp
 {
    public class LexSharp<T> where T : struct
    {

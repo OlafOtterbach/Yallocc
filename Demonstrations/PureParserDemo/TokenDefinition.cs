@@ -4,7 +4,7 @@ namespace PureParserDemo
 {
    public static class TokenDefinition
    {
-      public static void DefineTokens(this LexSharp<TokenType> lex)
+      public static void DefineTokens(this ITokenizer<TokenType> lex)
       {
          lex.Register(@"\+", TokenType.plus);
          lex.Register(@"\-", TokenType.minus);

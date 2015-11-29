@@ -275,9 +275,9 @@ namespace Yallocc
          return container;
       }
 
-      private LexSharp<AbTokenType> CreateAbLex()
+      private LeTok<AbTokenType> CreateAbLex()
       {
-         var lex = new LexSharp<AbTokenType>();
+         var lex = new LeTok<AbTokenType>();
          lex.Register(@"a", AbTokenType.a_token);
          lex.Register(@"b", AbTokenType.b_token);
          return lex;

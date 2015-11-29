@@ -1,11 +1,16 @@
-﻿using System;
+﻿/// <summary>LeTok</summary>
+/// <summary>[Le]exical [Tok]enizer.</summary>
+/// <author>Olaf Otterbach</author>
+/// <date>11.11.2015</date>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer.LeTok
 {
-   public class LeTok<T> : ITokenizer<T> where T : struct
+   public class LeTok<T> : Tokenizer<T> where T : struct
    {
       private struct MatchPair
       {
@@ -22,7 +27,7 @@ namespace LexSharp
 
       private int _skipUnnamedGroups;
 
-      internal LeTok()
+      public LeTok()
       {
          _patterns = new List<Pattern<T>>();
          _ignoreTokenType = new List<T>();

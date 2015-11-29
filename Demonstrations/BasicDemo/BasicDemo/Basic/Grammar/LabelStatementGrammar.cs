@@ -14,9 +14,7 @@ namespace BasicDemo.Basic
          //
          yacc.Grammar("LabelStatement")
              .Enter                          .Action(() => stb.Enter()).Name("LabelBegin")
-             .Token(TokenType.name)          .Name("LabelName").Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
-             .Token(TokenType.colon)         .Name("LabelColon")
-             .Lambda                         .Action(() => stb.CreateParent(new TokenTreeNode<TokenType>(new Token<TokenType>(TokenType.label))))
+             .Token(TokenType.label)         .Name("Label").Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Exit                           .Action(() => stb.Exit()).Name("LabelEnd")
              .EndGrammar();
       }

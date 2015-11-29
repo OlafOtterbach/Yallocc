@@ -87,9 +87,9 @@ namespace Yallocc
 
       private ParserResult CheckText(string text)
       {
-         var lex = CreateLex();
+         var tokenizer = Createtokenizer();
          var grammar = CreateExpression();
-         var sequence = lex.Scan(text);
+         var sequence = tokenizer.Scan(text);
          var parser = new Parser<ExpressionTokenType>();
          var result = parser.ParseTokens(grammar, sequence);
          return result;
@@ -147,17 +147,18 @@ namespace Yallocc
          return startFactor;
       }
 
-      private LexSharp<ExpressionTokenType> CreateLex()
+      private ITokenizer<ExpressionTokenType> Createtokenizer()
       {
-         var lex = new LexSharp<ExpressionTokenType>();
-         lex.Register(@"\+", ExpressionTokenType.plus);
-         lex.Register(@"-", ExpressionTokenType.minus);
-         lex.Register(@"\*", ExpressionTokenType.mult);
-         lex.Register(@"/", ExpressionTokenType.div);
-         lex.Register(@"\(", ExpressionTokenType.open_clamp);
-         lex.Register(@"\)", ExpressionTokenType.close_clamp);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", ExpressionTokenType.number);
-         return lex;
+         var tokenizer = LeTokBuilder<ExpressionTokenType>.Create()
+                     .Register(@"\+", ExpressionTokenType.plus)
+                     .Register(@"-", ExpressionTokenType.minus)
+                     .Register(@"\*", ExpressionTokenType.mult)
+                     .Register(@"/", ExpressionTokenType.div)
+                     .Register(@"\(", ExpressionTokenType.open_clamp)
+                     .Register(@"\)", ExpressionTokenType.close_clamp)
+                     .Register(@"(0|1|2|3|4|5|6|7|8|9)+", ExpressionTokenType.number)
+                     .Initialize();
+         return tokenizer;
       }
    }
 }
