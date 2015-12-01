@@ -1,111 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    [TestClass]
-   public class tokenizerTest
+   public abstract class TokenizerTest
    {
-      [TestMethod]
-      public void IsCompleteTest_CompleteRegisteredTokens_IsComplete()
-      {
-         var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-         .Register(@"aabb", AbcTokenType.aabb_token)
-         .Register(@"a(\w)+b", AbcTokenType.aXYZb_token)
-         .Register("a", AbcTokenType.a_token)
-         .Register("b", AbcTokenType.b_token)
-         .Register("c", AbcTokenType.c_token)
-         .Initialize();
-
-         Assert.IsTrue(tokenizer.IsComplete());
-      }
-
-      [TestMethod]
-      public void IsCompleteTest_NotCompleteRegisteredTokens_IsNotComplite()
-      {
-         var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-         .Register(@"aabb", AbcTokenType.aabb_token)
-         .Register(@"a(\w)+b", AbcTokenType.aXYZb_token)
-         .Register("a", AbcTokenType.a_token)
-         .Initialize();
-         tokenizer.Register("c", AbcTokenType.c_token);
-
-         Assert.IsFalse(tokenizer.IsComplete());
-      }
-
-      [TestMethod]
-      public void IsCompleteTest_NotAnEnumType_TokenIsNotAnEnumTypeExceptionThrown()
-      {
-         var tokenizer = LeTokBuilder<int>.Create()
-                           .Register(@"one", 1)
-                           .Register(@"Two", 2)
-                           .Register(@"Three", 3)
-                           .Initialize();
-         bool exeptionThrown = false;
-         try
-         {
-            bool isComplete = tokenizer.IsComplete();
-         }
-         catch (TokenIsNotAnEnumTypeException e)
-         {
-            exeptionThrown = true;
-         }
-         Assert.IsTrue(exeptionThrown);
-      }
-
-      [TestMethod]
-      public void RegisterTest_AllTokensOneTime_NoException()
-      {
-         bool exeptionThrown = false;
-         try
-         {
-            var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-            .Register(@"aabb", AbcTokenType.aabb_token)
-            .Register(@"a(\w)+b", AbcTokenType.aXYZb_token)
-            .Register("a", AbcTokenType.a_token)
-            .Register("b", AbcTokenType.b_token)
-            .Register("c", AbcTokenType.c_token)
-            .Initialize();
-         }
-         catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType>)
-         {
-            exeptionThrown = true;
-         }
-
-         Assert.IsFalse(exeptionThrown);
-      }
-
-      [TestMethod]
-      public void RegisterTest_OneTokenRegisteredTwice_Exception()
-      {
-         bool exeptionThrown = false;
-         try
-         {
-            var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-            .Register(@"aabb", AbcTokenType.aabb_token)
-            .Register(@"a(\w)+b", AbcTokenType.aXYZb_token)
-            .Register("a", AbcTokenType.a_token)
-            .Register("a", AbcTokenType.a_token)
-            .Register("b", AbcTokenType.b_token)
-            .Register("c", AbcTokenType.c_token)
-            .Initialize();
-         }
-         catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType> e)
-         {
-            exeptionThrown = true;
-            Assert.AreEqual("Not allowed to register Token more than one time", e.Message);
-            Assert.AreEqual(AbcTokenType.a_token, e.TokenType);
-         }
-
-         Assert.IsTrue(exeptionThrown);
-      }
+      protected abstract TokenizerCreator<AbcTokenType> GetCreator();
 
       [TestMethod]
       public void ScanTest_EmptyToken_AllNonCharactersBetweenTextAndEnd()
       {
-         var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-                         .Register("", AbcTokenType.a_token)
-                         .Initialize();
+         var creator = GetCreator();
+         creator.Register("", AbcTokenType.a_token);
+         var tokenizer = creator.Create();
          var text = "aabbcc";
 
          var tokens = tokenizer.Scan(text).ToList();
@@ -249,15 +157,15 @@ namespace LexSharp
       }
 
 
-      private ITokenizer<AbcTokenType> CreateAbctokenizer()
+      private Tokenizer<AbcTokenType> CreateAbctokenizer()
       {
-         var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-                              .Register(@"(a)+", AbcTokenType.a_token)
-                              .Register(@"aabb", AbcTokenType.aabb_token)
-                              .Register(@"a(\w)+b", AbcTokenType.aXYZb_token)
-                              .Register(@"(b)+", AbcTokenType.b_token)
-                              .Register(@"(c)+", AbcTokenType.c_token)
-                              .Initialize();
+         var creator = GetCreator();
+         creator.Register(@"(a)+", AbcTokenType.a_token);
+         creator.Register(@"aabb", AbcTokenType.aabb_token);
+         creator.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         creator.Register(@"(b)+", AbcTokenType.b_token);
+         creator.Register(@"(c)+", AbcTokenType.c_token);
+         var tokenizer = creator.Create();
          return tokenizer;
       }
    }

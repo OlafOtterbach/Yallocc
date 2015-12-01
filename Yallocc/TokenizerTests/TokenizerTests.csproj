@@ -6,7 +6,7 @@
     <ProjectGuid>{D8C4D45F-CF3D-42BD-B978-95B8008EA4FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TokenizerTests</RootNamespace>
+    <RootNamespace>Yallocc.Tokenizer</RootNamespace>
     <AssemblyName>TokenizerTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -52,22 +52,33 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AbcTokenType.cs" />
+    <Compile Include="BasicTest.cs" />
+    <None Include="LeTok\LeTokTest.cs" />
+    <None Include="TokenizerCreatorTest.cs" />
+    <Compile Include="CodeGroupTest.cs" />
     <Compile Include="LeTok\LeTokBasicTest.cs" />
-    <Compile Include="LeTok\LeTokTest.cs" />
-    <Compile Include="LeTok\LexTest.cs" />
-    <Compile Include="LexSharp\CodeGroupTest.cs" />
-    <Compile Include="LexSharp\LexTest.cs" />
-    <Compile Include="LexSharp\TokenTypeTest.cs" />
+    <Compile Include="LeTok\LeTokCodeGroupTest.cs" />
+    <Compile Include="LeTok\LeTokMatchingTheLongestTest.cs" />
+    <Compile Include="LeTok\LeTokTokenizerTest.cs" />
+    <Compile Include="LexSharp\LexSharpBasicTest.cs" />
+    <Compile Include="LexSharp\LexSharpCodeGroupTest.cs" />
+    <Compile Include="LexSharp\LexSharpMatchingTheLongestTest.cs" />
+    <Compile Include="LexSharp\LexSharpTokenizerTest.cs" />
+    <Compile Include="LexSharp\LexSharpTokenTypeTest.cs" />
+    <None Include="LexSharp\LexTest.cs" />
+    <Compile Include="TokenizerTest.cs" />
+    <Compile Include="TokenTypeTest.cs" />
+    <Compile Include="PatternTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LeTok\TokenTypeTest.cs" />
+    <Compile Include="LeTok\LeTokTokenTypeTest.cs" />
+    <Compile Include="TokenTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
-      <Name>LexSharp</Name>
+      <Name>Tokenizer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

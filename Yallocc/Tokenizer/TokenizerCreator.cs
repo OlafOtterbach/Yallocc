@@ -69,6 +69,23 @@ namespace Yallocc.Tokenizer
       public abstract Tokenizer<T> Create();
 
 
+      protected IEnumerable<Pattern<T>> Patterns
+      {
+         get
+         {
+            return _patterns;
+         }
+      }
+
+
+      protected IEnumerable<Pattern<T>> PatternsToIgnore
+      {
+         get
+         {
+            return _patternsToIgnore;
+         }
+      }
+
       private Pattern<T> CreatePattern(string patternText, T tokenType)
       {
          if (_patterns.Any(p => p.TokenType.Equals(tokenType)))
@@ -76,9 +93,16 @@ namespace Yallocc.Tokenizer
             throw new TokenRegisteredMoreThanOneTimeException<T>(tokenType, "Not allowed to register Token more than one time");
          }
 
-         var regexPattern = new Regex(patternText, _regexOptions);
-         var pattern = new Pattern<T>(regexPattern, tokenType);
-         return pattern;
+         try
+         {
+            var regexPattern = new Regex(patternText, _regexOptions);
+            var pattern = new Pattern<T>(regexPattern, tokenType);
+            return pattern;
+         }
+         catch (ArgumentException)
+         {
+            throw new ArgumentException("patterntext {0} is not a regular expression.", patternText);
+         };
       }
    }
 }

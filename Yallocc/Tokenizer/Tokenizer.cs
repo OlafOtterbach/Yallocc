@@ -5,21 +5,21 @@ namespace Yallocc.Tokenizer
 {
    public abstract class Tokenizer<T> where T : struct
    {
-      private readonly IEnumerable<Pattern<T>> _patterns;
-      private readonly IEnumerable<T> _ignoreTokenType;
+      private readonly Pattern<T>[] _patterns;
+      private readonly T[] _ignoreTokenType;
 
 
       public Tokenizer(IEnumerable<Pattern<T>> patterns, IEnumerable<Pattern<T>> patternsToIgnore)
       {
-         _patterns = patterns.Concat(patternsToIgnore).ToList();
-         _ignoreTokenType = patternsToIgnore.Select(p => p.TokenType).ToList();
+         _patterns = patterns.Concat(patternsToIgnore).ToArray();
+         _ignoreTokenType = patternsToIgnore.Select(p => p.TokenType).ToArray();
       }
 
 
       public abstract IEnumerable<Token<T>> Scan(string text);
 
 
-      protected IEnumerable<Pattern<T>> Patterns
+      protected Pattern<T>[] Patterns
       {
          get
          {
@@ -28,7 +28,7 @@ namespace Yallocc.Tokenizer
       }
 
 
-      protected IEnumerable<T> IgnoreTokenType
+      protected T[] IgnoreTokenType
       {
          get
          {

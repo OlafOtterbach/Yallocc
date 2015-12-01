@@ -2,18 +2,20 @@
 using System;
 using System.Linq;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    [TestClass]
-   public class CodeGroupTest
+   public abstract class CodeGroupTest
    {
+      protected abstract TokenizerCreator<long> GetCreator();
+
       [TestMethod]
       public void ScanTest_TokenOverlappingCodeGroup_TenTokens()
       {
-         var lex = Create();
+         var tokenizer = Create();
          var binaries = "101111110110010000110001111110";
 
-         var sequence = lex.Scan(binaries).ToList();
+         var sequence = tokenizer.Scan(binaries).ToList();
 
          Assert.AreEqual(10, sequence.Count());
          Assert.AreEqual(5, sequence[0].Type);
@@ -33,14 +35,14 @@ namespace LexSharp
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3;
-         var lex = Create();
+         var tokenizer = Create();
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)
                                  .Select(i => rand.Next(0, 2))
                                  .Select(x => x.ToString())
                                  .Aggregate((current, elem) => current = current + elem);
 
-         var sequence = lex.Scan(binaries).ToList();
+         var sequence = tokenizer.Scan(binaries).ToList();
 
          Assert.IsTrue(sequence.All(x => x.Type != null));
       }
@@ -50,14 +52,14 @@ namespace LexSharp
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3 + 1;
-         var lex = Create();
+         var tokenizer = Create();
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)
                                  .Select(i => rand.Next(0, 2))
                                  .Select(x => x.ToString())
                                  .Aggregate((current, elem) => current = current + elem);
 
-         var sequence = lex.Scan(binaries).ToList();
+         var sequence = tokenizer.Scan(binaries).ToList();
 
          Assert.AreEqual(1, sequence.Count(x => x.Type == null));
       }
@@ -67,30 +69,30 @@ namespace LexSharp
       {
          const int elementsLimit = 10000;
          const int limit = elementsLimit * 3 + 2;
-         var lex = Create();
+         var tokenizer = Create();
          var rand = new Random();
          var binaries = Enumerable.Range(0, limit)
                                  .Select(i => rand.Next(0, 2))
                                  .Select(x => x.ToString())
                                  .Aggregate((current, elem) => current = current + elem);
 
-         var sequence = lex.Scan(binaries).ToList();
+         var sequence = tokenizer.Scan(binaries).ToList();
 
          Assert.AreEqual(1, sequence.Count(x => x.Type == null));
       }
 
-      private LexSharp<long> Create()
+      private Tokenizer<long> Create()
       {
-         var lex = new LexSharp<long>();
-         lex.Register(@"000", 0);
-         lex.Register(@"001", 1);
-         lex.Register(@"010", 2);
-         lex.Register(@"011", 3);
-         lex.Register(@"100", 4);
-         lex.Register(@"101", 5);
-         lex.Register(@"110", 6);
-         lex.Register(@"111", 7);
-         return lex;
+         var creator = GetCreator();
+         creator.Register(@"000", 0);
+         creator.Register(@"001", 1);
+         creator.Register(@"010", 2);
+         creator.Register(@"011", 3);
+         creator.Register(@"100", 4);
+         creator.Register(@"101", 5);
+         creator.Register(@"110", 6);
+         creator.Register(@"111", 7);
+         return creator.Create();
       }
    }
 }

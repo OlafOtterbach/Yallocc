@@ -19,65 +19,24 @@ namespace Yallocc.Tokenizer.LeTok
          public bool IsValid;
       }
 
-      private List<Pattern<T>> _patterns;
+      private readonly Regex _regex;
+      private readonly int _skipUnnamedGroups;
 
-      private List<T> _ignoreTokenType;
 
-      private Regex _regex;
-
-      private int _skipUnnamedGroups;
-
-      public LeTok()
+      public LeTok(IEnumerable<Pattern<T>> patterns, IEnumerable<Pattern<T>> patternsToIgnor) : base(patterns, patternsToIgnor)
       {
-         _patterns = new List<Pattern<T>>();
-         _ignoreTokenType = new List<T>();
-         _skipUnnamedGroups = 0;
-      }
-
-      public void Register(string patternText, T tokenType)
-      {
-         if(patternText == null)
-         {
-            throw new ArgumentNullException("patternText");
-         }
-
-         var pattern = new Pattern<T>();
-         try
-         {
-             pattern = new Pattern<T>(patternText, tokenType);
-         }
-         catch (ArgumentException)
-         {
-            throw new ArgumentException("patterntext {0} is not a regular expression.", patternText);
-         };
-
-         if (_patterns.Any(p => p.TokenType.Equals(tokenType)))
-         {
-            throw new TokenRegisteredMoreThanOneTimeException<T>(tokenType, "Not allowed to register Token more than one time");
-         }
-
-         _patterns.Add(pattern);
-      }
-
-      public void RegisterIgnorePattern(string patternText, T tokenType)
-      {
-         Register(patternText, tokenType);
-         _ignoreTokenType.Add(tokenType);
-      }
-
-      public void Initialize()
-      {
-         var patternForAll = _patterns.Where(pattern => pattern.TokenPattern != null)
+         var patternForAll = Patterns.Where(pattern => pattern.TokenPattern != null)
                                       .Select(x => string.Format("(?<{0}>{1})", "M" + x.TokenType, x.TokenPattern))
                                       .Aggregate((current, elem) => current + "|" + elem);
          _regex = new Regex(patternForAll, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
          var groupNames = _regex.GetGroupNames();
-         var patternNames = _patterns.Select(p => "M" + p.TokenType.ToString());
+         var patternNames = Patterns.Select(p => "M" + p.TokenType.ToString());
          _skipUnnamedGroups = groupNames.Count(x => !patternNames.Contains(x));
       }
 
-      public IEnumerable<Token<T>> Scan(string text)
+
+      public override IEnumerable<Token<T>> Scan(string text)
       {
          if(text == null)
          {
@@ -96,29 +55,11 @@ namespace Yallocc.Tokenizer.LeTok
          var tokens = none.Concat(matches)
                           .Zip(matches.Concat(none), (prev, curr) => Create(text, prev, curr))
                           .SelectMany(x => x);
-         var validTokens = tokens.Where(tok => (tok.Type == null) || (!_ignoreTokenType.Contains((T)tok.Type)));
+         var validTokens = tokens.Where(tok => (tok.Type == null) || (!IgnoreTokenType.Contains((T)tok.Type)));
 
          return validTokens;
       }
 
-      public bool IsComplete()
-      {
-         if (!_patterns.Any())
-         {
-            return false;
-         }
-
-         bool isEnum = _patterns.First().TokenType is Enum;
-         if (isEnum)
-         {
-            var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => _patterns.Any(x => x.TokenType.Equals(tokType)));
-            return isComplete;
-         }
-         else
-         {
-            throw new TokenIsNotAnEnumTypeException("Can not test on completeness. Type is not enum type");
-         }
-      }
 
       private IEnumerable<Token<T>> Create(string text, MatchPair prev, MatchPair curr)
       {
@@ -163,11 +104,13 @@ namespace Yallocc.Tokenizer.LeTok
          }
       }
 
+
       private Token<T> CreateToken(MatchPair match)
       {
-         var token = new Token<T>(match.Match.Value, _patterns[match.Index].TokenType, match.Match.Index, match.Match.Length);
+         var token = new Token<T>(match.Match.Value, Patterns[match.Index].TokenType, match.Match.Index, match.Match.Length);
          return token;
       }
+
 
       private Token<T> CreateDefaultToken(string text, int start, int length)
       {

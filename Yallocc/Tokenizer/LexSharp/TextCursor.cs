@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer.LexSharp
 {
    internal class TextCursor<T> where T : struct
    {

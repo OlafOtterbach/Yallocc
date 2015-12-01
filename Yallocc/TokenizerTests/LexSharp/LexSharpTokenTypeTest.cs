@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yallocc.Tokenizer.LeTok;
+using Yallocc.Tokenizer.LexSharp;
 
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   class LeTokBasicTest : BasicTest
+   public class LexSharpTokenTypeTest : TokenTypeTest
    {
       protected override TokenizerCreator<TokenType> GetCreator()
       {
-         return new LeTokCreator<TokenType>();
+         return new LexSharpCreator<TokenType>();
       }
    }
 }

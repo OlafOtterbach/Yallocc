@@ -1,5 +1,4 @@
-﻿using LexSharp;
-using System;
+﻿using System;
 
 namespace Yallocc
 {

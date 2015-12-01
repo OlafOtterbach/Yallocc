@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    [TestClass]
    public class LeTokTest

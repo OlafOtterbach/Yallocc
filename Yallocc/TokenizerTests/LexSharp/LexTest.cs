@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    [TestClass]
    public class LexTest

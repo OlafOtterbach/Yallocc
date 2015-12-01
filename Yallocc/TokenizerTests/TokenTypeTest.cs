@@ -1,18 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace LexSharp
+namespace Yallocc.Tokenizer
 {
    [TestClass]
-   public class TokenTypeTest
+   public abstract class TokenTypeTest
    {
-      [TestMethod]
-      public void ScanTest_Hallo_TokenIsName()
-      {
-         LexSharp<TokenType> lex = new LexSharp<TokenType>();
-         DefineTokenType(lex);
+      protected abstract TokenizerCreator<TokenType> GetCreator();
 
-         var name = lex.Scan("Hallo").ToList();
+      [TestMethod]
+      public void ScanTest_WhenHallo_ThenTokenIsName()
+      {
+         var tokenizer = CreateTokenizer();
+
+         var name = tokenizer.Scan("Hallo").ToList();
 
          Assert.IsTrue(name.Any());
          Assert.AreEqual(name.First().Type, TokenType.name);
@@ -20,20 +21,19 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void SpecialCharactersTest_SpecialCharacters_RecognizingTokenType()
+      public void SpecialCharactersTest_WhenSpecialCharacters_ThenRecognizingTokenType()
       {
-         LexSharp<TokenType> lex = new LexSharp<TokenType>();
-         DefineTokenType(lex);
+         var tokenizer = CreateTokenizer();
 
-         var plus = lex.Scan("+").ToList();
-         var minus = lex.Scan("-").ToList();
-         var mult = lex.Scan("*").ToList();
-         var div = lex.Scan("/").ToList();
-         var equal = lex.Scan("=").ToList();
-         var greater = lex.Scan(">").ToList();
-         var less = lex.Scan("<").ToList();
-         var open = lex.Scan("(").ToList();
-         var close = lex.Scan(")").ToList();
+         var plus = tokenizer.Scan("+").ToList();
+         var minus = tokenizer.Scan("-").ToList();
+         var mult = tokenizer.Scan("*").ToList();
+         var div = tokenizer.Scan("/").ToList();
+         var equal = tokenizer.Scan("=").ToList();
+         var greater = tokenizer.Scan(">").ToList();
+         var less = tokenizer.Scan("<").ToList();
+         var open = tokenizer.Scan("(").ToList();
+         var close = tokenizer.Scan(")").ToList();
 
          Assert.IsTrue(plus.Any());
          Assert.IsTrue(minus.Any());
@@ -67,18 +67,17 @@ namespace LexSharp
       }
 
       [TestMethod]
-      public void NumberTest_Number_RecognizingNumber()
+      public void NumberTest_WhenNumber_ThenRecognizingNumber()
       {
-         LexSharp<TokenType> lex = new LexSharp<TokenType>();
-         DefineTokenType(lex);
+         var tokenizer = CreateTokenizer();
 
-         var one = lex.Scan("1").ToList();
-         var oneDot = lex.Scan("1.").ToList();
-         var oneDotZeroOneTwoThree = lex.Scan("1.0123").ToList();
-         var zero = lex.Scan("0").ToList();
-         var zeroDot = lex.Scan("0.").ToList();
-         var dotZero = lex.Scan(".0").ToList();
-         var zeroDotOneTwoThree = lex.Scan("0.123").ToList();
+         var one = tokenizer.Scan("1").ToList();
+         var oneDot = tokenizer.Scan("1.").ToList();
+         var oneDotZeroOneTwoThree = tokenizer.Scan("1.0123").ToList();
+         var zero = tokenizer.Scan("0").ToList();
+         var zeroDot = tokenizer.Scan("0.").ToList();
+         var dotZero = tokenizer.Scan(".0").ToList();
+         var zeroDotOneTwoThree = tokenizer.Scan("0.123").ToList();
 
          Assert.IsTrue(one.Any());
          Assert.IsTrue(oneDot.Any());
@@ -106,23 +105,27 @@ namespace LexSharp
          Assert.AreEqual(zeroDotOneTwoThree.First().Value, "0.123");
       }
 
-      private void DefineTokenType(LexSharp<TokenType> lex)
+      private Tokenizer<TokenType> CreateTokenizer()
       {
-         lex.Register(@"\+", TokenType.plus);
-         lex.Register(@"\-", TokenType.minus);
-         lex.Register(@"\*", TokenType.mult);
-         lex.Register(@"\/", TokenType.div);
-         lex.Register(@"=", TokenType.equal);
-         lex.Register(@"\>", TokenType.greater);
-         lex.Register(@"\<", TokenType.less);
-         lex.Register(@"\(", TokenType.open);
-         lex.Register(@"\)", TokenType.close);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
-         lex.Register(@"(\w)+", TokenType.name);
+         var creator = GetCreator();
+
+         creator.Register(@"\+", TokenType.plus);
+         creator.Register(@"\-", TokenType.minus);
+         creator.Register(@"\*", TokenType.mult);
+         creator.Register(@"\/", TokenType.div);
+         creator.Register(@"=", TokenType.equal);
+         creator.Register(@"\>", TokenType.greater);
+         creator.Register(@"\<", TokenType.less);
+         creator.Register(@"\(", TokenType.open);
+         creator.Register(@"\)", TokenType.close);
+         creator.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
+         creator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
+         creator.Register(@"(\w)+", TokenType.name);
+
+         return creator.Create();
       }
 
-      private enum TokenType
+      public enum TokenType
       {
          plus,          // +
          minus,         // -

@@ -1,4 +1,4 @@
-﻿namespace LexSharp
+﻿namespace Yallocc.Tokenizer
 {
    public enum AbcTokenType
    {

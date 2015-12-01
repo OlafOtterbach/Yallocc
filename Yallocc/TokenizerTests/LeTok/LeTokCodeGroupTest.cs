@@ -4,11 +4,11 @@ using Yallocc.Tokenizer.LeTok;
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   class LeTokBasicTest : BasicTest
+   class LeTokCodeGroupTest : CodeGroupTest
    {
-      protected override TokenizerCreator<TokenType> GetCreator()
+      protected override TokenizerCreator<long> GetCreator()
       {
-         return new LeTokCreator<TokenType>();
+         return new LeTokCreator<long>();
       }
    }
 }
