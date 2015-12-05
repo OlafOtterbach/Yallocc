@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using Yallocc.Tokenizer.LeTok;
 
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   class LeTokTokenizerTest : TokenizerTest
+   public class LeTokTokenizerTest : TokenizerTest
    {
       protected override TokenizerCreator<AbcTokenType> GetCreator()
       {

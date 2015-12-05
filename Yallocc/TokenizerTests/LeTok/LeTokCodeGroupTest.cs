@@ -4,7 +4,7 @@ using Yallocc.Tokenizer.LeTok;
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   class LeTokCodeGroupTest : CodeGroupTest
+   public class LeTokCodeGroupTest : CodeGroupTest
    {
       protected override TokenizerCreator<long> GetCreator()
       {

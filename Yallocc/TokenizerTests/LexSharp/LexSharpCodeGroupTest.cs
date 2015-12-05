@@ -4,7 +4,7 @@ using Yallocc.Tokenizer.LexSharp;
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   class LexSharpCodeGroupTest : CodeGroupTest
+   public class LexSharpCodeGroupTest : CodeGroupTest
    {
       protected override TokenizerCreator<long> GetCreator()
       {

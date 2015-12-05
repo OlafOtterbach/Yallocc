@@ -32,6 +32,7 @@ namespace Yallocc.Tokenizer.LexSharp
 
       public bool IsNotFinished { get; private set; }
 
+      bool _zeroLengtFlag;
 
       public Token<T> GetNextToken()
       {
@@ -50,7 +51,7 @@ namespace Yallocc.Tokenizer.LexSharp
             _cursorPos = tokenResult.TextIndex + ((tokenResult.Length > 0) ? tokenResult.Length : 1);
             ScanNextMatch();
 
-            if (tokenResult.TextIndex == actualCursorPos)
+            if ((!_zeroLengtFlag) && (tokenResult.TextIndex == actualCursorPos))
             {
                return tokenResult;
             }
@@ -61,6 +62,7 @@ namespace Yallocc.Tokenizer.LexSharp
                var untokenResult = new Token<T>(_text.Substring(actualCursorPos, length), actualCursorPos, length);
                return untokenResult;
             }
+            _zeroLengtFlag = tokenResult.Length == 0;
 
          }
          else

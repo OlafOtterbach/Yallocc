@@ -70,7 +70,7 @@ namespace Yallocc.Tokenizer.LeTok
                var delta = curr.Match.Index - prev.Match.Index - prev.Match.Length;
                if (delta > 0)
                {
-                  yield return CreateDefaultToken(text, prev.Match.Index + delta - 1, delta);
+                  yield return CreateDefaultToken(text, prev.Match.Index + prev.Match.Length, delta);
                }
                yield return CreateToken(curr);
             }
@@ -79,7 +79,7 @@ namespace Yallocc.Tokenizer.LeTok
                var delta = text.Length - prev.Match.Index - prev.Match.Length;
                if (delta > 0)
                {
-                  yield return CreateDefaultToken(text, prev.Match.Index + delta - 1, delta);
+                  yield return CreateDefaultToken(text, prev.Match.Index + prev.Match.Length, delta);
                }
             }
          }

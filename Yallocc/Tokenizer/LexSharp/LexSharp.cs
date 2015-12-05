@@ -14,7 +14,7 @@ namespace Yallocc.Tokenizer.LexSharp
          var TextCursor = new TextCursor<T>(text, Patterns);
          var tokens = Enumerable.Range(0, int.MaxValue)
                                 .Select(x => TextCursor.GetNextToken())
-                                .TakeWhile(r => TextCursor.IsNotFinished);
+                                .TakeWhile(r => TextCursor.IsNotFinished).ToList();
          var validTokens = tokens.Where( tok => (tok.Type == null) || (!IgnoreTokenType.Contains((T)tok.Type)));
          return validTokens;
       }

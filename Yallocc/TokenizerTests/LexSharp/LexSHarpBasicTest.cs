@@ -4,7 +4,7 @@ using Yallocc.Tokenizer.LexSharp;
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   class LexSharpBasicTest : BasicTest
+   public class LexSharpBasicTest : BasicTest
    {
       protected override TokenizerCreator<TokenType> GetCreator()
       {

@@ -10,17 +10,6 @@ namespace Yallocc.Tokenizer
       protected abstract TokenizerCreator<TokenType> GetCreator();
 
       [TestMethod]
-      public void Test_WhenGiantRandomBasicText_ThenAllTokensDetected()
-      {
-         var tokenizer = CreateTokenizer();
-         var text = CreateBasicText(10000);
-
-         var sequence = tokenizer.Scan(text);
-
-         Assert.IsTrue(sequence.All(tok => tok.IsValid));
-      }
-
-      [TestMethod]
       public void ScanText_WhenTestBasicText_ThenAllTokensDetected()
       {
          var tokenizer = CreateTokenizer();
@@ -32,7 +21,18 @@ namespace Yallocc.Tokenizer
       }
 
       [TestMethod]
-      public void ScanText_WhenRandomBasicText_ThenAllTokensDetected()
+      public void ScanTest_WhenGiantRandomBasicText_ThenAllTokensDetected()
+      {
+         var tokenizer = CreateTokenizer();
+         var text = CreateBasicText(10000);
+
+         var sequence = tokenizer.Scan(text);
+
+         Assert.IsTrue(sequence.All(tok => tok.IsValid));
+      }
+
+      [TestMethod]
+      public void ScanTest_WhenRandomBasicText_ThenAllTokensDetected()
       {
          var tokenizer = CreateTokenizer();
          var text = CreateBasicText(5);
@@ -43,14 +43,22 @@ namespace Yallocc.Tokenizer
       }
 
       [TestMethod]
-      public void ScanText_WhenGiantRandomBasicText_ThenAllTokensDetected()
+      public void ParallelScanText_WhenScanSameTextParallel_ThenAllResultsAreEqual()
       {
          var tokenizer = CreateTokenizer();
          var text = CreateBasicText(10000);
 
-         var sequence = tokenizer.Scan(text).ToList();
 
-         Assert.IsTrue(sequence.All(tok => tok.IsValid));
+         var sequences = Enumerable.Range(0, 8).AsParallel().Select(i => tokenizer.Scan(text).ToList()).ToList();
+         var allHaveSameLength = Enumerable.Range(0, 7)
+                                           .Select(i => new { Curr = i, Succ = i + 1 })
+                                           .All(p => sequences[p.Curr].Count == sequences[p.Succ].Count);
+         Assert.IsTrue(allHaveSameLength);
+         var allAreEqual = Enumerable.Range(0, 7)
+                                     .Select(i => new { Curr = i, Succ = i + 1 })
+                                     .Select(p => sequences[p.Curr].Zip(sequences[p.Succ], (c, s) => c.Type == s.Type))
+                                     .All(checks => checks.All(x => x));
+         Assert.IsTrue(allAreEqual);
       }
 
       protected enum TokenType
@@ -95,7 +103,7 @@ namespace Yallocc.Tokenizer
          white_space      // _, TAB
       }
 
-      private Tokenizer<TokenType> CreateTokenizer()
+      protected Tokenizer<TokenType> CreateTokenizer()
       {
          var creator = GetCreator();
          creator.Register(@"PROGRAM", TokenType.program_keyword);
@@ -110,12 +118,12 @@ namespace Yallocc.Tokenizer
          creator.Register(@"\<", TokenType.less);
          creator.Register(@"\<=", TokenType.lessEqual);
          creator.Register(@"\(", TokenType.open);
-         creator.Register(@"\);", TokenType.close);
+         creator.Register(@"\)", TokenType.close);
          creator.Register(@",", TokenType.comma);
          creator.Register(@":", TokenType.colon);
          creator.Register("\r\n", TokenType.Return);
-         creator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
          creator.Register(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
+         creator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
          creator.Register("\".*\"", TokenType.text);
          creator.Register(@"DIM", TokenType.dim_keyword);
          creator.Register(@"LET", TokenType.let_keyword);
@@ -138,7 +146,7 @@ namespace Yallocc.Tokenizer
          return creator.Create();
       }
 
-      static string CreateBasicText(int limit)
+      protected static string CreateBasicText(int limit)
       {
          var words = new System.Collections.Generic.List<string>
          {
