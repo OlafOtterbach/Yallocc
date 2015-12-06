@@ -44,6 +44,11 @@ namespace Yallocc.Tokenizer
          _patternsToIgnore.Add(CreatePattern(patternText, tokenType));
       }
 
+      public void Clear()
+      {
+         _patterns.Clear();
+         _patternsToIgnore.Clear();
+      }
 
       public bool IsComplete()
       {
@@ -91,6 +96,11 @@ namespace Yallocc.Tokenizer
          if (_patterns.Any(p => p.TokenType.Equals(tokenType)))
          {
             throw new TokenRegisteredMoreThanOneTimeException<T>(tokenType, "Not allowed to register Token more than one time");
+         }
+
+         if(string.IsNullOrEmpty(patternText))
+         {
+            throw new ArgumentException("Empty patterntext is not a valid regular expression for the tokenizer.", patternText);
          }
 
          try

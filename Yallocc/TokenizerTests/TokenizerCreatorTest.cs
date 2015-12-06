@@ -17,6 +17,25 @@ namespace Yallocc.Tokenizer
       protected abstract TokenizerCreator<TokenType> GetCreator();
 
       [TestMethod]
+      public void RegisterTest_EmptyPattern_ArgumentException()
+      {
+         var creator = GetCreator();
+         var exeptionThrown = false;
+         var exceptionMessage = string.Empty;
+         try
+         {
+            creator.Register("", AbcTokenType.a_token);
+         }
+         catch (ArgumentException e)
+         {
+            exeptionThrown = true;
+            exceptionMessage = e.Message;
+         }
+         Assert.IsTrue(exeptionThrown);
+         Assert.AreEqual("Empty patterntext is not a valid regular expression for the tokenizer.", exceptionMessage);
+      }
+
+      [TestMethod]
       public void IsCompleteTest_WhenCompleteRegisteredTokens_ThenCreatorIsComplete()
       {
          var creator = new TestCreator<AbcTokenType>();

@@ -2,7 +2,7 @@
 
 namespace Yallocc.Tokenizer
 {
-   public struct Token<T> where T : struct
+   public struct Token<T> : IEquatable<Token<T>> where T : struct
    {
       public Token(T type) : this()
       {
@@ -42,6 +42,31 @@ namespace Yallocc.Tokenizer
          {
             return Type != null;
          }
+      }
+
+      public static bool operator ==(Token<T> first, Token<T> second)
+      {
+         return first.Equals(second);
+      }
+
+      public static bool operator !=(Token<T> first, Token<T> second)
+      {
+         return first.Equals(second);
+      }
+
+      public bool Equals(Token<T> other)
+      {
+         return (Value == other.Value) && (TextIndex == other.TextIndex) && (Type.Equals(other.Type));
+      }
+
+      public override bool Equals(object obj)
+      {
+         if (!(obj is Token<T>))
+         {
+            return false;
+         }
+
+         return Equals((Token<T>)obj);
       }
    }
 }

@@ -56,7 +56,7 @@ namespace Yallocc.Tokenizer
          Assert.IsTrue(allHaveSameLength);
          var allAreEqual = Enumerable.Range(0, 7)
                                      .Select(i => new { Curr = i, Succ = i + 1 })
-                                     .Select(p => sequences[p.Curr].Zip(sequences[p.Succ], (c, s) => c.Type == s.Type))
+                                     .Select(p => sequences[p.Curr].Zip(sequences[p.Succ], (c, s) => c == s))
                                      .All(checks => checks.All(x => x));
          Assert.IsTrue(allAreEqual);
       }
