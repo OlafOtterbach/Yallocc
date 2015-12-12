@@ -3,7 +3,6 @@
 /// <author>Olaf Otterbach</author>
 /// <date>11.11.2015</date>
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;

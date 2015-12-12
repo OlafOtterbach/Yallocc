@@ -3,43 +3,29 @@
 /// <author>Olaf Otterbach</author>
 /// <date>11.05.2015</date>
 
-using LexSharp;
+using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
    public class Yallocc<T> where T : struct
    {
-      LeTok<T> _tokenizer;
-      BuilderInterface<T> _builderInterface;
-      GrammarDictionary _grammers;
+      private readonly TokenizerCreator<T> _tokenizerCreator;
+      private readonly GrammarBuilderInterface<T> _builderInterface;
+      private readonly GrammarDictionary _grammers;
 
 
-      public Yallocc()
+      public Yallocc(TokenizerCreator<T> tokenizerCreator)
       {
          _grammers = new GrammarDictionary();
          var baseBuilder = new GrammarBuilder<T>(_grammers);
-         _builderInterface = new BuilderInterface<T>(baseBuilder);
-         _tokenizer = new LeTok<T>();
+         _builderInterface = new GrammarBuilderInterface<T>(baseBuilder);
+         _tokenizerCreator = tokenizerCreator;
          TokenCompletenessIsChecked = true;
       }
 
-
-      public LeTok<T> Lex
+      public TokenPatternBuilder<T> DefineTokens()
       {
-         get
-         {
-            return _tokenizer;
-         }
-      }
-
-      public void AddToken(string patternText, T tokenType)
-      {
-         _tokenizer.Register(patternText, tokenType);
-      }
-
-      public void AddTokenToIgnore(string patternText, T tokenType)
-      {
-         _tokenizer.RegisterIgnorePattern(patternText, tokenType);
+         return new TokenPatternBuilder<T>(_tokenizerCreator);
       }
 
       public EnterInterface<T> Grammar(string name)
@@ -63,13 +49,12 @@ namespace Yallocc
 
       public bool TokenCompletenessIsChecked { get; set; }
 
-      public YParser<T> CreateParser()
+      public ParserAndTokenizer<T> CreateParser()
       {
-         if(TokenCompletenessIsChecked && (!_tokenizer.IsComplete()))
+         if(TokenCompletenessIsChecked && (!_tokenizerCreator.IsComplete()))
          {
             throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
          }
-         _tokenizer.Initialize();
 
          if (GrammarInitialisationAndValidation.AnyProxyTransitions(_grammers))
          {
@@ -82,8 +67,9 @@ namespace Yallocc
          }
 
          GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammers);
-         
-         return new YParser<T>(_grammers.GetMasterGrammar(), _tokenizer);
+         var tokenizer = _tokenizerCreator.Create();
+         var parser = new SyntaxDiagramParser<T>(_grammers.GetMasterGrammar());
+         return new ParserAndTokenizer<T>(parser, tokenizer);
       }
    }
 }

@@ -1,4 +1,4 @@
-﻿using LexSharp;
+﻿using Yallocc.Tokenizer;
 using System;
 
 namespace Yallocc

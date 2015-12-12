@@ -1,5 +1,6 @@
-﻿using LexSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yallocc.Tokenizer;
+using Yallocc.Tokenizer.LeTok;
 
 namespace Yallocc
 {
@@ -259,29 +260,28 @@ namespace Yallocc
       private bool Parser(string text, Transition grammar)
       {
          var tokenizer = CreateAbcLex();
-         var parser = new Parser<AbcTokenType>();
+         var parser = new SyntaxDiagramParser<AbcTokenType>(grammar);
 
          var sequence = tokenizer.Scan(text);
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = parser.ParseTokens(sequence);
 
          return result.Success;
       }
 
-      private BuilderInterface<AbcTokenType> CreateBuilder(GrammarDictionary grammarDictionary)
+      private GrammarBuilderInterface<AbcTokenType> CreateBuilder(GrammarDictionary grammarDictionary)
       {
          var baseBuilder = new GrammarBuilder<AbcTokenType>(grammarDictionary);
-         var builderInterface = new BuilderInterface<AbcTokenType>(baseBuilder);
+         var builderInterface = new GrammarBuilderInterface<AbcTokenType>(baseBuilder);
          return builderInterface;
       }
 
-      private ITokenizer<AbcTokenType> CreateAbcLex()
+      private Tokenizer<AbcTokenType> CreateAbcLex()
       {
-         var tokenizer = LeTokBuilder<AbcTokenType>.Create()
-                           .Register(@"a", AbcTokenType.a_token)
-                           .Register(@"b", AbcTokenType.b_token)
-                           .Register(@"c", AbcTokenType.c_token)
-                           .Initialize();
-         return tokenizer;
+         var creator = new LeTokCreator<AbcTokenType>();
+         creator.Register(@"a", AbcTokenType.a_token);
+         creator.Register(@"b", AbcTokenType.b_token);
+         creator.Register(@"c", AbcTokenType.c_token);
+         return creator.Create();
       }
    }
 }

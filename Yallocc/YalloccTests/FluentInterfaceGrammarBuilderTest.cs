@@ -1,5 +1,5 @@
-﻿using LexSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
@@ -34,11 +34,11 @@ namespace Yallocc
          Assert.IsTrue(true);
       }
 
-      private BuilderInterface<AbcTokenType> CreateBuilder()
+      private GrammarBuilderInterface<AbcTokenType> CreateBuilder()
       {
          var grammarDictionary = new GrammarDictionary();
          var baseBuilder = new GrammarBuilder<AbcTokenType>(grammarDictionary);
-         var builderInterface = new BuilderInterface<AbcTokenType>(baseBuilder);
+         var builderInterface = new GrammarBuilderInterface<AbcTokenType>(baseBuilder);
          return builderInterface;
       }
    }

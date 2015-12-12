@@ -1,6 +1,7 @@
-﻿using LexSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using Yallocc.Tokenizer;
+using Yallocc.Tokenizer.LeTok;
 
 namespace Yallocc
 {
@@ -11,17 +12,17 @@ namespace Yallocc
    }
 
    [TestClass]
-   public class SimpleParserTest
+   public class SimpleSyntaxDiagramParserTest
    {
       [TestMethod]
       public void Parse_Simple_abaa_Correct()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
-         var sequence = lex.Scan("abaa");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("abaa");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsTrue(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -31,12 +32,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Simple_bbaa_NotCorrect()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
-         var sequence = lex.Scan("bbaa");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("bbaa");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -47,12 +48,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Simple_abba_NotCorrect()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
-         var sequence = lex.Scan("abba");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("abba");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -63,12 +64,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Container_abaa_Correct()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateContainerGrammar();
-         var sequence = lex.Scan("abaa").ToList();
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("abaa").ToList();
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsTrue(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -78,12 +79,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Container_abba_NotCorrect()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateContainerGrammar();
-         var sequence = lex.Scan("abba");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("abba");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -94,12 +95,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Loop_aaaaab_Correct()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
-         var sequence = lex.Scan("aaaaab");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("aaaaab");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsTrue(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -109,12 +110,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Loop_aaaaaa_NotCorrect()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
-         var sequence = lex.Scan("aaaaaa");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("aaaaaa");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -125,12 +126,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_Loop_aaaaaaba_NotCorrect()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
-         var sequence = lex.Scan("aaaaaaba");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("aaaaaaba");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -141,12 +142,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_EndlessLoop_aaaaa_NoSuccess()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateEndlessLoopGrammar();
-         var sequence = lex.Scan("aaaaa");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("aaaaa");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
@@ -156,12 +157,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_NotDeterministicBranchLoop_aaaaa_NoSuccess()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateNotDeterministicBranchLoop();
-         var sequence = lex.Scan("aaaaa");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("aaaaa");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
       }
@@ -169,12 +170,12 @@ namespace Yallocc
       [TestMethod]
       public void Parse_CreateNotDeterministicDeadLoopBranch_a_Correct()
       {
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateDeadLoopBranch();
-         var sequence = lex.Scan("a");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("a");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
@@ -185,12 +186,12 @@ namespace Yallocc
       public void Parse_Loop_aaaaab_TextIsStartaaaaab()
       {
          var res = new Result();
-         var lex = CreateAbLex();
+         var tokenizer = CreateAbTokenizer();
          var grammar = CreateAttributedLoopGrammar(res);
-         var sequence = lex.Scan("aaaaab");
-         var parser = new Parser<AbTokenType>();
+         var sequence = tokenizer.Scan("aaaaab");
+         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
 
-         var result = parser.ParseTokens(grammar, sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence);
 
          Assert.IsTrue(result.Success);
          Assert.AreEqual("[Start][Label]a[Label]a[Label]a[Label]a[Label]a[Label]b",res.Text);
@@ -275,12 +276,13 @@ namespace Yallocc
          return container;
       }
 
-      private LeTok<AbTokenType> CreateAbLex()
+      private Tokenizer<AbTokenType> CreateAbTokenizer()
       {
-         var lex = new LeTok<AbTokenType>();
-         lex.Register(@"a", AbTokenType.a_token);
-         lex.Register(@"b", AbTokenType.b_token);
-         return lex;
+         var creator = new LeTokCreator<AbTokenType>();
+         creator.Register(@"a", AbTokenType.a_token);
+         creator.Register(@"b", AbTokenType.b_token);
+         var tokenizer = creator.Create();
+         return tokenizer;
       }
    }
 }

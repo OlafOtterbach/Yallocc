@@ -1,5 +1,6 @@
-﻿using LexSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yallocc.Tokenizer;
+using Yallocc.Tokenizer.LeTok;
 
 namespace Yallocc
 {
@@ -90,8 +91,8 @@ namespace Yallocc
          var tokenizer = Createtokenizer();
          var grammar = CreateExpression();
          var sequence = tokenizer.Scan(text);
-         var parser = new Parser<ExpressionTokenType>();
-         var result = parser.ParseTokens(grammar, sequence);
+         var parser = new SyntaxDiagramParser<ExpressionTokenType>(grammar);
+         var result = parser.ParseTokens(sequence);
          return result;
       }
 
@@ -147,18 +148,17 @@ namespace Yallocc
          return startFactor;
       }
 
-      private ITokenizer<ExpressionTokenType> Createtokenizer()
+      private Tokenizer<ExpressionTokenType> Createtokenizer()
       {
-         var tokenizer = LeTokBuilder<ExpressionTokenType>.Create()
-                     .Register(@"\+", ExpressionTokenType.plus)
-                     .Register(@"-", ExpressionTokenType.minus)
-                     .Register(@"\*", ExpressionTokenType.mult)
-                     .Register(@"/", ExpressionTokenType.div)
-                     .Register(@"\(", ExpressionTokenType.open_clamp)
-                     .Register(@"\)", ExpressionTokenType.close_clamp)
-                     .Register(@"(0|1|2|3|4|5|6|7|8|9)+", ExpressionTokenType.number)
-                     .Initialize();
-         return tokenizer;
+         var tokenizerCreator = new LeTokCreator<ExpressionTokenType>();
+         tokenizerCreator.Register(@"\+", ExpressionTokenType.plus);
+         tokenizerCreator.Register(@"-", ExpressionTokenType.minus);
+         tokenizerCreator.Register(@"\*", ExpressionTokenType.mult);
+         tokenizerCreator.Register(@"/", ExpressionTokenType.div);
+         tokenizerCreator.Register(@"\(", ExpressionTokenType.open_clamp);
+         tokenizerCreator.Register(@"\)", ExpressionTokenType.close_clamp);
+         tokenizerCreator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", ExpressionTokenType.number);
+         return tokenizerCreator.Create();
       }
    }
 }
