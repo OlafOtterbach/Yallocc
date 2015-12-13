@@ -8,7 +8,7 @@ namespace SyntaxTree
    {
       private List<ITokenAndGrammarDefinition<T>> _grammarDefinitions; 
       private SyntaxTreeBuilder _syntaxTreeBuilder;
-      private YParser<T> _parser;
+      private ParserAndTokenizer<T> _parser;
 
       private SyntaxTreeGenerator()
       {
@@ -36,7 +36,7 @@ namespace SyntaxTree
          {
             throw new SyntaxTreeGeneratorNotReadyException("No grammar definition defined.");
          }
-
+        
          var yacc = new Yallocc<T>();
          _syntaxTreeBuilder = new SyntaxTreeBuilder();
          _grammarDefinitions.ForEach(g => g.Define(yacc, _syntaxTreeBuilder));

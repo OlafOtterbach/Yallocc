@@ -2,17 +2,17 @@
 {
    public class GeneratorInterfaceWithRegisterWithoutCreate<T> where T : struct
    {
-      private SyntaxTreeGenerator<T> _generator;
+      private SyntaxTreeGeneratorCreator<T> _creator;
 
-      public GeneratorInterfaceWithRegisterWithoutCreate(SyntaxTreeGenerator<T> generator)
+      public GeneratorInterfaceWithRegisterWithoutCreate(SyntaxTreeGeneratorCreator<T> creator)
       {
-         _generator = generator;
+         _creator = creator;
       }
 
       public GeneratorInterfaceWithRegisterWithCreate<T> Register(ITokenAndGrammarDefinition<T> grammarDefinition)
       {
-         _generator.Register(grammarDefinition);
-         return new GeneratorInterfaceWithRegisterWithCreate<T>(_generator);
+         _creator.Register(grammarDefinition);
+         return new GeneratorInterfaceWithRegisterWithCreate<T>(_creator);
       }
    }
 }
