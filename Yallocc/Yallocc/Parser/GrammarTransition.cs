@@ -1,6 +1,6 @@
 ﻿namespace Yallocc
 {
-   public class GrammarTransition : ActionTransition
+   public class GrammarTransition<TCtx> : ActionTransition<TCtx>
    {
       public GrammarTransition(Transition start) : base()
       {

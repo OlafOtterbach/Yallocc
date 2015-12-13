@@ -7,15 +7,16 @@ using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
-   public class Yallocc<T> where T : struct
+   public class Yallocc<TCtx,T> where T : struct
    {
+      private readonly TCtx _context;
       private readonly TokenizerCreator<T> _tokenizerCreator;
       private readonly GrammarBuilderInterface<T> _builderInterface;
       private readonly GrammarDictionary _grammers;
-
-
-      public Yallocc(TokenizerCreator<T> tokenizerCreator)
+      
+      public Yallocc(TCtx context, TokenizerCreator<T> tokenizerCreator)
       {
+         _context = context;
          _grammers = new GrammarDictionary();
          var baseBuilder = new GrammarBuilder<T>(_grammers);
          _builderInterface = new GrammarBuilderInterface<T>(baseBuilder);
@@ -49,7 +50,7 @@ namespace Yallocc
 
       public bool TokenCompletenessIsChecked { get; set; }
 
-      public ParserAndTokenizer<T> CreateParser()
+      public ParserAndTokenizer<TCtx,T> CreateParser()
       {
          if(TokenCompletenessIsChecked && (!_tokenizerCreator.IsComplete()))
          {
@@ -68,8 +69,8 @@ namespace Yallocc
 
          GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammers);
          var tokenizer = _tokenizerCreator.Create();
-         var parser = new SyntaxDiagramParser<T>(_grammers.GetMasterGrammar());
-         return new ParserAndTokenizer<T>(parser, tokenizer);
+         var parser = new SyntaxDiagramParser<TCtx,T>(_context, _grammers.GetMasterGrammar());
+         return new ParserAndTokenizer<TCtx,T>(parser, tokenizer);
       }
    }
 }

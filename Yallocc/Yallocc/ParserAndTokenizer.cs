@@ -2,12 +2,12 @@
 
 namespace Yallocc
 {
-   public class ParserAndTokenizer<T> where T : struct
+   public class ParserAndTokenizer<TCtx,T> where T : struct
    {
       private Tokenizer<T> _tokenizer;
-      private SyntaxDiagramParser<T> _parser;
+      private SyntaxDiagramParser<TCtx,T> _parser;
 
-      public ParserAndTokenizer(SyntaxDiagramParser<T> parser, Tokenizer<T> tokenizer)
+      public ParserAndTokenizer(SyntaxDiagramParser<TCtx,T> parser, Tokenizer<T> tokenizer)
       {
          _tokenizer = tokenizer;
          _parser = parser;

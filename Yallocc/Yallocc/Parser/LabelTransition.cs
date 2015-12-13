@@ -1,6 +1,6 @@
 ﻿namespace Yallocc
 {
-   public class LabelTransition : ActionTransition
+   public class LabelTransition<TCtx> : ActionTransition<TCtx>
    {
       public LabelTransition(string name) : base()
       {

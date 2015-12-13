@@ -2,18 +2,18 @@
 
 namespace Yallocc
 {
-   public class ActionTransition : Transition
+   public class ActionTransition<TCtx> : Transition
    {
       public ActionTransition()
       {
-         Action = () => {};
+         Action = (TCtx ctx) => {};
       }
 
-      public ActionTransition(Action action)
+      public ActionTransition(Action<TCtx> action)
       {
          Action = action;
       }
 
-      public Action Action { get; set; }
+      public Action<TCtx> Action { get; set; }
    }
 }

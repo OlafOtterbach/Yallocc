@@ -5,14 +5,16 @@ using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
-   public class SyntaxDiagramParser<T> where T : struct
+   public class SyntaxDiagramParser<TCtx, T> where T : struct
    {
       private readonly Transition _masterGrammarStartTransition;
       private readonly int _maxLookaheadSearchDepth;
+      private readonly TCtx _context;
 
 
-      public SyntaxDiagramParser(Transition masterGrammar, int max = 100 )
+      public SyntaxDiagramParser(TCtx context, Transition masterGrammar, int max = 100 )
       {
+         _context = context;
          _masterGrammarStartTransition = masterGrammar;
          _maxLookaheadSearchDepth = max;
       }
@@ -45,7 +47,7 @@ namespace Yallocc
          var isFinished = result.Success && IsFinished(elem, 0, endPath);
          if (isFinished)
          {
-            endPath.Select(x => x.Transition).OfType<ActionTransition>().ToList().ForEach(t => t.Action());
+            endPath.Select(x => x.Transition).OfType<ActionTransition<TCtx>>().ToList().ForEach(t => t.Action());
          }
          else
          {
@@ -57,13 +59,13 @@ namespace Yallocc
 
       private void Execute(Transition transition, Token<T> token)
       {
-         if (transition is ActionTransition)
+         if (transition is ActionTransition<TCtx>)
          {
-            (transition as ActionTransition).Action();
+            (transition as ActionTransition<TCtx>).Action(_context);
          }
-         else if (transition is TokenTypeTransition<T>)
+         else if (transition is TokenTypeTransition<TCtx, T>)
          {
-            (transition as TokenTypeTransition<T>).Action(token);
+            (transition as TokenTypeTransition<TCtx, T>).Action(_context, token);
          }
       }
 
@@ -74,10 +76,10 @@ namespace Yallocc
          while ((counter < _maxLookaheadSearchDepth) && (!found) && enumerator.MoveNext())
          {
             var succ = enumerator.Current;
-            if (!(succ.Transition is TokenTypeTransition<T>) || ((succ.Transition as TokenTypeTransition<T>).TokenType.Equals(tokenType)))
+            if (!(succ.Transition is TokenTypeTransition<TCtx,T>) || ((succ.Transition as TokenTypeTransition<TCtx,T>).TokenType.Equals(tokenType)))
             {
                path.Push(succ);
-               if ((succ.Transition is TokenTypeTransition<T>) || Lookahead(succ, path, tokenType, ++counter, false))
+               if ((succ.Transition is TokenTypeTransition<TCtx,T>) || Lookahead(succ, path, tokenType, ++counter, false))
                {
                   found = true;
                }
@@ -98,7 +100,7 @@ namespace Yallocc
          while ((!found) && (counter < _maxLookaheadSearchDepth) && enumerator.MoveNext())
          {
             var succ = enumerator.Current;
-            found = (!(succ.Transition is TokenTypeTransition<T>)) && IsFinished(succ, counter++, path);
+            found = (!(succ.Transition is TokenTypeTransition<TCtx,T>)) && IsFinished(succ, counter++, path);
             if (found)
             {
                path.Add(succ);
@@ -109,9 +111,9 @@ namespace Yallocc
 
       private IEnumerable<SyntaxElement> GetSuccessors(SyntaxElement elem)
       {
-         if (elem.Transition is GrammarTransition)
+         if (elem.Transition is GrammarTransition<TCtx>)
          {
-            return new List<SyntaxElement>() { new SyntaxElement((elem.Transition as GrammarTransition).Start, elem) };
+            return new List<SyntaxElement>() { new SyntaxElement((elem.Transition as GrammarTransition<TCtx>).Start, elem) };
          }
          else
          {
