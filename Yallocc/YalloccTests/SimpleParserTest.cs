@@ -14,13 +14,15 @@ namespace Yallocc
    [TestClass]
    public class SimpleSyntaxDiagramParserTest
    {
+      private class DummyContext {}
+
       [TestMethod]
       public void Parse_Simple_abaa_Correct()
       {
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
          var sequence = tokenizer.Scan("abaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -35,7 +37,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
          var sequence = tokenizer.Scan("bbaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -51,7 +53,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
          var sequence = tokenizer.Scan("abba");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -67,7 +69,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateContainerGrammar();
          var sequence = tokenizer.Scan("abaa").ToList();
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -82,7 +84,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateContainerGrammar();
          var sequence = tokenizer.Scan("abba");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -98,7 +100,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
          var sequence = tokenizer.Scan("aaaaab");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -113,7 +115,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
          var sequence = tokenizer.Scan("aaaaaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -129,7 +131,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
          var sequence = tokenizer.Scan("aaaaaaba");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -145,7 +147,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateEndlessLoopGrammar();
          var sequence = tokenizer.Scan("aaaaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -160,7 +162,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateNotDeterministicBranchLoop();
          var sequence = tokenizer.Scan("aaaaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -173,7 +175,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateDeadLoopBranch();
          var sequence = tokenizer.Scan("a");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -189,7 +191,7 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateAttributedLoopGrammar(res);
          var sequence = tokenizer.Scan("aaaaab");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<AbTokenType>(grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
 
          var result = SyntaxDiagramParser.ParseTokens(sequence);
 
@@ -199,10 +201,10 @@ namespace Yallocc
 
       private Transition CreateSimpleGrammar()
       {
-         var first = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
-         var second = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token);
-         var third = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
-         var fourd = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var first = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         var second = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.b_token);
+         var third = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         var fourd = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
          first.AddSuccessor(second);
          second.AddSuccessor(third);
          third.AddSuccessor(fourd);
@@ -212,26 +214,26 @@ namespace Yallocc
       private Transition CreateContainerGrammar()
       {
          var start = CreateSimpleGrammar();
-         var container = new GrammarTransition(start);
+         var container = new GrammarTransition<DummyContext>(start);
          return container;
       }
 
       private Transition CreateLoopGrammar()
       {
-         var first = new LabelTransition("Start");
-         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
-         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token);
+         var first = new LabelTransition<DummyContext>("Start");
+         var secondOne = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         var secondTwo = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.b_token);
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(first);
-         var container = new GrammarTransition(first);
+         var container = new GrammarTransition<DummyContext>(first);
          return container;
       }
 
       private Transition CreateEndlessLoopGrammar()
       {
-         var first = new LabelTransition("Start");
-         var second = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var first = new LabelTransition<DummyContext>("Start");
+         var second = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
          first.AddSuccessor(second);
          second.AddSuccessor(first);
          return first;
@@ -239,9 +241,9 @@ namespace Yallocc
 
       private Transition CreateNotDeterministicBranchLoop()
       {
-         var first = new LabelTransition("Start");
-         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
-         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var first = new LabelTransition<DummyContext>("Start");
+         var secondOne = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         var secondTwo = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(first);
@@ -250,9 +252,9 @@ namespace Yallocc
 
       private Transition CreateDeadLoopBranch()
       {
-         var first = new LabelTransition("Start");
-         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
-         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token);
+         var first = new LabelTransition<DummyContext>("Start");
+         var secondOne = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         var secondTwo = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(secondOne);
@@ -266,13 +268,13 @@ namespace Yallocc
 
       private Transition CreateAttributedLoopGrammar(Result result)
       {
-         var first = new LabelTransition("Start"){ Action = () => { result.Text += "[Label]"; } };
-         var secondOne = new TokenTypeTransition<AbTokenType>(AbTokenType.a_token) { Action = (Token<AbTokenType> token) => result.Text += token.Value };
-         var secondTwo = new TokenTypeTransition<AbTokenType>(AbTokenType.b_token) { Action = (Token<AbTokenType> token) => result.Text += token.Value };
+         var first = new LabelTransition<DummyContext>("Start"){ Action = (DummyContext ctx) => { result.Text += "[Label]"; } };
+         var secondOne = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token) { Action = (DummyContext ctx, Token<AbTokenType> token) => result.Text += token.Value };
+         var secondTwo = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.b_token) { Action = (DummyContext ctx, Token<AbTokenType> token) => result.Text += token.Value };
          first.AddSuccessor(secondOne);
          first.AddSuccessor(secondTwo);
          secondOne.AddSuccessor(first);
-         var container = new GrammarTransition(first){ Action = () => { result.Text += "[Start]"; } };
+         var container = new GrammarTransition<DummyContext>(first){ Action = (DummyContext ctx) => { result.Text += "[Start]"; } };
          return container;
       }
 

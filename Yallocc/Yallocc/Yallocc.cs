@@ -11,15 +11,15 @@ namespace Yallocc
    {
       private readonly TCtx _context;
       private readonly TokenizerCreator<T> _tokenizerCreator;
-      private readonly GrammarBuilderInterface<T> _builderInterface;
+      private readonly GrammarBuilderInterface<TCtx, T> _builderInterface;
       private readonly GrammarDictionary _grammers;
       
       public Yallocc(TCtx context, TokenizerCreator<T> tokenizerCreator)
       {
          _context = context;
          _grammers = new GrammarDictionary();
-         var baseBuilder = new GrammarBuilder<T>(_grammers);
-         _builderInterface = new GrammarBuilderInterface<T>(baseBuilder);
+         var baseBuilder = new GrammarBuilder<TCtx, T>(_grammers);
+         _builderInterface = new GrammarBuilderInterface<TCtx, T>(baseBuilder);
          _tokenizerCreator = tokenizerCreator;
          TokenCompletenessIsChecked = true;
       }
@@ -29,18 +29,18 @@ namespace Yallocc
          return new TokenPatternBuilder<T>(_tokenizerCreator);
       }
 
-      public EnterInterface<T> Grammar(string name)
+      public EnterInterface<TCtx, T> Grammar(string name)
       {
 
          return _builderInterface.Grammar(name);
       }
 
-      public EnterInterface<T> MasterGrammar(string name)
+      public EnterInterface<TCtx, T> MasterGrammar(string name)
       {
          return _builderInterface.MasterGrammar(name);
       }
 
-      public BranchInterface<T> Branch
+      public BranchInterface<TCtx, T> Branch
       {
          get
          {
@@ -57,7 +57,7 @@ namespace Yallocc
             throw new MissingTokenDefinitionException("Not all types of tokens are defined.");
          }
 
-         if (GrammarInitialisationAndValidation.AnyProxyTransitions(_grammers))
+         if (GrammarInitialisationAndValidation<TCtx>.AnyProxyTransitions(_grammers))
          {
             throw new GrammarBuildingException("Not all subgrammars are defined") { HasUndefinedSubgrammars = true };
          }
@@ -67,7 +67,7 @@ namespace Yallocc
             throw new GrammarBuildingException("Master grammar is not defined.") { MasterGrammarIsNotDefined = true };
          }
 
-         GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammers);
+         GrammarInitialisationAndValidation<TCtx>.ReplaceProxiesInGrammarTransitions(_grammers);
          var tokenizer = _tokenizerCreator.Create();
          var parser = new SyntaxDiagramParser<TCtx,T>(_context, _grammers.GetMasterGrammar());
          return new ParserAndTokenizer<TCtx,T>(parser, tokenizer);

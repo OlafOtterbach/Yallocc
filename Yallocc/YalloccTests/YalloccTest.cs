@@ -15,10 +15,12 @@ namespace Yallocc
          C,
       }
 
+      private class DummyContext {}
+
       [TestMethod]
       public void SwitchTest()
       {
-         var yacc = new Yallocc<Token>(new LexSharpCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LexSharpCreator<Token>());
          yacc.DefineTokens()
              .AddTokenPattern(@"a", Token.A)
              .AddTokenPattern(@"b", Token.B)
@@ -46,7 +48,7 @@ namespace Yallocc
       [TestMethod]
       public void RecursionTest()
       {
-         var yacc = new Yallocc<Token>(new LeTokCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LeTokCreator<Token>());
          yacc.DefineTokens()
              .AddTokenPattern(@"a", Token.A)
              .AddTokenPattern(@"b", Token.B)
@@ -86,7 +88,7 @@ namespace Yallocc
       [TestMethod]
       public void AddTokenAndCreateParserTest_AddABC_NoException()
       {
-         var yacc = new Yallocc<Token>(new LexSharpCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LexSharpCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -103,7 +105,7 @@ namespace Yallocc
       public void AddTokenAndCreateParserTest_AddAB_NotCompleteException()
       {
          var exceptionFound = false;
-         var yacc = new Yallocc<Token>(new LeTokCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LeTokCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -127,7 +129,7 @@ namespace Yallocc
       public void GrammarAndCreateParserTest_NoMasterGrammar_NoMasterGrammarException()
       {
          var exceptionFound = false;
-         var yacc = new Yallocc<Token>(new LexSharpCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LexSharpCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -152,7 +154,7 @@ namespace Yallocc
       [TestMethod]
       public void GrammarAndCreateParserTest_GrammarAndMasterGrammar_NoException()
       {
-         var yacc = new Yallocc<Token>(new LexSharpCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LexSharpCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -170,7 +172,7 @@ namespace Yallocc
       public void MasterGrammar_MasterGrammarDefinedTwice_MasterGrammarAlreadyDefinedException()
       {
          var exceptionFound = false;
-         var yacc = new Yallocc<Token>(new LeTokCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LeTokCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -196,7 +198,7 @@ namespace Yallocc
       public void CreateParserTest_MasterGrammarWithWrongLinkToGrammar_HasUndefinedSubGrammarException()
       {
          var exceptionFound = false;
-         var yacc = new Yallocc<Token>(new LeTokCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LeTokCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -226,7 +228,7 @@ namespace Yallocc
       public void CreateParserTest_MasterGrammarWithNestedGrammarWithWrongLinkToGrammar_HasUndefinedSubGrammarException()
       {
          var exceptionFound = false;
-         var yacc = new Yallocc<Token>(new LeTokCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LeTokCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -260,7 +262,7 @@ namespace Yallocc
       [TestMethod]
       public void BranchTest_CreateABranch_NoException()
       {
-         var yacc = new Yallocc<Token>(new LexSharpCreator<Token>());
+         var yacc = new Yallocc<DummyContext, Token>(new DummyContext(), new LexSharpCreator<Token>());
          yacc.DefineTokens()
          .AddTokenPattern(@"a", Token.A)
          .AddTokenPattern(@"b", Token.B)
@@ -269,8 +271,8 @@ namespace Yallocc
 
          var branch = yacc.Branch.Label("BranchStart").Token(Token.A);
 
-         Assert.IsTrue(branch is BranchBuilder<Token>);
-         var branchBuilder = (branch as BranchBuilder<Token>);
+         Assert.IsTrue(branch is BranchBuilder<DummyContext, Token>);
+         var branchBuilder = (branch as BranchBuilder<DummyContext, Token>);
          var grammarBuilder = branchBuilder.GrammarBuilder;
          Assert.AreEqual(grammarBuilder.Start.Name, "BranchStart");
       }
@@ -278,7 +280,7 @@ namespace Yallocc
       [TestMethod]
       public void IsCompletTest_NotAnEnumTypeAndCompletenessChecked_NotAnEnumTypeException()
       {
-         var yacc = new Yallocc<int>(new LexSharpCreator<int>());
+         var yacc = new Yallocc<DummyContext, int>(new DummyContext(), new LexSharpCreator<int>());
          yacc.DefineTokens()
          .AddTokenPattern(@"one", 1)
          .AddTokenPattern(@"Two", 2)
@@ -300,7 +302,7 @@ namespace Yallocc
       [TestMethod]
       public void IsCompletTest_NotAnEnumTypeAndCompletenessNotChecked_NoException()
       {
-         var yacc = new Yallocc<int>(new LexSharpCreator<int>()) { TokenCompletenessIsChecked = false };
+         var yacc = new Yallocc<DummyContext, int>(new DummyContext(), new LexSharpCreator<int>()) { TokenCompletenessIsChecked = false };
          yacc.DefineTokens()
          .AddTokenPattern(@"one", 1)
          .AddTokenPattern(@"Two", 2)

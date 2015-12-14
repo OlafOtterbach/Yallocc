@@ -2,16 +2,16 @@
 
 namespace Yallocc
 {
-   public class BranchDefaultInterfaceWithoutNameAndWithAction<T> : BranchBuilder<T> where T : struct
+   public class BranchDefaultInterfaceWithoutNameAndWithAction<TCtx, T> : BranchBuilder<TCtx, T> where T : struct
    {
-      public BranchDefaultInterfaceWithoutNameAndWithAction(GrammarBuilder<T> grammarBuilder)
+      public BranchDefaultInterfaceWithoutNameAndWithAction(GrammarBuilder<TCtx, T> grammarBuilder)
          : base(grammarBuilder)
       { }
 
-      public BranchBuilder<T> Action(Action action)
+      public BranchBuilder<TCtx, T> Action(Action<TCtx> action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchBuilder<T>(GrammarBuilder);
+         return new BranchBuilder<TCtx, T>(GrammarBuilder);
       }
    }
 }

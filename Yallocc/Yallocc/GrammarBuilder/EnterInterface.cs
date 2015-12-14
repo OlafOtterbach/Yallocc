@@ -1,20 +1,20 @@
 ﻿namespace Yallocc
 {
-   public class EnterInterface<T> where T : struct
+   public class EnterInterface<TCtx,T> where T : struct
    {
-      private GrammarBuilder<T> _grammarBuilder;
+      private GrammarBuilder<TCtx,T> _grammarBuilder;
 
-      public EnterInterface(GrammarBuilder<T> grammarBuilder)
+      public EnterInterface(GrammarBuilder<TCtx,T> grammarBuilder)
       {
          _grammarBuilder = grammarBuilder;
       }
 
-      public ProduceInterfaceWithNameAndWithAction<T> Enter
+      public ProduceInterfaceWithNameAndWithAction<TCtx, T> Enter
       {
          get
          {
             _grammarBuilder.EnterGrammar();
-            return new ProduceInterfaceWithNameAndWithAction<T>(_grammarBuilder);
+            return new ProduceInterfaceWithNameAndWithAction<TCtx,T>(_grammarBuilder);
          }
       }
    }

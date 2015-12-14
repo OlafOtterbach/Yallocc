@@ -1,31 +1,31 @@
 ﻿namespace Yallocc
 {
-   public class GrammarBuilderInterface<T> where T : struct
+   public class GrammarBuilderInterface<TCtx,T> where T : struct
    {
-      private GrammarBuilder<T> _grammarBuilder;
+      private GrammarBuilder<TCtx,T> _grammarBuilder;
 
-      public GrammarBuilderInterface(GrammarBuilder<T> grammarBuilder)
+      public GrammarBuilderInterface(GrammarBuilder<TCtx,T> grammarBuilder)
       {
          _grammarBuilder = grammarBuilder;
       }
 
-      public EnterInterface<T> MasterGrammar(string name)
+      public EnterInterface<TCtx, T> MasterGrammar(string name)
       {
          _grammarBuilder.CreateMasterGrammar(name);
-         return new EnterInterface<T>(_grammarBuilder);
+         return new EnterInterface<TCtx, T>(_grammarBuilder);
       }
 
-      public EnterInterface<T> Grammar(string name)
+      public EnterInterface<TCtx, T> Grammar(string name)
       {
          _grammarBuilder.CreateGrammar(name);
-         return new EnterInterface<T>(_grammarBuilder);
+         return new EnterInterface<TCtx, T>(_grammarBuilder);
       }
 
-      public BranchInterface<T> Branch
+      public BranchInterface<TCtx, T> Branch
       {
          get
          {
-            return new BranchInterface<T>(_grammarBuilder.CreateBranchBuilder());
+            return new BranchInterface<TCtx, T>(_grammarBuilder.CreateBranchBuilder());
          }
       }
    }

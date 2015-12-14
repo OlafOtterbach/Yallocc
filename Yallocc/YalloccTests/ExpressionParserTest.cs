@@ -7,6 +7,8 @@ namespace Yallocc
    [TestClass]
    public class ExpressionParserTest
    {
+      private class DummyContext {}
+
       private enum ExpressionTokenType
       {
          open_clamp,
@@ -91,19 +93,19 @@ namespace Yallocc
          var tokenizer = Createtokenizer();
          var grammar = CreateExpression();
          var sequence = tokenizer.Scan(text);
-         var parser = new SyntaxDiagramParser<ExpressionTokenType>(grammar);
+         var parser = new SyntaxDiagramParser<DummyContext,ExpressionTokenType>(new DummyContext(), grammar);
          var result = parser.ParseTokens(sequence);
          return result;
       }
 
       private Transition CreateExpression()
       {
-         var startExpression = new LabelTransition("StartExpression");
-         var expression = new GrammarTransition(startExpression);
-         var plus = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.plus);
-         var minus = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.minus);
-         var term = new GrammarTransition(CreateTerm(startExpression));
-         var endExpression = new LabelTransition("EndExpression");
+         var startExpression = new LabelTransition<DummyContext>("StartExpression");
+         var expression = new GrammarTransition<DummyContext>(startExpression);
+         var plus = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.plus);
+         var minus = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.minus);
+         var term = new GrammarTransition<DummyContext>(CreateTerm(startExpression));
+         var endExpression = new LabelTransition<DummyContext>("EndExpression");
          startExpression.AddSuccessor(plus);
          startExpression.AddSuccessor(minus);
          startExpression.AddSuccessor(term);
@@ -117,11 +119,11 @@ namespace Yallocc
 
       private Transition CreateTerm(Transition expression)
       {
-         var startTerm = new LabelTransition("StartTerm");
-         var factor = new GrammarTransition(CreateFactor(expression));
-         var mult = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.mult);
-         var div = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.div);
-         var endTerm = new LabelTransition("EndTerm");
+         var startTerm = new LabelTransition<DummyContext>("StartTerm");
+         var factor = new GrammarTransition<DummyContext>(CreateFactor(expression));
+         var mult = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.mult);
+         var div = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.div);
+         var endTerm = new LabelTransition<DummyContext>("EndTerm");
          startTerm.AddSuccessor(factor);
          factor.AddSuccessor(mult);
          factor.AddSuccessor(div);
@@ -133,12 +135,12 @@ namespace Yallocc
 
       private Transition CreateFactor(Transition expression)
       {
-         var startFactor = new LabelTransition("StartFactor");
-         var number = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.number);
-         var clampOpen = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.open_clamp);
-         var clampClose = new TokenTypeTransition<ExpressionTokenType>(ExpressionTokenType.close_clamp);
-         var expressionContainer = new GrammarTransition(expression);
-         var endFactor = new LabelTransition("EndFactor");
+         var startFactor = new LabelTransition<DummyContext>("StartFactor");
+         var number = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.number);
+         var clampOpen = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.open_clamp);
+         var clampClose = new TokenTypeTransition<DummyContext,ExpressionTokenType>(ExpressionTokenType.close_clamp);
+         var expressionContainer = new GrammarTransition<DummyContext>(expression);
+         var endFactor = new LabelTransition<DummyContext>("EndFactor");
          startFactor.AddSuccessor(number);
          startFactor.AddSuccessor(clampOpen);
          number.AddSuccessor(endFactor);

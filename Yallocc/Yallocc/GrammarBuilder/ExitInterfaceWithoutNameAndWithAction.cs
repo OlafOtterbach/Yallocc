@@ -2,15 +2,15 @@
 
 namespace Yallocc
 {
-   public class ExitInterfaceWithoutNameAndWithAction<T> : ExitInterface<T> where T : struct
+   public class ExitInterfaceWithoutNameAndWithAction<TCtx, T> : ExitInterface<TCtx, T> where T : struct
    {
-      public ExitInterfaceWithoutNameAndWithAction(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public ExitInterfaceWithoutNameAndWithAction(GrammarBuilder<TCtx, T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public ExitInterface<T> Action(Action action)
+      public ExitInterface<TCtx, T> Action(Action<TCtx> action)
       {
          GrammarBuilder.AddAction(action);
-         return new ExitInterface<T>(GrammarBuilder);
+         return new ExitInterface<TCtx, T>(GrammarBuilder);
       }
    }
 }

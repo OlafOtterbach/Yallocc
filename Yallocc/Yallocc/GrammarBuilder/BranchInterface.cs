@@ -2,57 +2,57 @@
 
 namespace Yallocc
 {
-   public class BranchInterface<T> : BranchBuilder<T> where T : struct
+   public class BranchInterface<TCtx, T> : BranchBuilder<TCtx, T> where T : struct
    {
-      public BranchInterface(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public BranchInterface(GrammarBuilder<TCtx, T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public BranchInterfaceWithNameAndWithTokAction<T> Token(T tokenType)
+      public BranchInterfaceWithNameAndWithTokAction<TCtx, T> Token(T tokenType)
       {
          GrammarBuilder.AddToken(tokenType);
-         return new BranchInterfaceWithNameAndWithTokAction<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndWithTokAction<TCtx, T>(GrammarBuilder);
       }
 
-      public BranchInterfaceWithNameAndWithAction<T> Label(string label)
+      public BranchInterfaceWithNameAndWithAction<TCtx, T> Label(string label)
       {
          GrammarBuilder.AddLabel(label);
-         return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+         return new BranchInterfaceWithNameAndWithAction<TCtx, T>(GrammarBuilder);
       }
 
-      public BranchInterfaceWithNameAndWithAction<T> Lambda
+      public BranchInterfaceWithNameAndWithAction<TCtx, T> Lambda
       {
          get
          {
             GrammarBuilder.AddLambda();
-            return new BranchInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+            return new BranchInterfaceWithNameAndWithAction<TCtx, T>(GrammarBuilder);
          }
       }
 
-      public BranchDefaultInterfaceWithNameAndWithAction<T> Default
+      public BranchDefaultInterfaceWithNameAndWithAction<TCtx, T> Default
       {
          get
          {
             GrammarBuilder.AddLambda();
-            return new BranchDefaultInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+            return new BranchDefaultInterfaceWithNameAndWithAction<TCtx, T>(GrammarBuilder);
          }
       }
 
-      public BranchGosubInterfaceWithoutNameAndWithAction<T> Gosub(string nameOfSubGrammar)
+      public BranchGosubInterfaceWithoutNameAndWithAction<TCtx, T> Gosub(string nameOfSubGrammar)
       {
          GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
-         return new BranchGosubInterfaceWithoutNameAndWithAction<T>(GrammarBuilder);
+         return new BranchGosubInterfaceWithoutNameAndWithAction<TCtx, T>(GrammarBuilder);
       }
 
-      public BranchInterface<T> Goto(string label)
+      public BranchInterface<TCtx, T> Goto(string label)
       {
          GrammarBuilder.GotoLabel(label);
-         return new BranchInterface<T>(GrammarBuilder);
+         return new BranchInterface<TCtx, T>(GrammarBuilder);
       }
 
-      public BranchInterface<T> Switch(params BranchBuilder<T>[] branches)
+      public BranchInterface<TCtx, T> Switch(params BranchBuilder<TCtx, T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new BranchInterface<T>(GrammarBuilder);
+         return new BranchInterface<TCtx, T>(GrammarBuilder);
       }
    }
 }

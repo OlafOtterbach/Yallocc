@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Yallocc
 {
-   public static class GrammarInitialisationAndValidation
+   public static class GrammarInitialisationAndValidation<TCtx>
    {
       public static void ReplaceProxiesInGrammarTransitions(GrammarDictionary grammars)
       {
@@ -16,9 +16,9 @@ namespace Yallocc
             {
                var trans = stack.Pop();
                visited.Add(trans);
-               if(trans is GrammarTransition)
+               if(trans is GrammarTransition<TCtx>)
                {
-                  var grammarTrans = trans as GrammarTransition;
+                  var grammarTrans = trans as GrammarTransition<TCtx>;
                   if(grammarTrans.Start is ProxyTransition)
                   {
                      var start = grammarTrans.Start as ProxyTransition;
@@ -51,7 +51,7 @@ namespace Yallocc
             {
                var trans = stack.Pop();
                visited.Add(trans);
-               found = (trans is ProxyTransition) || ((trans is GrammarTransition) && ((trans as GrammarTransition).Start is ProxyTransition));
+               found = (trans is ProxyTransition) || ((trans is GrammarTransition<TCtx>) && ((trans as GrammarTransition<TCtx>).Start is ProxyTransition));
                trans.Successors.Where(x => !visited.Contains(x)).ToList().ForEach(t => stack.Push(t));
             }
 

@@ -3,22 +3,22 @@ using System;
 
 namespace Yallocc
 {
-   public class BranchInterfaceWithoutNameAndWithTokAction<T> : BranchInterface<T> where T : struct
+   public class BranchInterfaceWithoutNameAndWithTokAction<TCtx, T> : BranchInterface<TCtx,T> where T : struct
    {
-      public BranchInterfaceWithoutNameAndWithTokAction(GrammarBuilder<T> grammarBuilder)
+      public BranchInterfaceWithoutNameAndWithTokAction(GrammarBuilder<TCtx, T> grammarBuilder)
          : base(grammarBuilder)
       {}
 
-      public BranchInterface<T> Action(Action action)
+      public BranchInterface<TCtx, T> Action(Action<TCtx> action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchInterface<T>(GrammarBuilder);
+         return new BranchInterface<TCtx, T>(GrammarBuilder);
       }
 
-      public BranchInterface<T> Action(Action<Token<T>> action)
+      public BranchInterface<TCtx, T> Action(Action<TCtx, Token<T>> action)
       {
          GrammarBuilder.AddAction(action);
-         return new BranchInterface<T>(GrammarBuilder);
+         return new BranchInterface<TCtx, T>(GrammarBuilder);
       }
    }
 }

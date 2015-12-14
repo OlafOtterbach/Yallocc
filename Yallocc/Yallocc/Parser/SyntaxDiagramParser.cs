@@ -47,7 +47,7 @@ namespace Yallocc
          var isFinished = result.Success && IsFinished(elem, 0, endPath);
          if (isFinished)
          {
-            endPath.Select(x => x.Transition).OfType<ActionTransition<TCtx>>().ToList().ForEach(t => t.Action());
+            endPath.Select(x => x.Transition).OfType<ActionTransition<TCtx>>().ToList().ForEach(t => t.Action(_context));
          }
          else
          {

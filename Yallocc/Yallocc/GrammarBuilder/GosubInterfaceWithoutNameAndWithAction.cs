@@ -2,16 +2,16 @@
 
 namespace Yallocc
 {
-   public class  GosubInterfaceWithoutNameAndWithAction<T> : ProduceInterface<T> where T : struct
+   public class  GosubInterfaceWithoutNameAndWithAction<TCtx,T> : ProduceInterface<TCtx, T> where T : struct
    {
-      public GosubInterfaceWithoutNameAndWithAction(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public GosubInterfaceWithoutNameAndWithAction(GrammarBuilder<TCtx, T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public ProduceInterface<T> Action(Action action)
+      public ProduceInterface<TCtx, T> Action(Action<TCtx> action)
       {
          GrammarBuilder.AddLambda();
          GrammarBuilder.AddAction(action);
-         return new ProduceInterface<T>(GrammarBuilder);
+         return new ProduceInterface<TCtx, T>(GrammarBuilder);
       }
    }
 }

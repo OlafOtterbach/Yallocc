@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
-   public class GrammarBuilder<T> where T : struct
+   public class GrammarBuilder<TCtx,T> where T : struct
    {
       private GrammarDictionary _grammars;
 
@@ -22,9 +21,9 @@ namespace Yallocc
          _current = _start;
       }
 
-      public GrammarBuilder<T> CreateBranchBuilder()
+      public GrammarBuilder<TCtx,T> CreateBranchBuilder()
       {
-         return new GrammarBuilder<T>(_grammars);
+         return new GrammarBuilder<TCtx,T>(_grammars);
       }
 
       public Transition Start
@@ -72,7 +71,7 @@ namespace Yallocc
          }
       }
 
-      public GrammarBuilder<T> EnterGrammar()
+      public GrammarBuilder<TCtx,T> EnterGrammar()
       {
          AddLambda();
          return this;
@@ -85,8 +84,8 @@ namespace Yallocc
             AddTransition(new Transition());
          }
          _grammars.AddGrammar(_name, _start);
-         GrammarInitialisationAndValidation.ReplaceAndValidateProxiesWithLabels(_start);
-         GrammarInitialisationAndValidation.ReplaceProxiesInGrammarTransitions(_grammars);
+         GrammarInitialisationAndValidation<TCtx>.ReplaceAndValidateProxiesWithLabels(_start);
+         GrammarInitialisationAndValidation<TCtx>.ReplaceProxiesInGrammarTransitions(_grammars);
       }
 
       public void AddName(string name)
@@ -94,11 +93,11 @@ namespace Yallocc
          _current.Name = name;
       }
 
-      public void AddAction(Action action)
+      public void AddAction(Action<TCtx> action)
       {
-         if( _current is ActionTransition)
+         if( _current is ActionTransition<TCtx>)
          {
-            (_current as ActionTransition).Action = action;
+            (_current as ActionTransition<TCtx>).Action = action;
          }
          else
          {
@@ -106,11 +105,11 @@ namespace Yallocc
          }
       }
 
-      public void AddAction(Action<Token<T>> action)
+      public void AddAction(Action<TCtx, Token<T>> action)
       {
-         if(_current is TokenTypeTransition<T>)
+         if(_current is TokenTypeTransition<TCtx,T>)
          {
-            (_current as TokenTypeTransition<T>).Action = action;
+            (_current as TokenTypeTransition<TCtx,T>).Action = action;
          }
          else
          {
@@ -120,26 +119,26 @@ namespace Yallocc
 
       public void AddToken(T tokenType)
       {
-         var tokenTransition = new TokenTypeTransition<T>(tokenType);
+         var tokenTransition = new TokenTypeTransition<TCtx,T>(tokenType);
          AddTransition(tokenTransition);
       }
 
       public void AddLabel(string label)
       {
-         var labelTransition = new LabelTransition(label);
+         var labelTransition = new LabelTransition<TCtx>(label);
          AddTransition(labelTransition);
       }
 
       public void AddLambda()
       {
-         var transition = new ActionTransition();
+         var transition = new ActionTransition<TCtx>();
          AddTransition(transition);
       }
 
       public void AddSubGrammar(string nameOfSubGrammar)
       {
          var proxyTransition = new ProxyTransition(nameOfSubGrammar);
-         var grammarTransition = new GrammarTransition(proxyTransition);
+         var grammarTransition = new GrammarTransition<TCtx>(proxyTransition);
          AddTransition(grammarTransition);
       }
 
@@ -149,11 +148,11 @@ namespace Yallocc
          AddTransition(proxyTransition);
       }
 
-      public void Switch(params GrammarBuilder<T>[] branches)
+      public void Switch(params GrammarBuilder<TCtx,T>[] branches)
       {
          if(_start == null)
          {
-            AddTransition(new ActionTransition());
+            AddTransition(new ActionTransition<TCtx>());
          }
          branches.ToList().ForEach(x => _current.AddSuccessor(x.Start));
          var branchEndTransition = new Transition();

@@ -3,29 +3,29 @@ using System;
 
 namespace Yallocc
 {
-   public class ProduceInterfaceWithNameAndWithTokAction<T> : ProduceInterface<T> where T : struct
+   public class ProduceInterfaceWithNameAndWithTokAction<TCtx, T> : ProduceInterface<TCtx, T> where T : struct
    {
-      public ProduceInterfaceWithNameAndWithTokAction(GrammarBuilder<T> grammarBuilder)
+      public ProduceInterfaceWithNameAndWithTokAction(GrammarBuilder<TCtx, T> grammarBuilder)
          : base(grammarBuilder)
       {
       }
 
-      public ProduceInterfaceWithoutNameAndWithTokAction<T> Name(string name)
+      public ProduceInterfaceWithoutNameAndWithTokAction<TCtx, T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new ProduceInterfaceWithoutNameAndWithTokAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithoutNameAndWithTokAction<TCtx, T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndWithoutAction<T> Action(Action action)
+      public ProduceInterfaceWithNameAndWithoutAction<TCtx, T> Action(Action<TCtx> action)
       {
          GrammarBuilder.AddAction(action);
-         return new ProduceInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithoutAction<TCtx, T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndWithoutAction<T> Action(Action<Token<T>> action)
+      public ProduceInterfaceWithNameAndWithoutAction<TCtx, T> Action(Action<TCtx, Token<T>> action)
       {
          GrammarBuilder.AddAction(action);
-         return new ProduceInterfaceWithNameAndWithoutAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithoutAction<TCtx, T>(GrammarBuilder);
       }
    }
 }

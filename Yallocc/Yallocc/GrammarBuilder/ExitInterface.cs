@@ -1,15 +1,15 @@
 ﻿namespace Yallocc
 {
-   public class ExitInterface<T> where T : struct
+   public class ExitInterface<TCtx, T> where T : struct
    {
-      private GrammarBuilder<T> _grammarBuilder;
+      private GrammarBuilder<TCtx, T> _grammarBuilder;
 
-      public ExitInterface(GrammarBuilder<T> grammarBuilder)
+      public ExitInterface(GrammarBuilder<TCtx, T> grammarBuilder)
       {
          _grammarBuilder = grammarBuilder;
       }
 
-      public GrammarBuilder<T> GrammarBuilder
+      public GrammarBuilder<TCtx, T> GrammarBuilder
       {
          get
          {

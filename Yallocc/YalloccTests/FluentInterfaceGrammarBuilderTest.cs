@@ -6,6 +6,8 @@ namespace Yallocc
    [TestClass]
    public class FluentInterfaceGrammarBuilderTest
    {
+      private class DummyContext {}
+
       private enum AbcTokenType
       {
          a_token,
@@ -19,14 +21,14 @@ namespace Yallocc
          var b = CreateBuilder();
          b.Grammar("Grammar")
           .Enter
-          .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => { }).Name("eins")
-          .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { })
-          .Gosub("A1").Action(() => {})
-          .Switch(b.Branch.Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => { }).Name("eins")
-                          .Token(AbcTokenType.b_token).Name("zwei").Action((Token<AbcTokenType> tok) => { }),
-                  b.Branch.Gosub("A2").Action(() => { }),
-                  b.Branch.Default.Action(() => {}).Name("Default1"),
-                  b.Branch.Default.Name("Default1").Action(() => { })
+          .Token(AbcTokenType.a_token).Action((DummyContext ctx, Token < AbcTokenType> tok) => { }).Name("eins")
+          .Token(AbcTokenType.b_token).Name("zwei").Action((DummyContext ctx, Token < AbcTokenType> tok) => { })
+          .Gosub("A1").Action((DummyContext ctx) => {})
+          .Switch(b.Branch.Token(AbcTokenType.a_token).Action((DummyContext ctx, Token < AbcTokenType> tok) => { }).Name("eins")
+                          .Token(AbcTokenType.b_token).Name("zwei").Action((DummyContext ctx, Token < AbcTokenType> tok) => { }),
+                  b.Branch.Gosub("A2").Action((DummyContext ctx) => { }),
+                  b.Branch.Default.Action((DummyContext ctx) => {}).Name("Default1"),
+                  b.Branch.Default.Name("Default1").Action((DummyContext ctx) => { })
                  )
           .Exit
           .EndGrammar();
@@ -34,11 +36,11 @@ namespace Yallocc
          Assert.IsTrue(true);
       }
 
-      private GrammarBuilderInterface<AbcTokenType> CreateBuilder()
+      private GrammarBuilderInterface<DummyContext,AbcTokenType> CreateBuilder()
       {
          var grammarDictionary = new GrammarDictionary();
-         var baseBuilder = new GrammarBuilder<AbcTokenType>(grammarDictionary);
-         var builderInterface = new GrammarBuilderInterface<AbcTokenType>(baseBuilder);
+         var baseBuilder = new GrammarBuilder<DummyContext,AbcTokenType>(grammarDictionary);
+         var builderInterface = new GrammarBuilderInterface<DummyContext,AbcTokenType>(baseBuilder);
          return builderInterface;
       }
    }

@@ -1,14 +1,14 @@
 ﻿namespace Yallocc
 {
-   public class ProduceInterfaceWithNameAndWithoutAction<T> : ProduceInterface<T> where T : struct
+   public class ProduceInterfaceWithNameAndWithoutAction<TCtx,T> : ProduceInterface<TCtx, T> where T : struct
    {
-      public ProduceInterfaceWithNameAndWithoutAction(GrammarBuilder<T> grammarBuilder) : base(grammarBuilder)
+      public ProduceInterfaceWithNameAndWithoutAction(GrammarBuilder<TCtx, T> grammarBuilder) : base(grammarBuilder)
       {}
 
-      public ProduceInterface<T> Name(string name)
+      public ProduceInterface<TCtx, T> Name(string name)
       {
          GrammarBuilder.AddName(name);
-         return new ProduceInterface<T>(GrammarBuilder);
+         return new ProduceInterface<TCtx, T>(GrammarBuilder);
       }
    }
 }

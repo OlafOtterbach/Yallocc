@@ -3,61 +3,61 @@ using System.Linq;
 
 namespace Yallocc
 {
-   public class ProduceInterface<T> where T : struct
+   public class ProduceInterface<TCtx,T> where T : struct
    {
-      public ProduceInterface(GrammarBuilder<T> grammarBuilder)
+      public ProduceInterface(GrammarBuilder<TCtx,T> grammarBuilder)
       {
          GrammarBuilder = grammarBuilder;
       }
 
-      protected GrammarBuilder<T> GrammarBuilder { get; private set; }
+      protected GrammarBuilder<TCtx,T> GrammarBuilder { get; private set; }
 
-      public ExitInterfaceWithNameAndWithAction<T> Exit
+      public ExitInterfaceWithNameAndWithAction<TCtx, T> Exit
       {
          get
          {
             GrammarBuilder.AddLambda();
-            return new ExitInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+            return new ExitInterfaceWithNameAndWithAction<TCtx,T>(GrammarBuilder);
          }
       }
 
-      public ProduceInterfaceWithNameAndWithTokAction<T> Token(T tokenType)
+      public ProduceInterfaceWithNameAndWithTokAction<TCtx, T> Token(T tokenType)
       {
          GrammarBuilder.AddToken(tokenType);
-         return new ProduceInterfaceWithNameAndWithTokAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithTokAction<TCtx, T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndWithAction<T> Label(string label)
+      public ProduceInterfaceWithNameAndWithAction<TCtx, T> Label(string label)
       {
          GrammarBuilder.AddLabel(label);
-         return new ProduceInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+         return new ProduceInterfaceWithNameAndWithAction<TCtx, T>(GrammarBuilder);
       }
 
-      public ProduceInterfaceWithNameAndWithAction<T> Lambda
+      public ProduceInterfaceWithNameAndWithAction<TCtx, T> Lambda
       {
          get
          {
             GrammarBuilder.AddLambda();
-            return new ProduceInterfaceWithNameAndWithAction<T>(GrammarBuilder);
+            return new ProduceInterfaceWithNameAndWithAction<TCtx, T>(GrammarBuilder);
          }
       }
 
-      public GosubInterfaceWithoutNameAndWithAction<T> Gosub(string nameOfSubGrammar)
+      public GosubInterfaceWithoutNameAndWithAction<TCtx, T> Gosub(string nameOfSubGrammar)
       {
          GrammarBuilder.AddSubGrammar(nameOfSubGrammar);
-         return new GosubInterfaceWithoutNameAndWithAction<T>(GrammarBuilder);
+         return new GosubInterfaceWithoutNameAndWithAction<TCtx, T>(GrammarBuilder);
       }
 
-      public ProduceInterface<T> Goto(string label)
+      public ProduceInterface<TCtx, T> Goto(string label)
       {
          GrammarBuilder.GotoLabel(label);
-         return new ProduceInterface<T>(GrammarBuilder);
+         return new ProduceInterface<TCtx, T>(GrammarBuilder);
       }
 
-      public ProduceInterface<T> Switch(params BranchBuilder<T>[] branches)
+      public ProduceInterface<TCtx, T> Switch(params BranchBuilder<TCtx, T>[] branches)
       {
          GrammarBuilder.Switch(branches.Select(x => x.GrammarBuilder).ToArray());
-         return new ProduceInterface<T>(GrammarBuilder);
+         return new ProduceInterface<TCtx, T>(GrammarBuilder);
       }
    }
 }

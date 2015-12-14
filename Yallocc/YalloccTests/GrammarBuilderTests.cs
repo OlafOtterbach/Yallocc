@@ -7,6 +7,8 @@ namespace Yallocc
    [TestClass]
    public class GrammarBuilderTests
    {
+      private class DummyContext { }
+
       private enum AbcTokenType
       {
          a_token,
@@ -231,24 +233,24 @@ namespace Yallocc
 
          b.Grammar("Container")
             .Enter
-            .Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
+            .Token(AbcTokenType.c_token).Action((DummyContext ctx, Token < AbcTokenType> tok) => res.Text += tok.Value)
             .Exit
             .EndGrammar();
 
          b.MasterGrammar("Grammar")
           .Enter
-          .Label("Start").Action(() => res.Text += "[Start]")
-          .Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
-          .Lambda.Action(() => res.Text += "<Gosub>")
-          .Gosub("Container").Action(() => res.Text += "<\\Gosub>")
-          .Token(AbcTokenType.b_token).Name("Target").Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
-          .Label("Loop").Action(() => res.Text += "[Loop]")
+          .Label("Start").Action((DummyContext ctx) => res.Text += "[Start]")
+          .Token(AbcTokenType.a_token).Action((DummyContext ctx, Token < AbcTokenType> tok) => res.Text += tok.Value)
+          .Lambda.Action((DummyContext ctx) => res.Text += "<Gosub>")
+          .Gosub("Container").Action((DummyContext ctx) => res.Text += "<\\Gosub>")
+          .Token(AbcTokenType.b_token).Name("Target").Action((DummyContext ctx, Token < AbcTokenType> tok) => res.Text += tok.Value)
+          .Label("Loop").Action((DummyContext ctx) => res.Text += "[Loop]")
           .Switch
            (
-             b.Branch.Token(AbcTokenType.a_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value).Goto("Loop"),
-             b.Branch.Token(AbcTokenType.c_token).Action((Token<AbcTokenType> tok) => res.Text += tok.Value)
+             b.Branch.Token(AbcTokenType.a_token).Action((DummyContext ctx, Token < AbcTokenType> tok) => res.Text += tok.Value).Goto("Loop"),
+             b.Branch.Token(AbcTokenType.c_token).Action((DummyContext ctx, Token < AbcTokenType> tok) => res.Text += tok.Value)
            )
-          .Label("End").Action(() => res.Text += "[End]")
+          .Label("End").Action((DummyContext ctx) => res.Text += "[End]")
           .Exit
           .EndGrammar();
 
@@ -260,7 +262,7 @@ namespace Yallocc
       private bool Parser(string text, Transition grammar)
       {
          var tokenizer = CreateAbcLex();
-         var parser = new SyntaxDiagramParser<AbcTokenType>(grammar);
+         var parser = new SyntaxDiagramParser<DummyContext, AbcTokenType>(new DummyContext(), grammar);
 
          var sequence = tokenizer.Scan(text);
          var result = parser.ParseTokens(sequence);
@@ -268,10 +270,10 @@ namespace Yallocc
          return result.Success;
       }
 
-      private GrammarBuilderInterface<AbcTokenType> CreateBuilder(GrammarDictionary grammarDictionary)
+      private GrammarBuilderInterface<DummyContext, AbcTokenType> CreateBuilder(GrammarDictionary grammarDictionary)
       {
-         var baseBuilder = new GrammarBuilder<AbcTokenType>(grammarDictionary);
-         var builderInterface = new GrammarBuilderInterface<AbcTokenType>(baseBuilder);
+         var baseBuilder = new GrammarBuilder<DummyContext, AbcTokenType>(grammarDictionary);
+         var builderInterface = new GrammarBuilderInterface<DummyContext, AbcTokenType>(baseBuilder);
          return builderInterface;
       }
 
