@@ -1,46 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Yallocc;
 
 namespace SyntaxTree
 {
    public class SyntaxTreeGenerator<T> where T : struct
    {
-      private List<ITokenAndGrammarDefinition<T>> _grammarDefinitions; 
       private SyntaxTreeBuilder _syntaxTreeBuilder;
-      private ParserAndTokenizer<T> _parser;
+      private ParserAndTokenizer<SyntaxTreeBuilder,T> _parser;
 
-      private SyntaxTreeGenerator()
+      private SyntaxTreeGenerator(ParserAndTokenizer<SyntaxTreeBuilder, T> parser, SyntaxTreeBuilder syntaxTreeBuilder)
       {
-         _grammarDefinitions = new List<ITokenAndGrammarDefinition<T>>();
-         _parser = null;
-      }
-
-      public static GeneratorInterfaceWithRegisterWithoutCreate<T> Make
-      {
-         get
-         {
-            var generator = new SyntaxTreeGenerator<T>();
-            return new GeneratorInterfaceWithRegisterWithoutCreate<T>(generator);
-         }
-      }
-
-      internal void Register(ITokenAndGrammarDefinition<T> grammarDefinition)
-      {
-         _grammarDefinitions.Add(grammarDefinition);
-      }
-
-      internal void Init()
-      {
-         if (!_grammarDefinitions.Any())
-         {
-            throw new SyntaxTreeGeneratorNotReadyException("No grammar definition defined.");
-         }
-        
-         var yacc = new Yallocc<T>();
-         _syntaxTreeBuilder = new SyntaxTreeBuilder();
-         _grammarDefinitions.ForEach(g => g.Define(yacc, _syntaxTreeBuilder));
-         _parser = yacc.CreateParser();
+         _syntaxTreeBuilder = syntaxTreeBuilder;
+         _parser = parser;
       }
 
       public SyntaxTreeBuilderResult Parse(string text)
@@ -50,9 +21,9 @@ namespace SyntaxTree
             throw new SyntaxTreeGeneratorNotReadyException("Not initalized generator.");
          }
 
-         _syntaxTreeBuilder.Reset();
+         var syntaxTreeBuilder = new SyntaxTreeBuilder();
          var parseResult = _parser.Parse(text);
-         var result = new SyntaxTreeBuilderResult(_syntaxTreeBuilder.Root, parseResult);
+         var result = new SyntaxTreeBuilderResult(syntaxTreeBuilder.Root, parseResult);
          return result;
       }
    }
