@@ -1,6 +1,6 @@
-﻿using LexSharp;
-using SyntaxTree;
+﻿using SyntaxTree;
 using Yallocc;
+using Yallocc.Tokenizer.LeTok;
 
 namespace SyntaxTreeTest.ExpressionTree
 {
@@ -9,7 +9,7 @@ namespace SyntaxTreeTest.ExpressionTree
       public SyntaxTreeGenerator<ExpressionTokenType> CreateParser()
       {
          var generator
-             = SyntaxTreeGenerator<ExpressionTokenType>.Make
+             = SyntaxTreeGeneratorCreator<ExpressionTokenType>.Make(new LeTokCreator<ExpressionTokenType>())
                                                        .Register(new ExpressionTokenDefinition())
                                                        .Register(new ExpressionGrammarDefinition())
                                                        .Create();

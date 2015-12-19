@@ -1,17 +1,14 @@
-﻿using System.Collections.Generic;
-using Yallocc;
+﻿using Yallocc;
 
 namespace SyntaxTree
 {
    public class SyntaxTreeGenerator<T> where T : struct
    {
-      private SyntaxTreeBuilder _syntaxTreeBuilder;
       private ParserAndTokenizer<SyntaxTreeBuilder,T> _parser;
 
-      private SyntaxTreeGenerator(ParserAndTokenizer<SyntaxTreeBuilder, T> parser, SyntaxTreeBuilder syntaxTreeBuilder)
+      public SyntaxTreeGenerator(ParserAndTokenizer<SyntaxTreeBuilder, T> parser)
       {
-         _syntaxTreeBuilder = syntaxTreeBuilder;
-         _parser = parser;
+          _parser = parser;
       }
 
       public SyntaxTreeBuilderResult Parse(string text)
@@ -22,7 +19,7 @@ namespace SyntaxTree
          }
 
          var syntaxTreeBuilder = new SyntaxTreeBuilder();
-         var parseResult = _parser.Parse(text);
+         var parseResult = _parser.Parse(text, syntaxTreeBuilder);
          var result = new SyntaxTreeBuilderResult(syntaxTreeBuilder.Root, parseResult);
          return result;
       }

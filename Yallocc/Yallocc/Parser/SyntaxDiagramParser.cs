@@ -8,19 +8,18 @@ namespace Yallocc
    public class SyntaxDiagramParser<TCtx, T> where T : struct
    {
       private readonly Transition _masterGrammarStartTransition;
+
       private readonly int _maxLookaheadSearchDepth;
-      private readonly TCtx _context;
 
 
-      public SyntaxDiagramParser(TCtx context, Transition masterGrammar, int max = 100 )
+      public SyntaxDiagramParser(Transition masterGrammar, int max = 100 )
       {
-         _context = context;
          _masterGrammarStartTransition = masterGrammar;
          _maxLookaheadSearchDepth = max;
       }
 
 
-      public ParserResult ParseTokens(IEnumerable<Token<T>> sequence)
+      public ParserResult ParseTokens(IEnumerable<Token<T>> sequence, TCtx context)
       {
          ParserResult result = new ParserResult();
          SyntaxElement elem = new SyntaxElement(_masterGrammarStartTransition, null);
@@ -32,7 +31,7 @@ namespace Yallocc
             {
                result.Position = token.TextIndex;
                elem = path.Peek();
-               path.Reverse().ToList().ForEach(x => Execute(x.Transition, token));
+               path.Reverse().ToList().ForEach(x => Execute(x.Transition, token, context));
                path.Clear();
             }
             else
@@ -47,7 +46,7 @@ namespace Yallocc
          var isFinished = result.Success && IsFinished(elem, 0, endPath);
          if (isFinished)
          {
-            endPath.Select(x => x.Transition).OfType<ActionTransition<TCtx>>().ToList().ForEach(t => t.Action(_context));
+            endPath.Select(x => x.Transition).OfType<ActionTransition<TCtx>>().ToList().ForEach(t => t.Action(context));
          }
          else
          {
@@ -57,15 +56,15 @@ namespace Yallocc
          return result;
       }
 
-      private void Execute(Transition transition, Token<T> token)
+      private void Execute(Transition transition, Token<T> token, TCtx context)
       {
          if (transition is ActionTransition<TCtx>)
          {
-            (transition as ActionTransition<TCtx>).Action(_context);
+            (transition as ActionTransition<TCtx>).Action(context);
          }
          else if (transition is TokenTypeTransition<TCtx, T>)
          {
-            (transition as TokenTypeTransition<TCtx, T>).Action(_context, token);
+            (transition as TokenTypeTransition<TCtx, T>).Action(context, token);
          }
       }
 

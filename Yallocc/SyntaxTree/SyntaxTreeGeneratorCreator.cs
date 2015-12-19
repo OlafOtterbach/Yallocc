@@ -41,10 +41,11 @@ namespace SyntaxTree
          }
 
          _syntaxTreeBuilder = new SyntaxTreeBuilder();
-         var yallocc = new Yallocc<SyntaxTreeBuilder, T>(_syntaxTreeBuilder,_tokenizerCreator);
+         var yallocc = new Yallocc<SyntaxTreeBuilder, T>(_tokenizerCreator);
          _grammarDefinitions.ForEach(g => g.Define(yallocc));
          var parser = yallocc.CreateParser();
-         return null;
+         var generator = new SyntaxTreeGenerator<T>(parser);
+         return generator;
       }
    }
 }

@@ -22,9 +22,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
          var sequence = tokenizer.Scan("abaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsTrue(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -37,9 +37,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
          var sequence = tokenizer.Scan("bbaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -53,9 +53,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateSimpleGrammar();
          var sequence = tokenizer.Scan("abba");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -69,9 +69,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateContainerGrammar();
          var sequence = tokenizer.Scan("abaa").ToList();
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsTrue(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -84,9 +84,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateContainerGrammar();
          var sequence = tokenizer.Scan("abba");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -100,9 +100,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
          var sequence = tokenizer.Scan("aaaaab");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsTrue(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -115,9 +115,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
          var sequence = tokenizer.Scan("aaaaaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsFalse(result.SyntaxError);
@@ -131,9 +131,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateLoopGrammar();
          var sequence = tokenizer.Scan("aaaaaaba");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.SyntaxError);
@@ -147,9 +147,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateEndlessLoopGrammar();
          var sequence = tokenizer.Scan("aaaaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
@@ -162,9 +162,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateNotDeterministicBranchLoop();
          var sequence = tokenizer.Scan("aaaaa");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
       }
@@ -175,9 +175,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateDeadLoopBranch();
          var sequence = tokenizer.Scan("a");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsFalse(result.Success);
          Assert.IsTrue(result.GrammarOfTextNotComplete);
@@ -191,9 +191,9 @@ namespace Yallocc
          var tokenizer = CreateAbTokenizer();
          var grammar = CreateAttributedLoopGrammar(res);
          var sequence = tokenizer.Scan("aaaaab");
-         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(new DummyContext(), grammar);
+         var SyntaxDiagramParser = new SyntaxDiagramParser<DummyContext, AbTokenType>(grammar);
 
-         var result = SyntaxDiagramParser.ParseTokens(sequence);
+         var result = SyntaxDiagramParser.ParseTokens(sequence, new DummyContext());
 
          Assert.IsTrue(result.Success);
          Assert.AreEqual("[Start][Label]a[Label]a[Label]a[Label]a[Label]a[Label]b",res.Text);

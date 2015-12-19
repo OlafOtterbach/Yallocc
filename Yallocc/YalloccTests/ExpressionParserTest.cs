@@ -93,8 +93,8 @@ namespace Yallocc
          var tokenizer = Createtokenizer();
          var grammar = CreateExpression();
          var sequence = tokenizer.Scan(text);
-         var parser = new SyntaxDiagramParser<DummyContext,ExpressionTokenType>(new DummyContext(), grammar);
-         var result = parser.ParseTokens(sequence);
+         var parser = new SyntaxDiagramParser<DummyContext,ExpressionTokenType>(grammar);
+         var result = parser.ParseTokens(sequence, new DummyContext());
          return result;
       }
 

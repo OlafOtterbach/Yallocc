@@ -1,5 +1,4 @@
-﻿using LexSharp;
-using SyntaxTree;
+﻿using SyntaxTree;
 
 namespace SyntaxTreeTest
 {

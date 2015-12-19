@@ -9,14 +9,12 @@ namespace Yallocc
 {
    public class Yallocc<TCtx,T> where T : struct
    {
-      private readonly TCtx _context;
       private readonly TokenizerCreator<T> _tokenizerCreator;
       private readonly GrammarBuilderInterface<TCtx, T> _builderInterface;
       private readonly GrammarDictionary _grammers;
       
-      public Yallocc(TCtx context, TokenizerCreator<T> tokenizerCreator)
+      public Yallocc(TokenizerCreator<T> tokenizerCreator)
       {
-         _context = context;
          _grammers = new GrammarDictionary();
          var baseBuilder = new GrammarBuilder<TCtx, T>(_grammers);
          _builderInterface = new GrammarBuilderInterface<TCtx, T>(baseBuilder);
@@ -69,7 +67,7 @@ namespace Yallocc
 
          GrammarInitialisationAndValidation<TCtx>.ReplaceProxiesInGrammarTransitions(_grammers);
          var tokenizer = _tokenizerCreator.Create();
-         var parser = new SyntaxDiagramParser<TCtx,T>(_context, _grammers.GetMasterGrammar());
+         var parser = new SyntaxDiagramParser<TCtx,T>(_grammers.GetMasterGrammar());
          return new ParserAndTokenizer<TCtx,T>(parser, tokenizer);
       }
    }

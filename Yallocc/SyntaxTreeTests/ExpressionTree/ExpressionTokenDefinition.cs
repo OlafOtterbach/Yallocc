@@ -5,18 +5,20 @@ namespace SyntaxTreeTest.ExpressionTree
 {
    public class ExpressionTokenDefinition : ITokenAndGrammarDefinition<ExpressionTokenType>
    {
-      public void Define(Yallocc<ExpressionTokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<SyntaxTreeBuilder, ExpressionTokenType> yacc)
       {
-         yacc.AddToken(@"\+", ExpressionTokenType.plus);
-         yacc.AddToken(@"\-", ExpressionTokenType.minus);
-         yacc.AddToken(@"\*", ExpressionTokenType.mult);
-         yacc.AddToken(@"\/", ExpressionTokenType.div);
-         yacc.AddToken(@"=", ExpressionTokenType.equal);
-         yacc.AddToken(@"\>", ExpressionTokenType.greater);
-         yacc.AddToken(@"\<", ExpressionTokenType.less);
-         yacc.AddToken(@"\(", ExpressionTokenType.open);
-         yacc.AddToken(@"\)", ExpressionTokenType.close);
-         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", ExpressionTokenType.number);
+         yacc.DefineTokens()
+             .AddTokenPattern(@"\+", ExpressionTokenType.plus)
+             .AddTokenPattern(@"\-", ExpressionTokenType.minus)
+             .AddTokenPattern(@"\*", ExpressionTokenType.mult)
+             .AddTokenPattern(@"\/", ExpressionTokenType.div)
+             .AddTokenPattern(@"=", ExpressionTokenType.equal)
+             .AddTokenPattern(@"\>", ExpressionTokenType.greater)
+             .AddTokenPattern(@"\<", ExpressionTokenType.less)
+             .AddTokenPattern(@"\(", ExpressionTokenType.open)
+             .AddTokenPattern(@"\)", ExpressionTokenType.close)
+             .AddTokenPattern(@"(0|1|2|3|4|5|6|7|8|9)+(\.(0|1|2|3|4|5|6|7|8|9)+)?", ExpressionTokenType.number)
+             .End();
       }
    }
 }

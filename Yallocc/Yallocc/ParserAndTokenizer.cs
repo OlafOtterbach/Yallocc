@@ -13,10 +13,10 @@ namespace Yallocc
          _parser = parser;
       }
 
-      public ParserResult Parse(string text)
+      public ParserResult Parse(string text, TCtx context)
       {
          var sequence = _tokenizer.Scan(text);
-         var result = _parser.ParseTokens(sequence);
+         var result = _parser.ParseTokens(sequence, context);
          return result;
       }
    }
