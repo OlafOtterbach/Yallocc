@@ -1,5 +1,4 @@
-﻿using LexSharp;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace ScanningBasicDemo
@@ -59,9 +58,10 @@ namespace ScanningBasicDemo
       {
          const int limit = 100000;
          var lex = TokenDefinition.CreateTokenizer();
+         Console.WriteLine("Generating text with {0} characters...", limit);
          var basicTest = CreateBasicText(limit);
 
-         Console.WriteLine("Sacanning Text with {0} characters...", limit);
+         Console.WriteLine("Scanning text with {0} characters...", limit);
          DateTime startTime = DateTime.Now;
 
          var sequence = lex.Scan(basicTest).ToList();

@@ -1,27 +1,24 @@
-﻿using LexSharp;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using Yallocc.Tokenizer;
+using Yallocc.Tokenizer.LeTok;
 
 namespace ScanningTextDemo
 {
    class Program
    {
-      private static ITokenizer<long> CreateTokenizer()
+      private static Tokenizer<long> CreateTokenizer()
       {
-         var tokenizer = LeTokBuilder<long>.Create()
-                           .Register(@"000", 0)
-                           .Register(@"001", 1)
-                           .Register(@"010", 2)
-                           .Register(@"011", 3)
-                           .Register(@"100", 4)
-                           .Register(@"101", 5)
-                           .Register(@"110", 6)
-                           .Register(@"111", 7)
-                           .Initialize();
+         var tokenizerCreator = new LeTokCreator<long>();
+         tokenizerCreator.Register(@"000", 0);
+         tokenizerCreator.Register(@"001", 1);
+         tokenizerCreator.Register(@"010", 2);
+         tokenizerCreator.Register(@"011", 3);
+         tokenizerCreator.Register(@"100", 4);
+         tokenizerCreator.Register(@"101", 5);
+         tokenizerCreator.Register(@"110", 6);
+         tokenizerCreator.Register(@"111", 7);
+         var tokenizer = tokenizerCreator.Create();
          return tokenizer;
       }
 
@@ -72,7 +69,6 @@ namespace ScanningTextDemo
          {
             var riddle = sequence.Where(x => x.Type == null).First();
             Console.WriteLine("??? = \"{0}\", Position = {1}", riddle.Value, riddle.TextIndex);
-            //      Console.WriteLine("{0}...", binaries.Substring(0, Math.Min(40, limit)));
          }
          Console.WriteLine(sequence[0].Value);
          Console.WriteLine(sequence[1].Value);

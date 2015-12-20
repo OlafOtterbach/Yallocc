@@ -1,4 +1,4 @@
-﻿using LexSharp;
+﻿using Yallocc.Tokenizer;
 using SyntaxTree;
 using Yallocc;
 
@@ -6,22 +6,22 @@ namespace BasicDemo.Basic
 {
    public class ProgramGrammar : ITokenAndGrammarDefinition<TokenType>
    {
-      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<SyntaxTreeBuilder, TokenType> yacc)
       {
          yacc.MasterGrammar("Program")
-             .Enter.Action(() => stb.Enter())
-             .Token(TokenType.program_keyword).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
-             .Token(TokenType.text).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
+             .Enter.Action((SyntaxTreeBuilder stb) => stb.Enter())
+             .Token(TokenType.program_keyword).Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+             .Token(TokenType.text).Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Token(TokenType.Return)
-             .Gosub("StatementSequence").Action(() => stb.AdoptInnerNodes())
-             .Token(TokenType.end_keyword).Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
-             .Exit.Action(() => stb.Exit())
+             .Gosub("StatementSequence").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
+             .Token(TokenType.end_keyword).Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
 
          yacc.Grammar("StatementSequence")
-             .Enter.Action(() => stb.Enter())
+             .Enter.Action((SyntaxTreeBuilder stb) => stb.Enter())
              .Label("NextStatement")
-             .Gosub("Statement").Action(() => stb.AdoptInnerNodes())
+             .Gosub("Statement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
              .Switch
               (
                  yacc.Branch
@@ -29,32 +29,32 @@ namespace BasicDemo.Basic
                      .Goto("NextStatement"),
                  yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
 
          yacc.Grammar("Statement")
-             .Enter.Action(() => stb.Enter())
+             .Enter.Action((SyntaxTreeBuilder stb) => stb.Enter())
              .Switch
               (
                  yacc.Branch
-                     .Gosub("IfStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("IfStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("WhileStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("WhileStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("ForStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("ForStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("LetStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("LetStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("DimStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("DimStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("GotoStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("GotoStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("PlotStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("PlotStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch
-                     .Gosub("LabelStatement").Action(() => stb.AdoptInnerNodes()),
+                     .Gosub("LabelStatement").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes()),
                  yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
       }
    }

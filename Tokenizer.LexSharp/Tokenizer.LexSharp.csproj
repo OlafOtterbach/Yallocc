@@ -4,18 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A0DBC96-20F2-4B13-B02F-4CD5BA110F9D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{70D60623-16A5-4843-8351-8E819315A029}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SyntaxTreeDemo</RootNamespace>
-    <AssemblyName>SyntaxTreeDemo</AssemblyName>
+    <RootNamespace>Tokenizer.LexSharp</RootNamespace>
+    <AssemblyName>Tokenizer.LexSharp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,32 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExpressionTreeCreator.cs" />
-    <Compile Include="GrammarDefinition.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LexSharp.cs" />
+    <Compile Include="LexSharpCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenDefinition.cs" />
-    <Compile Include="TokenType.cs" />
+    <Compile Include="TextCursor.cs" />
+    <Compile Include="TokenResultBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Tokenizer.LeTok\Tokenizer.LeTok.csproj">
-      <Project>{43c0baf7-2d9d-4b64-b2f4-abc712d0ea0e}</Project>
-      <Name>Tokenizer.LeTok</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Yallocc\Tokenizer\Tokenizer.csproj">
+    <ProjectReference Include="..\Yallocc\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>Tokenizer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Yallocc\SyntaxTree\SyntaxTree.csproj">
-      <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
-      <Name>SyntaxTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Yallocc\Yallocc\Yallocc.csproj">
-      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
-      <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

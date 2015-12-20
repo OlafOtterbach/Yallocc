@@ -1,6 +1,7 @@
-﻿using LexSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Yallocc.Tokenizer;
+using Yallocc.Tokenizer.LexSharp;
 
 namespace LexSharpDemo
 {
@@ -22,18 +23,19 @@ namespace LexSharpDemo
       static void Main(string[] args)
       {
          // Create tokenizer
-         var lex = new LexSharp<TokenType>();
+         var creator = new LexSharpCreator<TokenType>();
 
          // Define tokens
-         lex.Register(@"\+", TokenType.plus);
-         lex.Register(@"\-", TokenType.minus);
-         lex.Register(@"\*", TokenType.mult);
-         lex.Register(@"\/", TokenType.div);
-         lex.Register(@"\(", TokenType.open);
-         lex.Register(@"\)", TokenType.close);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
-         lex.Register(@"( |\t)+", TokenType.white_space);
+         creator.Register(@"\+", TokenType.plus);
+         creator.Register(@"\-", TokenType.minus);
+         creator.Register(@"\*", TokenType.mult);
+         creator.Register(@"\/", TokenType.div);
+         creator.Register(@"\(", TokenType.open);
+         creator.Register(@"\)", TokenType.close);
+         creator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
+         creator.Register(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
+         creator.Register(@"( |\t)+", TokenType.white_space);
+         var lex = creator.Create();
 
          // Get input text
          Console.Write("Insert Expression: ");

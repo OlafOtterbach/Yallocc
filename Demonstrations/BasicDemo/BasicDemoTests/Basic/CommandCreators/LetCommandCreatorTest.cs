@@ -1,5 +1,5 @@
 ﻿using BasicDemo.Basic;
-using LexSharp;
+using Yallocc.Tokenizer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SyntaxTree;
 using System.Collections.Generic;
@@ -78,7 +78,7 @@ namespace BasicDemoTest
          var array = (_engine.GetVariable(field) as BasicArray);
          var access = new BasicArrayElementAccessor(array);
          var postorder = new List<BasicEntity> { new BasicInteger(3) };
-         var expressionCommand = new ExpressionCommand(new LexSharp.Token<TokenType>("x", 0, 1), postorder);
+         var expressionCommand = new ExpressionCommand(new Token<TokenType>("x", 0, 1), postorder);
          access.Add(expressionCommand);
          var realValue = (access.Value as BasicReal);
          Assert.AreEqual(expected, realValue.Value);
@@ -90,8 +90,8 @@ namespace BasicDemoTest
          var access = new BasicArrayElementAccessor(array);
          var postorder1 = new List<BasicEntity> { new BasicInteger(3) };
          var postorder2 = new List<BasicEntity> { new BasicInteger(2) };
-         var expressionCommand1 = new ExpressionCommand(new LexSharp.Token<TokenType>("x", 0, 1), postorder1);
-         var expressionCommand2 = new ExpressionCommand(new LexSharp.Token<TokenType>("x", 0, 1), postorder2);
+         var expressionCommand1 = new ExpressionCommand(new Token<TokenType>("x", 0, 1), postorder1);
+         var expressionCommand2 = new ExpressionCommand(new Token<TokenType>("x", 0, 1), postorder2);
          access.Add(expressionCommand1);
          access.Add(expressionCommand2);
          var intValue = (access.Value as BasicInteger);

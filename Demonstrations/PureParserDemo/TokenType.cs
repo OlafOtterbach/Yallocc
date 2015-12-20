@@ -1,4 +1,4 @@
-﻿namespace PureParserDemo
+﻿namespace RawParserDemo
 {
    public enum TokenType
    {

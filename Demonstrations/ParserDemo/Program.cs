@@ -1,5 +1,6 @@
 ﻿using System;
 using Yallocc;
+using Yallocc.Tokenizer.LeTok;
 
 namespace ParserDemo
 {
@@ -8,10 +9,11 @@ namespace ParserDemo
       static void Main(string[] args)
       {
          // Define and create parser
-         var yalocc = new Yallocc<TokenType>();
-         yalocc.DefineTokens();
-         yalocc.DefineGrammar();
-         YParser<TokenType> parser = yalocc.CreateParser();
+         var tokenizerCreator = new LeTokCreator<TokenType>();
+         var yalocc = new Yallocc<DummyContext, TokenType>(tokenizerCreator);
+         yalocc.DefineParserTokens();
+         yalocc.DefineParserGrammar();
+         ParserAndTokenizer<DummyContext, TokenType> parser = yalocc.CreateParser();
 
          // Parse inputs from the console
          bool finished = false;
@@ -21,7 +23,7 @@ namespace ParserDemo
             Console.Write("Insert Expression or quit: ");
             var inputText = Console.ReadLine();
 
-            ParserResult result = parser.Parse(inputText);
+            ParserResult result = parser.Parse(inputText, new DummyContext());
 
             if (inputText != "quit")
             {

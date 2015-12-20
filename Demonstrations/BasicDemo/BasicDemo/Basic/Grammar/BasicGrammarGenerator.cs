@@ -1,4 +1,5 @@
 ﻿using SyntaxTree;
+using Yallocc.Tokenizer.LeTok;
 
 namespace BasicDemo.Basic
 {
@@ -8,8 +9,9 @@ namespace BasicDemo.Basic
 
       public BasicGrammarGenerator()
       {
+         var tokenizerCreator = new LeTokCreator<TokenType>();
          _generator
-         = SyntaxTreeGenerator<TokenType>.Make
+         = SyntaxTreeGeneratorCreator<TokenType>.Make(tokenizerCreator)
                                          .Register(new TokenDefinition())
                                          .Register(new ProgramGrammar())
                                          .Register(new ExpressionGrammar())

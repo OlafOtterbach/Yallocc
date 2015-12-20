@@ -7,6 +7,22 @@ namespace Yallocc
       private Tokenizer<T> _tokenizer;
       private SyntaxDiagramParser<TCtx,T> _parser;
 
+      public Tokenizer<T> Tokenizer
+      {
+         get
+         {
+            return _tokenizer;
+         }
+      }
+
+      public SyntaxDiagramParser<TCtx,T> Parser
+      {
+         get
+         {
+            return _parser;
+         }
+      }
+
       public ParserAndTokenizer(SyntaxDiagramParser<TCtx,T> parser, Tokenizer<T> tokenizer)
       {
          _tokenizer = tokenizer;

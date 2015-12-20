@@ -1,4 +1,4 @@
-﻿using LexSharp;
+﻿using Yallocc.Tokenizer;
 using SyntaxTree;
 using Yallocc;
 
@@ -6,21 +6,21 @@ namespace BasicDemo.Basic
 {
    public class PlotStatementGrammar : ITokenAndGrammarDefinition<TokenType>
    {
-      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<SyntaxTreeBuilder, TokenType> yacc)
       {
          // PLOT
          //
          // --(PLOT)->-(x number)->-(,)->-(y number)->-(,)->-(color number)->-(,)->-
          //
          yacc.Grammar("PlotStatement")
-             .Enter.Action(() => stb.Enter())
-             .Token(TokenType.plot_keyword)    .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
-             .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
+             .Enter.Action((SyntaxTreeBuilder stb) => stb.Enter())
+             .Token(TokenType.plot_keyword)    .Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+             .Gosub("Expression")              .Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
              .Token(TokenType.comma)
-             .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
+             .Gosub("Expression")              .Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
              .Token(TokenType.comma)
-             .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
-             .Exit.Action(() => stb.Exit())
+             .Gosub("Expression")              .Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
       }
    }

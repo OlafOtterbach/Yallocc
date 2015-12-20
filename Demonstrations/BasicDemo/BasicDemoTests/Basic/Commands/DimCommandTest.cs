@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using BasicDemo.Basic;
-using LexSharp;
+using Yallocc.Tokenizer;
 
 namespace BasicDemoTest
 {

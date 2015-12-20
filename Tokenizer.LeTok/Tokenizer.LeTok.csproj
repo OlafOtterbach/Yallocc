@@ -4,18 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C308E425-1DF8-490D-95E2-DB8E44520596}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PureParserDemo</RootNamespace>
-    <AssemblyName>PureParserDemo</AssemblyName>
+    <RootNamespace>Tokenizer.LeTok</RootNamespace>
+    <AssemblyName>Tokenizer.LeTok</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,23 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GrammarDefinition.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LeTok.cs" />
+    <Compile Include="LeTokCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenDefinition.cs" />
-    <Compile Include="TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Yallocc\Tokenizer\Tokenizer.csproj">
+    <ProjectReference Include="..\Yallocc\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>Tokenizer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Yallocc\Yallocc\Yallocc.csproj">
-      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
-      <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

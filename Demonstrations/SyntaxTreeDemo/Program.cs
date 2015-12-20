@@ -1,5 +1,6 @@
 ﻿using SyntaxTree;
 using System;
+using Yallocc.Tokenizer.LeTok;
 
 namespace SyntaxTreeDemo
 {
@@ -7,11 +8,12 @@ namespace SyntaxTreeDemo
    {
       static void Main(string[] args)
       {
+         var tokenizerCreator = new LeTokCreator<TokenType>();
          var treeGenerator
-             = SyntaxTreeGenerator<TokenType>.Make
-                                             .Register(new TokenDefinition())
-                                             .Register(new GrammarDefinition())
-                                             .Create();
+             = SyntaxTreeGeneratorCreator<TokenType>.Make(tokenizerCreator)
+                                                    .Register(new TokenDefinition())
+                                                    .Register(new GrammarDefinition())
+                                                    .Create();
 
          bool finished = false;
          while (!finished)
@@ -44,7 +46,6 @@ namespace SyntaxTreeDemo
                finished = true;
             }
          }
-
       }
    }
 }

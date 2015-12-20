@@ -60,6 +60,14 @@
     <Compile Include="YalloccTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Tokenizer.LeTok\Tokenizer.LeTok.csproj">
+      <Project>{43c0baf7-2d9d-4b64-b2f4-abc712d0ea0e}</Project>
+      <Name>Tokenizer.LeTok</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tokenizer.LexSharp\Tokenizer.LexSharp.csproj">
+      <Project>{70d60623-16a5-4843-8351-8e819315a029}</Project>
+      <Name>Tokenizer.LexSharp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>Tokenizer</Name>

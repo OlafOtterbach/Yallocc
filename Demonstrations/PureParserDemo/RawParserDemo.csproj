@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EBC2A6FA-99FF-48B9-A68F-05C901799955}</ProjectGuid>
+    <ProjectGuid>{C308E425-1DF8-490D-95E2-DB8E44520596}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TokenizerDemo</RootNamespace>
-    <AssemblyName>TokenizerDemo</AssemblyName>
+    <RootNamespace>RawParserDemo</RootNamespace>
+    <AssemblyName>RawParserDemo</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,16 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyContext.cs" />
+    <Compile Include="GrammarDefinition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Tokenizer.LeTok\Tokenizer.LeTok.csproj">
+      <Project>{43c0baf7-2d9d-4b64-b2f4-abc712d0ea0e}</Project>
+      <Name>Tokenizer.LeTok</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Yallocc\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>Tokenizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yallocc\Yallocc\Yallocc.csproj">
+      <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
+      <Name>Yallocc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

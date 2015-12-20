@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using LexSharp;
+using Yallocc.Tokenizer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BasicDemo;
 using BasicDemo.Basic;
@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using Yallocc;
 using System.IO;
 using SyntaxTree;
+using Yallocc.Tokenizer.LeTok;
+using Yallocc.Tokenizer.LexSharp;
 
 namespace BasicDemoTest
 {
@@ -16,14 +18,9 @@ namespace BasicDemoTest
       [TestMethod]
       public void ColonTest_OneColon_Colon()
       {
-         var yacc = new Yallocc<TokenType>();
-         var builder = new SyntaxTreeBuilder();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
+         var tokenizer = CreateBasicTokenizer();
 
-         var tokens = lex.Scan("456:123").ToList();
+         var tokens = tokenizer.Scan("456:123").ToList();
 
          Assert.IsTrue(tokens.Any());
          Assert.AreEqual(tokens.First().Type, TokenType.integer);
@@ -34,19 +31,11 @@ namespace BasicDemoTest
       [TestMethod]
       public void NameTest_OneName_SyntaxTreeBuilderDoesNotInfluenceResult()
       {
-         var yacc1 = new Yallocc<TokenType>();
-         var yacc2 = new Yallocc<TokenType>();
-         var builder = new SyntaxTreeBuilder();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc1, null);
-         tokenDefinition.Define(yacc2, null);
-         var lex1 = yacc1.Lex;
-         var lex2 = yacc1.Lex;
-         lex1.Initialize();
-         lex2.Initialize();
+         var tokenizer1 = CreateBasicTokenizer();
+         var tokenizer2 = CreateBasicTokenizer();
 
-         var tokens1 = lex1.Scan("Hallo").ToList();
-         var tokens2 = lex2.Scan("Hallo").ToList();
+         var tokens1 = tokenizer1.Scan("Hallo").ToList();
+         var tokens2 = tokenizer2.Scan("Hallo").ToList();
 
          Assert.IsTrue(tokens1.Any());
          Assert.AreEqual(tokens1.First().Type, TokenType.name);
@@ -60,32 +49,24 @@ namespace BasicDemoTest
       [TestMethod]
       public void NameTest_OneName_NameScanned()
       {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
+         var tokenizer = CreateBasicTokenizer();
 
-         var tokens1 = lex.Scan("Hallo").ToList();
+         var tokens1 = tokenizer.Scan("Hallo").ToList();
 
          Assert.IsTrue(tokens1.Any());
          Assert.AreEqual(tokens1.First().Type, TokenType.name);
          Assert.AreEqual(tokens1.First().Value, "Hallo");
 
-         var tokens2 = lex.Scan("PROGRAM \"text\"\r\nLET a = 2").ToList();
+         var tokens2 = tokenizer.Scan("PROGRAM \"text\"\r\nLET a = 2").ToList();
       }
 
       [TestMethod]
       public void NameTest_ProgramText_NameScanned()
       {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
+         var tokenizer = CreateBasicTokenizer();
 
          var text = "PROGRAM \"LET Statement\"\r\nLET a";
-         var tokens = lex.Scan(text).ToList();
+         var tokens = tokenizer.Scan(text).ToList();
 
          Assert.IsTrue(tokens.Any());
          Assert.AreEqual(tokens[4].Type, TokenType.name);
@@ -95,14 +76,10 @@ namespace BasicDemoTest
       [TestMethod]
       public void ScannerStressTest()
       {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
+         var tokenizer = CreateBasicTokenizer();
 
          var text = "\"LET Statement\" LET a";
-         var tokens = lex.Scan(text).ToList();
+         var tokens = tokenizer.Scan(text).ToList();
 
          Assert.IsTrue(tokens.Any());
          Assert.AreEqual(tokens[2].Type, TokenType.name);
@@ -112,37 +89,30 @@ namespace BasicDemoTest
       [TestMethod]
       public void Name_FileAsInput_NameScanned()
       {
-         var yacc = new Yallocc<TokenType>();
-         var tokenDefinition = new TokenDefinition();
-         tokenDefinition.Define(yacc, null);
-         var lex = yacc.Lex;
-         lex.Initialize();
+         var tokenizer = CreateBasicTokenizer();
 
          var programText = File.ReadAllText(@"Basic\Grammar\TestData\LetStatementProgram.basic");
-         var tokens = lex.Scan(programText).ToList();
+         var tokens = tokenizer.Scan(programText).ToList();
 
          Assert.IsTrue(tokens.Any());
          Assert.AreEqual(tokens[4].Type, TokenType.name);
          Assert.AreEqual(tokens[4].Value, "a");
       }
 
-
       [TestMethod]
       public void SpecialCharactersTest_SpecialCharacters_RecognizingTokenType()
       {
-         LeTok<TokenType> lex = new LeTok<TokenType>();
-         DefineTokenType(lex);
-         lex.Initialize();
+         Tokenizer<TokenType> tokenizer = CreateTokenizer();
 
-         var plus = lex.Scan("+").ToList();
-         var minus = lex.Scan("-").ToList();
-         var mult = lex.Scan("*").ToList();
-         var div = lex.Scan("/").ToList();
-         var equal = lex.Scan("=").ToList();
-         var greater = lex.Scan(">").ToList();
-         var less = lex.Scan("<").ToList();
-         var open = lex.Scan("(").ToList();
-         var close = lex.Scan(")").ToList();
+         var plus = tokenizer.Scan("+").ToList();
+         var minus = tokenizer.Scan("-").ToList();
+         var mult = tokenizer.Scan("*").ToList();
+         var div = tokenizer.Scan("/").ToList();
+         var equal = tokenizer.Scan("=").ToList();
+         var greater = tokenizer.Scan(">").ToList();
+         var less = tokenizer.Scan("<").ToList();
+         var open = tokenizer.Scan("(").ToList();
+         var close = tokenizer.Scan(")").ToList();
 
          Assert.IsTrue(plus.Any());
          Assert.IsTrue(minus.Any());
@@ -178,15 +148,15 @@ namespace BasicDemoTest
       [TestMethod]
       public void NumberTest_Number_RecognizingNumber()
       {
-         LeTok<TokenType> lex = new LeTok<TokenType>();
+         Tokenizer<TokenType> tokenizer = CreateTokenizer();
 
-         var one = lex.Scan("1").ToList();
-         var oneDot = lex.Scan("1.").ToList();
-         var oneDotZeroOneTwoThree = lex.Scan("1.0123").ToList();
-         var zero = lex.Scan("0").ToList();
-         var zeroDot = lex.Scan("0.").ToList();
-         var dotZero = lex.Scan(".0").ToList();
-         var zeroDotOneTwoThree = lex.Scan("0.123").ToList();
+         var one = tokenizer.Scan("1").ToList();
+         var oneDot = tokenizer.Scan("1.").ToList();
+         var oneDotZeroOneTwoThree = tokenizer.Scan("1.0123").ToList();
+         var zero = tokenizer.Scan("0").ToList();
+         var zeroDot = tokenizer.Scan("0.").ToList();
+         var dotZero = tokenizer.Scan(".0").ToList();
+         var zeroDotOneTwoThree = tokenizer.Scan("0.123").ToList();
 
          Assert.IsTrue(one.Any());
          Assert.IsTrue(oneDot.Any());
@@ -214,20 +184,34 @@ namespace BasicDemoTest
          Assert.AreEqual(zeroDotOneTwoThree.First().Value, "0.123");
       }
 
-      private void DefineTokenType(LeTok<TokenType> lex)
+      private Tokenizer<TokenType> CreateTokenizer()
       {
-         lex.Register(@"\+", TokenType.plus);
-         lex.Register(@"\-", TokenType.minus);
-         lex.Register(@"\*", TokenType.mult);
-         lex.Register(@"\/", TokenType.div);
-         lex.Register(@"=", TokenType.equal);
-         lex.Register(@"\>", TokenType.greater);
-         lex.Register(@"\<", TokenType.less);
-         lex.Register(@"\(", TokenType.open);
-         lex.Register(@"\)", TokenType.close);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
-         lex.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
-         lex.Initialize();
+         var tokenizerCreator = new LexSharpCreator<TokenType>();
+         tokenizerCreator.Register(@"\+", TokenType.plus);
+         tokenizerCreator.Register(@"\-", TokenType.minus);
+         tokenizerCreator.Register(@"\*", TokenType.mult);
+         tokenizerCreator.Register(@"\/", TokenType.div);
+         tokenizerCreator.Register(@"=", TokenType.equal);
+         tokenizerCreator.Register(@"\>", TokenType.greater);
+         tokenizerCreator.Register(@"\<", TokenType.less);
+         tokenizerCreator.Register(@"\(", TokenType.open);
+         tokenizerCreator.Register(@"\)", TokenType.close);
+         tokenizerCreator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
+         tokenizerCreator.Register(@"(0|1|2|3|4|5|6|7|8|9)*.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
+         var tokenizer = tokenizerCreator.Create();
+         return tokenizer;
+      }
+
+      private Tokenizer<TokenType> CreateBasicTokenizer()
+      {
+         var tokenizerCreator = new LeTokCreator<TokenType>();
+         var yacc = new Yallocc<SyntaxTreeBuilder, TokenType>(tokenizerCreator);
+         var tokenDefinition = new TokenDefinition();
+         tokenDefinition.Define(yacc);
+         yacc.MasterGrammar("Dummy").Enter.Exit.EndGrammar();
+         var parserAndTokenizer = yacc.CreateParser();
+         var tokenizer = parserAndTokenizer.Tokenizer;
+         return tokenizer;
       }
    }
 }

@@ -15,7 +15,7 @@ basic token commands.
 
 Tokenizer Demo
 --------------
-Demonstrates use of tokenizer.
+Demonstrates use of a tokenizer.
 Analyzes the tokens of a mathematical expression.
 The result is represented in a list of tokens.
 
@@ -26,9 +26,9 @@ a grammar for a mathematical expression.
 The demonstration analyses the input and
 marks errors if existing.
 
-PureParser Demo
----------------
-Demonstrates use of the pure parser without
+RawParser Demo
+--------------
+Demonstrates use of the raw parser without
 integrated tokenizer by defining
 a grammar for a mathematical expression.
 The demonstration analyses the input and

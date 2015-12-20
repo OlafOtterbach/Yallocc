@@ -17,8 +17,7 @@ namespace BasicDemo.Basic
       public override void Create(SyntaxTreeNode node)
       {
          var tokNode = node as TokenTreeNode<TokenType>;
-         var children = node.Children.OfType<TokenTreeNode<TokenType>>().ToList();
-         var name = children.First().Token.Value;
+         var name = tokNode.Token.Value;
          var labelName = name.Length > 0 ? name.Substring(0, name.Length - 1 ) : string.Empty;
          var command = new LabelCommand(tokNode.Token, Engine, labelName);
          Engine.Add(command);

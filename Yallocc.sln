@@ -40,9 +40,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserDemo", "Demonstration
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxTreeDemo", "Demonstrations\SyntaxTreeDemo\SyntaxTreeDemo.csproj", "{4A0DBC96-20F2-4B13-B02F-4CD5BA110F9D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PureParserDemo", "PureParserDemo", "{981CD1DE-6578-4953-ACE3-6E800537CD8B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RawParserDemo", "RawParserDemo", "{981CD1DE-6578-4953-ACE3-6E800537CD8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PureParserDemo", "Demonstrations\PureParserDemo\PureParserDemo.csproj", "{C308E425-1DF8-490D-95E2-DB8E44520596}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawParserDemo", "Demonstrations\PureParserDemo\RawParserDemo.csproj", "{C308E425-1DF8-490D-95E2-DB8E44520596}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanningTextDemo", "ScanningTextDemo", "{5843F41A-1D94-4765-A8EC-CAF9CED03F67}"
 EndProject
@@ -51,6 +51,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanningBasicDemo", "ScanningBasicDemo", "{5F0ACC8E-36FA-4C20-A2DB-87BA358AB849}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanningBasicDemo", "Demonstrations\ScanningBasicDemo\ScanningBasicDemo.csproj", "{486FB051-9E78-4D47-94DA-C2CE5C34A0AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer.LeTok", "Tokenizer.LeTok\Tokenizer.LeTok.csproj", "{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer.LexSharp", "Tokenizer.LexSharp\Tokenizer.LexSharp.csproj", "{70D60623-16A5-4843-8351-8E819315A029}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,6 +118,14 @@ Global
 		{486FB051-9E78-4D47-94DA-C2CE5C34A0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{486FB051-9E78-4D47-94DA-C2CE5C34A0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{486FB051-9E78-4D47-94DA-C2CE5C34A0AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D60623-16A5-4843-8351-8E819315A029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D60623-16A5-4843-8351-8E819315A029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D60623-16A5-4843-8351-8E819315A029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D60623-16A5-4843-8351-8E819315A029}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,5 +152,7 @@ Global
 		{6B27A722-CFAA-4345-A870-61E9D64330B8} = {5843F41A-1D94-4765-A8EC-CAF9CED03F67}
 		{5F0ACC8E-36FA-4C20-A2DB-87BA358AB849} = {69F7E27A-FDD6-40A8-B0AA-8287F104249C}
 		{486FB051-9E78-4D47-94DA-C2CE5C34A0AD} = {5F0ACC8E-36FA-4C20-A2DB-87BA358AB849}
+		{43C0BAF7-2D9D-4B64-B2F4-ABC712D0EA0E} = {A92B1C83-52F7-440C-B9EB-979FDC876325}
+		{70D60623-16A5-4843-8351-8E819315A029} = {A92B1C83-52F7-440C-B9EB-979FDC876325}
 	EndGlobalSection
 EndGlobal

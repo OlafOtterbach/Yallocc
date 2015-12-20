@@ -36,13 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeTok\LeTokCreator.cs" />
-    <Compile Include="LexSharp\LexSharpCreator.cs" />
-    <Compile Include="LexSharp\TokenResultBuffer.cs" />
     <Compile Include="TokenizerCreator.cs" />
-    <Compile Include="LeTok\LeTok.cs" />
-    <Compile Include="LexSharp\LexSharp.cs" />
-    <Compile Include="LexSharp\TextCursor.cs" />
     <Compile Include="Exceptions\MissingTokenDefinitionException.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,4 @@
-﻿using LexSharp;
+﻿using Yallocc.Tokenizer;
 using SyntaxTree;
 using Yallocc;
 
@@ -15,18 +15,18 @@ namespace BasicDemo.Basic
       //                    |                              \|/
       // --(LET)-->--(name)-------------------------------------(=)--[Expression]---->
       //
-      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<SyntaxTreeBuilder, TokenType> yacc)
       {
          yacc.Grammar("LetStatement")
-             .Enter                                    .Action(() => stb.Enter())
-             .Token(TokenType.let_keyword)             .Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
-             .Token(TokenType.name)                    .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
+             .Enter                                    .Action((SyntaxTreeBuilder stb) => stb.Enter())
+             .Token(TokenType.let_keyword)             .Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+             .Token(TokenType.name)                    .Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.open)            .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
+                     .Token(TokenType.open)            .Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
                      .Label("ParamList")
-                     .Gosub("Expression")              .Action(() => stb.AdoptInnerNodes())
+                     .Gosub("Expression")              .Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
                      .Switch
                       (
                          yacc.Branch
@@ -34,12 +34,12 @@ namespace BasicDemo.Basic
                              .Goto("ParamList"),
                          yacc.Branch.Default
                       )
-                     .Token(TokenType.close)           .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok))),
+                     .Token(TokenType.close)           .Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch.Default
               )
-             .Token(TokenType.equal)                   .Action((Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
-             .Gosub("Expression")                      .Action(() => stb.AdoptInnerNodes())
-             .Exit.Action(() => stb.Exit())
+             .Token(TokenType.equal)                   .Action((SyntaxTreeBuilder stb,Token<TokenType> tok) => stb.AddChild(new TokenTreeNode<TokenType>(tok)))
+             .Gosub("Expression")                      .Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
       }
    }

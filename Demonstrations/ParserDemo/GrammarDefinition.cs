@@ -1,11 +1,10 @@
-﻿using LexSharp;
-using Yallocc;
+﻿using Yallocc;
 
 namespace ParserDemo
 {
    public static class GrammarDefinition
    {
-      public static void DefineGrammar(this Yallocc<TokenType> yacc)
+      public static void DefineParserGrammar(this Yallocc<DummyContext, TokenType> yacc)
       {
          // Expression
          //

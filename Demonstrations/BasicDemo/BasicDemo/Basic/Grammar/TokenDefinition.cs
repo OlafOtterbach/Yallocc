@@ -5,46 +5,48 @@ namespace BasicDemo.Basic
 {
    public class TokenDefinition : ITokenAndGrammarDefinition<TokenType>
    {
-      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<SyntaxTreeBuilder, TokenType> yacc)
       {
-         yacc.AddToken(@"PROGRAM", TokenType.program_keyword);
-         yacc.AddToken(@"END", TokenType.end_keyword);
-         yacc.AddToken(@"\+", TokenType.plus);
-         yacc.AddToken(@"\-", TokenType.minus);
-         yacc.AddToken(@"\*", TokenType.mult);
-         yacc.AddToken(@"\/", TokenType.div);
-         yacc.AddToken(@"=", TokenType.equal);
-         yacc.AddToken(@"\>", TokenType.greater);
-         yacc.AddToken(@"\>=", TokenType.greaterEqual);
-         yacc.AddToken(@"\<", TokenType.less);
-         yacc.AddToken(@"\<=", TokenType.lessEqual);
-         yacc.AddToken(@"\(", TokenType.open);
-         yacc.AddToken(@"\)", TokenType.close);
-         yacc.AddToken(@",", TokenType.comma);
-         yacc.AddToken(@":", TokenType.colon);
-         yacc.AddToken("\r\n", TokenType.Return);
-         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
-         yacc.AddToken(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
-         yacc.AddToken("\".*\"", TokenType.text);
-         yacc.AddToken(@"DIM", TokenType.dim_keyword);
-         yacc.AddToken(@"LET", TokenType.let_keyword);
-         yacc.AddToken(@"IF", TokenType.if_keyword);
-         yacc.AddToken(@"THEN", TokenType.then_keyword);
-         yacc.AddToken(@"ELSE", TokenType.else_keyword);
-         yacc.AddToken(@"WHILE", TokenType.while_keyword);
-         yacc.AddToken(@"FOR", TokenType.for_keyword);
-         yacc.AddToken(@"TO", TokenType.to_keyword);
-         yacc.AddToken(@"STEP", TokenType.step_keyword);
-         yacc.AddToken(@"DO", TokenType.do_keyword);
-         yacc.AddToken(@"GOTO", TokenType.goto_keyword);
-         yacc.AddToken(@"PLOT", TokenType.plot_keyword);
-         yacc.AddToken(@"NOT", TokenType.not_keyword);
-         yacc.AddToken(@"AND", TokenType.and_keyword);
-         yacc.AddToken(@"OR", TokenType.or_keyword);
-         yacc.AddToken(@"MOD", TokenType.mod_keyword);
-         yacc.AddToken(@"(\w)+(\w|\d)*\:", TokenType.label);
-         yacc.AddToken(@"(\w)+(\w|\d)*", TokenType.name);
-         yacc.AddTokenToIgnore(@"( |\t)+", TokenType.white_space);
+         yacc.DefineTokens()
+             .AddTokenPattern(@"PROGRAM", TokenType.program_keyword)
+             .AddTokenPattern(@"END", TokenType.end_keyword)
+             .AddTokenPattern(@"\+", TokenType.plus)
+             .AddTokenPattern(@"\-", TokenType.minus)
+             .AddTokenPattern(@"\*", TokenType.mult)
+             .AddTokenPattern(@"\/", TokenType.div)
+             .AddTokenPattern(@"=", TokenType.equal)
+             .AddTokenPattern(@"\>", TokenType.greater)
+             .AddTokenPattern(@"\>=", TokenType.greaterEqual)
+             .AddTokenPattern(@"\<", TokenType.less)
+             .AddTokenPattern(@"\<=", TokenType.lessEqual)
+             .AddTokenPattern(@"\(", TokenType.open)
+             .AddTokenPattern(@"\)", TokenType.close)
+             .AddTokenPattern(@",", TokenType.comma)
+             .AddTokenPattern(@":", TokenType.colon)
+             .AddTokenPattern("\r\n", TokenType.Return)
+             .AddTokenPattern(@"(0|1|2|3|4|5|6|7|8|9)+\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real)
+             .AddTokenPattern(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer)
+             .AddTokenPattern("\".*\"", TokenType.text)
+             .AddTokenPattern(@"DIM", TokenType.dim_keyword)
+             .AddTokenPattern(@"LET", TokenType.let_keyword)
+             .AddTokenPattern(@"IF", TokenType.if_keyword)
+             .AddTokenPattern(@"THEN", TokenType.then_keyword)
+             .AddTokenPattern(@"ELSE", TokenType.else_keyword)
+             .AddTokenPattern(@"WHILE", TokenType.while_keyword)
+             .AddTokenPattern(@"FOR", TokenType.for_keyword)
+             .AddTokenPattern(@"TO", TokenType.to_keyword)
+             .AddTokenPattern(@"STEP", TokenType.step_keyword)
+             .AddTokenPattern(@"DO", TokenType.do_keyword)
+             .AddTokenPattern(@"GOTO", TokenType.goto_keyword)
+             .AddTokenPattern(@"PLOT", TokenType.plot_keyword)
+             .AddTokenPattern(@"NOT", TokenType.not_keyword)
+             .AddTokenPattern(@"AND", TokenType.and_keyword)
+             .AddTokenPattern(@"OR", TokenType.or_keyword)
+             .AddTokenPattern(@"MOD", TokenType.mod_keyword)
+             .AddTokenPattern(@"(\w)+(\w|\d)*\:", TokenType.label)
+             .AddTokenPattern(@"(\w)+(\w|\d)*", TokenType.name)
+             .AddIgnorePattern(@"( |\t)+", TokenType.white_space)
+             .End();
       }
    }
 }

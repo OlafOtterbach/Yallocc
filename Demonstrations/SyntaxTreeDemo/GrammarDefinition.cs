@@ -1,12 +1,12 @@
-﻿using LexSharp;
-using SyntaxTree;
+﻿using SyntaxTree;
 using Yallocc;
+using Yallocc.Tokenizer;
 
 namespace SyntaxTreeDemo
 {
    public class GrammarDefinition : ITokenAndGrammarDefinition<TokenType>
    {
-      public void Define(Yallocc<TokenType> yacc, SyntaxTreeBuilder stb)
+      public void Define(Yallocc<SyntaxTreeBuilder,TokenType> yacc)
       {
          // Expression
          //
@@ -17,27 +17,27 @@ namespace SyntaxTreeDemo
          // --"ExpressionStart"----------------------"ExpreesionLoop"------[Term]---------------->
          //
          yacc.MasterGrammar("Expression")
-             .Enter.Action(() => stb.Enter())
+             .Enter.Action((SyntaxTreeBuilder stb) => stb.Enter())
              .Label("ExpressionStart")
              .Switch
               (
-                yacc.Branch.Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
-                yacc.Branch.Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                yacc.Branch.Token(TokenType.plus).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                yacc.Branch.Token(TokenType.minus).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                 yacc.Branch.Default
               )
              .Label("ExpressionLoop")
-             .Gosub("Term").Action(() => stb.AdoptInnerNodes())
+             .Gosub("Term").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.plus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.plus).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("ExpressionLoop"),
                 yacc.Branch
-                    .Token(TokenType.minus).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.minus).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("ExpressionLoop"),
                 yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
 
          // Term
@@ -48,20 +48,20 @@ namespace SyntaxTreeDemo
          // -----"TermStart"-->--[Factor]-------------->
          //
          yacc.Grammar("Term")
-             .Enter.Action(() => stb.Enter())
+             .Enter.Action((SyntaxTreeBuilder stb) => stb.Enter())
              .Label("TermStart")
-             .Gosub("Factor").Action(() => stb.AdoptInnerNodes())
+             .Gosub("Factor").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
              .Switch
               (
                 yacc.Branch
-                    .Token(TokenType.mult).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.mult).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch
-                    .Token(TokenType.div).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
+                    .Token(TokenType.div).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok)))
                     .Goto("TermStart"),
                 yacc.Branch.Default
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
 
          // Factor
@@ -71,19 +71,19 @@ namespace SyntaxTreeDemo
          // --"FactorStart"-->-------(-[Expression]-)--->- \|/----->
          //
          yacc.Grammar("Factor")
-             .Enter.Name("FactorStart").Action(() => stb.Enter())
+             .Enter.Name("FactorStart").Action((SyntaxTreeBuilder stb) => stb.Enter())
              .Switch
               (
                  yacc.Branch
-                     .Token(TokenType.integer).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                     .Token(TokenType.integer).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch
-                     .Token(TokenType.real).Action((Token<TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
+                     .Token(TokenType.real).Action((SyntaxTreeBuilder stb, Token < TokenType> tok) => stb.CreateParent(new TokenTreeNode<TokenType>(tok))),
                  yacc.Branch
                      .Token(TokenType.open)
-                     .Gosub("Expression").Action(() => stb.AdoptInnerNodes())
+                     .Gosub("Expression").Action((SyntaxTreeBuilder stb) => stb.AdoptInnerNodes())
                      .Token(TokenType.close)
               )
-             .Exit.Action(() => stb.Exit())
+             .Exit.Action((SyntaxTreeBuilder stb) => stb.Exit())
              .EndGrammar();
       }
    }
