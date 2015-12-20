@@ -11,7 +11,7 @@ namespace SyntaxTree
           _parser = parser;
       }
 
-      public SyntaxTreeBuilderResult Parse(string text)
+      public SyntaxTreeResult Parse(string text)
       {
          if (_parser == null)
          {
@@ -20,7 +20,7 @@ namespace SyntaxTree
 
          var syntaxTreeBuilder = new SyntaxTreeBuilder();
          var parseResult = _parser.Parse(text, syntaxTreeBuilder);
-         var result = new SyntaxTreeBuilderResult(syntaxTreeBuilder.Root, parseResult);
+         var result = new SyntaxTreeResult(syntaxTreeBuilder.Root, parseResult);
          return result;
       }
    }

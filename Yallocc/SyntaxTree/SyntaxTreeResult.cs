@@ -2,9 +2,9 @@
 
 namespace SyntaxTree
 {
-   public struct SyntaxTreeBuilderResult
+   public struct SyntaxTreeResult
    {
-      public SyntaxTreeBuilderResult(SyntaxTreeNode root, ParserResult result ) : this()
+      public SyntaxTreeResult(SyntaxTreeNode root, ParserResult result ) : this()
       {
          Root = root;
          ParserResult = result;
