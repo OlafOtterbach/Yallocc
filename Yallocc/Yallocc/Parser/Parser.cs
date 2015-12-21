@@ -5,14 +5,14 @@ using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
-   public class SyntaxDiagramParser<TCtx, T> where T : struct
+   public class Parser<TCtx, T> where T : struct
    {
       private readonly Transition _masterGrammarStartTransition;
 
       private readonly int _maxLookaheadSearchDepth;
 
 
-      public SyntaxDiagramParser(Transition masterGrammar, int max = 100 )
+      public Parser(Transition masterGrammar, int max = 100 )
       {
          _masterGrammarStartTransition = masterGrammar;
          _maxLookaheadSearchDepth = max;

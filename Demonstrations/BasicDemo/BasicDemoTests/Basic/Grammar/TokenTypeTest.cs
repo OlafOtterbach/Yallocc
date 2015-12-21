@@ -6,7 +6,7 @@ using BasicDemo.Basic;
 using System.Text.RegularExpressions;
 using Yallocc;
 using System.IO;
-using SyntaxTree;
+using Yallocc.SyntaxTree;
 using Yallocc.Tokenizer.LeTok;
 using Yallocc.Tokenizer.LexSharp;
 

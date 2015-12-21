@@ -1,8 +1,8 @@
-﻿using SyntaxTree;
+﻿using Yallocc.SyntaxTree;
 using Yallocc;
 using Yallocc.Tokenizer;
 
-namespace SyntaxTreeDemo
+namespace Yallocc.SyntaxTreeDemo
 {
    public class GrammarDefinition : ITokenAndGrammarDefinition<TokenType>
    {

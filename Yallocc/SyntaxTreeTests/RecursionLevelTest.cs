@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SyntaxTree;
-using SyntaxTreeTest.ExpressionTree;
+using Yallocc.SyntaxTree;
+using Yallocc.SyntaxTreeTest.ExpressionTree;
 using System.Linq;
 
-namespace SyntaxTreeTest
+namespace Yallocc.SyntaxTreeTest
 {
    [TestClass]
    public class RecursionLevelTest

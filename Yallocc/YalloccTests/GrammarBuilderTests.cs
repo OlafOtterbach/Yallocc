@@ -262,7 +262,7 @@ namespace Yallocc
       private bool Parser(string text, Transition grammar)
       {
          var tokenizer = CreateAbcLex();
-         var parser = new SyntaxDiagramParser<DummyContext, AbcTokenType>(grammar);
+         var parser = new Parser<DummyContext, AbcTokenType>(grammar);
 
          var sequence = tokenizer.Scan(text);
          var result = parser.ParseTokens(sequence, new DummyContext());

@@ -1,6 +1,6 @@
-﻿using SyntaxTree;
+﻿using Yallocc.SyntaxTree;
 
-namespace SyntaxTreeTest
+namespace Yallocc.SyntaxTreeTest
 {
    public class NamedTreeNode : SyntaxTreeNode
    {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public class SyntaxTreeGeneratorNotReadyException : Exception
    {

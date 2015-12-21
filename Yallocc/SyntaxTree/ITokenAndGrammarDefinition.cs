@@ -1,6 +1,6 @@
 ﻿using Yallocc;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public interface ITokenAndGrammarDefinition<T> where T : struct
    {

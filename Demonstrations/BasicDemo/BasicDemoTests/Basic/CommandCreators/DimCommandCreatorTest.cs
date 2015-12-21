@@ -1,7 +1,7 @@
 ﻿using BasicDemo.Basic;
 using Yallocc.Tokenizer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SyntaxTree;
+using Yallocc.SyntaxTree;
 using System.Linq;
 
 namespace BasicDemoTest

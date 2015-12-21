@@ -1,4 +1,4 @@
-﻿using SyntaxTree;
+﻿using Yallocc.SyntaxTree;
 using Yallocc;
 using Yallocc.Tokenizer;
 

@@ -1,4 +1,4 @@
-﻿namespace SyntaxTreeTest.ExpressionTree
+﻿namespace Yallocc.SyntaxTreeTest.ExpressionTree
 {
    public enum ExpressionTokenType
    {

@@ -3,7 +3,7 @@ using System.Linq;
 using Yallocc;
 using Yallocc.Tokenizer;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public class SyntaxTreeGeneratorCreator<T> where T : struct
    {
@@ -21,7 +21,7 @@ namespace SyntaxTree
       }
 
 
-      public static GeneratorInterfaceWithRegisterWithoutCreate<T> Make(TokenizerCreator<T> tokenizerCreator)
+      public static GeneratorInterfaceWithRegisterWithoutCreate<T> RegisterDefinitions(TokenizerCreator<T> tokenizerCreator)
       {
          return new GeneratorInterfaceWithRegisterWithoutCreate<T>(new SyntaxTreeGeneratorCreator<T>(tokenizerCreator));
       }

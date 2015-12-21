@@ -1,6 +1,6 @@
 ﻿using Yallocc;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public class SyntaxTreeGenerator<T> where T : struct
    {

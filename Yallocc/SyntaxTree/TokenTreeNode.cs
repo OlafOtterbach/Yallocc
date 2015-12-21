@@ -1,6 +1,6 @@
 ﻿using Yallocc.Tokenizer;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public class TokenTreeNode<T> : SyntaxTreeNode where T : struct
    {

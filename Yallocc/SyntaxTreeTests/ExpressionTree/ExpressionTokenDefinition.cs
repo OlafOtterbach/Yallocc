@@ -1,7 +1,7 @@
-﻿using SyntaxTree;
+﻿using Yallocc.SyntaxTree;
 using Yallocc;
 
-namespace SyntaxTreeTest.ExpressionTree
+namespace Yallocc.SyntaxTreeTest.ExpressionTree
 {
    public class ExpressionTokenDefinition : ITokenAndGrammarDefinition<ExpressionTokenType>
    {

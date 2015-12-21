@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public class SyntaxTreeBuilder
    {

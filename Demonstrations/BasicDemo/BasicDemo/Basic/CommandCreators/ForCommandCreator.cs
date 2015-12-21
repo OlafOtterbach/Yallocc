@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using SyntaxTree;
+using Yallocc.SyntaxTree;
 using System.Collections.Generic;
 using Yallocc.Tokenizer;
 

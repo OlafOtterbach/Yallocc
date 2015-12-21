@@ -1,15 +1,15 @@
-﻿using SyntaxTree;
+﻿using Yallocc.SyntaxTree;
 using Yallocc;
 using Yallocc.Tokenizer.LeTok;
 
-namespace SyntaxTreeTest.ExpressionTree
+namespace Yallocc.SyntaxTreeTest.ExpressionTree
 {
    public class ExpressionGrammarGenerator
    {
       public SyntaxTreeGenerator<ExpressionTokenType> CreateParser()
       {
          var generator
-             = SyntaxTreeGeneratorCreator<ExpressionTokenType>.Make(new LeTokCreator<ExpressionTokenType>())
+             = SyntaxTreeGeneratorCreator<ExpressionTokenType>.RegisterDefinitions(new LeTokCreator<ExpressionTokenType>())
                                                        .Register(new ExpressionTokenDefinition())
                                                        .Register(new ExpressionGrammarDefinition())
                                                        .Create();

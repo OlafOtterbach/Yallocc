@@ -1,5 +1,5 @@
 ﻿using Yallocc.Tokenizer;
-using SyntaxTree;
+using Yallocc.SyntaxTree;
 using Yallocc;
 
 namespace BasicDemo.Basic

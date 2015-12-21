@@ -5,7 +5,7 @@ namespace Yallocc
    public class ParserAndTokenizer<TCtx,T> where T : struct
    {
       private Tokenizer<T> _tokenizer;
-      private SyntaxDiagramParser<TCtx,T> _parser;
+      private Parser<TCtx,T> _parser;
 
       public Tokenizer<T> Tokenizer
       {
@@ -15,7 +15,7 @@ namespace Yallocc
          }
       }
 
-      public SyntaxDiagramParser<TCtx,T> Parser
+      public Parser<TCtx,T> Parser
       {
          get
          {
@@ -23,7 +23,7 @@ namespace Yallocc
          }
       }
 
-      public ParserAndTokenizer(SyntaxDiagramParser<TCtx,T> parser, Tokenizer<T> tokenizer)
+      public ParserAndTokenizer(Parser<TCtx,T> parser, Tokenizer<T> tokenizer)
       {
          _tokenizer = tokenizer;
          _parser = parser;

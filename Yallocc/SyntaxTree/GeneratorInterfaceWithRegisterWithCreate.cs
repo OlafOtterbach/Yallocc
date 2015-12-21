@@ -1,4 +1,4 @@
-﻿namespace SyntaxTree
+﻿namespace Yallocc.SyntaxTree
 {
    public class GeneratorInterfaceWithRegisterWithCreate<T> where T : struct
    {

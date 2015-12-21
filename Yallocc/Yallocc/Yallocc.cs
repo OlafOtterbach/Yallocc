@@ -67,7 +67,7 @@ namespace Yallocc
 
          GrammarInitialisationAndValidation<TCtx>.ReplaceProxiesInGrammarTransitions(_grammers);
          var tokenizer = _tokenizerCreator.Create();
-         var parser = new SyntaxDiagramParser<TCtx,T>(_grammers.GetMasterGrammar());
+         var parser = new Parser<TCtx,T>(_grammers.GetMasterGrammar());
          return new ParserAndTokenizer<TCtx,T>(parser, tokenizer);
       }
    }

@@ -1,10 +1,10 @@
-﻿using SyntaxTree;
+﻿using Yallocc.SyntaxTree;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace SyntaxTreeDemo
+namespace Yallocc.SyntaxTreeDemo
 {
    public static class ExpressionTreeCreator
    {

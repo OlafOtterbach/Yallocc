@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SyntaxTree;
+using Yallocc.SyntaxTree;
 using System.Linq;
 
-namespace SyntaxTreeTest
+namespace Yallocc.SyntaxTreeTest
 {
    [TestClass]
    public class SyntaxTreeBuilderTest

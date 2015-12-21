@@ -31,7 +31,7 @@ namespace RawParserDemo
          var grammar = grammers.GetMasterGrammar();
 
          // Create parser
-         var parser = new SyntaxDiagramParser<DummyContext, TokenType>(grammar);
+         var parser = new Parser<DummyContext, TokenType>(grammar);
 
          // Parse inputs from the console
          bool finished = false;

@@ -1,4 +1,4 @@
-﻿namespace SyntaxTreeDemo
+﻿namespace Yallocc.SyntaxTreeDemo
 {
    public enum TokenType
    {

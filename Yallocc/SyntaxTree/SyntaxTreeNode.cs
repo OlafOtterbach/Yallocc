@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SyntaxTree
+namespace Yallocc.SyntaxTree
 {
    public class SyntaxTreeNode
    {
