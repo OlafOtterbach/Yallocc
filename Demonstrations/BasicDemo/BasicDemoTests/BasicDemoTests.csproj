@@ -80,9 +80,9 @@
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>Tokenizer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Yallocc\SyntaxTree\SyntaxTree.csproj">
+    <ProjectReference Include="..\..\..\Yallocc\SyntaxTree\Yallocc.SyntaxTree.csproj">
       <Project>{df75a5bd-f67a-4504-922d-04b8801b46ab}</Project>
-      <Name>SyntaxTree</Name>
+      <Name>Yallocc.SyntaxTree</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Yallocc\Yallocc\Yallocc.csproj">
       <Project>{5bd461e9-72aa-44e1-a640-41266fa9c1ca}</Project>
