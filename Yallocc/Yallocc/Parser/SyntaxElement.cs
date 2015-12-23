@@ -13,7 +13,7 @@ namespace Yallocc
          Transition = transition;
       }
 
-      public Transition Transition { get; private set; }
+      public Transition Transition { get; }
 
       public IEnumerable<SyntaxElement> GetSuccessors()
       {

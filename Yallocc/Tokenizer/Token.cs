@@ -28,13 +28,13 @@ namespace Yallocc.Tokenizer
          Length = length;
       }
 
-      public string Value { get; private set; }
+      public string Value { get; }
 
-      public Nullable<T> Type { get; private set; }
+      public Nullable<T> Type { get; }
 
-      public int TextIndex { get; private set; }
+      public int TextIndex { get; }
 
-      public int Length { get; private set; }
+      public int Length { get; }
 
       public bool IsValid
       {

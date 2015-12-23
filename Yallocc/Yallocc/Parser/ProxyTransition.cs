@@ -8,6 +8,6 @@
          TargetName = targetName;
       }
 
-      public string TargetName { get; private set; }
+      public string TargetName { get; }
    }
 }

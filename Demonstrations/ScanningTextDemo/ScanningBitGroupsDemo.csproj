@@ -7,8 +7,8 @@
     <ProjectGuid>{6B27A722-CFAA-4345-A870-61E9D64330B8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ScanningTextDemo</RootNamespace>
-    <AssemblyName>ScanningTextDemo</AssemblyName>
+    <RootNamespace>ScanningBitGroupsDemo</RootNamespace>
+    <AssemblyName>ScanningBitGroupsDemo</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

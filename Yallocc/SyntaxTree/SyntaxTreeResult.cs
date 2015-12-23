@@ -10,8 +10,10 @@ namespace Yallocc.SyntaxTree
          ParserResult = result;
       }
   
-      public SyntaxTreeNode Root { get; set; }
-      public ParserResult ParserResult { get; set; }
+      public SyntaxTreeNode Root { get; }
+
+      public ParserResult ParserResult { get; }
+
       public bool Success
       {
          get

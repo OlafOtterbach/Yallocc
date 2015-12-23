@@ -10,8 +10,8 @@ namespace Yallocc.Tokenizer
          TokenType = tokenType;
       }
 
-      public Regex TokenPattern { get; private set; }
+      public Regex TokenPattern { get; }
 
-      public T TokenType { get; private set; }
+      public T TokenType { get; }
    }
 }

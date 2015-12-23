@@ -44,9 +44,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RawParserDemo", "RawParserD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawParserDemo", "Demonstrations\PureParserDemo\RawParserDemo.csproj", "{C308E425-1DF8-490D-95E2-DB8E44520596}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanningTextDemo", "ScanningTextDemo", "{5843F41A-1D94-4765-A8EC-CAF9CED03F67}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanningBitGroupsDemo", "ScanningBitGroupsDemo", "{5843F41A-1D94-4765-A8EC-CAF9CED03F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanningTextDemo", "Demonstrations\ScanningTextDemo\ScanningTextDemo.csproj", "{6B27A722-CFAA-4345-A870-61E9D64330B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanningBitGroupsDemo", "Demonstrations\ScanningTextDemo\ScanningBitGroupsDemo.csproj", "{6B27A722-CFAA-4345-A870-61E9D64330B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanningBasicDemo", "ScanningBasicDemo", "{5F0ACC8E-36FA-4C20-A2DB-87BA358AB849}"
 EndProject

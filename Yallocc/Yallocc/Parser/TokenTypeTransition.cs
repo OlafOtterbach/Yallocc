@@ -11,7 +11,7 @@ namespace Yallocc
          Action = (TCtx ctx, Token<T> token) => {};
       }
 
-      public T TokenType { get; private set; }
+      public T TokenType { get; }
 
       public Action<TCtx, Token<T>> Action { get; set; }
    }

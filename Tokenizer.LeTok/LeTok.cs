@@ -19,6 +19,7 @@ namespace Yallocc.Tokenizer.LeTok
       }
 
       private readonly Regex _regex;
+
       private readonly int _skipUnnamedGroups;
 
 

@@ -9,6 +9,6 @@ namespace Yallocc.SyntaxTree
          Token = token;
       }
 
-      public Token<T> Token { get; private set; }
+      public Token<T> Token { get; }
    }
 }

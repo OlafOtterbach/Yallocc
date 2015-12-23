@@ -14,12 +14,12 @@
          IsBoolean = true;
       }
 
-      public bool IsDouble { get; private set; }
+      public bool IsDouble { get; }
 
-      public double DoubleValue { get; private set; }
+      public double DoubleValue { get; }
 
-      public bool IsBoolean { get; private set; }
+      public bool IsBoolean { get; }
 
-      public bool BooleanValue { get; private set; }
+      public bool BooleanValue { get; }
    }
 }

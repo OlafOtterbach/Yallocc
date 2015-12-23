@@ -3,7 +3,7 @@ using System.Linq;
 using Yallocc.Tokenizer;
 using Yallocc.Tokenizer.LeTok;
 
-namespace ScanningTextDemo
+namespace ScanningBitGroupsDemo
 {
    class Program
    {

@@ -10,7 +10,7 @@ namespace Yallocc
          GrammarBuilder = grammarBuilder;
       }
 
-      protected GrammarBuilder<TCtx,T> GrammarBuilder { get; private set; }
+      protected GrammarBuilder<TCtx,T> GrammarBuilder { get; }
 
       public ExitInterfaceWithNameAndWithAction<TCtx, T> Exit
       {

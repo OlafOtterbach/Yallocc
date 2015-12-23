@@ -10,9 +10,9 @@ namespace BasicDemo.Basic
          StartToken = startToken;
       }
 
-      public BasicEngine Engine { get; private set; }
+      public BasicEngine Engine { get; }
 
-      protected Token<TokenType> StartToken { get; private set; }
+      protected Token<TokenType> StartToken { get; }
 
       public abstract void Execute();
    }
