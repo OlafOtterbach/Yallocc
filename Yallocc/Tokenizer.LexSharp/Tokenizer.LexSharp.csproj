@@ -47,7 +47,7 @@
     <Compile Include="TokenResultBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yallocc\Tokenizer\Tokenizer.csproj">
+    <ProjectReference Include="..\Tokenizer\Tokenizer.csproj">
       <Project>{c6a51e86-e00a-4776-b647-4f55634396aa}</Project>
       <Name>Tokenizer</Name>
     </ProjectReference>

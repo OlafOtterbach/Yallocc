@@ -64,7 +64,7 @@
     <Compile Include="SyntaxTreeBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tokenizer.LeTok\Tokenizer.LeTok.csproj">
+    <ProjectReference Include="..\Tokenizer.LeTok\Tokenizer.LeTok.csproj">
       <Project>{43c0baf7-2d9d-4b64-b2f4-abc712d0ea0e}</Project>
       <Name>Tokenizer.LeTok</Name>
     </ProjectReference>

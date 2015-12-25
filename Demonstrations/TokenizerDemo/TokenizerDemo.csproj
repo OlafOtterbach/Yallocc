@@ -51,7 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tokenizer.LexSharp\Tokenizer.LexSharp.csproj">
+    <ProjectReference Include="..\..\Yallocc\Tokenizer.LexSharp\Tokenizer.LexSharp.csproj">
       <Project>{70d60623-16a5-4843-8351-8e819315a029}</Project>
       <Name>Tokenizer.LexSharp</Name>
     </ProjectReference>

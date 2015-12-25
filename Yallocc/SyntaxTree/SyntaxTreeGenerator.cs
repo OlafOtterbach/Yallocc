@@ -1,4 +1,5 @@
-﻿using Yallocc;
+﻿/// <author>Olaf Otterbach</author>
+/// <date>25.12.2015</date>
 
 namespace Yallocc.SyntaxTree
 {

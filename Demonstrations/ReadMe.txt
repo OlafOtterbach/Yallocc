@@ -1,7 +1,7 @@
-Olaf otterbach, 10.11.2015
+Olaf otterbach, 23.12.2015
 
-Beside the unit test several demonstrations are showing
-the usage of the tokenizer and the parser.
+Beside the unit tests several demonstrations are showing
+the usage of the tokenizer, the parser and the syntaxtree generator.
 
 
 SyntaxTreeDemo
