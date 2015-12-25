@@ -57,7 +57,7 @@ patterns for tokens.
 
 Yallocc.SyntaxTree
 ------------------
-Almots always it is needed to get the structure for the syntax of
+Almost always it is needed to get the structure for the syntax of
 a text in a data structure. The syntax tree generator includes
 the yallocc and transformates a text to a syntax tree data
 structure.
