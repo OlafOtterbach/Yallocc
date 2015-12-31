@@ -37,6 +37,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parser\AnyTokenTypeTransition.cs" />
     <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithNameAndWithAction.cs" />
     <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithNameAndWithoutAction.cs" />
     <Compile Include="GrammarBuilder\BranchDefaultInterfaceWithoutNameAndWithAction.cs" />

@@ -75,7 +75,7 @@ namespace Yallocc
          while ((counter < _maxLookaheadSearchDepth) && (!found) && enumerator.MoveNext())
          {
             var succ = enumerator.Current;
-            if (!(succ.Transition is TokenTypeTransition<TCtx,T>) || ((succ.Transition as TokenTypeTransition<TCtx,T>).TokenType.Equals(tokenType)))
+            if (!(succ.Transition is TokenTypeTransition<TCtx,T>) || ((succ.Transition as TokenTypeTransition<TCtx,T>).HasMatchingTokenType(tokenType)))
             {
                path.Push(succ);
                if ((succ.Transition is TokenTypeTransition<TCtx,T>) || Lookahead(succ, path, tokenType, ++counter, false))

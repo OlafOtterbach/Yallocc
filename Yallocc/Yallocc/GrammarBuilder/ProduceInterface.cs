@@ -27,6 +27,12 @@ namespace Yallocc
          return new ProduceInterfaceWithNameAndWithTokAction<TCtx, T>(GrammarBuilder);
       }
 
+      public ProduceInterfaceWithNameAndWithTokAction<TCtx, T> AnyToken()
+      {
+         GrammarBuilder.AddAnyToken();
+         return new ProduceInterfaceWithNameAndWithTokAction<TCtx, T>(GrammarBuilder);
+      }
+
       public ProduceInterfaceWithNameAndWithAction<TCtx, T> Label(string label)
       {
          GrammarBuilder.AddLabel(label);

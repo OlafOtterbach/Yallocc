@@ -13,6 +13,12 @@ namespace Yallocc
          return new BranchInterfaceWithNameAndWithTokAction<TCtx, T>(GrammarBuilder);
       }
 
+      public BranchInterfaceWithNameAndWithTokAction<TCtx, T> AnyToken()
+      {
+         GrammarBuilder.AddAnyToken();
+         return new BranchInterfaceWithNameAndWithTokAction<TCtx, T>(GrammarBuilder);
+      }
+
       public BranchInterfaceWithNameAndWithAction<TCtx, T> Label(string label)
       {
          GrammarBuilder.AddLabel(label);

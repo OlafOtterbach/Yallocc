@@ -119,8 +119,12 @@ namespace Yallocc
 
       public void AddToken(T tokenType)
       {
-         var tokenTransition = new TokenTypeTransition<TCtx,T>(tokenType);
-         AddTransition(tokenTransition);
+         AddTransition(new TokenTypeTransition<TCtx, T>(tokenType));
+      }
+
+      public void AddAnyToken()
+      {
+         AddTransition(new AnyTokenTypeTransition<TCtx, T>());
       }
 
       public void AddLabel(string label)

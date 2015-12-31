@@ -36,6 +36,25 @@ namespace Yallocc
          Assert.IsTrue(true);
       }
 
+      [TestMethod]
+      public void CompileTimeFluentInterfaceTest_AnyTokenInMainAndBranch_AllwaysTrue()
+      {
+         var b = CreateBuilder();
+         b.Grammar("Grammar")
+          .Enter
+          .Token(AbcTokenType.a_token).Action((DummyContext ctx, Token<AbcTokenType> tok) => { }).Name("eins")
+          .AnyToken().Action((DummyContext ctx, Token<AbcTokenType> tok) => { }).Name("Any token")
+          .Token(AbcTokenType.b_token).Name("zwei").Action((DummyContext ctx, Token<AbcTokenType> tok) => { })
+          .AnyToken().Name("Any token").Action((DummyContext ctx, Token<AbcTokenType> tok) => { })
+          .Switch(b.Branch.Token(AbcTokenType.a_token).Action((DummyContext ctx, Token<AbcTokenType> tok) => { }).Name("eins")
+                          .Token(AbcTokenType.b_token).Name("zwei").Action((DummyContext ctx, Token<AbcTokenType> tok) => { }),
+                  b.Branch.AnyToken().Action((DummyContext ctx, Token<AbcTokenType> tok) => { }).Name("Any token"),
+                  b.Branch.AnyToken().Name("Any token").Action((DummyContext ctx, Token<AbcTokenType> tok) => { })
+                 )
+          .Exit
+          .EndGrammar();
+      }
+
       private GrammarBuilderInterface<DummyContext,AbcTokenType> CreateBuilder()
       {
          var grammarDictionary = new GrammarDictionary();

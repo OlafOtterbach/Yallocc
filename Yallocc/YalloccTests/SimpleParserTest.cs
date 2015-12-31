@@ -17,6 +17,66 @@ namespace Yallocc
       private class DummyContext {}
 
       [TestMethod]
+      public void AnyTokenTest_abCa_Correct()
+      {
+         var tokenizer = CreateAbTokenizer();
+         var grammar = CreateAnyTokenGrammar();
+         var sequence = tokenizer.Scan("abCa");
+         var Parser = new Parser<DummyContext, AbTokenType>(grammar);
+
+         var result = Parser.ParseTokens(sequence, new DummyContext());
+
+         Assert.IsTrue(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
+      }
+
+      [TestMethod]
+      public void AnyTokenTest_abba_Correct()
+      {
+         var tokenizer = CreateAbTokenizer();
+         var grammar = CreateAnyTokenGrammar();
+         var sequence = tokenizer.Scan("abba");
+         var Parser = new Parser<DummyContext, AbTokenType>(grammar);
+
+         var result = Parser.ParseTokens(sequence, new DummyContext());
+
+         Assert.IsTrue(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
+      }
+
+      [TestMethod]
+      public void AnyTokenTest_abaa_Correct()
+      {
+         var tokenizer = CreateAbTokenizer();
+         var grammar = CreateAnyTokenGrammar();
+         var sequence = tokenizer.Scan("abaa");
+         var Parser = new Parser<DummyContext, AbTokenType>(grammar);
+
+         var result = Parser.ParseTokens(sequence, new DummyContext());
+
+         Assert.IsTrue(result.Success);
+         Assert.IsFalse(result.SyntaxError);
+         Assert.IsFalse(result.GrammarOfTextNotComplete);
+      }
+
+      [TestMethod]
+      public void AnyTokenTest_aaCa_NotCorrect()
+      {
+         var tokenizer = CreateAbTokenizer();
+         var grammar = CreateAnyTokenGrammar();
+         var sequence = tokenizer.Scan("aaCa");
+         var Parser = new Parser<DummyContext, AbTokenType>(grammar);
+
+         var result = Parser.ParseTokens(sequence, new DummyContext());
+
+         Assert.IsFalse(result.Success);
+         Assert.IsTrue(result.SyntaxError);
+         Assert.IsTrue(result.SyntaxError);
+      }
+
+      [TestMethod]
       public void Parse_Simple_abaa_Correct()
       {
          var tokenizer = CreateAbTokenizer();
@@ -276,6 +336,18 @@ namespace Yallocc
          secondOne.AddSuccessor(first);
          var container = new GrammarTransition<DummyContext>(first){ Action = (DummyContext ctx) => { result.Text += "[Start]"; } };
          return container;
+      }
+
+      private Transition CreateAnyTokenGrammar()
+      {
+         var first = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         var second = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.b_token);
+         var third = new AnyTokenTypeTransition<DummyContext, AbTokenType>();
+         var fourd = new TokenTypeTransition<DummyContext, AbTokenType>(AbTokenType.a_token);
+         first.AddSuccessor(second);
+         second.AddSuccessor(third);
+         third.AddSuccessor(fourd);
+         return first;
       }
 
       private Tokenizer<AbTokenType> CreateAbTokenizer()

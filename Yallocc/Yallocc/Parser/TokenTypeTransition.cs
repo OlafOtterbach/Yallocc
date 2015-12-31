@@ -14,5 +14,10 @@ namespace Yallocc
       public T TokenType { get; }
 
       public Action<TCtx, Token<T>> Action { get; set; }
+
+      public virtual bool HasMatchingTokenType(Nullable<T> tokenType)
+      {
+         return TokenType.Equals(tokenType);
+      }
    }
 }
