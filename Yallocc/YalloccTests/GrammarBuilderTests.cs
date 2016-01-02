@@ -219,6 +219,27 @@ namespace Yallocc
          Assert.IsTrue(exeptionThrown);
       }
 
+      [TestMethod]
+      public void AnyTokenGrammarTest_AnyTokenInMainAndBranc_ParsingTextCorrect()
+      {
+         var grammarDictionary = new GrammarDictionary();
+         var b = CreateBuilder(grammarDictionary);
+         b.MasterGrammar("Grammar")
+          .Enter
+          .Token(AbcTokenType.a_token)
+          .AnyToken()
+          .Token(AbcTokenType.b_token)
+          .Switch
+           (
+             b.Branch.Token(AbcTokenType.c_token),
+             b.Branch.AnyToken()
+           )
+          .Exit
+          .EndGrammar();
+
+         Assert.IsTrue(Parser("acba", grammarDictionary.GetMasterGrammar()));
+      }
+
       private class Result
       {
          public string Text;
