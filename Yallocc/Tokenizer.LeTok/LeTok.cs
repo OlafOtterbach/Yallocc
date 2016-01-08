@@ -48,7 +48,8 @@ namespace Yallocc.Tokenizer.LeTok
                              .SelectMany(m => m.Groups.Cast<Group>()
                                                       .Skip(_skipUnnamedGroups)
                                                       .Select((x, i) => new MatchPair { Match = m, Index = i, IsValid = x.Success })
-                             .Where(p => p.IsValid).Take(1));
+                                                      .Where(p => p.IsValid)
+                                                      .Take(1));
 
          var none = new List<MatchPair> { new MatchPair { IsValid = false } };
 
