@@ -46,5 +46,7 @@ namespace Yallocc
       }
 
       public int Position { get; set; }
+
+      public string FailedTokenText { get; set; }
    }
 }

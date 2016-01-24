@@ -38,6 +38,7 @@ namespace Yallocc
             {
                result.SyntaxError = true;
                result.Position = token.TextIndex;
+               result.FailedTokenText = token.Value;
                break;
             }
          }
