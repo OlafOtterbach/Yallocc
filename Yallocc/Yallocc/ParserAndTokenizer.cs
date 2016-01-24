@@ -29,7 +29,7 @@ namespace Yallocc
          _parser = parser;
       }
 
-      public ParserResult Parse(string text, TCtx context)
+      public ParserResult<T> Parse(string text, TCtx context)
       {
          var sequence = _tokenizer.Scan(text);
          var result = _parser.ParseTokens(sequence, context);

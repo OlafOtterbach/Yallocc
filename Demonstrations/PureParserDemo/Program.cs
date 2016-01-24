@@ -43,7 +43,7 @@ namespace RawParserDemo
 
             // Scan text and parse resulting token sequence with created grammar.
             IEnumerable<Token<TokenType>> sequence = tokenizer.Scan(inputText);
-            ParserResult result = parser.ParseTokens(sequence, new DummyContext());
+            ParserResult<TokenType> result = parser.ParseTokens(sequence, new DummyContext());
 
             if (inputText != "quit")
             {

@@ -88,7 +88,7 @@ namespace Yallocc
          Assert.AreEqual(1,result.Position);
       }
 
-      private ParserResult CheckText(string text)
+      private ParserResult<ExpressionTokenType> CheckText(string text)
       {
          var tokenizer = Createtokenizer();
          var grammar = CreateExpression();

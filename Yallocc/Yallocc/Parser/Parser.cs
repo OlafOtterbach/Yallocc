@@ -19,9 +19,9 @@ namespace Yallocc
       }
 
 
-      public ParserResult ParseTokens(IEnumerable<Token<T>> sequence, TCtx context)
+      public ParserResult<T> ParseTokens(IEnumerable<Token<T>> sequence, TCtx context)
       {
-         ParserResult result = new ParserResult();
+         ParserResult<T> result = new ParserResult<T>();
          SyntaxElement elem = new SyntaxElement(_masterGrammarStartTransition, null);
          var path = new Stack<SyntaxElement>();
          int index = 0;
@@ -38,7 +38,7 @@ namespace Yallocc
             {
                result.SyntaxError = true;
                result.Position = token.TextIndex;
-               result.FailedTokenText = token.Value;
+               result.FailedToken = token;
                break;
             }
          }

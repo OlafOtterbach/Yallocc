@@ -2,9 +2,9 @@
 
 namespace Yallocc.SyntaxTree
 {
-   public struct SyntaxTreeResult
+   public struct SyntaxTreeResult<T> where T : struct
    {
-      public SyntaxTreeResult(SyntaxTreeNode root, ParserResult result ) : this()
+      public SyntaxTreeResult(SyntaxTreeNode root, ParserResult<T> result ) : this()
       {
          Root = root;
          ParserResult = result;
@@ -12,7 +12,7 @@ namespace Yallocc.SyntaxTree
   
       public SyntaxTreeNode Root { get; }
 
-      public ParserResult ParserResult { get; }
+      public ParserResult<T> ParserResult { get; }
 
       public bool Success
       {

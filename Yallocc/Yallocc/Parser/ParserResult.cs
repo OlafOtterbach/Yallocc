@@ -1,8 +1,9 @@
 ﻿using System.Linq;
+using Yallocc.Tokenizer;
 
 namespace Yallocc
 {
-   public struct ParserResult
+   public class ParserResult<T> where T : struct
    {
       private enum ParsRes
       {
@@ -47,6 +48,6 @@ namespace Yallocc
 
       public int Position { get; set; }
 
-      public string FailedTokenText { get; set; }
+      public Token<T> FailedToken { get; set; }
    }
 }

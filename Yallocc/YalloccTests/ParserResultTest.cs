@@ -12,7 +12,7 @@ namespace YalloccTests
       [TestMethod]
       public void Constructor_Nothing_SuccessOthersAreFalse()
       {
-         var res = new ParserResult();
+         var res = new ParserResult<long>();
 
          Assert.IsTrue(res.Success);
          Assert.IsFalse(res.SyntaxError);
@@ -23,7 +23,7 @@ namespace YalloccTests
       [TestMethod]
       public void SyntaxErrorTest_SyntaxErrorOnTrue_SyntaxErrorOthersAreFalse()
       {
-         var res = new ParserResult();
+         var res = new ParserResult<long>();
          res.SyntaxError = true;
 
          Assert.IsFalse(res.Success);
@@ -34,7 +34,7 @@ namespace YalloccTests
       [TestMethod]
       public void SyntaxErrorTest_SyntaxErrorOnFalse_SuccessOthersAreFalse()
       {
-         var res = new ParserResult();
+         var res = new ParserResult<long>();
          res.SyntaxError = false;
 
          Assert.IsTrue(res.Success);
@@ -45,7 +45,7 @@ namespace YalloccTests
       [TestMethod]
       public void GrammarOfTextNotCompleteTest_GrammarOfTextNotCompleteOnTrue_GrammarOfTextNotCompleteAreFalse()
       {
-         var res = new ParserResult();
+         var res = new ParserResult<long>();
          res.GrammarOfTextNotComplete = true;
 
          Assert.IsFalse(res.Success);
@@ -56,7 +56,7 @@ namespace YalloccTests
       [TestMethod]
       public void GrammarOfTextNotComplete_GrammarOfTextNotCompleteOnFalse_GrammarOfTextNotCompleteAreFalse()
       {
-         var res = new ParserResult();
+         var res = new ParserResult<long>();
          res.GrammarOfTextNotComplete = false;
 
          Assert.IsTrue(res.Success);

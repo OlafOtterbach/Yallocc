@@ -23,7 +23,7 @@ namespace ParserDemo
             Console.Write("Insert Expression or quit: ");
             var inputText = Console.ReadLine();
 
-            ParserResult result = parser.Parse(inputText, new DummyContext());
+            ParserResult<TokenType> result = parser.Parse(inputText, new DummyContext());
 
             if (inputText != "quit")
             {

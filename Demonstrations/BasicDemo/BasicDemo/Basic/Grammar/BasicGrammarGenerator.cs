@@ -26,7 +26,7 @@ namespace BasicDemo.Basic
                                          .Create();
       }
 
-      public SyntaxTreeResult Parse(string text)
+      public SyntaxTreeResult<TokenType> Parse(string text)
       {
          return _generator.Parse(text);
       }
