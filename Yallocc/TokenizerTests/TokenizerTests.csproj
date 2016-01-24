@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="AbcTokenType.cs" />
     <Compile Include="BasicTest.cs" />
-    <None Include="LeTok\LeTokTest.cs" />
+    <Compile Include="LeTok\LeTokTest.cs" />
     <None Include="TokenizerCreatorTest.cs" />
     <Compile Include="CodeGroupTest.cs" />
     <Compile Include="LeTok\LeTokBasicTest.cs" />
@@ -65,7 +65,7 @@
     <Compile Include="LexSharp\LexSharpMatchingTheLongestTest.cs" />
     <Compile Include="LexSharp\LexSharpTokenizerTest.cs" />
     <Compile Include="LexSharp\LexSharpTokenTypeTest.cs" />
-    <None Include="LexSharp\LexTest.cs" />
+    <Compile Include="LexSharp\LexSharpTest.cs" />
     <Compile Include="TokenizerTest.cs" />
     <Compile Include="TokenTypeTest.cs" />
     <Compile Include="PatternTest.cs" />

@@ -53,7 +53,7 @@ namespace Yallocc
          Reset();
          if(_grammars.Contains(name))
          {
-            throw new GrammarBuildingException("Grammar with this name already defined.") { HasAlreadyExistingGrammarName = true };
+            throw new GrammarBuildingException(string.Format("Grammar with name {0} already defined.", name)) { HasAlreadyExistingGrammarName = true };
          }
          _name = name;
       }

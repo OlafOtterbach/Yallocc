@@ -5,7 +5,7 @@ using Yallocc.Tokenizer.LeTok;
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   public class LeTokTest
+   public class LeTokMatchingTheLongestTest
    {
       private enum Numbers
       {

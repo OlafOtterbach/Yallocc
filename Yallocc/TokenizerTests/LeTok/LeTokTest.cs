@@ -1,12 +1,23 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using Yallocc.Tokenizer.LeTok;
 
 namespace Yallocc.Tokenizer
 {
    [TestClass]
    public class LeTokTest
    {
+      [TestMethod]
+      public void ScanText_WhenFixPatternNamePatternOneC_ThenCTokenDetected()
+      {
+         var creator = new LeTokCreator<long>();
+         creator.Register(@"C", 1);
+         creator.Register(@"(\w)+(\w|\d)*", 2);
+         var tokenizer = creator.Create();
+         var sequence = tokenizer.Scan("C").ToList();
+      }
+
       [TestMethod]
       public void ScanTest_WhenNull_ThenEmptySequence()
       {
@@ -162,19 +173,18 @@ namespace Yallocc.Tokenizer
          Assert.AreEqual(1, sequence.Count(x => x.Type == null));
       }
 
-      private ITokenizer<long> Create()
+      private Tokenizer<long> Create()
       {
-         var lex = LeTokBuilder<long>
-            .Create()
-            .Register(@"000", 0)
-            .Register(@"001", 1)
-            .Register(@"010", 2)
-            .Register(@"011", 3)
-            .Register(@"100", 4)
-            .Register(@"101", 5)
-            .Register(@"110", 6)
-            .Register(@"111", 7)
-            .Initialize();
+         var creator = new LeTokCreator<long>();
+         creator.Register(@"000", 0);
+         creator.Register(@"001", 1);
+         creator.Register(@"010", 2);
+         creator.Register(@"011", 3);
+         creator.Register(@"100", 4);
+         creator.Register(@"101", 5);
+         creator.Register(@"110", 6);
+         creator.Register(@"111", 7);
+         var lex = creator.Create();
          return lex;
       }
    }

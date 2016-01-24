@@ -41,7 +41,9 @@ namespace Yallocc.Tokenizer
 
       public void RegisterIgnorePattern(string patternText, T tokenType)
       {
-         _patternsToIgnore.Add(CreatePattern(patternText, tokenType));
+         var pattern = CreatePattern(patternText, tokenType);
+         _patterns.Add(pattern);
+         _patternsToIgnore.Add(pattern);
       }
 
       public void Clear()
@@ -52,16 +54,15 @@ namespace Yallocc.Tokenizer
 
       public bool IsComplete()
       {
-         var allPatterns = _patterns.Concat(_patternsToIgnore);
-         if (!allPatterns.Any())
+         if (!_patterns.Any())
          {
             return false;
          }
 
-         bool isEnum = allPatterns.First().TokenType is Enum;
+         bool isEnum = _patterns.First().TokenType is Enum;
          if (isEnum)
          {
-            var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => allPatterns.Any(x => x.TokenType.Equals(tokType)));
+            var isComplete = Enum.GetValues(typeof(T)).OfType<T>().All(tokType => _patterns.Any(x => x.TokenType.Equals(tokType)));
             return isComplete;
          }
          else

@@ -5,7 +5,7 @@ using Yallocc.Tokenizer.LexSharp;
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   public class LexSharpTest
+   public class LexSharpTestMatchingTheLongestTest
    {
       private enum Numbers
       {

@@ -7,7 +7,7 @@ namespace Yallocc.Tokenizer
    {
       public Tokenizer(IEnumerable<Pattern<T>> patterns, IEnumerable<Pattern<T>> patternsToIgnore)
       {
-         Patterns = patterns.Concat(patternsToIgnore).ToArray();
+         Patterns = patterns.ToArray();
          IgnoreTokenType = patternsToIgnore.Select(p => p.TokenType).ToArray();
       }
 

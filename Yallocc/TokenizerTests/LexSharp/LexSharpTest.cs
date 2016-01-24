@@ -1,49 +1,51 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
+using Yallocc.Tokenizer.LexSharp;
 
 namespace Yallocc.Tokenizer
 {
    [TestClass]
-   public class LexTest
+   public class LexSharpTest
    {
       [TestMethod]
       public void IsCompleteTest_CompleteRegisteredTokens_IsComplete()
       {
-         var lex = new LexSharp<AbcTokenType>();
-         lex.Register(@"aabb", AbcTokenType.aabb_token);
-         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
-         lex.Register("a", AbcTokenType.a_token);
-         lex.Register("b", AbcTokenType.b_token);
-         lex.Register("c", AbcTokenType.c_token);
+         var creator = new LexSharpCreator<AbcTokenType>();
+         creator.Register(@"aabb", AbcTokenType.aabb_token);
+         creator.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         creator.Register("a", AbcTokenType.a_token);
+         creator.Register("b", AbcTokenType.b_token);
+         creator.Register("c", AbcTokenType.c_token);
 
-         Assert.IsTrue(lex.IsComplete());
+         Assert.IsTrue(creator.IsComplete());
       }
 
       [TestMethod]
       public void IsCompleteTest_NotCompleteRegisteredTokens_IsNotComplite()
       {
-         var lex = new LexSharp<AbcTokenType>();
-         lex.Register(@"aabb", AbcTokenType.aabb_token);
-         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
-         lex.Register("a", AbcTokenType.a_token);
+         var creator = new LexSharpCreator<AbcTokenType>();
+         creator.Register(@"aabb", AbcTokenType.aabb_token);
+         creator.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         creator.Register("a", AbcTokenType.a_token);
 
-         lex.Register("c", AbcTokenType.c_token);
+         creator.Register("c", AbcTokenType.c_token);
 
-         Assert.IsFalse(lex.IsComplete());
+         Assert.IsFalse(creator.IsComplete());
       }
 
       [TestMethod]
       public void IsCompleteTest_NotAnEnumType_TokenIsNotAnEnumTypeExceptionThrown()
       {
-         var lex = new LexSharp<int>();
-         lex.Register(@"one", 1);
-         lex.Register(@"Two", 2);
-         lex.Register(@"Three", 3);
+         var creator = new LexSharpCreator<int>();
+         creator.Register(@"one", 1);
+         creator.Register(@"Two", 2);
+         creator.Register(@"Three", 3);
 
          bool exeptionThrown = false;
          try
          {
-            bool isComplete = lex.IsComplete();
+            bool isComplete = creator.IsComplete();
          }
          catch (TokenIsNotAnEnumTypeException e)
          {
@@ -58,12 +60,12 @@ namespace Yallocc.Tokenizer
          bool exeptionThrown = false;
          try
          {
-            var lex = new LexSharp<AbcTokenType>();
-            lex.Register(@"aabb", AbcTokenType.aabb_token);
-            lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
-            lex.Register("a", AbcTokenType.a_token);
-            lex.Register("b", AbcTokenType.b_token);
-            lex.Register("c", AbcTokenType.c_token);
+            var creator = new LexSharpCreator<AbcTokenType>();
+            creator.Register(@"aabb", AbcTokenType.aabb_token);
+            creator.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+            creator.Register("a", AbcTokenType.a_token);
+            creator.Register("b", AbcTokenType.b_token);
+            creator.Register("c", AbcTokenType.c_token);
          }
          catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType>)
          {
@@ -79,15 +81,15 @@ namespace Yallocc.Tokenizer
          bool exeptionThrown = false;
          try
          {
-            var lex = new LexSharp<AbcTokenType>();
-            lex.Register(@"aabb", AbcTokenType.aabb_token);
-            lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+            var creator = new LexSharpCreator<AbcTokenType>();
+            creator.Register(@"aabb", AbcTokenType.aabb_token);
+            creator.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
 
-            lex.Register("a", AbcTokenType.a_token);
-            lex.Register("a", AbcTokenType.a_token);
+            creator.Register("a", AbcTokenType.a_token);
+            creator.Register("a", AbcTokenType.a_token);
 
-            lex.Register("b", AbcTokenType.b_token);
-            lex.Register("c", AbcTokenType.c_token);
+            creator.Register("b", AbcTokenType.b_token);
+            creator.Register("c", AbcTokenType.c_token);
          }
          catch (TokenRegisteredMoreThanOneTimeException<AbcTokenType> e)
          {
@@ -100,16 +102,22 @@ namespace Yallocc.Tokenizer
       }
 
       [TestMethod]
-      public void ScanTest_EmptyToken_AllNonCharactersBetweenTextAndEnd()
+      public void ScanTest_EmptyToken_NotValidException()
       {
-         var lex = new LexSharp<AbcTokenType>();
-         lex.Register("", AbcTokenType.a_token);
-         var text = "aabbcc";
+         var creator = new LexSharpCreator<AbcTokenType>();
 
-         var tokens = lex.Scan(text).ToList();
+         bool isExceptionThrown = false;
+         try
+         {
+            creator.Register("", AbcTokenType.a_token);
+         }
+         catch(ArgumentException e)
+         {
+            Assert.AreEqual("Empty patterntext is not a valid regular expression for the tokenizer.", e.Message);
+            isExceptionThrown = true;
+         }
 
-         Assert.AreEqual(text.Length, tokens.Count);
-         Assert.IsTrue(tokens.All(x => x.Type.Equals(AbcTokenType.a_token)));
+         Assert.IsTrue(isExceptionThrown);
       }
 
 
@@ -247,14 +255,15 @@ namespace Yallocc.Tokenizer
       }
 
 
-      private LexSharp<AbcTokenType> CreateAbcLex()
+      private Tokenizer<AbcTokenType> CreateAbcLex()
       {
-         var lex = new LexSharp<AbcTokenType>();
-         lex.Register(@"(a)+", AbcTokenType.a_token);
-         lex.Register(@"aabb", AbcTokenType.aabb_token);
-         lex.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
-         lex.Register(@"(b)+", AbcTokenType.b_token);
-         lex.Register(@"(c)+", AbcTokenType.c_token);
+         var creator = new LexSharpCreator<AbcTokenType>();
+         creator.Register(@"(a)+", AbcTokenType.a_token);
+         creator.Register(@"aabb", AbcTokenType.aabb_token);
+         creator.Register(@"a(\w)+b", AbcTokenType.aXYZb_token);
+         creator.Register(@"(b)+", AbcTokenType.b_token);
+         creator.Register(@"(c)+", AbcTokenType.c_token);
+         var lex = creator.Create();
          return lex;
       }
    }
