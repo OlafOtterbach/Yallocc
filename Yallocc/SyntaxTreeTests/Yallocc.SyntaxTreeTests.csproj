@@ -60,6 +60,10 @@
     <Compile Include="ExpressionTreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecursionLevelTest.cs" />
+    <Compile Include="SimpleGrammarTest.cs" />
+    <Compile Include="SimpleGrammar\SimpleGrammarDefinition.cs" />
+    <Compile Include="SimpleGrammar\SimpleTokenDefinition.cs" />
+    <Compile Include="SimpleGrammar\TokenType.cs" />
     <Compile Include="SimpleTestHelp\NamedTreeNode.cs" />
     <Compile Include="SyntaxTreeBuilderTest.cs" />
   </ItemGroup>

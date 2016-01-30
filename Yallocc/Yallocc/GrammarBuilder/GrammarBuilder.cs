@@ -99,6 +99,11 @@ namespace Yallocc
          {
             (_current as ActionTransition<TCtx>).Action = action;
          }
+         else if(_current is TokenTypeTransition<TCtx, T>)
+         {
+            (_current as TokenTypeTransition<TCtx, T>).Action
+               = (TCtx ctx, Token<T> token) => action(ctx);
+         }
          else
          {
             throw new GrammarBuildingException("Transition can not get an action.") { HasSettedActionInNonActionTransition = true };
