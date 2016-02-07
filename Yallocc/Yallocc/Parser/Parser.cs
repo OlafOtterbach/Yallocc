@@ -47,7 +47,10 @@ namespace Yallocc
          var isFinished = result.Success && IsFinished(elem, 0, endPath);
          if (isFinished)
          {
-            endPath.Select(x => x.Transition).OfType<ActionTransition<TCtx>>().ToList().ForEach(t => t.Action(context));
+            endPath.Select(x => x.Transition)
+                   .OfType<ActionTransition<TCtx>>()
+                   .ToList()
+                   .ForEach(t => t.Action(context));
          }
          else
          {
@@ -103,7 +106,7 @@ namespace Yallocc
             found = (!(succ.Transition is TokenTypeTransition<TCtx,T>)) && IsFinished(succ, counter++, path);
             if (found)
             {
-               path.Add(succ);
+               path.Insert(0, succ);
             }
          }
          return found;
