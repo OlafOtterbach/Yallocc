@@ -1,4 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿/// <summary>Tokenizer</summary>
+/// <author>Olaf Otterbach</author>
+/// <url>https://github.com/OlafOtterbach/Yallocc</url>
+/// <date>11.11.2015</date>
+
+using System.Text.RegularExpressions;
 
 namespace Yallocc.Tokenizer
 {

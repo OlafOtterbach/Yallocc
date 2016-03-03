@@ -1,4 +1,9 @@
-﻿using Yallocc.Tokenizer;
+﻿/// <summary>Yallocc</summary>
+/// <author>Olaf Otterbach</author>
+/// <url>https://github.com/OlafOtterbach/Yallocc</url>
+/// <date>11.11.2015</date>
+
+using Yallocc.Tokenizer;
 
 namespace Yallocc
 {

@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/// <summary>Yallocc</summary>
+/// <author>Olaf Otterbach</author>
+/// <url>https://github.com/OlafOtterbach/Yallocc</url>
+/// <date>11.11.2015</date>
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Yallocc

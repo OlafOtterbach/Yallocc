@@ -1,6 +1,7 @@
 ﻿/// <summary>YALLOCC</summary>
 /// <summary>[Y}et [A]nother [L]eft [L]eft [O]ne [C]ompiler [C]omplier.</summary>
 /// <author>Olaf Otterbach</author>
+/// <url>https://github.com/OlafOtterbach/Yallocc</url>
 /// <date>11.05.2015</date>
 
 using Yallocc.Tokenizer;
