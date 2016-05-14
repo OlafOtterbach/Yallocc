@@ -5,7 +5,7 @@ using System.Linq;
 namespace Yallocc.CommonLib
 {
    [TestClass]
-   public class EnumerableExtensionsNormalListTest
+   public class TestSplitForListWithNotEmptySegments
    {
       private List<List<int>> mSegments;
 
@@ -13,7 +13,7 @@ namespace Yallocc.CommonLib
       public void TestInitialize()
       {
          var elems = new int[] { 1, 2, 3, 4, 5, 3, 6, 7, 8, 9, 3, 2, 1 };
-         var segments = elems.Split2(num => num == 3).Select(c => c.ToList()).ToList();
+         var segments = elems.Split(num => num == 3).Select(c => c.ToList()).ToList();
 
          mSegments = segments;
       }
@@ -86,7 +86,7 @@ namespace Yallocc.CommonLib
    }
 
    [TestClass]
-   public class EnumerableExtensionsNormalListWithEmptyEndTest
+   public class TestSplitForListWithSeparatorAtEndOfList
    {
       private List<List<int>> mSegments;
 
@@ -94,7 +94,7 @@ namespace Yallocc.CommonLib
       public void TestInitialize()
       {
          var elems = new int[] { 1, 2, 3, 4, 5, 3 };
-         var segments = elems.Split2(num => num == 3).Select(c => c.ToList()).ToList();
+         var segments = elems.Split(num => num == 3).Select(c => c.ToList()).ToList();
 
          mSegments = segments;
       }
@@ -139,7 +139,7 @@ namespace Yallocc.CommonLib
    }
 
    [TestClass]
-   public class EnumerableExtensionsNormalListWithEmptyStartTest
+   public class TestSplitForListWithSeparatorAtStartOfList
    {
       private List<List<int>> mSegments;
 
@@ -147,7 +147,7 @@ namespace Yallocc.CommonLib
       public void TestInitialize()
       {
          var elems = new int[] { 3, 1, 2, 3, 4, 5 };
-         var segments = elems.Split2(num => num == 3).Select(c => c.ToList()).ToList();
+         var segments = elems.Split(num => num == 3).Select(c => c.ToList()).ToList();
 
          mSegments = segments;
       }
@@ -160,7 +160,7 @@ namespace Yallocc.CommonLib
    }
 
    [TestClass]
-   public class EnumerableExtensionsEmptyListTest
+   public class TestSplitForEmptyList
    {
       private List<List<int>> mSegments;
 
@@ -168,7 +168,7 @@ namespace Yallocc.CommonLib
       public void TestInitialize()
       {
          var elems = new int[0];
-         var segments = elems.Split2(num => num == 3).Select(c => c.ToList()).ToList();
+         var segments = elems.Split(num => num == 3).Select(c => c.ToList()).ToList();
 
          mSegments = segments;
       }
@@ -181,7 +181,7 @@ namespace Yallocc.CommonLib
    }
 
    [TestClass]
-   public class EnumerableExtensionsOnlySplitElementsListTest
+   public class TestSplitForListWithEmptySegments
    {
       private List<List<int>> mSegments;
 
@@ -189,7 +189,7 @@ namespace Yallocc.CommonLib
       public void TestInitialize()
       {
          var elems = new int[] { 3, 3, 3, 3 };
-         var segments = elems.Split2(num => num == 3).Select(c => c.ToList()).ToList();
+         var segments = elems.Split(num => num == 3).Select(c => c.ToList()).ToList();
 
          mSegments = segments;
       }
