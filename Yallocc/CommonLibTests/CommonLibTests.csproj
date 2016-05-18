@@ -55,9 +55,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\CommonLip\CommonLip.csproj">
+    <ProjectReference Include="..\CommonLip\CommonLib.csproj">
       <Project>{6f1ced28-8b7d-420d-a0b1-5e3349f2727f}</Project>
-      <Name>CommonLip</Name>
+      <Name>CommonLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

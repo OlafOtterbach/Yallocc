@@ -59,7 +59,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer.LeTok", "Yallocc\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer.LexSharp", "Yallocc\Tokenizer.LexSharp\Tokenizer.LexSharp.csproj", "{70D60623-16A5-4843-8351-8E819315A029}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLip", "Yallocc\CommonLip\CommonLip.csproj", "{6F1CED28-8B7D-420D-A0B1-5E3349F2727F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "Yallocc\CommonLip\CommonLib.csproj", "{6F1CED28-8B7D-420D-A0B1-5E3349F2727F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibTests", "Yallocc\CommonLibTests\CommonLibTests.csproj", "{6C55464C-40C3-43EB-BA4F-5E1C6AD7D513}"
 EndProject
