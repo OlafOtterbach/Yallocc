@@ -8,7 +8,6 @@ namespace Yallocc.CommonLib
    {
       public static IEnumerable<T> ToEnumerabele<T>(this T element)
       {
-         if (element == null) throw new ArgumentNullException("element");
          yield return element;
       }
 
