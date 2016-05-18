@@ -4,6 +4,12 @@ using System.Linq;
 
 namespace Yallocc.CommonLib
 {
+   public struct HeaderAndTail<T>
+   {
+      public T Header { get; set; }
+      public IEnumerable<T> Tail { get; set; }
+   }
+
    public static class EnumerableExtensions
    {
       public static IEnumerable<T> ToEnumerabele<T>(this T element)
@@ -11,17 +17,19 @@ namespace Yallocc.CommonLib
          yield return element;
       }
 
-      public static IEnumerable<IEnumerable<T>> SplitHeaderAndTail<T>(this IEnumerable<T> elems)
+      public static HeaderAndTail<T> SplitHeaderAndTail<T>(this IEnumerable<T> elems)
       {
          if (elems == null) throw new ArgumentNullException("elems");
+
+         var headerAndTail = new HeaderAndTail<T>();
          var iter = elems.GetEnumerator();
          if (iter.MoveNext())
          {
-            var header = iter.Current;
-            yield return header.ToEnumerabele();
+            headerAndTail.Header = iter.Current;
          }
-         var tail = SeparateTail(iter);
-         yield return tail;
+         headerAndTail.Tail = SeparateTail(iter);
+
+         return headerAndTail;
       }
 
       private static IEnumerable<T> SeparateTail<T>(this IEnumerator<T> iter)
