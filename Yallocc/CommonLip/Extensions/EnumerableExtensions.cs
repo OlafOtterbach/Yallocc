@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// <summary>Extensions for IEnumerable</summary>
+/// <author>Olaf Otterbach</author>
+/// <url>https://github.com/OlafOtterbach/Yallocc</url>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +16,12 @@ namespace Yallocc.CommonLib
 
    public static class EnumerableExtensions
    {
-      public static IEnumerable<T> ToEnumerabele<T>(this T element)
+      public static IEnumerable<T> ConcatHeaderAndTail<T>(this T header, IEnumerable<T> tail)
+      {
+         return header.ToEnumerable().Concat(tail);
+      }
+
+      public static IEnumerable<T> ToEnumerable<T>(this T element)
       {
          yield return element;
       }
