@@ -37,5 +37,11 @@ namespace Yallocc.CommonLib
       public void WhenEnumarableIsEmpty_ThenHeaderIsDefaultAndTailIsEmpty()
       {
          var indices = new List<int>();
+
+         var headerAndTail = indices.SplitHeaderAndTail();
+
+         Assert.AreEqual(0, headerAndTail.Header);
+         Assert.IsFalse(headerAndTail.Tail.Any());
       }
    }
+}

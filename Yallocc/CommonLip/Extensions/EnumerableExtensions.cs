@@ -49,6 +49,34 @@ namespace Yallocc.CommonLib
          }
       }
 
+
+
+
+
+      public static IEnumerable<IEnumerable<T>> SplitWithSeparator<T>(this IEnumerable<T> elems, Func<T, bool> separator)
+      {
+         if (elems == null) throw new ArgumentNullException("elems");
+         var iter = elems.GetEnumerator();
+         while (iter.MoveNext())
+         {
+            if (!separator(iter.Current))
+            {
+               var segment = iter.SeparateWithSeparator(separator).ToList();
+               yield return segment;
+            }
+         }
+      }
+
+      private static IEnumerable<T> SeparateWithSeparator<T>(this IEnumerator<T> iter, Func<T, bool> separator)
+      {
+         do
+         {
+            yield return iter.Current;
+            if (separator(iter.Current)) break;
+         }
+         while (iter.MoveNext());
+      }
+
       public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> elems, Func<T, bool> separator)
       {
          if (elems == null) throw new ArgumentNullException("elems");
@@ -65,14 +93,11 @@ namespace Yallocc.CommonLib
 
       private static IEnumerable<T> Separate<T>(this IEnumerator<T> iter, Func<T, bool> separator)
       {
-         if (!separator(iter.Current))
+         do
          {
-            do
-            {
-               yield return iter.Current;
-            }
-            while (iter.MoveNext() && (!separator(iter.Current)));
+            yield return iter.Current;
          }
+         while (iter.MoveNext() && (!separator(iter.Current)));
       }
    }
 }
