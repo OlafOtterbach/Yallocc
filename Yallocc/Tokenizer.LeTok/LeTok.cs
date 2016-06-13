@@ -12,7 +12,7 @@ namespace Yallocc.Tokenizer.LeTok
 {
    public class LeTok<T> : Tokenizer<T> where T : struct
    {
-      private struct MatchPair
+      private struct MatchElement
       {
          public Match Match;
          public int Index;
@@ -48,22 +48,31 @@ namespace Yallocc.Tokenizer.LeTok
                              .OfType<Match>()
                              .SelectMany(m => m.Groups.Cast<Group>()
                                                       .Skip(_skipUnnamedGroups)
-                                                      .Select((x, i) => new MatchPair { Match = m, Index = i, IsValid = x.Success })
+                                                      .Select((x, i) => new MatchElement { Match = m, Index = i, IsValid = x.Success })
                                                       .Where(p => p.IsValid)
                                                       .Take(1));
 
-         var none = new List<MatchPair> { new MatchPair { IsValid = false } };
+         var none = new List<MatchElement> { new MatchElement { IsValid = false } };
 
-         var tokens = none.Concat(matches)
-                          .Zip(matches.Concat(none), (prev, curr) => Create(text, prev, curr))
-                          .SelectMany(x => x);
+         var tokens = UtilizeMatches(text, matches).SelectMany(x => x);
          var validTokens = tokens.Where(tok => (tok.Type == null) || (!IgnoreTokenType.Contains((T)tok.Type)));
 
          return validTokens;
       }
 
+      private IEnumerable<IEnumerable<Token<T>>> UtilizeMatches(string text, IEnumerable<MatchElement> matches)
+      {
+         var none = new MatchElement { IsValid = false };
+         var prev = none;
+         foreach (var curr in matches)
+         {
+            yield return Create(text, prev, curr);
+           prev = curr;
+         }
+         yield return Create(text, prev, none);
+      }
 
-      private IEnumerable<Token<T>> Create(string text, MatchPair prev, MatchPair curr)
+      private IEnumerable<Token<T>> Create(string text, MatchElement prev, MatchElement curr)
       {
          if(prev.IsValid)
          {
@@ -107,7 +116,7 @@ namespace Yallocc.Tokenizer.LeTok
       }
 
 
-      private Token<T> CreateToken(MatchPair match)
+      private Token<T> CreateToken(MatchElement match)
       {
          var token = new Token<T>(match.Match.Value, Patterns[match.Index].TokenType, match.Match.Index, match.Match.Length);
          return token;
