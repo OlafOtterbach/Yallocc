@@ -61,7 +61,7 @@ namespace Yallocc.CommonLib
          {
             if (!separator(iter.Current))
             {
-               var segment = iter.SeparateWithSeparator(separator).ToList();
+               var segment = iter.SeparateWithSeparator(separator);
                yield return segment;
             }
          }
@@ -85,7 +85,7 @@ namespace Yallocc.CommonLib
          {
             if (!separator(iter.Current))
             {
-               var segment = iter.Separate(separator).ToList();
+               var segment = iter.Separate(separator);
                yield return segment;
             }
          }
