@@ -54,7 +54,7 @@ namespace LexSharpDemo
                   Console.WriteLine("Integer: {0}, Position {1}", token.Value, token.TextIndex);
                   break;
                case TokenType.real:
-                  Console.WriteLine("Integer: {0}, Position {1}", token.Value, token.TextIndex);
+                  Console.WriteLine("Real: {0}, Position {1}", token.Value, token.TextIndex);
                   break;
                case TokenType.plus:
                   Console.WriteLine("Addition: {0}, Position {1}", token.Value, token.TextIndex);

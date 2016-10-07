@@ -28,7 +28,7 @@ namespace Yallocc.CommonLib
 
       public static HeaderAndTail<T> SplitHeaderAndTail<T>(this IEnumerable<T> elems)
       {
-         if (elems == null) throw new ArgumentNullException("elems");
+         if (elems == null) throw new ArgumentNullException(nameof(elems));
 
          var headerAndTail = new HeaderAndTail<T>();
          var iter = elems.GetEnumerator();
@@ -55,7 +55,7 @@ namespace Yallocc.CommonLib
 
       public static IEnumerable<IEnumerable<T>> SplitWithSeparator<T>(this IEnumerable<T> elems, Func<T, bool> separator)
       {
-         if (elems == null) throw new ArgumentNullException("elems");
+         if (elems == null) throw new ArgumentNullException(nameof(elems));
          var iter = elems.GetEnumerator();
          while (iter.MoveNext())
          {
@@ -79,7 +79,7 @@ namespace Yallocc.CommonLib
 
       public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> elems, Func<T, bool> separator)
       {
-         if (elems == null) throw new ArgumentNullException("elems");
+         if (elems == null) throw new ArgumentNullException(nameof(elems));
          var iter = elems.GetEnumerator();
          while (iter.MoveNext())
          {
