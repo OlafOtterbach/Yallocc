@@ -18,8 +18,8 @@ namespace RawParserDemo
          tokenizerCreator.Register(@"\/", TokenType.div);
          tokenizerCreator.Register(@"\(", TokenType.open);
          tokenizerCreator.Register(@"\)", TokenType.close);
-         tokenizerCreator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
          tokenizerCreator.Register(@"(0|1|2|3|4|5|6|7|8|9)*\.(0|1|2|3|4|5|6|7|8|9)+", TokenType.real);
+         tokenizerCreator.Register(@"(0|1|2|3|4|5|6|7|8|9)+", TokenType.integer);
          tokenizerCreator.RegisterIgnorePattern(@"( |\t)+", TokenType.white_space);
          var tokenizer = tokenizerCreator.Create();
 
