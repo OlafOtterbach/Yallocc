@@ -1,4 +1,4 @@
-# Yallocc
+﻿# Yallocc
 Yet Another LL-One Compiler Compiler - A parser generator in c# using a syntax diagram decription for generating a parser. 
 
 Olaf otterbach, 25.12.2015
@@ -9,7 +9,7 @@ Yallocc
 = [Y]et [A]nother [L][L]-[O]ne [C]ompiler [C]ompiler
 Yallocc is a parser generator that generates the parser from a
 syntax diagram (https://en.wikipedia.org/wiki/Syntax_diagram) definition.
-IIt is easier to descripe a grammar in a syntax diagram as in
+It is easier to descripe a grammar in a syntax diagram as in
 the Extended Backus–Naur Form (EBNF) the YACC is using.
 A example for it is the definition of MODULA 2 from Niklaus Wirth
 with syntax diagrams.
