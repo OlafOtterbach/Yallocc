@@ -49,10 +49,6 @@ namespace Yallocc.CommonLib
          }
       }
 
-
-
-
-
       public static IEnumerable<IEnumerable<T>> SplitWithSeparator<T>(this IEnumerable<T> elems, Func<T, bool> separator)
       {
          if (elems == null) throw new ArgumentNullException(nameof(elems));
