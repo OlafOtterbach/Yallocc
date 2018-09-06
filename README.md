@@ -58,10 +58,10 @@ The lex sharp tokenizer is independend from sequence
 of defined patterns. It always matches the longest
 patterns for tokens.
 
-Tokenizer.LexJSharp
+Tokenizer.LexJS
 -------------------
-The lex java script tokenizer based on lex sharp is
-a tokenizer for javascript.
+The lex JavaScript tokenizer based on lex sharp is
+a tokenizer for JavaScript.
 
 Yallocc.SyntaxTree
 ------------------
