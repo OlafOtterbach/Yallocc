@@ -136,8 +136,10 @@ TextCursor.prototype.getNextToken = function()
     {
         var minIndex = this.matches.map(m => m.match.index).reduce((acc, x) => Math.min(acc, x) );
         var minMatches = this.matches.filter(match => match.match.index == minIndex);
-        var maxLength = minMatches.map(m => m.match.length).reduce((acc, x) => Math.max(acc, x));
-        var longestMinimalMatches = minMatches.filter(m => m.match.length == maxLength);
+
+        var maxLength = minMatches.map(m => m.match[0].length).reduce((acc, x) => Math.max(acc, x));
+        var longestMinimalMatches = minMatches.filter(m => m.match[0].length == maxLength);
+
         var minPatternIndex = longestMinimalMatches.map(m => m.patternIndex).reduce((acc,x) => Math.min(acc, x));
         var minimalPatternIndexAndLongestMininimalMatches = longestMinimalMatches.filter(x => x.patternIndex == minPatternIndex);
     }
